@@ -1,0 +1,30 @@
+.logo {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  img {
+    height: 60px;
+  }
+  span {
+    margin-left: 9px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #45496e;
+  }
+}
+
+.toolbar-buttons {
+  align-items: center;
+  display: flex;
+
+
+  .toolbar-icon-button {
+    margin: 0 6px;
+    border-radius: 8px;
+    background-color: rgba(68, 72, 109, 0.07);
+  }
+}
+
+
+

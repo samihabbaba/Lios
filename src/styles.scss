@@ -38,3 +38,15 @@ body {
   background-attachment: fixed;
   background: linear-gradient(180deg, #f6f9fc 0%, #ececf9 100%);
 }
+
+.toolbar {
+  background: transparent !important;
+  border: none !important;
+  justify-content: center !important;
+}
+
+.language-menu {
+  .p-submenu-header {
+    display: none;
+  }
+}

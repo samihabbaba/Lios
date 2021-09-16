@@ -1,0 +1,7 @@
+<app-toolbar (visibleSidebar)="toggleSidebar()"></app-toolbar>
+<router-outlet></router-outlet>
+
+
+<p-sidebar [(visible)]="visibleSidebar" position="right" [baseZIndex]="10000">
+  <h3 style="margin: 0;">Currencies</h3>
+</p-sidebar>
