@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "SegoeUI";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/fonts/Segoe\ UI.ttf");
+}
+
+@font-face {
+  font-family: "SegoeUI-Bold";
+  font-style: normal;
+  font-weight: bold;
+  src: url("./assets/fonts/Segoe\ UI\ Bold.ttf");
+}
+
+@font-face {
+  font-family: "SegoeUI-BoldItalic";
+  font-style: italic;
+  font-weight: bold;
+  src: url("./assets/fonts/Segoe\ UI\ Bold\ Italic.ttf");
+}
+
+@font-face {
+  font-family: "SegoeUI-Italic";
+  font-style: italic;
+  font-weight: normal;
+  src: url("./assets/fonts/Segoe\ UI\ Italic.ttf");
+}
+
+* {
+  font-family: "SegoeUI";
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background: linear-gradient(180deg, #f6f9fc 0%, #ececf9 100%);
+}

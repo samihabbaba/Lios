@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ManualPaymentRoutingModule } from './manual-payment-routing.module';
 import { ManualPaymentComponent } from './manual-payment.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ManualPaymentComponent } from './manual-payment.component';
   ],
   imports: [
     CommonModule,
-    ManualPaymentRoutingModule
+    ManualPaymentRoutingModule,
+    SharedModule
   ]
 })
 export class ManualPaymentModule { }

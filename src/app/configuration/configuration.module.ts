@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,7 @@ import { ConfigurationComponent } from './configuration.component';
   ],
   imports: [
     CommonModule,
-    ConfigurationRoutingModule
+    ConfigurationRoutingModule,SharedModule
   ]
 })
 export class ConfigurationModule { }
