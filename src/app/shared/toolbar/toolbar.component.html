@@ -1,13 +1,4 @@
 <p-toolbar styleClass="toolbar">
-  <!-- <div class="p-toolbar-group-left">
-      <p-button label="New" icon="pi pi-plus"></p-button>
-      <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
-
-      <i class="pi pi-bars"></i>
-
-
-  </div> -->
-
   <div class="logo">
     <img src="../../../assets/logo/logo-2.png" alt="logo" />
 
@@ -15,9 +6,6 @@
   </div>
 
   <div class="toolbar-buttons">
-
-
-
     <button
       type="button"
       pButton
@@ -44,15 +32,7 @@
       class="p-button-rounded p-button-text p-button-plain toolbar-icon-button"
     ></button>
 
-    <p-menu
-      styleClass="language-menu"
-      #menu
-      [popup]="true"
-      [model]="languages"
-    >
-
-
-  </p-menu>
+    <p-menu styleClass="language-menu" #menu [popup]="true" [model]="languages">
+    </p-menu>
   </div>
-
 </p-toolbar>
