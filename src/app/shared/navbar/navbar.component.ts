@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
+import { MenuItem } from 'src/app/models/menuItem';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit {
         icon: 'pi pi-home',
         isActive: true,
         toggled: false,
+        route: 'dashboard',
       },
 
       {
@@ -26,9 +28,17 @@ export class NavbarComponent implements OnInit {
         isActive: false,
         toggled: false,
         children: [
-          { label: 'Agency Users', icon: 'pi pi-user-plus' },
-          { label: 'Captain Users', icon: 'pi pi-shield' },
-          { label: 'Local Users', icon: 'pi pi-user' },
+          {
+            label: 'Agency Users',
+            icon: 'pi pi-user-plus',
+            route: 'users/agency',
+          },
+          {
+            label: 'Captain Users',
+            icon: 'pi pi-shield',
+            route: 'users/captain',
+          },
+          { label: 'Local Users', icon: 'pi pi-user', route: 'users/local' },
         ],
       },
       {
@@ -37,24 +47,68 @@ export class NavbarComponent implements OnInit {
         isActive: false,
         toggled: false,
         children: [
-          { label: 'Brand', icon: '' },
-          { label: 'Group', icon: '' },
-          { label: 'Category', icon: '' },
+          { label: 'Brand', icon: '', route: 'inventory/brand' },
+          { label: 'Group', icon: '', route: 'inventory/group' },
+          { label: 'Category', icon: '', route: 'inventory/category' },
+        ],
+      },
+
+      {
+        label: 'Ships',
+        icon: '',
+        isActive: false,
+        toggled: false,
+        route: '/ships',
+      },
+
+      {
+        label: 'Ship Registry',
+        icon: '',
+        isActive: false,
+        toggled: false,
+        route: '/ship-registry',
+      },
+
+      {
+        label: 'Trips',
+        icon: '',
+        isActive: false,
+        toggled: false,
+        route: '/trips',
+      },
+
+      {
+        label: 'Crane',
+        icon: '',
+        isActive: false,
+        toggled: false,
+        route: '/crane',
+      },
+
+      {
+        label: 'Manual Payment',
+        icon: '',
+        isActive: false,
+        toggled: false,
+        route: '/manual-payment',
+      },
+
+      {
+        label: 'Configuration',
+        icon: '',
+        isActive: false,
+        toggled: false,
+        children: [
+          { label: 'Discount', icon: '', route: 'configuration/discount' },
+          { label: 'Services', icon: '', route: 'configuration/services' },
+          { label: 'Port', icon: '', route: 'configuration/port' },
+          { label: 'Holiday', icon: '', route: 'configuration/holiday' },
         ],
       },
     ];
   }
 
-
   toggleNavItem(item: MenuItem) {
     item.toggled = !item.toggled;
   }
-}
-
-export interface MenuItem {
-  label: string;
-  icon?: string;
-  isActive: boolean;
-  toggled: boolean;
-  children?: any[];
 }

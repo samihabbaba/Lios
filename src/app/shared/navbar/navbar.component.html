@@ -3,16 +3,15 @@
     class="container"
     [ngClass]="{ hasChildren: item.children, toggled: item.toggled }"
     *ngFor="let item of navItems"
-
     [appNavItem]="item"
+    [routerLink]='item.route'
   >
     <i class="item-icon" [class]="item.icon"></i>
     <span>{{ item.label }}</span>
     <i class="pi pi-chevron-down dropdown-icon" *ngIf="item.children"></i>
 
     <div class="dropdown" *ngIf="item.children">
-      <span *ngFor="let child of item.children" class="child-item"
-        >
+      <span *ngFor="let child of item.children" class="child-item" [routerLink]="child.route">
         <!-- <i [class]="child.icon"></i> -->
         {{ child.label }}</span
       >

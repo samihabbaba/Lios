@@ -19,7 +19,6 @@
   // width: 185px;
   // margin: 0 8px;
 
-
   // box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
   // background-color: #c1d3fe ;
   // box-shadow: 0px 6px 10px rgb(0 0 0 / 10%);
@@ -41,7 +40,7 @@
   .dropdown-icon {
     transition: all 0.2s ease-in-out;
     color: #45496e;
-    font-size: .75rem;
+    font-size: 0.75rem;
     margin-left: 9px;
   }
 
@@ -53,9 +52,9 @@
     background: rgba(255, 255, 255, 0.8);
     top: 45px;
     width: 100%;
-    border-radius:  0 0 12px 12px;
+    border-radius: 0 0 12px 12px;
     opacity: 0;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     .child-item {
       margin: 6px;
@@ -77,6 +76,13 @@
       height: 105px;
       opacity: 1;
     }
+
+    &:last-child {
+      .dropdown {
+        height: 140px;
+        opacity: 1;
+      }
+    }
   }
 
   &.toggled {
@@ -92,6 +98,13 @@
       // display: block;
       height: 105px;
       opacity: 1;
+    }
+
+    &:last-child {
+      .dropdown {
+        height: 140px;
+        opacity: 1;
+      }
     }
   }
 }
