@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
       },
 
       {
-        label: 'Manual Payment',
+        label: 'Users',
         icon: 'pi pi-users',
         isActive: false,
         toggled: false,
@@ -31,7 +31,23 @@ export class NavbarComponent implements OnInit {
           { label: 'Local Users', icon: 'pi pi-user' },
         ],
       },
+      {
+        label: 'Inventory',
+        icon: 'pi pi-briefcase',
+        isActive: false,
+        toggled: false,
+        children: [
+          { label: 'Brand', icon: '' },
+          { label: 'Group', icon: '' },
+          { label: 'Category', icon: '' },
+        ],
+      },
     ];
+  }
+
+
+  toggleNavItem(item: MenuItem) {
+    item.toggled = !item.toggled;
   }
 }
 

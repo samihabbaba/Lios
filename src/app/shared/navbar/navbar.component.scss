@@ -15,6 +15,7 @@
   background: rgba(255, 255, 255, 0.8);
   display: flex;
   cursor: pointer;
+  // width: max-content;
   // width: 185px;
   // margin: 0 8px;
 
@@ -45,7 +46,8 @@
   }
 
   .dropdown {
-    // display: none;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     height: 0;
     background: rgba(255, 255, 255, 0.8);
@@ -54,6 +56,10 @@
     border-radius:  0 0 12px 12px;
     opacity: 0;
     transition: all .2s ease-in-out;
+
+    .child-item {
+      margin: 6px;
+    }
   }
 
   &.hasChildren:hover {
@@ -68,7 +74,7 @@
 
     .dropdown {
       // display: block;
-      height: 150px;
+      height: 105px;
       opacity: 1;
     }
   }
@@ -84,7 +90,7 @@
 
     .dropdown {
       // display: block;
-      height: 150px;
+      height: 105px;
       opacity: 1;
     }
   }

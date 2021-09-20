@@ -8,9 +8,10 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CardModule } from 'primeng/card';
+import { NavItemDirective } from '../directives/nav-item/nav-item.directive';
 
 @NgModule({
-  declarations: [ToolbarComponent, NavbarComponent],
+  declarations: [ToolbarComponent, NavbarComponent, NavItemDirective],
   imports: [
     CommonModule,
     ToolbarModule,
