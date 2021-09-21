@@ -6,10 +6,10 @@ import { LocalUsersComponent } from './local-users/local-users.component';
 import { UsersComponent } from './users.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'agency', pathMatch: 'full' },
   { path: 'agency', component: AgencyUsersComponent },
   { path: 'captain', component: CaptainUsersComponent },
   { path: 'local', component: LocalUsersComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'agency' },
 ];
 
 @NgModule({

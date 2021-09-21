@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class ToolbarComponent implements OnInit {
 
   languages: MenuItem[];
 
-  constructor() {}
+  constructor(private translationService: TranslationService) {}
 
   ngOnInit(): void {
     this.languages = [
@@ -38,6 +39,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   changeLanguage() {
+
+    this.translationService.setLanguage('tr')
     // this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
   }
 }

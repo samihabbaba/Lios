@@ -39,7 +39,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'payment',
+        path: 'manual-payment',
         loadChildren: () =>
           import('../manual-payment/manual-payment.module').then(
             (m) => m.ManualPaymentModule

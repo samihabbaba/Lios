@@ -4,17 +4,37 @@
     [ngClass]="{ hasChildren: item.children, toggled: item.toggled }"
     *ngFor="let item of navItems"
     [appNavItem]="item"
-    [routerLink]='item.route'
   >
-    <i class="item-icon" [class]="item.icon"></i>
-    <span>{{ item.label }}</span>
-    <i class="pi pi-chevron-down dropdown-icon" *ngIf="item.children"></i>
+    <div
+      class="wrapper"
+      *ngIf="!item.children"
+      [routerLink]="[item.route]"
+      [routerLinkActive]="['is-active']"
+    >
+      <i class="item-icon" [class]="item.icon"></i>
+      <span class="item-label">{{ item.label | translate }}</span>
+    </div>
 
-    <div class="dropdown" *ngIf="item.children">
-      <span *ngFor="let child of item.children" class="child-item" [routerLink]="child.route">
-        <!-- <i [class]="child.icon"></i> -->
-        {{ child.label }}</span
-      >
+    <div
+      class="wrapper"
+      *ngIf="item.children"
+      [routerLinkActive]="['is-active']"
+    >
+      <i class="item-icon" [class]="item.icon"></i>
+      <span class="item-label">{{ item.label | translate }}</span>
+      <i class="pi pi-chevron-down dropdown-icon" *ngIf="item.children"></i>
+
+      <div class="dropdown" *ngIf="item.children">
+        <span
+          *ngFor="let child of item.children"
+          class="child-item"
+          [routerLink]="[child.route]"
+          (click)="$event.stopPropagation()"
+        >
+          <i [class]="child.icon"></i>
+          {{ child.label | translate }}</span
+        >
+      </div>
     </div>
   </div>
 </div>

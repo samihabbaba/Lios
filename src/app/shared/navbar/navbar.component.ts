@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MegaMenuItem } from 'primeng/api';
 import { MenuItem } from 'src/app/models/menuItem';
 
@@ -10,52 +11,68 @@ import { MenuItem } from 'src/app/models/menuItem';
 export class NavbarComponent implements OnInit {
   navItems: MenuItem[];
 
-  constructor() {}
+  constructor(public router: Router) {}
 
   ngOnInit(): void {
     this.navItems = [
       {
         label: 'Dashboard',
-        icon: 'pi pi-home',
+        icon: 'fas fa-home',
         isActive: true,
         toggled: false,
-        route: 'dashboard',
+        route: '/dashboard',
       },
 
       {
         label: 'Users',
-        icon: 'pi pi-users',
+        icon: 'fas fa-users',
         isActive: false,
         toggled: false,
         children: [
           {
             label: 'Agency Users',
-            icon: 'pi pi-user-plus',
-            route: 'users/agency',
+            icon: 'fas fa-user-tie',
+            route: '/users/agency',
           },
           {
             label: 'Captain Users',
-            icon: 'pi pi-shield',
-            route: 'users/captain',
+            icon: 'fas fa-user-shield',
+            route: '/users/captain',
           },
-          { label: 'Local Users', icon: 'pi pi-user', route: 'users/local' },
+          {
+            label: 'Local Users',
+            icon: 'fas fa-street-view',
+            route: '/users/local',
+          },
         ],
       },
       {
         label: 'Inventory',
-        icon: 'pi pi-briefcase',
+        icon: 'fas fa-dolly-flatbed',
         isActive: false,
         toggled: false,
         children: [
-          { label: 'Brand', icon: '', route: 'inventory/brand' },
-          { label: 'Group', icon: '', route: 'inventory/group' },
-          { label: 'Category', icon: '', route: 'inventory/category' },
+          {
+            label: 'Brand',
+            icon: 'fas fa-certificate',
+            route: '/inventory/brand',
+          },
+          {
+            label: 'Group',
+            icon: 'fas fa-layer-group',
+            route: '/inventory/group',
+          },
+          {
+            label: 'Category',
+            icon: 'fas fa-list-ul',
+            route: '/inventory/category',
+          },
         ],
       },
 
       {
         label: 'Ships',
-        icon: '',
+        icon: 'fas fa-ship',
         isActive: false,
         toggled: false,
         route: '/ships',
@@ -63,7 +80,7 @@ export class NavbarComponent implements OnInit {
 
       {
         label: 'Ship Registry',
-        icon: '',
+        icon: 'fas fa-passport',
         isActive: false,
         toggled: false,
         route: '/ship-registry',
@@ -71,7 +88,7 @@ export class NavbarComponent implements OnInit {
 
       {
         label: 'Trips',
-        icon: '',
+        icon: 'fas fa-route',
         isActive: false,
         toggled: false,
         route: '/trips',
@@ -79,7 +96,7 @@ export class NavbarComponent implements OnInit {
 
       {
         label: 'Crane',
-        icon: '',
+        icon: 'fas fa-wrench',
         isActive: false,
         toggled: false,
         route: '/crane',
@@ -87,7 +104,7 @@ export class NavbarComponent implements OnInit {
 
       {
         label: 'Manual Payment',
-        icon: '',
+        icon: 'fas fa-money-bill-wave',
         isActive: false,
         toggled: false,
         route: '/manual-payment',
@@ -95,14 +112,30 @@ export class NavbarComponent implements OnInit {
 
       {
         label: 'Configuration',
-        icon: '',
+        icon: 'fas fa-cogs',
         isActive: false,
         toggled: false,
         children: [
-          { label: 'Discount', icon: '', route: 'configuration/discount' },
-          { label: 'Services', icon: '', route: 'configuration/services' },
-          { label: 'Port', icon: '', route: 'configuration/port' },
-          { label: 'Holiday', icon: '', route: 'configuration/holiday' },
+          {
+            label: 'Discount',
+            icon: 'fas fa-percentage',
+            route: '/configuration/discount',
+          },
+          {
+            label: 'Services',
+            icon: 'fas fa-concierge-bell',
+            route: '/configuration/services',
+          },
+          {
+            label: 'Port',
+            icon: 'fas fa-map-marker-alt',
+            route: '/configuration/port',
+          },
+          {
+            label: 'Holiday',
+            icon: 'fas fa-gift',
+            route: '/configuration/holiday',
+          },
         ],
       },
     ];
@@ -111,4 +144,12 @@ export class NavbarComponent implements OnInit {
   toggleNavItem(item: MenuItem) {
     item.toggled = !item.toggled;
   }
+
+  // goToPage(item: MenuItem) {
+  //   if (item.children) {
+  //     return;
+  //   } else {
+  //     this.router.navigate([item.route]);
+  //   }
+  // }
 }

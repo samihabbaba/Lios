@@ -9,6 +9,7 @@ import { MegaMenuModule } from 'primeng/megamenu';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CardModule } from 'primeng/card';
 import { NavItemDirective } from '../directives/nav-item/nav-item.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ToolbarComponent, NavbarComponent, NavItemDirective],
@@ -20,6 +21,7 @@ import { NavItemDirective } from '../directives/nav-item/nav-item.directive';
     SidebarModule,
     MegaMenuModule,
     CardModule,
+    TranslateModule
   ],
   exports: [
     ToolbarModule,
