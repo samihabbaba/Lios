@@ -1,0 +1,67 @@
+.container {
+  padding: 16px 8px;
+}
+
+.small-cards-container {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  .small-card {
+    flex: 1;
+    margin: 0.5rem;
+    height: 6rem;
+    border-radius: 12px;
+    padding: 14px 12px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    box-sizing: border-box;
+    margin-bottom: 16px;
+
+    .card-title {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 14px;
+    }
+
+    .card-content {
+      padding-top: 8px;
+      justify-content: space-between !important;
+      display: flex !important;
+
+      font-size: 30px;
+      line-height: 35px;
+    }
+
+    img {
+      position: absolute;
+      bottom: 14px;
+      right: 12px;
+    }
+  }
+}
+
+.chart-container {
+  display: flex;
+  .pie-chart-container {
+    flex: 1;
+    padding: 0.5rem;
+
+    .card {
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 16px;
+      box-sizing: border-box;
+      margin-bottom: 16px;
+
+      .title {
+        font-weight: 500;
+        line-height: 24px;
+      }
+
+      p-chart {
+        width: 400px;
+      }
+    }
+  }
+}

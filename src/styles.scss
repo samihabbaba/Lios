@@ -51,3 +51,16 @@ body {
   }
 }
 
+.content-wrapper {
+  padding: 16px;
+}
+
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+  display: flex;
+}
