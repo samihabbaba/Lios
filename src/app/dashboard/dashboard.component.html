@@ -1,30 +1,58 @@
 <div class="container flex-col">
   <div class="small-cards-container">
     <div class="small-card">
-      <span class="card-title">Total Ships</span>
+      <span class="card-title">{{ "Total Ships" | translate }}</span>
 
-      <div class="card-content">35</div>
+      <div class="card-content">
+        {{
+          this.dataService.displayFormattedNumber(
+            dashboardData?.totalShips,
+            false
+          )
+        }}
+      </div>
       <img src="../../assets/dashboard/green-line.svg" alt="" />
     </div>
 
     <div class="small-card">
-      <span class="card-title">Total Ships</span>
+      <span class="card-title">{{ "Total Captains" | translate }}</span>
 
-      <div class="card-content">35</div>
+      <div class="card-content">
+        {{
+          this.dataService.displayFormattedNumber(
+            dashboardData?.totalCaptains,
+            false
+          )
+        }}
+      </div>
       <img src="../../assets/dashboard/blue-line.svg" alt="" />
     </div>
 
     <div class="small-card">
-      <span class="card-title">Total Ships</span>
+      <span class="card-title">{{ "Total Agencies" | translate }}</span>
 
-      <div class="card-content">35</div>
+      <div class="card-content">
+        {{
+          this.dataService.displayFormattedNumber(
+            dashboardData?.totalAgencies,
+            false
+          )
+        }}
+      </div>
       <img src="../../assets/dashboard/green-line.svg" alt="" />
     </div>
 
     <div class="small-card">
-      <span class="card-title">Total Ships</span>
+      <span class="card-title">{{ "Products" | translate }}</span>
 
-      <div class="card-content">35</div>
+      <div class="card-content">
+        {{
+          this.dataService.displayFormattedNumber(
+            dashboardData?.products,
+            false
+          )
+        }}
+      </div>
       <img src="../../assets/dashboard/blue-line.svg" alt="" />
     </div>
   </div>
@@ -32,7 +60,15 @@
   <div class="chart-container">
     <div class="pie-chart-container">
       <div class="card">
-        <div class="title">Total Ships</div>
+        <div class="title">
+          {{ "Total Ships" | translate }}:
+          {{
+            this.dataService.displayFormattedNumber(
+              dashboardData?.totalShips,
+              false
+            )
+          }}
+        </div>
         <p-chart
           type="doughnut"
           [data]="data"
@@ -42,13 +78,23 @@
     </div>
     <div class="pie-chart-container">
       <div class="card">
-        <div class="title">Total Ships</div>
+        <div class="title">
+          {{ "In Port Ships" | translate }}:
+          {{
+            this.dataService.displayFormattedNumber(
+              dashboardData?.inPortShips,
+              false
+            )
+          }}
+        </div>
         <p-chart
           type="doughnut"
-          [data]="data"
+          [data]="data2"
           [options]="chartOptions"
         ></p-chart>
       </div>
     </div>
   </div>
 </div>
+
+<app-update-currency #currecyDialog></app-update-currency>

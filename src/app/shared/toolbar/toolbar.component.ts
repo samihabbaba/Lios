@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { TranslationService } from 'src/app/services/translation/translation.service';
-
 
 @Component({
   selector: 'app-toolbar',
@@ -9,11 +9,13 @@ import { TranslationService } from 'src/app/services/translation/translation.ser
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-  @Output() visibleSidebar: EventEmitter<any> =  new EventEmitter();
-
+  @Output() visibleSidebar: EventEmitter<any> = new EventEmitter();
   languages: MenuItem[];
 
-  constructor(private translationService: TranslationService) {}
+  constructor(
+    private translationService: TranslationService,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.languages = [
@@ -23,14 +25,14 @@ export class ToolbarComponent implements OnInit {
             label: 'English',
             icon: 'pi pi-slack',
             command: () => {
-              this.changeLanguage();
+              this.changeLanguage('en');
             },
           },
           {
             label: 'Turkish',
             icon: 'pi pi-slack',
             command: () => {
-              this.changeLanguage();
+              this.changeLanguage('tr');
             },
           },
         ],
@@ -38,9 +40,16 @@ export class ToolbarComponent implements OnInit {
     ];
   }
 
-  changeLanguage() {
-
-    this.translationService.setLanguage('tr')
+  changeLanguage(lang: string) {
+    this.translationService.setLanguage(lang);
     // this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
+  }
+
+  breadcrumbConverter() {
+    let url: string = this.router.url
+      .substr(1)
+      .replace(/\//g, '  /  ')
+      .replace(/\-/g, ' ');
+    return url;
   }
 }

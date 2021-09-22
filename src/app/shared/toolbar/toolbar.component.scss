@@ -17,6 +17,9 @@
 .toolbar-buttons {
   align-items: center;
   display: flex;
+  // position: absolute;
+  // top: 19px;
+  // right: 10px;
 
 
   .toolbar-icon-button {
@@ -26,5 +29,14 @@
   }
 }
 
+
+.breadcrumb {
+  position: absolute;
+  top: 25px;
+  left: 16px;
+  background: transparent;
+  color: #44486D;
+  font-size: 1rem;
+}
 
 

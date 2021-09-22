@@ -30,17 +30,17 @@ export class NavbarComponent implements OnInit {
         toggled: false,
         children: [
           {
-            label: 'Agency Users',
+            label: 'Agency',
             icon: 'fas fa-user-tie',
             route: '/users/agency',
           },
           {
-            label: 'Captain Users',
+            label: 'Captain',
             icon: 'fas fa-user-shield',
             route: '/users/captain',
           },
           {
-            label: 'Local Users',
+            label: 'Local',
             icon: 'fas fa-street-view',
             route: '/users/local',
           },

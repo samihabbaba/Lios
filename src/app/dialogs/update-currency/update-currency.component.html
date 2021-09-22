@@ -1,0 +1,12 @@
+<p-dialog position="top" [style]="{ width: '50vw' }" [(visible)]="display">
+  <p>{{ "Please update the currency rate for today" | translate }}</p>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="display = false"
+      label="{{ 'Ok' | translate }}"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

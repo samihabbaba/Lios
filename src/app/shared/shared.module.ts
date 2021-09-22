@@ -10,9 +10,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CardModule } from 'primeng/card';
 import { NavItemDirective } from '../directives/nav-item/nav-item.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import { DialogModule } from 'primeng/dialog';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-currency.component';
 
 @NgModule({
-  declarations: [ToolbarComponent, NavbarComponent, NavItemDirective],
+  declarations: [
+    ToolbarComponent,
+    NavbarComponent,
+    NavItemDirective,
+    UpdateCurrencyComponent,
+  ],
   imports: [
     CommonModule,
     ToolbarModule,
@@ -21,7 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
     SidebarModule,
     MegaMenuModule,
     CardModule,
-    TranslateModule
+    TranslateModule,
+    DialogModule,
+    BreadcrumbModule,
   ],
   exports: [
     ToolbarModule,
@@ -32,6 +42,9 @@ import { TranslateModule } from '@ngx-translate/core';
     MegaMenuModule,
     NavbarComponent,
     CardModule,
+    TranslateModule,
+    DialogModule,
+    UpdateCurrencyComponent,
   ],
 })
 export class SharedModule {}

@@ -100,13 +100,7 @@
       }
     }
 
-    &:nth-child(2) {
-      .dropdown {
-        height: 147px;
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
+
   }
 
   &.toggled {
@@ -133,13 +127,7 @@
       }
     }
 
-    &:nth-child(2) {
-      .dropdown {
-        height: 147px;
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
+   
   }
 
   &:hover {

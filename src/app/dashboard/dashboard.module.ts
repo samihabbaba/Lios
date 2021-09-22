@@ -16,6 +16,6 @@ import { ChartModule } from 'primeng/chart';
     DashboardRoutingModule,
     SharedModule,
     ChartModule
-  ]
+  ],
 })
 export class DashboardModule { }

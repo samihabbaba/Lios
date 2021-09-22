@@ -4,7 +4,7 @@ export const locale = {
     // my translation
 
     // start of Users page
-
+    Ok: 'Tamam',
     'Registration Number': 'Kayıt Numarası',
     Name: 'Ad',
     'Tax Number': 'Vergi Numarası',
@@ -343,6 +343,7 @@ export const locale = {
     'Captain Users': 'Kaptan Kullanıcıları',
     'Local Users': 'Yerel Kullanıcılar',
     'Add Agency': 'Acente ekle',
+    Local: 'Yerel',
 
     'Delete Cargo': 'Markayı Sil',
     Number: 'Numara',
