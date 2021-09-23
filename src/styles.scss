@@ -77,3 +77,19 @@ body {
   background: url(./assets/backgrounds/port.jpg) !important;
   object-fit: contain !important;
 }
+
+.p-multiselect {
+  background: rgba(68, 72, 109, 0.07) !important;
+  border: none !important;
+  border-radius: 8px !important;
+
+  .p-multiselect-label-container {
+    display: none !important;
+  }
+
+  .p-multiselect-label,
+  .p-multiselect-trigger {
+    height: 40px !important;
+    color: #44486d !important;
+  }
+}

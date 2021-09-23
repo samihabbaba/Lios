@@ -16,7 +16,8 @@ import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-curre
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {TooltipModule} from 'primeng/tooltip';
     InputNumberModule,
     FormsModule,
     ToastModule,
-    TooltipModule
+    TooltipModule,
+    MultiSelectModule,
   ],
   exports: [
     ToolbarModule,
@@ -56,7 +58,8 @@ import {TooltipModule} from 'primeng/tooltip';
     InputNumberModule,
     FormsModule,
     ToastModule,
-    TooltipModule
+    TooltipModule,
+    MultiSelectModule,
   ],
 })
 export class SharedModule {}

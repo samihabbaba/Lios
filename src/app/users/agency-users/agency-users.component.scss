@@ -1,0 +1,23 @@
+.card-wrapper {
+  padding: 32px 16px;
+}
+
+.table-card {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.card-header {
+  line-height: 24px;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.header-buttons-container {
+}

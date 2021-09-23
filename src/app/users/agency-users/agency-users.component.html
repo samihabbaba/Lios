@@ -1,1 +1,18 @@
-<p>agency-users works!</p>
+<div class="card-wrapper">
+  <div class="table-card">
+    <div class="card-header">
+      <span>Yearly win</span>
+
+      <p-multiSelect
+      (onChange)="selection()"
+      [showHeader]="false"
+      [displaySelectedLabel]="false"
+        [options]="cities"
+        [(ngModel)]="selectedCities2"
+        placeholder="Choose Columns"
+        optionLabel="name"
+      ></p-multiSelect>
+      <!-- <div class="header-buttons-container">F</div> -->
+    </div>
+  </div>
+</div>
