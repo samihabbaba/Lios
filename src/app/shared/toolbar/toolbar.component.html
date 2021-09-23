@@ -11,9 +11,13 @@
   <img src="../../../assets/logo/logo-2.png" alt="logo"  class="app-logo"/> -->
 
   <div class="toolbar-buttons">
-    <p-button styleClass=" p-button-text " (click)="menu.toggle($event)">
+    <p-button styleClass="p-button-text" (click)="menu.toggle($event)">
       <ng-template pTemplate="content">
-        <img alt="logo" [src]="flag" style="width: 1.5rem" />
+        <img
+          alt="logo"
+          [src]="flag"
+          style="border-radius: 4px; height: 1.5rem; width: 1.5rem"
+        />
       </ng-template>
     </p-button>
 
@@ -25,6 +29,7 @@
       class="p-button-rounded p-button-text p-button-plain toolbar-icon-button"
       (click)="visibleSidebar.emit()"
       pTooltip="Update Currency"
+      tooltipPosition="bottom"
     ></button>
 
     <button
@@ -33,6 +38,7 @@
       pTooltip="Log Out"
       type="button"
       icon="pi pi-sign-out"
+      tooltipPosition="bottom"
       class="p-button-rounded p-button-text p-button-plain toolbar-icon-button"
     ></button>
 
