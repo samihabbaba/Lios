@@ -1,18 +1,33 @@
 .logo {
   display: flex;
   align-items: center;
-  margin: 0 auto;
+  // margin: 0 auto;
+  margin-right: auto;
   img {
     height: 42px;
   }
   span {
     margin-left: 9px;
-    font-size: 21px;
+    font-size: 22px;
     font-weight: 600;
     letter-spacing: 1px;
     color: #45496e;
   }
 }
+
+// .app-name {
+//   margin: 0;
+//   font-size: 22px;
+//   font-weight: 600;
+//   letter-spacing: 1px;
+//   color: #45496e;
+//   // margin-right: auto;
+// }
+
+// .app-logo {
+//   margin: 0 auto;
+//   height: 44px;
+// }
 
 .toolbar-buttons {
   align-items: center;
@@ -21,7 +36,6 @@
   // top: 19px;
   // right: 10px;
 
-
   .toolbar-icon-button {
     margin: 0 6px;
     border-radius: 8px;
@@ -29,14 +43,11 @@
   }
 }
 
-
 .breadcrumb {
   position: absolute;
   top: 25px;
   left: 16px;
   background: transparent;
-  color: #44486D;
+  color: #44486d;
   font-size: 1rem;
 }
-
-

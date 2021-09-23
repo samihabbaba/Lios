@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-update-currency',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-currency.component.scss'],
 })
 export class UpdateCurrencyComponent implements OnInit {
-  display: boolean = false;
+  @Input() display: boolean = false;
   constructor() {}
 
   ngOnInit(): void {}

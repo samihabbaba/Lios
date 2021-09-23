@@ -37,14 +37,13 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background: linear-gradient(180deg, #f6f9fc 0%, #ececf9 100%);
-
 }
 
 .page-wrapper {
   min-height: 100vh;
   background: url(./assets/main-bg.png);
   background-repeat: no-repeat;
-  width: 100vw;
+  // width: 100vw;
   overflow-x: hidden;
 }
 
@@ -65,7 +64,6 @@ body {
   padding: 16px;
 }
 
-
 .flex {
   display: flex;
 }
@@ -73,4 +71,9 @@ body {
 .flex-col {
   flex-direction: column;
   display: flex;
+}
+
+.currency-sidebar {
+  background: url(./assets/backgrounds/port.jpg) !important;
+  object-fit: contain !important;
 }

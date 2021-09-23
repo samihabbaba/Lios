@@ -13,6 +13,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-currency.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,10 @@ import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-curre
     TranslateModule,
     DialogModule,
     BreadcrumbModule,
+    InputNumberModule,
+    FormsModule,
+    ToastModule,
+    TooltipModule
   ],
   exports: [
     ToolbarModule,
@@ -45,6 +53,10 @@ import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-curre
     TranslateModule,
     DialogModule,
     UpdateCurrencyComponent,
+    InputNumberModule,
+    FormsModule,
+    ToastModule,
+    TooltipModule
   ],
 })
 export class SharedModule {}

@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   data2: any;
   dashboardData: any;
   chartOptions: any;
+  displayCurrencyDialog: boolean = false;
 
   constructor(
     public dataService: DataService,
@@ -22,7 +23,17 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.checkCurrencyIfUpdated();
     this.initializeDashbaord();
+  }
+
+  checkCurrencyIfUpdated() {
+    this.dataService.checkCurrency().subscribe((resp) => {
+      if (!resp) {
+        this.displayCurrencyDialog = true;
+        // document.getElementById('currencyBtn').click();
+      }
+    });
   }
 
   initializeDashbaord() {

@@ -11,6 +11,7 @@ import { TranslationService } from 'src/app/services/translation/translation.ser
 export class ToolbarComponent implements OnInit {
   @Output() visibleSidebar: EventEmitter<any> = new EventEmitter();
   languages: MenuItem[];
+  flag: string = '../../../assets/flags/226-united-states.svg';
 
   constructor(
     private translationService: TranslationService,
@@ -23,16 +24,18 @@ export class ToolbarComponent implements OnInit {
         items: [
           {
             label: 'English',
-            icon: 'pi pi-slack',
+            // icon: 'pi pi-slack',
             command: () => {
               this.changeLanguage('en');
+              this.flag = '../../../assets/flags/226-united-states.svg';
             },
           },
           {
             label: 'Turkish',
-            icon: 'pi pi-slack',
+            // icon: 'pi pi-slack',
             command: () => {
               this.changeLanguage('tr');
+              this.flag = '../../../assets/flags/006-turkey.svg';
             },
           },
         ],

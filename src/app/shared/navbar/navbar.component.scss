@@ -12,7 +12,8 @@
   justify-content: center;
   margin-top: 16px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 1);
+  // background: rgba(255, 255, 255, 0.9);
   display: flex;
   cursor: pointer;
 
@@ -55,7 +56,8 @@
     flex-direction: column;
     position: absolute;
     height: 0;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 1);
+    // background: rgba(255, 255, 255, 0.9);
     top: 45px;
     left: 0;
     width: 100%;
@@ -127,7 +129,7 @@
       }
     }
 
-   
+
   }
 
   &:hover {

@@ -44,7 +44,8 @@
 .chart-container {
   display: flex;
   .pie-chart-container {
-    flex: 1;
+    // flex: 1;
+    width: 49vw;
     padding: 0.5rem;
 
     .card {
