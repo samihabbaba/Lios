@@ -89,7 +89,69 @@ body {
 
   .p-multiselect-label,
   .p-multiselect-trigger {
-    height: 40px !important;
+    height: 38px !important;
     color: #44486d !important;
   }
+}
+
+.p-dropdown-item-group {
+  text-align: center !important;
+  color: #282a36 !important;
+}
+
+.table-button {
+  .p-dropdown-label {
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .p-button,
+  .p-dropdown {
+    background: rgba(68, 72, 109, 0.07) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    height: 38px !important;
+    color: #44486d !important;
+  }
+
+  .p-calendar {
+    input {
+      background: rgba(68, 72, 109, 0.07) !important;
+      border: none !important;
+      border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
+      height: 38px !important;
+      color: #44486d !important;
+
+      &:-moz-placeholder,
+      &::placeholder,
+      &:-ms-input-placeholder {
+        color: #44486d !important;
+      }
+    }
+    .p-button {
+      background: rgba(68, 72, 109, 0.07) !important;
+      border: none !important;
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+      height: 38px !important;
+      color: #44486d !important;
+    }
+  }
+
+  &.ml {
+    margin-left: 8px;
+  }
+
+  &.mr {
+    margin-right: 8px;
+  }
+}
+
+.p-paginator {
+  padding: 2px !important;
+  border-top: 1px solid rgba(68, 72, 109, 0.17) !important;
+  border-bottom: 1px solid rgba(68, 72, 109, 0.17) !important;
+  border-radius: 0 !important;
 }

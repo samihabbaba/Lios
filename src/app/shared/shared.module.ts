@@ -18,6 +18,10 @@ import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { PaginatorModule } from 'primeng/paginator';
+import { LabelConvertPipe } from '../pipes/label-convert/label-convert.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     NavbarComponent,
     NavItemDirective,
     UpdateCurrencyComponent,
+    LabelConvertPipe
   ],
   imports: [
     CommonModule,
@@ -42,6 +47,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ToastModule,
     TooltipModule,
     MultiSelectModule,
+    DropdownModule,
+    CalendarModule,
+    PaginatorModule,
   ],
   exports: [
     ToolbarModule,
@@ -60,6 +68,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ToastModule,
     TooltipModule,
     MultiSelectModule,
+    DropdownModule,
+    CalendarModule,
+    PaginatorModule,
+    LabelConvertPipe
   ],
 })
 export class SharedModule {}

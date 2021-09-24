@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { LabelConvertPipe } from './pipes/label-convert/label-convert.pipe';
 @NgModule({
   declarations: [AppComponent],
   imports: [

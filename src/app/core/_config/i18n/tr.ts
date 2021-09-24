@@ -4,6 +4,7 @@ export const locale = {
     // my translation
 
     // start of Users page
+    DateRange: 'Tarih Aralığı',
     Ok: 'Tamam',
     'Registration Number': 'Kayıt Numarası',
     Name: 'Ad',

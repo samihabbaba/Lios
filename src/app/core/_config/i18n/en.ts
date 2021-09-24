@@ -6,7 +6,7 @@ export const locale = {
     // my translation
 
     // start of Users page
-
+    DateRange: 'Date Range',
     'Registration Number': 'Registration Number',
     Name: 'Name',
     'Tax Number': 'Tax Number',
@@ -30,7 +30,7 @@ export const locale = {
     Delete: 'Delete',
     'Create New Agency': 'Create New Agency',
     'Required field': 'Required field',
-    Company: 'NamCompanye',
+    Company: 'Company Name',
     Personal: 'Personal',
     'This field is required. and it must be an email.':
       'This field is required. and it must be an email.',
