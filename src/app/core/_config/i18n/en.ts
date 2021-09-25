@@ -44,6 +44,7 @@ export const locale = {
     Close: 'Close',
     'Reset Form': 'Reset Form',
     'Submit Changes': 'Submit Changes',
+    'Submit': 'Submit',
     "Change user's password": "Change user's password",
     'New Password': 'New Password',
     'Confirm Password': 'Confirm Password',

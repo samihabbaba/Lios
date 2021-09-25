@@ -9,6 +9,7 @@
           pInputText
           [(ngModel)]="searchQuery"
           [placeholder]="translate.instant('Search')"
+          (keyup)="search($event)"
         />
         <button
           type="button"
@@ -16,6 +17,7 @@
           pRipple
           icon="pi pi-search"
           styleClass="p-button-warn"
+          (click)="search()"
         ></button>
       </div>
 
@@ -46,6 +48,9 @@
           icon="pi pi-plus"
           class="table-button mr"
           iconPos="right"
+          (click)="
+            initializeForm('addAgencyForm', translate.instant('Add Agency'))
+          "
         ></p-button>
 
         <p-multiSelect
@@ -117,7 +122,7 @@
               <td>
                 <i
                   class="pi pi-ellipsis-h more-button"
-                  (click)="menu.toggle($event)"
+                  (click)="menu.toggle($event); objToSend = item"
                 ></i>
               </td>
             </tr>
@@ -140,3 +145,10 @@
   [popup]="true"
   [model]="optionsMenu"
 ></p-menu>
+
+<app-main-dialog
+  (closeDialog)="displayDialog = false"
+  [formName]="formName"
+  [dialogHeader]="dialogHeader"
+  [displayDialog]="displayDialog"
+></app-main-dialog>

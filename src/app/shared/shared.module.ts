@@ -22,6 +22,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { PaginatorModule } from 'primeng/paginator';
 import { LabelConvertPipe } from '../pipes/label-convert/label-convert.pipe';
+import { MainDialogComponent } from './main-dialog/main-dialog.component';
+import { AddAgencyComponent } from './forms/add-agency/add-agency.component';
+import { AgencyDetailsComponent } from './forms/agency-details/agency-details.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { LabelConvertPipe } from '../pipes/label-convert/label-convert.pipe';
     NavbarComponent,
     NavItemDirective,
     UpdateCurrencyComponent,
-    LabelConvertPipe
+    LabelConvertPipe,
+    MainDialogComponent,
+    AddAgencyComponent,
+    AgencyDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -71,7 +77,8 @@ import { LabelConvertPipe } from '../pipes/label-convert/label-convert.pipe';
     DropdownModule,
     CalendarModule,
     PaginatorModule,
-    LabelConvertPipe
+    LabelConvertPipe,
+    MainDialogComponent
   ],
 })
 export class SharedModule {}

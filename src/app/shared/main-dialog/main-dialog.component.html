@@ -1,0 +1,30 @@
+<p-dialog
+  (onHide)="closeDialog.emit()"
+  [header]="dialogHeader"
+  [(visible)]="displayDialog"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+>
+  <div [ngSwitch]="formName">
+    <div *ngSwitchCase="'addAgencyForm'">
+      <app-add-agency></app-add-agency>
+    </div>
+    <div *ngSwitchCase="'agencyDetailsForm'">
+      <app-agency-details></app-agency-details>
+    </div>
+
+    <div *ngSwitchDefault>
+      <p>Not a valid form</p>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      [disabled]="!formIsValid"
+      icon="pi pi-check"
+      (onClick)="submitForm()"
+      label="{{ 'Submit' | translate }}"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data/data.service';
+import { FormService } from 'src/app/services/form-service/form.service';
 
 @Component({
   selector: 'app-agency-users',
@@ -9,6 +10,12 @@ import { DataService } from 'src/app/services/data/data.service';
   styleUrls: ['./agency-users.component.scss'],
 })
 export class AgencyUsersComponent implements OnInit {
+  // Form Variables
+  formName: string = '';
+  dialogHeader: string = '';
+  displayDialog: boolean = false;
+  objToSend: any = null;
+
   pageSize = 50;
   pageNumber = 1;
   numberOfData: number;
@@ -40,7 +47,6 @@ export class AgencyUsersComponent implements OnInit {
     name: this.translate.instant('All'),
     value: '',
   };
-
   dateRanges: any;
 
   optionsMenu: MenuItem[] = [
@@ -49,7 +55,13 @@ export class AgencyUsersComponent implements OnInit {
         {
           label: this.translate.instant('Details'),
           icon: 'pi pi-pencil',
-          command: () => {},
+          command: () => {
+            this.initializeForm(
+              'agencyDetailsForm',
+              this.translate.instant('Agency Details'),
+              true
+            );
+          },
         },
         {
           label: this.translate.instant('Delete'),
@@ -62,7 +74,8 @@ export class AgencyUsersComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    private dataService: DataService
+    private dataService: DataService,
+    private formService: FormService
   ) {}
 
   ngOnInit(): void {
@@ -70,13 +83,10 @@ export class AgencyUsersComponent implements OnInit {
     this.getData();
   }
 
-  selection() {
-    // console.log(this.selectedColumns.includes(this.columns[0]));
-    // console.log(this.selectedColumns);
-  }
+  selection() {}
 
   dropdownChange() {
-    console.log(this.selectedDropdownOption);
+    this.getData();
   }
 
   dateSelection() {
@@ -93,15 +103,10 @@ export class AgencyUsersComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          console.log(response);
           this.tableData = response.agencyList;
-          // this.dataSource.data = response.agencyList;
-          // this.isSearchLoading = false;
           this.numberOfData = response.pagingInfo.totalCount;
         },
-        (error) => {
-          // this.isSearchLoading = false;
-        }
+        (error) => {}
       );
   }
 
@@ -110,4 +115,22 @@ export class AgencyUsersComponent implements OnInit {
     this.getData();
   }
 
+  search(event?) {
+    if (event) {
+      if (event.keyCode === 13) this.getData();
+    } else {
+      this.getData();
+    }
+  }
+
+  initializeForm(
+    formName: string,
+    dialogHeader: string,
+    objectToSend: boolean = false
+  ) {
+    if (objectToSend) this.formService.sendObjectToForm(this.objToSend);
+    this.formName = formName;
+    this.dialogHeader = dialogHeader;
+    this.displayDialog = true;
+  }
 }
