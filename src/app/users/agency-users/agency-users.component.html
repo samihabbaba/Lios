@@ -22,17 +22,6 @@
       </div>
 
       <div class="header-buttons-container">
-        <p-calendar
-          (onSelect)="dateSelection()"
-          [(ngModel)]="dateRanges"
-          selectionMode="range"
-          [readonlyInput]="true"
-          inputId="range"
-          class="table-button mr"
-          [placeholder]="translate.instant('DateRange')"
-          [showIcon]="true"
-        ></p-calendar>
-
         <p-dropdown
           (onChange)="dropdownChange()"
           class="table-button mr"
@@ -131,6 +120,7 @@
       </div>
 
       <p-paginator
+        #paginator
         [rows]="pageSize"
         [totalRecords]="numberOfData"
         (onPageChange)="pageChange($event)"
@@ -152,3 +142,9 @@
   [dialogHeader]="dialogHeader"
   [displayDialog]="displayDialog"
 ></app-main-dialog>
+
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

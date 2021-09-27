@@ -55,6 +55,7 @@ export const locale = {
     'Pick Columns to show': 'Gösterilecek sütunları seçin',
     All: 'Hepsi',
     Search: 'Ara',
+    'Is Insured': 'Sigortalı',
     'Table customizing': 'Tablo Düzenleme',
     'Add Captain': 'Kaptan ekle',
     Captain: 'Kaptan',
@@ -106,6 +107,7 @@ export const locale = {
     'An error occured.': 'Bir hata oluştu.',
     'Edit Cargo': 'Markayı Düzenle',
     '"Delete Cargo': '"Markayı Sil',
+    'Delete Confirmation': 'Silmek İçin Onay Ver',
     'Are you sure you want to delete Cargo :':
       'Markayı silmek istediğinize emin misiniz :',
     'Add Group': 'Grup Ekle',
@@ -315,6 +317,8 @@ export const locale = {
     Mortage: 'İpotek',
     'New Mortage has been Added.': 'Yeni İpotek Eklendi.',
     'Record Order Number': 'Kayıt Sıra No',
+    'Record Deleted': 'Kayıt Silindi',
+    'Invalid input.': 'Geçersiz alan.',
     'Changes Name': 'Değişikliklerin Adı',
     Delitions: 'Terkinler',
     Amount: 'Değeri',
@@ -588,6 +592,8 @@ export const locale = {
     Receipt: 'Makbuz',
     'Total Amount': 'Toplam Miktar',
     'Crane Agency Name': 'Vinç Acentesi',
+    'Do you want to delete': 'Silmek istediğinize emin misiniz',
+
     'Agency Details': 'Acente Detayları',
     Start: 'Başlangıç Tarihi',
     End: 'Bitiş Tarihi',

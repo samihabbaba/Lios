@@ -14,7 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-currency.component';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -25,6 +25,12 @@ import { LabelConvertPipe } from '../pipes/label-convert/label-convert.pipe';
 import { MainDialogComponent } from './main-dialog/main-dialog.component';
 import { AddAgencyComponent } from './forms/add-agency/add-agency.component';
 import { AgencyDetailsComponent } from './forms/agency-details/agency-details.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ExampleComponent } from 'src/THIS-IS-A-SAMPLE-FOR-TABLE/example.component';
+import { InputTextModule } from 'primeng/inputtext';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import { AddCaptainComponent } from './forms/add-captain/add-captain.component';
+import { CaptainDetailsComponent } from './forms/captain-details/captain-details.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +42,10 @@ import { AgencyDetailsComponent } from './forms/agency-details/agency-details.co
     MainDialogComponent,
     AddAgencyComponent,
     AgencyDetailsComponent,
+    // Will delete example component later
+    ExampleComponent,
+    AddCaptainComponent,
+    CaptainDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -50,12 +60,16 @@ import { AgencyDetailsComponent } from './forms/agency-details/agency-details.co
     BreadcrumbModule,
     InputNumberModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastModule,
     TooltipModule,
     MultiSelectModule,
     DropdownModule,
     CalendarModule,
     PaginatorModule,
+    ConfirmDialogModule,
+    InputTextModule,
+    InputSwitchModule
   ],
   exports: [
     ToolbarModule,
@@ -71,6 +85,7 @@ import { AgencyDetailsComponent } from './forms/agency-details/agency-details.co
     UpdateCurrencyComponent,
     InputNumberModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastModule,
     TooltipModule,
     MultiSelectModule,
@@ -78,7 +93,10 @@ import { AgencyDetailsComponent } from './forms/agency-details/agency-details.co
     CalendarModule,
     PaginatorModule,
     LabelConvertPipe,
-    MainDialogComponent
+    MainDialogComponent,
+    ConfirmDialogModule,
+    InputTextModule,
+    InputSwitchModule
   ],
 })
 export class SharedModule {}

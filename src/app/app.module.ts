@@ -7,8 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { LabelConvertPipe } from './pipes/label-convert/label-convert.pipe';
+import { ConfirmationService, MessageService } from 'primeng/api';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,9 +16,9 @@ import { LabelConvertPipe } from './pipes/label-convert/label-convert.pipe';
     AppRoutingModule,
     BrowserAnimationsModule,
     TranslateModule.forRoot(),
-    ToastModule
+    ToastModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent],
   exports: [TranslateModule],
 })

@@ -3,7 +3,7 @@
   [header]="dialogHeader"
   [(visible)]="displayDialog"
   [modal]="true"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '70vw' }"
 >
   <div [ngSwitch]="formName">
     <div *ngSwitchCase="'addAgencyForm'">
@@ -11,6 +11,14 @@
     </div>
     <div *ngSwitchCase="'agencyDetailsForm'">
       <app-agency-details></app-agency-details>
+    </div>
+
+    <div *ngSwitchCase="'addCaptainForm'">
+      <app-add-captain></app-add-captain>
+    </div>
+
+    <div *ngSwitchCase="'captainDetailsForm'">
+      <app-captain-details></app-captain-details>
     </div>
 
     <div *ngSwitchDefault>
