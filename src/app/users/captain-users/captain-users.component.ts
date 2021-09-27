@@ -61,7 +61,7 @@ export class CaptainUsersComponent implements OnInit {
           command: () => {
             this.objToSend.isDeleted = true;
             this.deleteService.openDeleteConfirmation(
-              this.objToSend.name,
+              this.objToSend.firstName + ' ' + this.objToSend.lastName,
               this.dataService.updateCaptain(this.objToSend)
             );
           },

@@ -21,7 +21,6 @@ export class AddAgencyComponent implements OnInit {
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
   form: FormGroup;
-  @ViewChild('username') username: ElementRef;
 
   agencyTypes = [
     {
