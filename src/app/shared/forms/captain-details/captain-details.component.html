@@ -1,1 +1,111 @@
-<p>captain-details works!</p>
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="firstName" type="text" pInputText />
+      <label>{{ "First Name" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('firstName')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="lastName" type="text" pInputText />
+      <label>{{ "Last Name" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('lastName')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="title" type="text" pInputText />
+      <label>{{ "Title" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('title')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="telephone" type="text" pInputText />
+      <label>{{ "Telephone" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('telephone')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="dropdownOptions"
+        formControlName="country"
+        placeholder="{{ 'Country' | translate }}"
+      ></p-dropdown>
+    </span>
+    <small *ngIf="checkValidity('country')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="district" type="text" pInputText />
+      <label>{{ "District" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('district')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="address" type="text" pInputText />
+      <label>{{ "Address" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('address')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="webLink" type="text" pInputText />
+      <label>{{ "Web Link" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('webLink')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="email" type="text" pInputText />
+      <label>{{ "E-mail" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('email')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <div class="flex align-items-center">
+      <p-inputSwitch formControlName="isLocal"></p-inputSwitch>
+      <p class="m-0 ml-2">{{'Is Local' | translate}}</p>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <div class="flex align-items-center">
+      <p-inputSwitch formControlName="isGuidline"></p-inputSwitch>
+      <p class="m-0 ml-2">{{'Is Guidline' | translate}}</p>
+    </div>
+  </div>
+</div>
