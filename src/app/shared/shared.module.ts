@@ -34,6 +34,10 @@ import { CaptainDetailsComponent } from './forms/captain-details/captain-details
 import { AddLocalComponent } from './forms/add-local/add-local.component';
 import { LocalDetailsComponent } from './forms/local-details/local-details.component';
 import { LocalPasswordComponent } from './forms/local-password/local-password.component';
+import { AddGroupComponent } from './forms/add-group/add-group.component';
+import { AddBrandComponent } from './forms/add-brand/add-brand.component';
+import { AddCategoryComponent } from './forms/add-category/add-category.component';
+import { GroupDetailsComponent } from './forms/group-details/group-details.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,10 @@ import { LocalPasswordComponent } from './forms/local-password/local-password.co
     AddLocalComponent,
     LocalDetailsComponent,
     LocalPasswordComponent,
+    AddGroupComponent,
+    AddBrandComponent,
+    AddCategoryComponent,
+    GroupDetailsComponent,
   ],
   imports: [
     CommonModule,

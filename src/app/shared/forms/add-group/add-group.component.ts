@@ -12,18 +12,19 @@ import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
 @Component({
-  selector: 'app-local-password',
-  templateUrl: './local-password.component.html',
-  styleUrls: ['./local-password.component.scss'],
+  selector: 'app-add-group',
+  templateUrl: './add-group.component.html',
+  styleUrls: ['./add-group.component.scss']
 })
-export class LocalPasswordComponent implements OnInit {
+export class AddGroupComponent implements OnInit {
+
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
   dirtyFormSubscriber$: Subscription;
   form: FormGroup;
 
-  objReceived: any;
+  dropdownOptions: any[];
 
   constructor(
     private dataService: DataService,
@@ -33,6 +34,8 @@ export class LocalPasswordComponent implements OnInit {
     private dialogRef: Dialog
   ) {
     this.dialogRef.onShow.subscribe(() => {
+      this.dropdownOptions = this.dataService.countries;
+      this.initializeForm();
       this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
@@ -46,10 +49,8 @@ export class LocalPasswordComponent implements OnInit {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
-        this.objReceived = value;
+        console.log(value);
       });
-
-    this.initializeForm();
 
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
@@ -62,6 +63,7 @@ export class LocalPasswordComponent implements OnInit {
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
+
 
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -84,39 +86,24 @@ export class LocalPasswordComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    if (obj.newPassword !== obj.newPasswordConfirm) {
+    this.dataService.addNewGroup(obj).subscribe((response) => {
+      this.formService.triggerRefresh();
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Hata',
-        detail: 'Şifreler birbiriyle uyuşmalı',
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Grup başarıyla eklendi',
       });
-      return;
-    } else {
-      delete obj.newPasswordConfirm;
-      this.dataService.updateStaffPassword(obj, this.objReceived.id).subscribe(
-        (response) => {
-          this.formService.triggerRefresh();
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Kullanıcı başarıyla güncellendi',
-          });
-        },
-        (error) => {
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Hata',
-            detail: 'Şifre en az 5 karakter olmalıdır.',
-          });
-        }
-      );
-    }
+    });
   }
 
   initializeForm() {
     this.form = this.fb.group({
-      newPassword: new FormControl(null, [Validators.required]),
-      newPasswordConfirm: new FormControl(null, [Validators.required]),
+      name: new FormControl(null, [Validators.required]),
+      code: new FormControl(null, []),
+      description: new FormControl(null, []),
+      orderNo: new FormControl(null, []),
+      percentage: new FormControl(null, []),
+      isPositive: new FormControl(false, []),
     });
   }
 
@@ -125,4 +112,5 @@ export class LocalPasswordComponent implements OnInit {
       this.form.get(formControl)?.touched && this.form.get(formControl)?.invalid
     );
   }
+
 }

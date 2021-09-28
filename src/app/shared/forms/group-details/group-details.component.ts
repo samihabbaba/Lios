@@ -12,18 +12,19 @@ import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
 @Component({
-  selector: 'app-local-password',
-  templateUrl: './local-password.component.html',
-  styleUrls: ['./local-password.component.scss'],
+  selector: 'app-group-details',
+  templateUrl: './group-details.component.html',
+  styleUrls: ['./group-details.component.scss'],
 })
-export class LocalPasswordComponent implements OnInit {
+export class GroupDetailsComponent implements OnInit {
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
   dirtyFormSubscriber$: Subscription;
   form: FormGroup;
 
-  objReceived: any;
+
+  obReceived: any;
 
   constructor(
     private dataService: DataService,
@@ -33,6 +34,7 @@ export class LocalPasswordComponent implements OnInit {
     private dialogRef: Dialog
   ) {
     this.dialogRef.onShow.subscribe(() => {
+
       this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
@@ -46,11 +48,9 @@ export class LocalPasswordComponent implements OnInit {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
-        this.objReceived = value;
+        this.obReceived = value;
       });
-
-    this.initializeForm();
-
+      this.initializeForm();
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -84,39 +84,25 @@ export class LocalPasswordComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    if (obj.newPassword !== obj.newPasswordConfirm) {
+    obj.id = this.obReceived.id;
+    this.dataService.updateGroup(obj).subscribe((response) => {
+      this.formService.triggerRefresh();
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Hata',
-        detail: 'Şifreler birbiriyle uyuşmalı',
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Grup başarıyla güncellendi',
       });
-      return;
-    } else {
-      delete obj.newPasswordConfirm;
-      this.dataService.updateStaffPassword(obj, this.objReceived.id).subscribe(
-        (response) => {
-          this.formService.triggerRefresh();
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Kullanıcı başarıyla güncellendi',
-          });
-        },
-        (error) => {
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Hata',
-            detail: 'Şifre en az 5 karakter olmalıdır.',
-          });
-        }
-      );
-    }
+    });
   }
 
   initializeForm() {
     this.form = this.fb.group({
-      newPassword: new FormControl(null, [Validators.required]),
-      newPasswordConfirm: new FormControl(null, [Validators.required]),
+      name: new FormControl(this.obReceived.name, [Validators.required]),
+      code: new FormControl(this.obReceived.code, []),
+      description: new FormControl(this.obReceived.description, []),
+      orderNo: new FormControl(this.obReceived.orderNo, []),
+      percentage: new FormControl(this.obReceived.percentage, []),
+      isPositive: new FormControl(this.obReceived.isPositive, []),
     });
   }
 

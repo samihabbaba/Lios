@@ -1,0 +1,60 @@
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="name" type="text" pInputText />
+      <label>{{ "Name" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('name')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="code" type="text" pInputText />
+      <label>{{ "Code" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="description" type="text" pInputText />
+      <label>{{ "Description" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('description')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="orderNo" type="number" pInputText />
+      <label>{{ "Order No" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('orderNo')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="percentage" type="number" pInputText />
+      <label>{{ "Percentage" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('percentage')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+
+  <div class="input-container">
+    <div class="flex align-items-center">
+      <p-inputSwitch formControlName="isPositive"></p-inputSwitch>
+      <p class="m-0 ml-2">{{'Is Positive' | translate}}</p>
+    </div>
+  </div>
+
+</div>

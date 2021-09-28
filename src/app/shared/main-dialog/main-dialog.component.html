@@ -34,6 +34,22 @@
       <app-local-password></app-local-password>
     </div>
 
+    <div *ngSwitchCase="'addBrandForm'">
+      <app-add-brand></app-add-brand>
+    </div>
+
+    <div *ngSwitchCase="'addGroupForm'">
+      <app-add-group></app-add-group>
+    </div>
+
+    <div *ngSwitchCase="'addCategoryForm'">
+      <app-add-category></app-add-category>
+    </div>
+
+    <div *ngSwitchCase="'groupDetailsForm'">
+      <app-group-details></app-group-details>
+    </div>
+
     <div *ngSwitchDefault>
       <p>Not a valid form</p>
     </div>
@@ -41,7 +57,7 @@
 
   <ng-template pTemplate="footer">
     <p-button
-    #button
+      #button
       [disabled]="!formIsValid"
       icon="pi pi-check"
       (click)="submitForm(button)"
