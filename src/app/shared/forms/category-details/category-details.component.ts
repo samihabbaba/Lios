@@ -13,11 +13,11 @@ import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
 @Component({
-  selector: 'app-add-category',
-  templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.scss'],
+  selector: 'app-category-details',
+  templateUrl: './category-details.component.html',
+  styleUrls: ['./category-details.component.scss'],
 })
-export class AddCategoryComponent implements OnInit {
+export class CategoryDetailsComponent implements OnInit {
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
@@ -26,6 +26,8 @@ export class AddCategoryComponent implements OnInit {
 
   groups: any[] = [];
   filteredGroups: any;
+
+  objReceived: any;
 
   constructor(
     private dataService: DataService,
@@ -51,6 +53,7 @@ export class AddCategoryComponent implements OnInit {
       .getFormObject()
       .subscribe((value) => {
         console.log(value);
+        this.objReceived = value;
       });
 
     this.initializeForm();
@@ -88,22 +91,26 @@ export class AddCategoryComponent implements OnInit {
   submitForm() {
     let obj = this.form.getRawValue();
     obj.groupId = obj.groupId.value;
-    this.dataService.addNewCategory(obj).subscribe((response) => {
+    obj.id = this.objReceived.id;
+    this.dataService.updateCategory(obj).subscribe((response) => {
       this.formService.triggerRefresh();
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
-        detail: 'Kategori başarıyla eklendi',
+        detail: 'Kategori başarıyla güncellendi',
       });
     });
   }
 
   initializeForm() {
     this.form = this.fb.group({
-      name: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, []),
-      groupId: new FormControl(null, [Validators.required]),
-      orderNo: new FormControl(null, []),
+      name: new FormControl(this.objReceived.name, [Validators.required]),
+      description: new FormControl(this.objReceived.description, []),
+      groupId: new FormControl(
+        { name: this.objReceived.groupName, value: this.objReceived.groupId },
+        [Validators.required]
+      ),
+      orderNo: new FormControl(this.objReceived.orderNo, []),
     });
   }
 

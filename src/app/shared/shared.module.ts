@@ -28,7 +28,7 @@ import { AgencyDetailsComponent } from './forms/agency-details/agency-details.co
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ExampleComponent } from 'src/THIS-IS-A-SAMPLE-FOR-TABLE/example.component';
 import { InputTextModule } from 'primeng/inputtext';
-import {InputSwitchModule} from 'primeng/inputswitch';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { AddCaptainComponent } from './forms/add-captain/add-captain.component';
 import { CaptainDetailsComponent } from './forms/captain-details/captain-details.component';
 import { AddLocalComponent } from './forms/add-local/add-local.component';
@@ -39,6 +39,8 @@ import { AddBrandComponent } from './forms/add-brand/add-brand.component';
 import { AddCategoryComponent } from './forms/add-category/add-category.component';
 import { GroupDetailsComponent } from './forms/group-details/group-details.component';
 import { BrandDetailsComponent } from './forms/brand-details/brand-details.component';
+import { CategoryDetailsComponent } from './forms/category-details/category-details.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { BrandDetailsComponent } from './forms/brand-details/brand-details.compo
     AddCategoryComponent,
     GroupDetailsComponent,
     BrandDetailsComponent,
+    CategoryDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -85,7 +88,8 @@ import { BrandDetailsComponent } from './forms/brand-details/brand-details.compo
     PaginatorModule,
     ConfirmDialogModule,
     InputTextModule,
-    InputSwitchModule
+    InputSwitchModule,
+    AutoCompleteModule,
   ],
   exports: [
     ToolbarModule,
@@ -112,7 +116,8 @@ import { BrandDetailsComponent } from './forms/brand-details/brand-details.compo
     MainDialogComponent,
     ConfirmDialogModule,
     InputTextModule,
-    InputSwitchModule
+    InputSwitchModule,
+    AutoCompleteModule,
   ],
 })
 export class SharedModule {}

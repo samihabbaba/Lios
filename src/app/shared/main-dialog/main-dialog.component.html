@@ -54,6 +54,10 @@
       <app-brand-details></app-brand-details>
     </div>
 
+    <div *ngSwitchCase="'categoryDetailsForm'">
+      <app-category-details></app-category-details>
+    </div>
+
     <div *ngSwitchDefault>
       <p>Not a valid form</p>
     </div>

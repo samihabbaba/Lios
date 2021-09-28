@@ -355,8 +355,9 @@ tbody {
   }
 
   .p-calendar,
-  .p-dropdown {
+  .p-dropdown, .p-autocomplete {
     width: 100% !important;
+    height: 36px !important;
   }
 
   .input-container {
