@@ -1,5 +1,6 @@
 <p-dialog
-  (onHide)="closeDialog.emit()"
+  (onShow)="onDialogShow()"
+  (onHide)="onDialogHide()"
   [header]="dialogHeader"
   [(visible)]="displayDialog"
   [modal]="true"
@@ -21,6 +22,18 @@
       <app-captain-details></app-captain-details>
     </div>
 
+    <div *ngSwitchCase="'addLocalForm'">
+      <app-add-local></app-add-local>
+    </div>
+
+    <div *ngSwitchCase="'localDetailsForm'">
+      <app-local-details></app-local-details>
+    </div>
+
+    <div *ngSwitchCase="'localPasswordForm'">
+      <app-local-password></app-local-password>
+    </div>
+
     <div *ngSwitchDefault>
       <p>Not a valid form</p>
     </div>
@@ -28,9 +41,10 @@
 
   <ng-template pTemplate="footer">
     <p-button
+    #button
       [disabled]="!formIsValid"
       icon="pi pi-check"
-      (onClick)="submitForm()"
+      (click)="submitForm(button)"
       label="{{ 'Submit' | translate }}"
       styleClass="p-button-text"
     ></p-button>

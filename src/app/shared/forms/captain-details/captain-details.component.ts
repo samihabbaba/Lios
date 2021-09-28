@@ -21,6 +21,7 @@ export class CaptainDetailsComponent implements OnInit {
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
   form: FormGroup;
+  dirtyFormSubscriber$: Subscription;
   objReceived: any;
 
   dropdownOptions: any[];
@@ -62,12 +63,24 @@ export class CaptainDetailsComponent implements OnInit {
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
+
+    this.dirtyFormSubscriber$ = this.formService
+    .getDirtyFormSubject()
+    .subscribe((value) => {
+      if (value) {
+        Object.keys(this.form.controls).forEach((x) => {
+          this.form.get(x)?.markAsTouched();
+        });
+      }
+    });
   }
 
   destroySubscription() {
     this.objectSubscriber$.unsubscribe();
     this.submitSubscriber$.unsubscribe();
     this.formValidationSubscriber$.unsubscribe();
+    this.dirtyFormSubscriber$.unsubscribe();
+    this.formService.resetForm();
   }
 
   submitForm() {

@@ -20,6 +20,7 @@ export class AddAgencyComponent implements OnInit {
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
+  dirtyFormSubscriber$: Subscription;
   form: FormGroup;
 
   agencyTypes = [
@@ -69,12 +70,23 @@ export class AddAgencyComponent implements OnInit {
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
+    this.dirtyFormSubscriber$ = this.formService
+      .getDirtyFormSubject()
+      .subscribe((value) => {
+        if (value) {
+          Object.keys(this.form.controls).forEach((x) => {
+            this.form.get(x)?.markAsTouched();
+          });
+        }
+      });
   }
 
   destroySubscription() {
     this.objectSubscriber$.unsubscribe();
     this.submitSubscriber$.unsubscribe();
     this.formValidationSubscriber$.unsubscribe();
+    this.dirtyFormSubscriber$.unsubscribe();
+    this.formService.resetForm();
   }
 
   submitForm() {

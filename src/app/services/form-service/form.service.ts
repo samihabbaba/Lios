@@ -9,6 +9,7 @@ export class FormService {
   private refreshSubject = new BehaviorSubject<any>(null);
   private formValidationSubject = new BehaviorSubject<boolean>(false);
   private formObject = new BehaviorSubject<any>(null);
+  private dirtyFormSubject = new BehaviorSubject<any>(false);
 
   constructor() {}
 
@@ -31,6 +32,10 @@ export class FormService {
 
   setFormToInvalid() {
     this.formValidationSubject.next(false);
+  }
+
+  setFormAsDirty() {
+    this.dirtyFormSubject.next(true);
   }
 
   listenToValueChanges(form: any) {
@@ -58,5 +63,13 @@ export class FormService {
 
   getFormValidationSubject() {
     return this.formValidationSubject;
+  }
+
+  getDirtyFormSubject() {
+    return this.dirtyFormSubject;
+  }
+
+  resetForm() {
+    this.dirtyFormSubject = new BehaviorSubject<any>(false);
   }
 }

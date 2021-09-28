@@ -31,6 +31,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import { AddCaptainComponent } from './forms/add-captain/add-captain.component';
 import { CaptainDetailsComponent } from './forms/captain-details/captain-details.component';
+import { AddLocalComponent } from './forms/add-local/add-local.component';
+import { LocalDetailsComponent } from './forms/local-details/local-details.component';
+import { LocalPasswordComponent } from './forms/local-password/local-password.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { CaptainDetailsComponent } from './forms/captain-details/captain-details
     ExampleComponent,
     AddCaptainComponent,
     CaptainDetailsComponent,
+    AddLocalComponent,
+    LocalDetailsComponent,
+    LocalPasswordComponent,
   ],
   imports: [
     CommonModule,

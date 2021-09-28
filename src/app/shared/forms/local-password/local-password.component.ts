@@ -12,18 +12,19 @@ import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
 @Component({
-  selector: 'app-add-captain',
-  templateUrl: './add-captain.component.html',
-  styleUrls: ['./add-captain.component.scss'],
+  selector: 'app-local-password',
+  templateUrl: './local-password.component.html',
+  styleUrls: ['./local-password.component.scss'],
 })
-export class AddCaptainComponent implements OnInit {
+export class LocalPasswordComponent implements OnInit {
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
   dirtyFormSubscriber$: Subscription;
   form: FormGroup;
 
-  dropdownOptions: any[];
+  objReceived: any;
+
 
   constructor(
     private dataService: DataService,
@@ -33,8 +34,6 @@ export class AddCaptainComponent implements OnInit {
     private dialogRef: Dialog
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.dropdownOptions = this.dataService.countries;
-      this.initializeForm();
       this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
@@ -48,8 +47,10 @@ export class AddCaptainComponent implements OnInit {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
-        console.log(value);
+        this.objReceived = value;
       });
+
+    this.initializeForm();
 
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
@@ -62,7 +63,6 @@ export class AddCaptainComponent implements OnInit {
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
-
 
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -85,29 +85,32 @@ export class AddCaptainComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    this.dataService.addNewCaptain(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
+    if (obj.newPassword !== obj.newPasswordConfirm) {
       this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni kaptan başarıyla eklendi',
+        severity: 'warn',
+        summary: 'Hata',
+        detail: 'Şifreler birbiriyle uyuşmalı',
       });
-    });
+      return;
+    } else {
+      delete obj.newPasswordConfirm;
+      this.dataService
+        .updateStaffPassword(obj, this.objReceived.id)
+        .subscribe((response) => {
+          this.formService.triggerRefresh();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Kullanıcı başarıyla güncellendi',
+          });
+        });
+    }
   }
 
   initializeForm() {
     this.form = this.fb.group({
-      firstName: new FormControl(null, [Validators.required]),
-      lastName: new FormControl(null, [Validators.required]),
-      title: new FormControl(null, []),
-      telephone: new FormControl(null, []),
-      country: new FormControl(null, []),
-      district: new FormControl(null, []),
-      address: new FormControl(null, []),
-      webLink: new FormControl(null, []),
-      email: new FormControl(null, []),
-      isLocal: new FormControl(false, []),
-      isGuidline: new FormControl(false, []),
+      newPassword: new FormControl(null, [Validators.required]),
+      newPasswordConfirm: new FormControl(null, [Validators.required]),
     });
   }
 

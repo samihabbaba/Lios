@@ -58,6 +58,16 @@ export class DataService {
 
   ports = ['Famagusta', 'kyrenia', 'Lefke', 'kalecik'];
 
+  martialStatus = ['Single', 'Married', 'Divorced'];
+
+  gender = ['Male', 'Female'];
+
+  bloodTypes = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+
+  staffTypes = ['Worker', 'Temporary employee', 'Employee', 'Contract Employee'];
+
+  roles = ['Admin', 'Accounting', 'Clerk'];
+
   countries = [
     'Northern Cyprus (TRNC)',
     'Afghanistan',
@@ -570,7 +580,8 @@ export class DataService {
 
   // ships
 
-  getAllShipsDiscounts() { // pageSize=0 // PageNumber=0, // SearchQuery='',
+  getAllShipsDiscounts() {
+    // pageSize=0 // PageNumber=0, // SearchQuery='',
     return this.http.get<any>(`${environment.apiUrl}discount/ship`, {
       headers: this.httpOptions.headers,
     });
@@ -598,7 +609,8 @@ export class DataService {
 
   // overtime
 
-  getAllOvertimeDiscounts() { // pageSize=0 // PageNumber=0, // SearchQuery='',
+  getAllOvertimeDiscounts() {
+    // pageSize=0 // PageNumber=0, // SearchQuery='',
     return this.http.get<any>(`${environment.apiUrl}discount/overtime`, {
       headers: this.httpOptions.headers,
     });
