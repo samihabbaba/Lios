@@ -38,6 +38,7 @@ import { AddGroupComponent } from './forms/add-group/add-group.component';
 import { AddBrandComponent } from './forms/add-brand/add-brand.component';
 import { AddCategoryComponent } from './forms/add-category/add-category.component';
 import { GroupDetailsComponent } from './forms/group-details/group-details.component';
+import { BrandDetailsComponent } from './forms/brand-details/brand-details.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { GroupDetailsComponent } from './forms/group-details/group-details.compo
     AddBrandComponent,
     AddCategoryComponent,
     GroupDetailsComponent,
+    BrandDetailsComponent,
   ],
   imports: [
     CommonModule,

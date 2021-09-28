@@ -12,18 +12,18 @@ import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
 @Component({
-  selector: 'app-add-brand',
-  templateUrl: './add-brand.component.html',
-  styleUrls: ['./add-brand.component.scss']
+  selector: 'app-brand-details',
+  templateUrl: './brand-details.component.html',
+  styleUrls: ['./brand-details.component.scss'],
 })
-export class AddBrandComponent implements OnInit {
-
+export class BrandDetailsComponent implements OnInit {
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
   dirtyFormSubscriber$: Subscription;
   form: FormGroup;
 
+  objReceived: any;
 
   constructor(
     private dataService: DataService,
@@ -33,7 +33,6 @@ export class AddBrandComponent implements OnInit {
     private dialogRef: Dialog
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.initializeForm();
       this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
@@ -47,8 +46,11 @@ export class AddBrandComponent implements OnInit {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
-        console.log(value);
+        // console.log(value);
+        this.objReceived = value;
       });
+
+    this.initializeForm();
 
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
@@ -61,7 +63,6 @@ export class AddBrandComponent implements OnInit {
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
-
 
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -84,19 +85,20 @@ export class AddBrandComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    this.dataService.addNewBrand(obj).subscribe((response) => {
+    obj.id = this.objReceived.id;
+    this.dataService.updateBrand(obj).subscribe((response) => {
       this.formService.triggerRefresh();
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
-        detail: 'Brand başarıyla eklendi',
+        detail: 'Brand başarıyla güncellendi',
       });
     });
   }
 
   initializeForm() {
     this.form = this.fb.group({
-      name: new FormControl(null, [Validators.required]),
+      name: new FormControl(this.objReceived.name, [Validators.required]),
     });
   }
 

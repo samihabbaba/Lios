@@ -50,6 +50,10 @@
       <app-group-details></app-group-details>
     </div>
 
+    <div *ngSwitchCase="'brandDetailsForm'">
+      <app-brand-details></app-brand-details>
+    </div>
+
     <div *ngSwitchDefault>
       <p>Not a valid form</p>
     </div>
