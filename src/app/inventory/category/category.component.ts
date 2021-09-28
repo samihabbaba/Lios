@@ -20,6 +20,8 @@ export class CategoryComponent implements OnInit {
   objToSend: any = null;
   refreshSubscriber$: Subscription;
 
+  fullDataSource: any;
+
   pageSize = 50;
   pageNumber = 1;
   numberOfData: number;
@@ -91,6 +93,7 @@ export class CategoryComponent implements OnInit {
     this.dataService.getAllCategories(this.searchQuery).subscribe(
       (response) => {
         this.tableData = response;
+        this.fullDataSource = response;
       },
       (error) => {}
     );
@@ -104,12 +107,14 @@ export class CategoryComponent implements OnInit {
   search(event?) {
     if (event) {
       if (event.keyCode === 13) {
-        // this.paginator.changePageToFirst(event);
-        this.getData();
+        this.tableData = this.fullDataSource.filter((x) =>
+          x.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
       }
     } else {
-      // this.paginator.changePageToFirst(event);
-      this.getData();
+      this.tableData = this.fullDataSource.filter((x) =>
+        x.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     }
   }
 
