@@ -1,0 +1,31 @@
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="name" type="text" pInputText />
+      <label>{{ "Name" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('name')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="country" type="text" pInputText />
+      <label>{{ "Country" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('country')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="code" type="text" pInputText />
+      <label>{{ "Country Code" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+</div>

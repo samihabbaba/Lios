@@ -41,6 +41,17 @@ import { GroupDetailsComponent } from './forms/group-details/group-details.compo
 import { BrandDetailsComponent } from './forms/brand-details/brand-details.component';
 import { CategoryDetailsComponent } from './forms/category-details/category-details.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TabViewModule } from 'primeng/tabview';
+import { ShipDiscountComponent } from './forms/ship-discount/ship-discount.component';
+import { OvertimeDiscountComponent } from './forms/overtime-discount/overtime-discount.component';
+import { AddPortComponent } from './forms/add-port/add-port.component';
+import { PortDetailsComponent } from './forms/port-details/port-details.component';
+import { ShipServicesComponent } from './forms/ship-services/ship-services.component';
+import { OvertimeServicesComponent } from './forms/overtime-services/overtime-services.component';
+import { BoatServicesComponent } from './forms/boat-services/boat-services.component';
+import { CraneServicesComponent } from './forms/crane-services/crane-services.component';
+import { TableModule } from 'primeng/table';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   declarations: [
@@ -65,6 +76,14 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     GroupDetailsComponent,
     BrandDetailsComponent,
     CategoryDetailsComponent,
+    ShipDiscountComponent,
+    OvertimeDiscountComponent,
+    AddPortComponent,
+    PortDetailsComponent,
+    ShipServicesComponent,
+    OvertimeServicesComponent,
+    BoatServicesComponent,
+    CraneServicesComponent,
   ],
   imports: [
     CommonModule,
@@ -90,6 +109,9 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     InputTextModule,
     InputSwitchModule,
     AutoCompleteModule,
+    TabViewModule,
+    TableModule,
+    ToggleButtonModule,
   ],
   exports: [
     ToolbarModule,
@@ -118,6 +140,9 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     InputTextModule,
     InputSwitchModule,
     AutoCompleteModule,
+    TabViewModule,
+    TableModule,
+    ToggleButtonModule,
   ],
 })
 export class SharedModule {}

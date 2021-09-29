@@ -1,1 +1,333 @@
-<p>services works!</p>
+<div class="tab-wrapper">
+  <p-tabView
+    styleClass="tabview-custom tabs-container"
+    (onChange)="
+      selectedTab(
+        tab1._selected,
+        tab2._selected,
+        tab3._selected,
+        tab4._selected
+      )
+    "
+  >
+    <p-tabPanel #tab1>
+      <ng-template pTemplate="header">
+        <i class="pi pi-money-bill"></i>
+        <span class="ml-2">Ships</span>
+      </ng-template>
+      <div class="datatable-container">
+        <div class="datatable-wrapper">
+          <table class="datatable">
+            <thead>
+              <tr>
+                <th
+                  *ngFor="let column of columns"
+                  [hidden]="!selectedColumns.includes(column)"
+                >
+                  <div class="th-content">
+                    {{ column.name }}
+                    <i class="pi pi-sort-alt"></i>
+                  </div>
+                </th>
+
+                <th>
+                  <div class="align-center">Options</div>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let item of tableData">
+                <td
+                  *ngFor="let column of columns"
+                  [hidden]="!selectedColumns.includes(column)"
+                >
+                  <span
+                    class="td-text"
+                    *ngIf="
+                      item[column.value] !== true &&
+                      item[column.value] !== false
+                    "
+                  >
+                    {{ item[column.value] }}
+                    <span *ngIf="column.value === 'codePercent'">%</span>
+                  </span>
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === true"
+                  >
+                    <i class="pi pi-check-circle true"></i>
+                  </span>
+
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === false"
+                  >
+                    <i class="pi pi-times-circle false"></i>
+                  </span>
+                </td>
+                <td>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    [label]="translate.instant('Update')"
+                    class="p-button-outlined"
+                    styleClass="p-button-sm"
+                    icon="pi pi-sliders-h"
+                    (click)="optionsClicked(item)"
+                  ></button>
+                  <!-- <i class="pi pi-ellipsis-h more-button"></i> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="Overtime" #tab2>
+      <ng-template pTemplate="header">
+        <i class="pi pi-clock"></i>
+        <span class="ml-2">Overtime</span>
+      </ng-template>
+
+      <div class="datatable-container">
+        <div class="datatable-wrapper">
+          <table class="datatable">
+            <thead>
+              <tr>
+                <th
+                  *ngFor="let column of columns2"
+                  [hidden]="!selectedColumns2.includes(column)"
+                >
+                  <div class="th-content">
+                    {{ column.name }}
+                    <i class="pi pi-sort-alt"></i>
+                  </div>
+                </th>
+
+                <th>
+                  <div class="align-center">Options</div>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let item of tableData2">
+                <td
+                  *ngFor="let column of columns2"
+                  [hidden]="!selectedColumns2.includes(column)"
+                >
+                  <span
+                    class="td-text"
+                    *ngIf="
+                      item[column.value] !== true &&
+                      item[column.value] !== false
+                    "
+                  >
+                    {{ item[column.value] }}
+                    <span *ngIf="column.value === 'codePercent'">%</span>
+                  </span>
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === true"
+                  >
+                    <i class="pi pi-check-circle true"></i>
+                  </span>
+
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === false"
+                  >
+                    <i class="pi pi-times-circle false"></i>
+                  </span>
+                </td>
+                <td>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    [label]="translate.instant('Update')"
+                    class="p-button-outlined"
+                    styleClass="p-button-sm"
+                    icon="pi pi-sliders-h"
+                    (click)="optionsClicked2(item)"
+                  ></button>
+                  <!-- <i class="pi pi-ellipsis-h more-button"></i> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel #tab3>
+      <ng-template pTemplate="header">
+        <i class="pi pi-money-bill"></i>
+        <span class="ml-2">Boat</span>
+      </ng-template>
+
+      <div class="datatable-container">
+        <div class="datatable-wrapper">
+          <table class="datatable">
+            <thead>
+              <tr>
+                <th
+                  *ngFor="let column of columns3"
+                  [hidden]="!selectedColumns3.includes(column)"
+                >
+                  <div class="th-content">
+                    {{ column.name }}
+                    <i class="pi pi-sort-alt"></i>
+                  </div>
+                </th>
+
+                <th>
+                  <div class="align-center">Options</div>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let item of tableData3">
+                <td
+                  *ngFor="let column of columns3"
+                  [hidden]="!selectedColumns3.includes(column)"
+                >
+                  <span
+                    class="td-text"
+                    *ngIf="
+                      item[column.value] !== true &&
+                      item[column.value] !== false
+                    "
+                  >
+                    {{ item[column.value] }}
+                    <span *ngIf="column.value === 'codePercent'">%</span>
+                  </span>
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === true"
+                  >
+                    <i class="pi pi-check-circle true"></i>
+                  </span>
+
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === false"
+                  >
+                    <i class="pi pi-times-circle false"></i>
+                  </span>
+                </td>
+                <td>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    [label]="translate.instant('Update')"
+                    class="p-button-outlined"
+                    styleClass="p-button-sm"
+                    icon="pi pi-sliders-h"
+                    (click)="optionsClicked3(item)"
+                  ></button>
+                  <!-- <i class="pi pi-ellipsis-h more-button"></i> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel #tab4>
+      <ng-template pTemplate="header">
+        <i class="pi pi-money-bill"></i>
+        <span class="ml-2">Crane</span>
+      </ng-template>
+
+      <div class="datatable-container">
+        <div class="datatable-wrapper">
+          <table class="datatable">
+            <thead>
+              <tr>
+                <th
+                  *ngFor="let column of columns4"
+                  [hidden]="!selectedColumns4.includes(column)"
+                >
+                  <div class="th-content">
+                    {{ column.name }}
+                    <i class="pi pi-sort-alt"></i>
+                  </div>
+                </th>
+
+                <th>
+                  <div class="align-center">Options</div>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let item of tableData4">
+                <td
+                  *ngFor="let column of columns4"
+                  [hidden]="!selectedColumns4.includes(column)"
+                >
+                  <span
+                    class="td-text"
+                    *ngIf="
+                      item[column.value] !== true &&
+                      item[column.value] !== false
+                    "
+                  >
+                    {{ item[column.value] }}
+                    <span *ngIf="column.value === 'codePercent'">%</span>
+                  </span>
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === true"
+                  >
+                    <i class="pi pi-check-circle true"></i>
+                  </span>
+
+                  <span
+                    class="td-text"
+                    style="text-align: center"
+                    *ngIf="item[column.value] === false"
+                  >
+                    <i class="pi pi-times-circle false"></i>
+                  </span>
+                </td>
+                <td>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    [label]="translate.instant('Update')"
+                    class="p-button-outlined"
+                    styleClass="p-button-sm"
+                    icon="pi pi-sliders-h"
+                    (click)="optionsClicked4(item)"
+                  ></button>
+                  <!-- <i class="pi pi-ellipsis-h more-button"></i> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+
+<app-main-dialog
+  (closeDialog)="displayDialog = false"
+  [formName]="formName"
+  [dialogHeader]="dialogHeader"
+  [displayDialog]="displayDialog"
+></app-main-dialog>

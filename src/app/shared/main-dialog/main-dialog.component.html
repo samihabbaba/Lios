@@ -58,6 +58,38 @@
       <app-category-details></app-category-details>
     </div>
 
+    <div *ngSwitchCase="'shipDiscountForm'">
+      <app-ship-discount></app-ship-discount>
+    </div>
+
+    <div *ngSwitchCase="'overtimeDiscountForm'">
+      <app-overtime-discount></app-overtime-discount>
+    </div>
+
+    <div *ngSwitchCase="'addPortForm'">
+      <app-add-port></app-add-port>
+    </div>
+
+    <div *ngSwitchCase="'portDetailsForm'">
+      <app-port-details></app-port-details>
+    </div>
+
+    <div *ngSwitchCase="'shipServicesForm'">
+      <app-ship-services></app-ship-services>
+    </div>
+
+    <div *ngSwitchCase="'overtimeServicesForm'">
+      <app-overtime-services></app-overtime-services>
+    </div>
+
+    <div *ngSwitchCase="'boatServicesForm'">
+      <app-boat-services></app-boat-services>
+    </div>
+
+    <div *ngSwitchCase="'craneServicesForm'">
+      <app-crane-services></app-crane-services>
+    </div>
+
     <div *ngSwitchDefault>
       <p>Not a valid form</p>
     </div>

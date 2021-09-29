@@ -160,7 +160,6 @@ body {
   background: url(./assets/form-bg3.jpeg) !important;
 }
 
-
 // Table  main styles
 
 .card-wrapper {
@@ -334,6 +333,22 @@ tbody {
   color: rgb(11, 209, 138);
 }
 
+.tab-wrapper {
+  padding: 32px 16px;
+}
+
+.tabs-container {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.p-tabview-panels {
+  padding: 0.5rem 0 !important;
+}
+
 // Forms main styles
 @media screen and (max-width: 900px) {
   .form-container {
@@ -355,7 +370,8 @@ tbody {
   }
 
   .p-calendar,
-  .p-dropdown, .p-autocomplete {
+  .p-dropdown,
+  .p-autocomplete {
     width: 100% !important;
     height: 36px !important;
   }

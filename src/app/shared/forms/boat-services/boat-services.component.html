@@ -1,0 +1,222 @@
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="name" type="text" pInputText />
+      <label>{{ "Name" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('name')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="workDescription" type="text" pInputText />
+      <label>{{ "Work Description" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('workDescription')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="code" type="text" pInputText />
+      <label>{{ "Code" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="alternativeCode" type="text" pInputText />
+      <label>{{ "Alternative Code" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('alternativeCode')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="codePercent" type="text" pInputText />
+      <label>{{ "Code Percent" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('codePercent')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="alternativeCodePercent" type="text" pInputText />
+      <label>{{ "Alternative Code Percent" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('alternativeCodePercent')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <div class="flex align-items-center">
+      <p-inputSwitch formControlName="isActive"></p-inputSwitch>
+      <p class="m-0 ml-2">{{ "Is Active" | translate }}</p>
+    </div>
+  </div>
+</div>
+
+<p-table
+  *ngIf="this.objReceived"
+  [value]="this.objReceived.charges"
+  dataKey="id"
+  editMode="row"
+  responsiveLayout="scroll"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Condition</th>
+      <th>Min</th>
+      <th>Max</th>
+      <th>Normal Charge</th>
+      <th>Extra Charge</th>
+      <th>Active</th>
+      <th style="width: 8rem"></th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-item
+    let-editing="editing"
+    let-ri="rowIndex"
+  >
+    <tr [pEditableRow]="item">
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-toggleButton
+              [(ngModel)]="item.isCondition"
+              [onIcon]="'pi pi-check'"
+              offIcon="pi pi-times"
+            ></p-toggleButton>
+          </ng-template>
+          <ng-template pTemplate="output">
+            <p-toggleButton
+            [disabled]="true"
+              [(ngModel)]="item.isCondition"
+              [onIcon]="'pi pi-check'"
+              offIcon="pi pi-times"
+            ></p-toggleButton>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="number" [(ngModel)]="item.min" required />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ item.min }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="number" [(ngModel)]="item.max" required />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ item.max }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              pInputText
+              type="number"
+              [(ngModel)]="item.charge"
+              required
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ item.normalCharge }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              pInputText
+              type="number"
+              [(ngModel)]="item.charge"
+              required
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ item.extraCharge }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-toggleButton
+              [(ngModel)]="item.isActive"
+              [onIcon]="'pi pi-check'"
+              offIcon="pi pi-times"
+            ></p-toggleButton>
+          </ng-template>
+          <ng-template pTemplate="output">
+            <p-toggleButton
+            [disabled]="true"
+            [(ngModel)]="item.isActive"
+            [onIcon]="'pi pi-check'"
+            offIcon="pi pi-times"
+          ></p-toggleButton>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td style="text-align: center">
+        <button
+          *ngIf="!editing"
+          pButton
+          pRipple
+          type="button"
+          pInitEditableRow
+          (click)="onRowEditInit(item)"
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-text"
+        ></button>
+        <button
+          *ngIf="editing"
+          pButton
+          pRipple
+          type="button"
+          pSaveEditableRow
+          icon="pi pi-check"
+          (click)="onRowEditSave(item)"
+          class="p-button-rounded p-button-text p-button-success p-mr-2"
+        ></button>
+        <button
+          *ngIf="editing"
+          pButton
+          pRipple
+          type="button"
+          pCancelEditableRow
+          icon="pi pi-times"
+          (click)="onRowEditCancel(ri)"
+          class="p-button-rounded p-button-text p-button-danger"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

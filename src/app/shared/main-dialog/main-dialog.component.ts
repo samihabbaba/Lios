@@ -26,7 +26,9 @@ export class MainDialogComponent implements OnInit {
     if (button.disabled) {
       this.formService.setFormAsDirty();
     } else {
-      this.formService.triggerSubmit();
+
+        this.formService.triggerSubmit();
+
       this.closeDialog.emit();
     }
   }
@@ -37,6 +39,7 @@ export class MainDialogComponent implements OnInit {
       .subscribe((x) => {
         this.formIsValid = x;
       });
+
   }
 
   onDialogHide() {

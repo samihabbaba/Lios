@@ -1,0 +1,11 @@
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="percent" type="text" pInputText />
+      <label>{{ "Percent" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('percent')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+</div>

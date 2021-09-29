@@ -10,6 +10,7 @@ export class FormService {
   private formValidationSubject = new BehaviorSubject<boolean>(false);
   private formObject = new BehaviorSubject<any>(null);
   private dirtyFormSubject = new BehaviorSubject<any>(false);
+  tabPage = new BehaviorSubject<string>('');
 
   constructor() {}
 
