@@ -1,0 +1,62 @@
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="name" type="text" pInputText />
+      <label>{{ "Name" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('name')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <p-dropdown
+      [options]="months"
+      formControlName="month"
+      placeholder="{{ 'Month' | translate }}"
+    ></p-dropdown>
+    </span>
+    <small *ngIf="checkValidity('month')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <p-dropdown
+      [options]="days31"
+      formControlName="day"
+      placeholder="{{ 'Day' | translate }}"
+    ></p-dropdown>
+    </span>
+    <small *ngIf="checkValidity('day')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <p-calendar
+      formControlName="startHour"
+      [timeOnly]="true"
+      placeholder="Start Hour"
+      inputId="timeonly"
+    ></p-calendar>
+
+    <small *ngIf="checkValidity('startHour')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <p-calendar
+      formControlName="endHour"
+      [timeOnly]="true"
+      inputId="timeonly"
+      placeholder="End Hour"
+    ></p-calendar>
+    <small *ngIf="checkValidity('endHour')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+</div>

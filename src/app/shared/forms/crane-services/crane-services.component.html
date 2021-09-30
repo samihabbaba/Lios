@@ -121,6 +121,7 @@
         <p-cellEditor>
           <ng-template pTemplate="input">
             <p-toggleButton
+            [disabled]="true"
               [(ngModel)]="item.isCondition"
               [onIcon]="'pi pi-check'"
               offIcon="pi pi-times"
@@ -139,7 +140,7 @@
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="number" [(ngModel)]="item.min" required />
+            <input pInputText type="number"  [disabled]="true" [(ngModel)]="item.min" required />
           </ng-template>
           <ng-template pTemplate="output">
             {{ item.min }}
@@ -150,7 +151,7 @@
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="number" [(ngModel)]="item.max" required />
+            <input pInputText type="number"  [disabled]="true" [(ngModel)]="item.max" required />
           </ng-template>
           <ng-template pTemplate="output">
             {{ item.max }}
@@ -178,6 +179,7 @@
         <p-cellEditor>
           <ng-template pTemplate="input">
             <p-toggleButton
+            [disabled]="true"
               [(ngModel)]="item.isActive"
               [onIcon]="'pi pi-check'"
               offIcon="pi pi-times"

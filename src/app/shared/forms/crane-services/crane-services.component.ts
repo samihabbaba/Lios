@@ -56,8 +56,9 @@ export class CraneServicesComponent implements OnInit {
         if (this.tabView === 'crane') {
           this.dataService.getCraneServiceById(value.id).subscribe((resp) => {
             this.objReceived = resp;
-            console.log(this.objReceived)
+            console.log(this.objReceived);
             this.initializeForm();
+            this.disableInputs();
 
             this.formValidationSubscriber$ =
               this.formService.listenToValueChanges(this.form);
@@ -95,10 +96,12 @@ export class CraneServicesComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
+    for (let key in obj) {
+      if (key !== 'minimimCharge') {
+        delete obj[key];
+      }
+    }
     obj.id = this.objReceived.id;
-    obj.charges = this.objReceived.charges;
-    obj.category = this.objReceived.category;
-    obj.categoryId = this.objReceived.categoryId;
     this.dataService.updateCraneService(obj).subscribe((response) => {
       this.formService.triggerRefresh();
       this.messageService.add({
@@ -126,11 +129,9 @@ export class CraneServicesComponent implements OnInit {
         this.objReceived.alternativeCodePercent,
         [Validators.required]
       ),
-      minimimCharge: new FormControl(
-        this.objReceived.minimimCharge,
-        [Validators.required],
-
-      ),
+      minimimCharge: new FormControl(this.objReceived.minimimCharge, [
+        Validators.required,
+      ]),
       isActive: new FormControl(this.objReceived.isActive, []),
     });
   }
@@ -161,5 +162,15 @@ export class CraneServicesComponent implements OnInit {
 
   onRowEditCancel(i) {
     this.objReceived.charges[i] = this.clonedData;
+  }
+
+  disableInputs() {
+    this.form.get('name')?.disable();
+    this.form.get('workDescription')?.disable();
+    this.form.get('code')?.disable();
+    this.form.get('alternativeCode')?.disable();
+    this.form.get('codePercent')?.disable();
+    this.form.get('alternativeCodePercent')?.disable();
+    this.form.get('isActive')?.disable();
   }
 }

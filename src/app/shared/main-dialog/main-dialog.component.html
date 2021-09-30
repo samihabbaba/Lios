@@ -90,6 +90,34 @@
       <app-crane-services></app-crane-services>
     </div>
 
+    <div *ngSwitchCase="'addHolidayForm'">
+      <app-add-holiday></app-add-holiday>
+    </div>
+
+    <div *ngSwitchCase="'holidayDetailsForm'">
+      <app-holiday-details></app-holiday-details>
+    </div>
+
+    <div *ngSwitchCase="'arrivalForm'">
+      <app-arrival></app-arrival>
+    </div>
+
+    <div *ngSwitchCase="'departureForm'">
+      <app-departure></app-departure>
+    </div>
+
+    <div *ngSwitchCase="'checkoutTripForm'">
+      <app-checkout-trip></app-checkout-trip>
+    </div>
+
+    <div *ngSwitchCase="'inqueryForm'">
+      <app-inquery></app-inquery>
+    </div>
+
+    <div *ngSwitchCase="'payShipForm'">
+      <app-pay-ship></app-pay-ship>
+    </div>
+
     <div *ngSwitchDefault>
       <p>Not a valid form</p>
     </div>

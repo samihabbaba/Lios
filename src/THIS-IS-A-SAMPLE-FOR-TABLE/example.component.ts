@@ -152,6 +152,7 @@ initializeForm(
 ) {
   if (objectToSend) this.formService.sendObjectToForm(this.objToSend);
   this.formName = formName;
+  
   this.dialogHeader = dialogHeader;
   this.displayDialog = true;
 }

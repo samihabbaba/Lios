@@ -56,7 +56,7 @@ export class ShipServicesComponent implements OnInit {
         if (this.tabView === 'ship') {
           this.dataService.getShipsServiceById(value.id).subscribe((resp) => {
             this.objReceived = resp;
-            console.log(this.objReceived)
+            // console.log(this.objReceived)
             this.initializeForm();
 
             this.formValidationSubscriber$ =

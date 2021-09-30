@@ -52,6 +52,13 @@ import { BoatServicesComponent } from './forms/boat-services/boat-services.compo
 import { CraneServicesComponent } from './forms/crane-services/crane-services.component';
 import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { AddHolidayComponent } from './forms/add-holiday/add-holiday.component';
+import { HolidayDetailsComponent } from './forms/holiday-details/holiday-details.component';
+import { InqueryComponent } from './forms/inquery/inquery.component';
+import { PayShipComponent } from './forms/pay-ship/pay-ship.component';
+import { DepartureComponent } from './forms/departure/departure.component';
+import { CheckoutTripComponent } from './forms/checkout-trip/checkout-trip.component';
+import { ArrivalComponent } from './forms/arrival/arrival.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +91,13 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     OvertimeServicesComponent,
     BoatServicesComponent,
     CraneServicesComponent,
+    AddHolidayComponent,
+    HolidayDetailsComponent,
+    InqueryComponent,
+    PayShipComponent,
+    DepartureComponent,
+    CheckoutTripComponent,
+    ArrivalComponent,
   ],
   imports: [
     CommonModule,
