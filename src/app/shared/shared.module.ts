@@ -59,6 +59,7 @@ import { PayShipComponent } from './forms/pay-ship/pay-ship.component';
 import { DepartureComponent } from './forms/departure/departure.component';
 import { CheckoutTripComponent } from './forms/checkout-trip/checkout-trip.component';
 import { ArrivalComponent } from './forms/arrival/arrival.component';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { ArrivalComponent } from './forms/arrival/arrival.component';
     TabViewModule,
     TableModule,
     ToggleButtonModule,
+    SelectButtonModule
   ],
   exports: [
     ToolbarModule,
@@ -157,6 +159,7 @@ import { ArrivalComponent } from './forms/arrival/arrival.component';
     TabViewModule,
     TableModule,
     ToggleButtonModule,
+    SelectButtonModule
   ],
 })
 export class SharedModule {}

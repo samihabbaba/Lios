@@ -1,1 +1,250 @@
-<p>arrival works!</p>
+<p-tabView styleClass="tabview-custom">
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <i class="pi pi-info-circle"></i>
+      <span class="ml-2">Information</span>
+    </ng-template>
+    <div [formGroup]="form" class="form-container" *ngIf="form">
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-dropdown
+            [options]="ports"
+            formControlName="destinationPort"
+            placeholder=" "
+          ></p-dropdown>
+          <label>{{ "Destination Port" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('destinationPort')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-dropdown
+            [options]="accomodations"
+            formControlName="accommodationId"
+            placeholder=" "
+            optionLabel="name"
+          ></p-dropdown>
+          <label>{{ "Accommodation" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('accommodationId')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-dropdown
+            [options]="purposesDropdown"
+            formControlName="purpose"
+            placeholder=" "
+          ></p-dropdown>
+          <label>{{ "Purpose" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('purpose')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-dropdown
+            [options]="movementsTypeDropdown"
+            formControlName="type"
+            placeholder=" "
+          ></p-dropdown>
+          <label>{{ "Type" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('type')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-dropdown
+            [options]="ports"
+            formControlName="sourcePort"
+            placeholder=" "
+          ></p-dropdown>
+          <label>{{ "Source Port" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('sourcePort')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-calendar
+            formControlName="date"
+            [showIcon]="true"
+            [showTime]="true"
+            appendTo="body"
+          ></p-calendar>
+          <label>{{ "Date" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('date')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input formControlName="soldierPassenger" type="number" pInputText />
+          <label>{{ "Soldier Passenger" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('soldierPassenger')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input formControlName="normalPassenger" type="number" pInputText />
+          <label>{{ "Normal Passenger" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('normalPassenger')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input formControlName="normalVehicle" type="number" pInputText />
+          <label>{{ "Normal Vehicle" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('normalVehicle')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input formControlName="transitPassenger" type="number" pInputText />
+          <label>{{ "Transit Passenger" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('transitPassenger')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input formControlName="transitVehicle" type="number" pInputText />
+          <label>{{ "Transit Vehicle" | translate }}</label>
+        </span>
+        <small *ngIf="checkValidity('transitVehicle')" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+      <div class="input-container flex">
+        <p-selectButton
+          [options]="selectOptions"
+          formControlName="isFree"
+          optionLabel="label"
+          optionValue="value"
+        ></p-selectButton>
+
+        <div style="display: flex">
+          <p-inputSwitch formControlName="isPilotage"></p-inputSwitch>
+          <p class="m-0 ml-2">{{ "Pilotage" | translate }}</p>
+        </div>
+      </div>
+
+      <p-autoComplete
+        *ngIf="form.get('isPilotage')?.value === true"
+        formControlName="pilotageId"
+        [suggestions]="filteredCaptains"
+        (completeMethod)="filterCaptains($event)"
+        field="firstName"
+        [dropdown]="true"
+        [placeholder]="translate.instant('Captain')"
+        appendTo="body"
+      >
+        <ng-template let-item pTemplate="item">
+          <div class="country-item">
+            <div>{{ item.firstName + " " + item.lastName }}</div>
+          </div>
+        </ng-template>
+      </p-autoComplete>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Header II">
+    <ng-template pTemplate="header">
+      <i class="pi pi-shopping-cart"></i>
+      <span class="ml-2">Products</span>
+    </ng-template>
+    <div class="form-container" *ngIf="form">
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-dropdown
+            (onChange)="groupSelectionChange($event)"
+            [options]="groupsArr"
+            placeholder=" "
+            optionLabel="name"
+          ></p-dropdown>
+          <label>{{ "Group" | translate }}</label>
+        </span>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <p-dropdown
+            [disabled]="categoriesArr.length < 1"
+            [options]="categoriesArr"
+            placeholder=" "
+            optionLabel="name"
+            [(ngModel)]="categoryObj.categoryId"
+          ></p-dropdown>
+          <label>{{ "Category" | translate }}</label>
+        </span>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input [(ngModel)]="categoryObj.quantity" type="number" pInputText />
+          <label>{{ "Quantity" | translate }}</label>
+        </span>
+      </div>
+      <div class="input-container">
+        <p-button
+          [disabled]="!categoryObj.categoryId || !categoryObj.quantity"
+          label="Add To List"
+          class="formButton"
+          (click)="addProduct()"
+        ></p-button>
+      </div>
+    </div>
+
+    <p-table
+      *ngIf="form"
+      [value]="form.controls.categories.value"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Category Name</th>
+          <th>Quantity</th>
+          <th>Option</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ product.categoryId.categoryName }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>
+            <i
+              (click)="deleteProduct(product, rowIndex)"
+              class="pi pi-trash"
+              style="color: red; cursor: pointer"
+            ></i>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-tabPanel>
+</p-tabView>

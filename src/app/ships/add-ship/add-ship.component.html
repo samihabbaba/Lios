@@ -1,1 +1,1508 @@
-<p>add-ship works!</p>
+<div class="action-buttons">
+  <button
+    (click)="goBack()"
+    pButton
+    pRipple
+    type="button"
+    label="Back"
+    icon="pi pi-arrow-left"
+    class="p-button-text p-button-plain"
+  ></button>
+
+  <button
+    (click)="testing()"
+    pButton
+    pRipple
+    type="button"
+    label="Test Data"
+    class="p-button-text"
+  ></button>
+</div>
+
+<div class="ship-content">
+  <div class="toolbar-container">
+    <div
+      class="menu-item"
+      *ngFor="let item of toolbarItems"
+      [ngClass]="{ active: item.isActive, locked: item.locked }"
+      (click)="changeActiveTab(item)"
+    >
+      <span
+        >{{ item.label }}
+        <i *ngIf="item.locked" class="pi pi-lock lock-icon"></i
+      ></span>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- <div *ngIf="activeTab === 'Dashboard'">Dashboard</div> -->
+    <div *ngIf="activeTab === 'Ship Information'">
+      <div class="header">
+        <span>{{ "Ship Information" | translate }}</span>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          iconPos="right"
+          type="button"
+          label="Save"
+          class="p-button-text"
+          [disabled]="shipInformation.invalid"
+          (click)="submitShip()"
+        ></button>
+      </div>
+
+      <div class="form-container" [formGroup]="shipInformation">
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="name" type="text" pInputText />
+            <label>{{ "Name" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('name', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <p-autoComplete
+          formControlName="agencyId"
+          [suggestions]="filteredAgencies"
+          (completeMethod)="filterAgencies($event)"
+          field="name"
+          appendTo="body"
+          [dropdown]="true"
+          [placeholder]="translate.instant('Agency')"
+        >
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>{{ item.name }}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="shipTypes"
+              formControlName="type"
+              placeholder="{{ 'Ship Type' | translate }}"
+            ></p-dropdown>
+          </span>
+          <small
+            *ngIf="checkValidity('type', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="countries"
+              formControlName="country"
+              placeholder="{{ 'Country' | translate }}"
+            ></p-dropdown>
+          </span>
+          <small
+            *ngIf="checkValidity('country', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="countries"
+              formControlName="flag"
+              placeholder="{{ 'Flag' | translate }}"
+            ></p-dropdown>
+          </span>
+          <small
+            *ngIf="checkValidity('flag', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="leangth" type="number" pInputText />
+            <label>{{ "Length" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('leangth', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="grt" type="number" pInputText />
+            <label>{{ "GRT" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('grt', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="nrt" type="number" pInputText />
+            <label>{{ "NRT" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('nrt', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="dwt" type="number" pInputText />
+            <label>{{ "DWT" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('dwt', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'Extra Information'" style="padding-bottom: 24px">
+      <div class="header">
+        <span>{{ "Extra Information" | translate }}</span>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          iconPos="right"
+          type="button"
+          label="Save"
+          class="p-button-text"
+          [disabled]="extraInformation.invalid"
+          (click)="submitExtra()"
+        ></button>
+      </div>
+
+      <div class="form-container" [formGroup]="extraInformation">
+        <p-autoComplete
+        appendTo="body"
+          formControlName="captainId"
+          [suggestions]="filteredCaptains"
+          (completeMethod)="filterCaptains($event)"
+          field="firstName"
+          [dropdown]="true"
+          [placeholder]="translate.instant('Captain')"
+        >
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>{{ item.firstName + " " + item.lastName }}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="expertPrice" type="number" pInputText />
+            <label>{{ "Expert Price" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('expertPrice', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="status" type="text" pInputText />
+            <label>{{ "Status" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('status', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              formControlName="tempDate"
+              placeholder="Temp Date"
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Temp Date" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('tempDate', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="constructionSite" type="text" pInputText />
+            <label>{{ "Construction Site" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('constructionSite', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              formControlName="constructionDate"
+              placeholder="Construction Date"
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Construction Date" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('constructionDate', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="orderNo" type="text" pInputText />
+            <label>{{ "Order No" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('orderNo', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="builder" type="text" pInputText />
+            <label>{{ "Builder" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('builder', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="builderAddress" type="text" pInputText />
+            <label>{{ "Builder Address" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('builderAddress', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="numberOfSeamen" type="number" pInputText />
+            <label>{{ "Number Of Seamen" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('numberOfSeamen', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="callSign" type="text" pInputText />
+            <label>{{ "Call Sign" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('callSign', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              formControlName="exactRegistrationDate"
+              placeholder="Exact Registration  Date"
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Exact Registration  Date" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('exactRegistrationDate', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="registrationPort" type="text" pInputText />
+            <label>{{ "Registration Port" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('registrationPort', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input
+              formControlName="sailBoatDescription"
+              type="text"
+              pInputText
+            />
+            <label>{{ "Sail Boat Description" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('sailBoatDescription', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="mdrAdress" type="text" pInputText />
+            <label>{{ "mdr Adress" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('mdrAdress', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="engineType" type="text" pInputText />
+            <label>{{ "Engine Type" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('engineType', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="enginePower" type="number" pInputText />
+            <label>{{ "Engine Power" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('enginePower', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="brakeHorsePower" type="number" pInputText />
+            <label>{{ "Brake Horse Power" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('brakeHorsePower', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input
+              formControlName="registrationNumber"
+              type="number"
+              pInputText
+            />
+            <label>{{ "Registration Number" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('registrationNumber', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="speed" type="number" pInputText />
+            <label>{{ "Speed" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('speed', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="kw" type="number" pInputText />
+            <label>{{ "KW" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('kw', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="m3" type="number" pInputText />
+            <label>{{ "M3" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('m3', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="netM3" type="number" pInputText />
+            <label>{{ "Net M3" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('netM3', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="sliceCount" type="number" pInputText />
+            <label>{{ "Slice Count" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('sliceCount', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="director" type="text" pInputText />
+            <label>{{ "Director" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('director', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="imoNumber" type="text" pInputText />
+            <label>{{ "imo Number" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('imoNumber', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="code" type="text" pInputText />
+            <label>{{ "Code" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('code', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="number" type="text" pInputText />
+            <label>{{ "Number" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('number', extraInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'Construction'">
+      <div class="header">
+        <span>{{ "Construction" | translate }}</span>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          iconPos="right"
+          type="button"
+          label="Save"
+          class="p-button-text"
+          [disabled]="construction.invalid"
+          (click)="submitConstruction()"
+        ></button>
+      </div>
+
+      <div class="form-container" [formGroup]="construction">
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="numberOfDecks" type="number" pInputText />
+            <label>{{ "Number Of Decks" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('numberOfDecks', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="headOfShip" type="text" pInputText />
+            <label>{{ "Head Of Ship" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('headOfShip', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="backOfShip" type="text" pInputText />
+            <label>{{ "Back Of Ship" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('backOfShip', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="structure" type="text" pInputText />
+            <label>{{ "Structure" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('structure', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="numberOfPole" type="number" pInputText />
+            <label>{{ "Number Of Pole" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('numberOfPole', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="hardware" type="text" pInputText />
+            <label>{{ "Hardware" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('hardware', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="sectionOfShip" type="number" pInputText />
+            <label>{{ "Section Of Ship" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('sectionOfShip', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="frameFormat" type="text" pInputText />
+            <label>{{ "Frame Format" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('frameFormat', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="description" type="text" pInputText />
+            <label>{{ "Description" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('description', construction)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'Size'">
+      <div class="header">
+        <span>{{ "Size" | translate }}</span>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          iconPos="right"
+          type="button"
+          label="Save"
+          class="p-button-text"
+          [disabled]="size.invalid"
+          (click)="submitSize()"
+        ></button>
+      </div>
+
+      <div class="form-container" [formGroup]="size">
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="frontLength" type="number" pInputText />
+            <label>{{ "Front Length" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('frontLength', size)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="width" type="number" pInputText />
+            <label>{{ "Width" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('width', size)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="fullSize" type="number" pInputText />
+            <label>{{ "Full Size" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('fullSize', size)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="depth1" type="number" pInputText />
+            <label>{{ "Depth 1" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('depth1', size)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="depth2" type="number" pInputText />
+            <label>{{ "Depth 2" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('depth2', size)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="depth3" type="number" pInputText />
+            <label>{{ "Depth 3" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('depth3', size)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="depth4" type="number" pInputText />
+            <label>{{ "Depth 4" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('depth4', size)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'Engine'" style="padding-bottom: 24px">
+      <div class="header">
+        <span>{{ "Engine" | translate }}</span>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          iconPos="right"
+          type="button"
+          label="Save"
+          class="p-button-text"
+          [disabled]="engine.invalid"
+          (click)="submitEngine()"
+        ></button>
+      </div>
+
+      <div class="form-container" [formGroup]="engine">
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="machineCount" type="number" pInputText />
+            <label>{{ "Machine Count" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('machineCount', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input
+              formControlName="cylinderDiameter"
+              type="number"
+              pInputText
+            />
+            <label>{{ "Cylinder Diameter" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('cylinderDiameter', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="cylinderCount" type="number" pInputText />
+            <label>{{ "Cylinder Count" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('cylinderCount', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="timeOfPower_1" type="number" pInputText />
+            <label>{{ "Time Of Power 1" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('timeOfPower_1', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="timeOfPower_2" type="number" pInputText />
+            <label>{{ "Time Of Power 2" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('timeOfPower_2', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input
+              formControlName="estimatedHorsePower"
+              type="text"
+              pInputText
+            />
+            <label>{{ "Estimated Horse Power" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('estimatedHorsePower', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="name" type="text" pInputText />
+            <label>{{ "Name" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('name', engine)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="yearMade" type="number" pInputText />
+            <label>{{ "Year Made" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('yearMade', engine)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="estimatedSpeed" type="number" pInputText />
+            <label>{{ "Estimated Speed" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('estimatedSpeed', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="createrName" type="text" pInputText />
+            <label>{{ "Creater Name" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('createrName', engine)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="createrAddress" type="text" pInputText />
+            <label>{{ "Creater Address" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('createrAddress', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="motorDetail" type="text" pInputText />
+            <label>{{ "Motor Detail" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('motorDetail', engine)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input
+              formControlName="machineArmsCount"
+              type="number"
+              pInputText
+            />
+            <label>{{ "Machine Arms Count" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('machineArmsCount', engine)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'Mortage'">
+      <div class="header">
+        <span *ngIf="mortageId">{{ "Edit Mortage" | translate }}</span>
+        <span *ngIf="!mortageId">{{ "Add New Mortage" | translate }}</span>
+        <div class="buttons-container">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-check"
+            iconPos="right"
+            type="button"
+            label="Save"
+            class="p-button-text"
+            [disabled]="mortage.invalid"
+            (click)="submitMortage()"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            iconPos="right"
+            type="button"
+            [label]="translate.instant('Add New Mortage')"
+            class="p-button-text"
+            [disabled]="!mortageId"
+            (click)="addNewMortage()"
+          ></button>
+        </div>
+      </div>
+
+      <div class="form-container" [formGroup]="mortage">
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="orderNo" type="number" pInputText />
+            <label>{{ "Order No" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('orderNo', mortage)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="recordOrderNo" type="number" pInputText />
+            <label>{{ "Record Order No" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('recordOrderNo', mortage)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="changesName" type="text" pInputText />
+            <label>{{ "Changes Name" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('changesName', mortage)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="delitions" type="text" pInputText />
+            <label>{{ "Delitions" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('delitions', mortage)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="amount" type="number" pInputText />
+            <label>{{ "Amount" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('amount', mortage)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="description" type="text" pInputText />
+            <label>{{ "Description" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('description', mortage)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              [showIcon]="true"
+              formControlName="establishmentDate"
+              placeholder="Establishment Date"
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Establishment Date" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('establishmentDate', mortage)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="currencies"
+              formControlName="currencyId"
+              placeholder="{{ 'Currency' | translate }}"
+              optionLabel="code"
+            ></p-dropdown>
+          </span>
+          <small *ngIf="checkValidity('currencyId', mortage)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+      </div>
+
+      <div class="table-container" *ngIf="mortages.length >= 1">
+        <p-table [value]="mortages" responsiveLayout="scroll">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Order No.</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th style="width: 8rem"></th>
+            </tr>
+          </ng-template>
+          <ng-template
+            pTemplate="body"
+            let-product
+            let-editing="editing"
+            let-ri="rowIndex"
+          >
+            <tr [pEditableRow]="product">
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.orderNo"
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.orderNo }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.changesName"
+                      required
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.changesName }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.amount"
+                      required
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.amount }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.establishmentDate"
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.establishmentDate | date }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td style="text-align: center">
+                <button
+                  *ngIf="!editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pInitEditableRow
+                  icon="pi pi-pencil"
+                  (click)="editMortage(product)"
+                  class="p-button-rounded p-button-text"
+                ></button>
+
+                <button
+                  *ngIf="!editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pCancelEditableRow
+                  icon="pi pi-trash"
+                  (click)="deleteMortage(product, ri)"
+                  class="p-button-rounded p-button-text p-button-danger"
+                ></button>
+                <!-- <button
+                  *ngIf="editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pSaveEditableRow
+                  icon="pi pi-check"
+                  (click)="onRowEditSave(product)"
+                  class="p-button-rounded p-button-text p-button-success p-mr-2"
+                ></button>
+                <button
+                  *ngIf="editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pCancelEditableRow
+                  icon="pi pi-times"
+                  (click)="onRowEditCancel(product, ri)"
+                  class="p-button-rounded p-button-text p-button-danger"
+                ></button> -->
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'Owner'">
+      <div class="header">
+        <span *ngIf="ownerId">{{ "Edit Owner" | translate }}</span>
+        <span *ngIf="!ownerId">{{ "Add New Owner" | translate }}</span>
+        <div class="buttons-container">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-check"
+            iconPos="right"
+            type="button"
+            label="Save"
+            class="p-button-text"
+            [disabled]="owner.invalid"
+            (click)="submitOwner()"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            iconPos="right"
+            type="button"
+            [label]="translate.instant('Add New Owner')"
+            class="p-button-text"
+            [disabled]="!ownerId"
+            (click)="addNewOwner()"
+          ></button>
+        </div>
+      </div>
+
+      <div class="form-container" [formGroup]="owner">
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="ownerName" type="text" pInputText />
+            <label>{{ "Owner Name" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('ownerName', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="partnerName" type="text" pInputText />
+            <label>{{ "Partner Name" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('partnerName', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="sliceCount" type="number" pInputText />
+            <label>{{ "Slice Count" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('sliceCount', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="percentage" type="number" pInputText />
+            <label>{{ "Percentage" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('percentage', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="value" type="number" pInputText />
+            <label>{{ "Value" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('value', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="address" type="text" pInputText />
+            <label>{{ "Address" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('address', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="rate" type="number" pInputText />
+            <label>{{ "Rate" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('rate', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <input formControlName="placeOffIssue" type="text" pInputText />
+            <label>{{ "Place Of Issue" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('placeOffIssue', owner)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              [showIcon]="true"
+              formControlName="expiryDate"
+              placeholder="Expiry Date"
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Expiry Date" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('expiryDate', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              [showIcon]="true"
+              formControlName="dateOfIssue"
+              placeholder="Date Of Issue"
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Date Of Issue" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('dateOfIssue', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              [showIcon]="true"
+              formControlName="exchangeDate"
+              placeholder="Exchange Date"
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Exchange Date" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('exchangeDate', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <p-autoComplete
+          formControlName="agencyId"
+          appendTo="body"
+          [suggestions]="filteredAgencies"
+          (completeMethod)="filterAgencies($event)"
+          field="name"
+          [dropdown]="true"
+          [placeholder]="translate.instant('Agency')"
+        >
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>{{ item.name }}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="currencies"
+              formControlName="currencyId"
+              placeholder="{{ 'Currency' | translate }}"
+              optionLabel="code"
+            ></p-dropdown>
+          </span>
+          <small *ngIf="checkValidity('currencyId', owner)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+      </div>
+
+      <div class="table-container" *ngIf="owners.length >= 1">
+        <p-table [value]="owners" responsiveLayout="scroll">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Owner Name</th>
+              <th>Partner</th>
+              <th>Agency</th>
+              <th>Expiry Date</th>
+              <th style="width: 8rem"></th>
+            </tr>
+          </ng-template>
+          <ng-template
+            pTemplate="body"
+            let-product
+            let-editing="editing"
+            let-ri="rowIndex"
+          >
+            <tr [pEditableRow]="product">
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.ownerName"
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.ownerName }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.partnerName"
+                      required
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.partnerName }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.agencyName"
+                      required
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.agencyName }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="product.expiryDate"
+                    />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ product.expiryDate | date }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td style="text-align: center">
+                <button
+                  *ngIf="!editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pInitEditableRow
+                  icon="pi pi-pencil"
+                  (click)="editOwner(product)"
+                  class="p-button-rounded p-button-text"
+                ></button>
+
+                <button
+                  *ngIf="!editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pCancelEditableRow
+                  icon="pi pi-trash"
+                  (click)="deleteOwner(product, ri)"
+                  class="p-button-rounded p-button-text p-button-danger"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <!-- <div *ngIf="activeTab === 'Trips'">Trips</div>
+    <div *ngIf="activeTab === 'Payments'">Payments</div> -->
+  </div>
+</div>

@@ -66,7 +66,7 @@ export class DataService {
 
   staffTypes = ['Worker', 'Temporary employee', 'Employee', 'Contract Employee'];
 
-  roles = ['Admin', 'Accounting', 'Clerk'];
+  roles = ['Admin', 'Accounting', 'Registry', 'Collection'];
 
   months = [
     'January', //31
@@ -959,7 +959,7 @@ export class DataService {
 
   getAllCategories(searchQuery, gruopId = null) {
     return this.http.get<any>(
-      `${environment.apiUrl}category?gruopId=${gruopId}`,
+      `${environment.apiUrl}category?groupId=${gruopId}`,
       {
         headers: this.httpOptions.headers,
       }

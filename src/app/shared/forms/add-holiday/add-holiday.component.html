@@ -12,10 +12,12 @@
   <div class="input-container">
     <span class="p-float-label">
       <p-dropdown
-      [options]="months"
-      formControlName="month"
-      placeholder="{{ 'Month' | translate }}"
-    ></p-dropdown>
+        [options]="months"
+        formControlName="month"
+        placeholder=" "
+      ></p-dropdown>
+
+      <label>{{ "Month" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('month')" class="p-error">{{
       "Invalid input." | translate
@@ -25,10 +27,11 @@
   <div class="input-container">
     <span class="p-float-label">
       <p-dropdown
-      [options]="days31"
-      formControlName="day"
-      placeholder="{{ 'Day' | translate }}"
-    ></p-dropdown>
+        [options]="days31"
+        formControlName="day"
+        placeholder=" "
+      ></p-dropdown>
+      <label>{{ "Day" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('day')" class="p-error">{{
       "Invalid input." | translate
@@ -36,12 +39,18 @@
   </div>
 
   <div class="input-container">
-    <p-calendar
+    <span class="p-float-label">
+
+      <p-calendar
       formControlName="startHour"
       [timeOnly]="true"
       placeholder="Start Hour"
       inputId="timeonly"
-    ></p-calendar>
+      appendTo="body"
+      ></p-calendar>
+
+      <label>{{ "Start Hour" | translate }}</label>
+    </span>
 
     <small *ngIf="checkValidity('startHour')" class="p-error">{{
       "Invalid input." | translate
@@ -49,12 +58,18 @@
   </div>
 
   <div class="input-container">
-    <p-calendar
+    <span class="p-float-label">
+
+      <p-calendar
       formControlName="endHour"
       [timeOnly]="true"
       inputId="timeonly"
       placeholder="End Hour"
-    ></p-calendar>
+      appendTo="body"
+      ></p-calendar>
+
+      <label>{{ "End Hour" | translate }}</label>
+    </span>
     <small *ngIf="checkValidity('endHour')" class="p-error">{{
       "Invalid input." | translate
     }}</small>

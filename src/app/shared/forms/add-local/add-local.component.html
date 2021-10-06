@@ -24,8 +24,9 @@
       <p-dropdown
         [options]="countryDropdown"
         formControlName="country"
-        placeholder="{{ 'Country' | translate }}"
+        placeholder="{{ ' ' | translate }}"
       ></p-dropdown>
+      <label>{{ "Country" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('country')" class="p-error">{{
       "Invalid input." | translate
@@ -67,8 +68,9 @@
       <p-dropdown
         [options]="martialStatus"
         formControlName="martialStatus"
-        placeholder="{{ 'Martial Status' | translate }}"
+        placeholder=" "
       ></p-dropdown>
+        <label>{{ "Martial Status" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('martialStatus')" class="p-error">{{
       "Invalid input." | translate
@@ -80,8 +82,9 @@
       <p-dropdown
         [options]="gender"
         formControlName="gender"
-        placeholder="{{ 'Gender' | translate }}"
+        placeholder=" "
       ></p-dropdown>
+        <label>{{ "Gender" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('gender')" class="p-error">{{
       "Invalid input." | translate
@@ -93,8 +96,9 @@
       <p-dropdown
         [options]="bloodTypes"
         formControlName="bloodType"
-        placeholder="{{ 'Blood Type' | translate }}"
+        placeholder=" "
       ></p-dropdown>
+      <label>{{ "Blood Type" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('bloodType')" class="p-error">{{
       "Invalid input." | translate
@@ -103,7 +107,7 @@
 
   <div class="input-container">
     <span class="p-float-label">
-      <p-calendar formControlName="dob" [showIcon]="true"></p-calendar>
+      <p-calendar formControlName="dob" [showIcon]="true" appendTo="body"></p-calendar>
       <label>{{ "Date Of Birth" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('dob')" class="p-error">{{
@@ -126,7 +130,7 @@
 
   <div class="input-container">
     <span class="p-float-label">
-      <p-calendar formControlName="transferTime" [showIcon]="true"></p-calendar>
+      <p-calendar formControlName="transferTime" [showIcon]="true" appendTo="body"></p-calendar>
       <label>{{ "Transfer Time" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('transferTime')" class="p-error">{{
@@ -149,8 +153,9 @@
       <p-dropdown
         [options]="roles"
         formControlName="role"
-        placeholder="{{ 'Role' | translate }}"
+        placeholder="{{ ' ' | translate }}"
       ></p-dropdown>
+      <label>{{ "Role" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('role')" class="p-error">{{
       "Invalid input." | translate

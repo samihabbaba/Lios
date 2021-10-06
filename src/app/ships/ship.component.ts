@@ -94,12 +94,61 @@ export class ShipComponent implements OnInit {
         },
 
         {
+          label: this.translate.instant('Inquery'),
+          icon: 'pi pi-book',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Inquery'),
+              true
+            );
+          },
+        },
+
+        {
+          label: this.translate.instant('Edit Arrival'),
+          icon: 'pi pi-paperclip',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Departure'),
+              true
+            );
+          },
+        },
+
+        {
+          label: this.translate.instant('Delete Arrival'),
+          icon: 'pi pi-exclamation-triangle',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Departure'),
+              true
+            );
+          },
+        },
+
+        {
           label: this.translate.instant('Departure'),
           icon: 'pi pi-sign-out',
           command: () => {
             this.initializeForm(
               'departureForm',
               this.translate.instant('Departure'),
+              true
+            );
+          },
+        },
+
+
+        {
+          label: this.translate.instant('Movements'),
+          icon: 'pi pi-sitemap',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Movements'),
               true
             );
           },

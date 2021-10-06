@@ -31,7 +31,7 @@
 
   <div class="input-container">
     <span class="p-float-label">
-      <p-calendar formControlName="creationDate" [showIcon]="true"></p-calendar>
+      <p-calendar formControlName="creationDate" [showIcon]="true" appendTo="body"></p-calendar>
       <label>{{ "Creation Date" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('creationDate')" class="p-error">{{

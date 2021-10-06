@@ -41,9 +41,8 @@ body {
 
 .page-wrapper {
   min-height: 100vh;
-  background: url(./assets/main-bg.png);
-  background-repeat: no-repeat;
-  // width: 100vw;
+  background: url(./assets/bg.png);
+  background-repeat: repeat-x;
   overflow-x: hidden;
 }
 
@@ -357,6 +356,11 @@ tbody {
 }
 
 .form-container {
+  &.vertical {
+    display: flex;
+    flex-direction: column;
+  }
+
   overflow: overlay;
   padding: 32px 8px;
   display: grid;
@@ -378,9 +382,27 @@ tbody {
 
   .input-container {
     height: 65px;
+
+    .p-selectbutton {
+      .p-button {
+        height: 36px;
+      }
+    }
+
+    &.flex {
+      display: flex;
+      justify-content: space-around;
+    }
   }
 
   .p-dropdown-trigger {
     background: rgba(68, 72, 109, 0.07) !important;
+  }
+}
+
+.formButton {
+  .p-button {
+    height: 36px !important;
+    width: 100% !important ;
   }
 }
