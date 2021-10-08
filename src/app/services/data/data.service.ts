@@ -54,6 +54,8 @@ export class DataService {
     'Practice',
   ];
 
+  boatInqueryType = ['Gidiş', 'Dönüş', 'ayrılma', 'yanaşma'];
+
   Purposes = ['General', 'Supply', 'Asylum', 'Commercial', 'Shipyard'];
 
   ports = ['Famagusta', 'kyrenia', 'Lefke', 'kalecik'];
@@ -64,7 +66,12 @@ export class DataService {
 
   bloodTypes = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 
-  staffTypes = ['Worker', 'Temporary employee', 'Employee', 'Contract Employee'];
+  staffTypes = [
+    'Worker',
+    'Temporary employee',
+    'Employee',
+    'Contract Employee',
+  ];
 
   roles = ['Admin', 'Accounting', 'Registry', 'Collection'];
 
@@ -78,10 +85,10 @@ export class DataService {
     'July', //31
     'August', //31
     'September', //30
-    'October',  //31
-    'November',  //30
-    'December' //31
-  ]
+    'October', //31
+    'November', //30
+    'December', //31
+  ];
 
   countries = [
     'Northern Cyprus (TRNC)',

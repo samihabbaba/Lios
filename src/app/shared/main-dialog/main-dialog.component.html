@@ -102,6 +102,15 @@
       <app-arrival></app-arrival>
     </div>
 
+
+    <div *ngSwitchCase="'editArrivalForm'">
+      <app-edit-arrival></app-edit-arrival>
+    </div>
+
+    <div *ngSwitchCase="'deleteArrivalForm'">
+      <app-delete-arrival></app-delete-arrival>
+    </div>
+
     <div *ngSwitchCase="'departureForm'">
       <app-departure></app-departure>
     </div>
@@ -110,12 +119,17 @@
       <app-checkout-trip></app-checkout-trip>
     </div>
 
-    <div *ngSwitchCase="'inqueryForm'">
+    <!-- <div *ngSwitchCase="'inqueryForm'">
       <app-inquery></app-inquery>
-    </div>
+    </div> -->
 
     <div *ngSwitchCase="'payShipForm'">
       <app-pay-ship></app-pay-ship>
+    </div>
+
+
+    <div *ngSwitchCase="'shipMovementsForm'">
+      <app-ship-movements></app-ship-movements>
     </div>
 
     <div *ngSwitchDefault>

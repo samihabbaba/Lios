@@ -23,6 +23,7 @@ export class ShipComponent implements OnInit {
   formName: string = '';
   dialogHeader: string = '';
   displayDialog: boolean = false;
+  displayInqueryDialog: boolean = false;
   objToSend: any = null;
   refreshSubscriber$: Subscription;
 
@@ -97,11 +98,8 @@ export class ShipComponent implements OnInit {
           label: this.translate.instant('Inquery'),
           icon: 'pi pi-book',
           command: () => {
-            this.initializeForm(
-              'departureForm',
-              this.translate.instant('Inquery'),
-              true
-            );
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayInqueryDialog = true;
           },
         },
 
@@ -110,8 +108,8 @@ export class ShipComponent implements OnInit {
           icon: 'pi pi-paperclip',
           command: () => {
             this.initializeForm(
-              'departureForm',
-              this.translate.instant('Departure'),
+              'editArrivalForm',
+              this.translate.instant('Edit Arrival'),
               true
             );
           },
@@ -122,8 +120,8 @@ export class ShipComponent implements OnInit {
           icon: 'pi pi-exclamation-triangle',
           command: () => {
             this.initializeForm(
-              'departureForm',
-              this.translate.instant('Departure'),
+              'deleteArrivalForm',
+              this.translate.instant('Delete Arrival'),
               true
             );
           },
@@ -141,13 +139,12 @@ export class ShipComponent implements OnInit {
           },
         },
 
-
         {
           label: this.translate.instant('Movements'),
           icon: 'pi pi-sitemap',
           command: () => {
             this.initializeForm(
-              'departureForm',
+              'shipMovementsForm',
               this.translate.instant('Movements'),
               true
             );

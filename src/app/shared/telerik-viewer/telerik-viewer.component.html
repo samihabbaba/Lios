@@ -1,0 +1,32 @@
+<link
+  href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.common.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://kendo.cdn.telerik.com/2020.3.1118/styles/kendo.blueopal.min.css"
+  rel="stylesheet"
+/>
+
+<div class="reportContainer" *ngIf="this.load">
+  <tr-viewer
+    #viewer1
+    [containerStyle]="viewerContainerStyle"
+    [reportServer]="{
+      url: 'https://report.lios3.xyz',
+      username: 'administrator',
+      password: 'Disc123!'
+    }"
+    [reportSource]="{
+      report: this.reportForm,
+      parameters: this.param
+    }"
+    [viewMode]="'PRINT_PREVIEW'"
+    [pageMode]="'SINGLE_PAGE'"
+    [scaleMode]="'SPECIFIC'"
+    [scale]="1.0"
+    [ready]="ready"
+    [viewerToolTipOpening]="viewerToolTipOpening"
+    [enableAccessibility]="false"
+  >
+  </tr-viewer>
+</div>

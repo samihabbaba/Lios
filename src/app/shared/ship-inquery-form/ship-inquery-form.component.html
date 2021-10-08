@@ -1,0 +1,340 @@
+<p-dialog
+  (onShow)="onDialogShow()"
+  (onHide)="onDialogHide()"
+  header="{{ 'Inquery' | translate }}"
+  [(visible)]="displayInqueryDialog"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+>
+  <p-tabView styleClass="tabview-custom">
+    <p-tabPanel #overtimeTab
+      ><ng-template pTemplate="header">
+        <i class="pi pi-calendar-plus"></i>
+        <span class="ml-2">Overtime</span>
+      </ng-template>
+
+      <div
+        [formGroup]="overtimeForm"
+        class="form-container"
+        *ngIf="overtimeForm"
+      >
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-dropdown
+              [disabled]="overtimeEditMode"
+              [options]="overtimeServices"
+              formControlName="serviceId"
+              placeholder=" "
+              optionLabel="name"
+            ></p-dropdown>
+            <label>{{ "Service" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('serviceId')" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+              formControlName="start"
+              [showIcon]="true"
+              [showTime]="true"
+              appendTo="body"
+            ></p-calendar>
+            <label>{{ "Start Time" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('start')" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+              formControlName="end"
+              [showIcon]="true"
+              [showTime]="true"
+              appendTo="body"
+            ></p-calendar>
+            <label>{{ "End Time" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('end')" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div
+          class="input-container"
+          *ngIf="
+            ['OTHER SERVICES'].includes(overtimeForm.value?.serviceId?.name)
+          "
+        >
+          <span class="p-float-label">
+            <input formControlName="operator" type="number" pInputText />
+            <label>{{ "Operator" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('operator')" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+      </div>
+
+      <p-table
+        *ngIf="overtimeForm"
+        [value]="overtimeInqueries"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Service Name</th>
+            <th>Sequence Number</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Operator</th>
+            <th>Charge</th>
+            <th>Options</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ product.serviceName }}</td>
+            <td>
+              {{ product.sequenceNumber }}
+            </td>
+            <td>{{ product.start | date: "short" }}</td>
+            <td>{{ product.end | date: "short" }}</td>
+            <td>{{ product.operator }}</td>
+            <td>{{ product.charge }}</td>
+            <td>
+              <button
+                pButton
+                pRipple
+                type="button"
+                label="Options"
+                class="p-button-outlined"
+                (click)="selectedRow = product; overtimeMenu.toggle($event)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+    <p-tabPanel #boatTab
+      ><ng-template pTemplate="header">
+        <i class="pi pi-slack"></i>
+        <span class="ml-2">Boat</span>
+      </ng-template>
+      <div [formGroup]="boatForm" class="form-container" *ngIf="boatForm">
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-dropdown
+              [disabled]="boatEditMode"
+              [options]="boatServices"
+              formControlName="serviceId"
+              placeholder=" "
+              optionLabel="name"
+            ></p-dropdown>
+            <label>{{ "Service" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('serviceId', true)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+              formControlName="start"
+              [showIcon]="true"
+              [showTime]="true"
+              appendTo="body"
+            ></p-calendar>
+            <label>{{ "Start Time" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('start', true)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+              formControlName="end"
+              [showIcon]="true"
+              [showTime]="true"
+              appendTo="body"
+            ></p-calendar>
+            <label>{{ "End Time" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('end', true)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div
+          class="input-container"
+          *ngIf="
+            [
+              'ÖZGÜR',
+              'BAYRAK',
+              'VATAN',
+              'SÖNDÜREN 10',
+              'GEMİ KURTARMA'
+            ].includes(boatForm.value?.serviceId?.name)
+          "
+        >
+          <span class="p-float-label">
+            <input formControlName="charge" type="number" pInputText />
+            <label>{{ "Charge" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('charge')" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+
+        <div
+          class="input-container"
+          *ngIf="
+            [
+              'ÖZGÜR',
+              'BAYRAK',
+              'VATAN',
+              'SÖNDÜREN 10',
+              'GEMİ KURTARMA'
+            ].includes(boatForm.value?.serviceId?.name)
+          "
+        >
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="boatInqueryTypes"
+              formControlName="type"
+              placeholder=" "
+            ></p-dropdown>
+            <label>{{ "Type" | translate }}</label>
+          </span>
+          <small *ngIf="checkValidity('type', true)" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </div>
+      </div>
+
+      <p-table
+        *ngIf="boatForm"
+        [value]="boatInqueries"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Service Name</th>
+            <th>Sequence Number</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Ships</th>
+            <th>Charge</th>
+            <th>Options</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ product.serviceName }}</td>
+            <td>
+              {{ product.sequenceNumber }}
+            </td>
+            <td>{{ product.start | date: "short" }}</td>
+            <td>{{ product.end | date: "short" }}</td>
+            <td>{{ product.numberOfShips }}</td>
+            <td>{{ product.charge }}</td>
+            <td>
+              <button
+                pButton
+                pRipple
+                type="button"
+                label="Options"
+                class="p-button-outlined"
+                (click)="selectedRow = product; boatMenu.toggle($event)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+
+  <ng-template pTemplate="footer">
+    <div *ngIf="overtimeTab._selected">
+      <p-button
+        icon="pi pi-undo"
+        label="{{ 'Clear Selection' | translate }}"
+        styleClass="p-button-text p-button-secondary"
+        (click)="clearSelectionOvertime()"
+      ></p-button>
+
+      <p-button
+        icon="pi pi-book"
+        label="{{ 'Report' | translate }}"
+        styleClass="p-button-text p-button-warning"
+        (click)="showTelerikReport('inq', tripId)"
+      ></p-button>
+      <p-button
+        #button
+        icon="pi pi-plus-circle"
+        (click)="submitOvertime(button)"
+        label="{{ 'Submit' | translate }}"
+        styleClass="p-button-text"
+      ></p-button>
+    </div>
+
+    <div *ngIf="boatTab._selected">
+      <p-button
+        (click)="clearSelectionBoat()"
+        icon="pi pi-undo"
+        label="{{ 'Clear Selection' | translate }}"
+        styleClass="p-button-text p-button-secondary"
+      ></p-button>
+
+      <p-button
+        icon="pi pi-book"
+        label="{{ 'Report' | translate }}"
+        styleClass="p-button-text p-button-warning"
+        (click)="showTelerikReport('inq', tripId)"
+      ></p-button>
+      <p-button
+        #button
+        icon="pi pi-plus-circle"
+        (click)="submitBoat(button)"
+        label="{{ 'Submit' | translate }}"
+        styleClass="p-button-text"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-menu
+  styleClass="language-menu"
+  #overtimeMenu
+  [popup]="true"
+  [model]="overtimeMenuItems"
+></p-menu>
+<p-menu
+  styleClass="language-menu"
+  #boatMenu
+  [popup]="true"
+  [model]="boatMenuItems"
+></p-menu>
+
+<!-- Telerik Dialog -->
+<p-dialog
+  *ngIf="tripId"
+  [(visible)]="displayTelerikDialog"
+  [modal]="false"
+  [style]="{ width: '90vw' }"
+>
+  <app-telerik-viewer
+    [var1]="this.reportVar1"
+    [var2]="this.reportVar2"
+    [isAlternative]="this.reportIsAlternative"
+    [input]="0"
+  >
+  </app-telerik-viewer>
+</p-dialog>

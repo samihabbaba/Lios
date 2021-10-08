@@ -138,6 +138,12 @@
   [displayDialog]="displayDialog"
 ></app-main-dialog>
 
+<app-ship-inquery-form
+  [displayInqueryDialog]="displayInqueryDialog"
+  (closeInqueryDialog)="displayInqueryDialog = false"
+>
+</app-ship-inquery-form>
+
 <p-confirmDialog
   [style]="{ width: '50vw' }"
   [baseZIndex]="10000"

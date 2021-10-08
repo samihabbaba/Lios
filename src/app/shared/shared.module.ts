@@ -59,7 +59,13 @@ import { PayShipComponent } from './forms/pay-ship/pay-ship.component';
 import { DepartureComponent } from './forms/departure/departure.component';
 import { CheckoutTripComponent } from './forms/checkout-trip/checkout-trip.component';
 import { ArrivalComponent } from './forms/arrival/arrival.component';
-import {SelectButtonModule} from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { EditArrivalComponent } from './forms/edit-arrival/edit-arrival.component';
+import { DeleteArrivalComponent } from './forms/delete-arrival/delete-arrival.component';
+import { ShipMovementsComponent } from './forms/ship-movements/ship-movements.component';
+import { ShipInqueryFormComponent } from './ship-inquery-form/ship-inquery-form.component';
+import { TelerikViewerComponent } from './telerik-viewer/telerik-viewer.component';
+import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer';
 
 @NgModule({
   declarations: [
@@ -99,6 +105,11 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     DepartureComponent,
     CheckoutTripComponent,
     ArrivalComponent,
+    EditArrivalComponent,
+    DeleteArrivalComponent,
+    ShipMovementsComponent,
+    ShipInqueryFormComponent,
+    TelerikViewerComponent,
   ],
   imports: [
     CommonModule,
@@ -127,7 +138,9 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     TabViewModule,
     TableModule,
     ToggleButtonModule,
-    SelectButtonModule
+    SelectButtonModule,
+    TelerikReportingModule
+
   ],
   exports: [
     ToolbarModule,
@@ -152,6 +165,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     PaginatorModule,
     LabelConvertPipe,
     MainDialogComponent,
+    ShipInqueryFormComponent,
     ConfirmDialogModule,
     InputTextModule,
     InputSwitchModule,
@@ -159,7 +173,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     TabViewModule,
     TableModule,
     ToggleButtonModule,
-    SelectButtonModule
+    SelectButtonModule,
+    TelerikViewerComponent,
   ],
 })
 export class SharedModule {}
