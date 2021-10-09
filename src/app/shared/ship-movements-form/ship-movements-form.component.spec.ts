@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InqueryComponent } from './inquery.component';
+import { ShipMovementsFormComponent } from './ship-movements-form.component';
 
-describe('InqueryComponent', () => {
-  let component: InqueryComponent;
-  let fixture: ComponentFixture<InqueryComponent>;
+describe('ShipMovementsFormComponent', () => {
+  let component: ShipMovementsFormComponent;
+  let fixture: ComponentFixture<ShipMovementsFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InqueryComponent ]
+      declarations: [ ShipMovementsFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InqueryComponent);
+    fixture = TestBed.createComponent(ShipMovementsFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -144,6 +144,13 @@
 >
 </app-ship-inquery-form>
 
+
+<app-ship-movements-form
+  [displayMovementsDialog]="displayMovementsDialog"
+  (closeMovementsDialog)="displayMovementsDialog = false"
+>
+</app-ship-movements-form>
+
 <p-confirmDialog
   [style]="{ width: '50vw' }"
   [baseZIndex]="10000"

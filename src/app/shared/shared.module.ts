@@ -54,7 +54,6 @@ import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AddHolidayComponent } from './forms/add-holiday/add-holiday.component';
 import { HolidayDetailsComponent } from './forms/holiday-details/holiday-details.component';
-import { InqueryComponent } from './forms/inquery/inquery.component';
 import { PayShipComponent } from './forms/pay-ship/pay-ship.component';
 import { DepartureComponent } from './forms/departure/departure.component';
 import { CheckoutTripComponent } from './forms/checkout-trip/checkout-trip.component';
@@ -62,10 +61,10 @@ import { ArrivalComponent } from './forms/arrival/arrival.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { EditArrivalComponent } from './forms/edit-arrival/edit-arrival.component';
 import { DeleteArrivalComponent } from './forms/delete-arrival/delete-arrival.component';
-import { ShipMovementsComponent } from './forms/ship-movements/ship-movements.component';
 import { ShipInqueryFormComponent } from './ship-inquery-form/ship-inquery-form.component';
 import { TelerikViewerComponent } from './telerik-viewer/telerik-viewer.component';
 import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer';
+import { ShipMovementsFormComponent } from './ship-movements-form/ship-movements-form.component';
 
 @NgModule({
   declarations: [
@@ -100,16 +99,15 @@ import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer'
     CraneServicesComponent,
     AddHolidayComponent,
     HolidayDetailsComponent,
-    InqueryComponent,
     PayShipComponent,
     DepartureComponent,
     CheckoutTripComponent,
     ArrivalComponent,
     EditArrivalComponent,
     DeleteArrivalComponent,
-    ShipMovementsComponent,
     ShipInqueryFormComponent,
     TelerikViewerComponent,
+    ShipMovementsFormComponent,
   ],
   imports: [
     CommonModule,
@@ -175,6 +173,7 @@ import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer'
     ToggleButtonModule,
     SelectButtonModule,
     TelerikViewerComponent,
+    ShipMovementsFormComponent
   ],
 })
 export class SharedModule {}

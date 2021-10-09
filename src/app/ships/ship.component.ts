@@ -24,6 +24,7 @@ export class ShipComponent implements OnInit {
   dialogHeader: string = '';
   displayDialog: boolean = false;
   displayInqueryDialog: boolean = false;
+  displayMovementsDialog: boolean = false;
   objToSend: any = null;
   refreshSubscriber$: Subscription;
 
@@ -143,11 +144,8 @@ export class ShipComponent implements OnInit {
           label: this.translate.instant('Movements'),
           icon: 'pi pi-sitemap',
           command: () => {
-            this.initializeForm(
-              'shipMovementsForm',
-              this.translate.instant('Movements'),
-              true
-            );
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayMovementsDialog = true;
           },
         },
         {

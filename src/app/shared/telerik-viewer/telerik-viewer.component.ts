@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { TelerikReportViewerComponent } from '@progress/telerik-angular-report-viewer';
 import { StringResources } from './stringResources';
