@@ -97,10 +97,14 @@
                 </span>
               </td>
               <td>
-                <i
-                  class="pi pi-ellipsis-h more-button"
-                  (click)="toggleMenu(item, $event)"
-                ></i>
+                <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-ellipsis-h"
+                class="p-button-rounded p-button-text p-button-plain"
+                (click)="toggleMenu(item, $event)"
+              ></button>
               </td>
             </tr>
           </tbody>

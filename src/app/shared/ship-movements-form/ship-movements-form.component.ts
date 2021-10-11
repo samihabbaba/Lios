@@ -111,8 +111,9 @@ export class ShipMovementsFormComponent implements OnInit {
 
   submitOvertime(button: any) {
     let obj = this.form.getRawValue();
-    if (obj.accommodationId.id) obj.accommodationId = obj.accommodationId.id;
-    if (obj.pilotageId.id) obj.pilotageId = obj.pilotageId.id;
+    console.log(obj)
+    if (obj.accommodationId?.id) obj.accommodationId = obj.accommodationId.id;
+    if (obj.pilotageId?.id) obj.pilotageId = obj.pilotageId.id;
     if (this.editMode) {
       obj.id = this.selectedRow.id;
       this.dataService.updateMovement(obj).subscribe((resp) => {
@@ -152,6 +153,9 @@ export class ShipMovementsFormComponent implements OnInit {
       .getFormObject()
       .subscribe((value) => {
         this.tripId = value.tripId;
+        if (!this.tripId) {
+          this.tripId = value.id;
+        }
         if (this.tripId) {
           this.getMovements();
         }
@@ -169,7 +173,7 @@ export class ShipMovementsFormComponent implements OnInit {
       tripId: new FormControl(this.tripId, []),
       accommodationId: new FormControl(null, [Validators.required]),
       isPilotage: new FormControl(false, []),
-      pilotageId: new FormControl(null, []),
+      pilotageId: new FormControl(0, []),
       isFree: new FormControl(false, []),
       defectiveEngine: new FormControl(false, []),
       type: new FormControl(null, [Validators.required]),

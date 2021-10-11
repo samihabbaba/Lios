@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Paginator } from 'primeng/paginator';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
@@ -51,6 +51,46 @@ export class ShipDetailsComponent implements OnInit {
   mortages: any[];
   owners: any[];
 
+  pageSize = 50;
+  pageNumber = 1;
+  numberOfData: number;
+  tripsTableData: any[];
+  @ViewChild('paginator') paginator: Paginator;
+
+  pageSize2 = 50;
+  pageNumber2 = 1;
+  numberOfData2: number;
+  paymentsTableData: any[];
+  @ViewChild('paginator2') paginator2: Paginator;
+
+  selectedColumns: any[] = [];
+  columns = [
+    { value: 'source', name: 'Source' },
+    { value: 'port', name: 'Port' },
+    { value: 'destination', name: 'Destination' },
+    { value: 'accommodation', name: 'Accommodation' },
+    { value: 'sequenceNumber', name: 'Sequence Number' },
+    { value: 'arrivalDate', name: 'Arrival Date' },
+    { value: 'departureDate', name: 'Departure Date' },
+    { value: 'inPort', name: 'In Port' },
+  ];
+
+  selectedColumns2: any[] = [];
+  columns2 = [
+    { value: 'id', name: 'Id' },
+    { value: 'tripId', name: 'Trip Id' },
+    { value: 'shipName', name: 'Ship Name' },
+    { value: 'amount', name: 'Amount' },
+    { value: 'type', name: 'Type' },
+    { value: 'refrence', name: 'Refrence' },
+    { value: 'rate', name: 'Rate' },
+    { value: 'date', name: 'Date' },
+  ];
+
+  dateRanges: any = [new Date(2021, 0, 1), new Date()];
+
+  dateRanges2: any = [new Date(2021, 0, 1), new Date()];
+
   constructor(
     private fb: FormBuilder,
     private dataService: DataService,
@@ -70,7 +110,7 @@ export class ShipDetailsComponent implements OnInit {
       this.initializeShipInfoForm(resp);
     });
     this.dataService.getShipExtra(this.shipId).subscribe((resp) => {
-      console.log(resp);
+      // console.log(resp);
       this.initializeExtraInfoForm(resp);
     });
     this.dataService
@@ -86,10 +126,73 @@ export class ShipDetailsComponent implements OnInit {
     });
     this.initializeMortageForm();
     this.initializeOwnerForm();
+    this.selectedColumns = [...this.columns];
+    this.getTrips();
+
+    this.selectedColumns2 = [...this.columns2];
+    this.getPayments();
+  }
+
+  dateSelection() {
+    this.getTrips();
+  }
+
+  dateSelection2() {
+    this.getPayments();
+  }
+
+  getPayments() {
+    this.dataService
+      .getAllPayments(
+        this.pageNumber2,
+        this.pageSize2,
+        this.dateRanges2[0]
+          ? this.dateRanges2[0].toISOString().split('T')[0]
+          : '',
+        this.dateRanges2[1]
+          ? this.dateRanges2[1].toISOString().split('T')[0]
+          : '',
+        this.shipId,
+        null
+      )
+      .subscribe((resp) => {
+        this.paymentsTableData = resp.paymentList;
+        this.numberOfData2 = resp.pagingInfo.totalCount;
+      });
+  }
+
+  getTrips() {
+    this.dataService
+      .getAllTrips(
+        this.dateRanges[0]
+          ? this.dateRanges[0].toISOString().split('T')[0]
+          : '',
+        this.dateRanges[1]
+          ? this.dateRanges[1].toISOString().split('T')[0]
+          : '',
+        this.pageNumber,
+        this.pageSize,
+        '',
+        this.shipId
+      )
+      .subscribe((resp) => {
+        this.tripsTableData = resp.trips;
+        this.numberOfData = resp.pagingInfo.totalCount;
+      });
+  }
+
+  pageChange(event: any) {
+    this.pageNumber = event.page + 1;
+    this.getTrips();
+  }
+
+  pageChange2(event: any) {
+    this.pageNumber2 = event.page + 1;
+    this.getPayments();
   }
 
   toolbarItems: any[] = [
-    // { label: 'Dashboard', isActive: true, locked: true },
+    { label: 'Dashboard', isActive: false, locked: true },
     { label: 'Ship Information', isActive: true, locked: false },
     { label: 'Extra Information', isActive: false, locked: false },
     { label: 'Construction', isActive: false, locked: false },
@@ -97,8 +200,8 @@ export class ShipDetailsComponent implements OnInit {
     { label: 'Engine', isActive: false, locked: false },
     { label: 'Mortage', isActive: false, locked: false },
     { label: 'Owner', isActive: false, locked: false },
-    // { label: 'Trips', isActive: false , locked: true},
-    // { label: 'Payments', isActive: false , locked: true},
+    { label: 'Trips', isActive: false, locked: false },
+    { label: 'Payments', isActive: false, locked: false },
   ];
 
   changeActiveTab(item: any) {
@@ -144,15 +247,15 @@ export class ShipDetailsComponent implements OnInit {
   initializeShipInfoForm(obj) {
     this.getAgencies();
     this.shipInformation = new FormGroup({
-      name: new FormControl(obj.shipName, [Validators.required]),
-      agencyId: new FormControl(obj.agencyId, [Validators.required]),
-      type: new FormControl(obj.type, [Validators.required]),
-      country: new FormControl(obj.country, [Validators.required]),
-      flag: new FormControl(obj.flag, [Validators.required]),
-      leangth: new FormControl(obj.leangth, [Validators.required]),
-      grt: new FormControl(obj.grt, [Validators.required]),
-      nrt: new FormControl(obj.nrt, [Validators.required]),
-      dwt: new FormControl(obj.dwt, [Validators.required]),
+      name: new FormControl(obj?.shipName, [Validators.required]),
+      agencyId: new FormControl(obj?.agencyId, [Validators.required]),
+      type: new FormControl(obj?.type, [Validators.required]),
+      country: new FormControl(obj?.country, [Validators.required]),
+      flag: new FormControl(obj?.flag, [Validators.required]),
+      leangth: new FormControl(obj?.leangth, [Validators.required]),
+      grt: new FormControl(obj?.grt, [Validators.required]),
+      nrt: new FormControl(obj?.nrt, [Validators.required]),
+      dwt: new FormControl(obj?.dwt, [Validators.required]),
       isLocal: new FormControl(false, [Validators.required]),
     });
   }
@@ -161,108 +264,108 @@ export class ShipDetailsComponent implements OnInit {
     this.getCaptains();
     this.extraInformation = new FormGroup({
       shipId: new FormControl(null),
-      mdrAdress: new FormControl(obj.mdrAddress, [Validators.required]),
-      captainId: new FormControl(obj.captainId, [Validators.required]),
-      m3: new FormControl(obj.m3, [Validators.required]),
-      netM3: new FormControl(obj.netM3, [Validators.required]),
-      speed: new FormControl(obj.speed, [Validators.required]),
-      orderNo: new FormControl(obj.orderNo, [Validators.required]),
+      mdrAdress: new FormControl(obj?.mdrAddress, [Validators.required]),
+      captainId: new FormControl(obj?.captainId, [Validators.required]),
+      m3: new FormControl(obj?.m3, [Validators.required]),
+      netM3: new FormControl(obj?.netM3, [Validators.required]),
+      speed: new FormControl(obj?.speed, [Validators.required]),
+      orderNo: new FormControl(obj?.orderNo, [Validators.required]),
       exactRegistrationDate: new FormControl(
-        new Date(obj.exactRegistrationDate),
+        new Date(obj?.exactRegistrationDate),
         [Validators.required]
       ),
-      expertPrice: new FormControl(obj.expertPrice, [Validators.required]),
-      imoNumber: new FormControl(obj.imoNumber, [Validators.required]),
-      number: new FormControl(obj.number, [Validators.required]),
-      sailBoatDescription: new FormControl(obj.sailBoatDescription, [
+      expertPrice: new FormControl(obj?.expertPrice, [Validators.required]),
+      imoNumber: new FormControl(obj?.imoNumber, [Validators.required]),
+      number: new FormControl(obj?.number, [Validators.required]),
+      sailBoatDescription: new FormControl(obj?.sailBoatDescription, [
         Validators.required,
       ]),
-      builder: new FormControl(obj.builder, [Validators.required]),
-      builderAddress: new FormControl(obj.builderAddress, [
+      builder: new FormControl(obj?.builder, [Validators.required]),
+      builderAddress: new FormControl(obj?.builderAddress, [
         Validators.required,
       ]),
-      numberOfSeamen: new FormControl(obj.numberOfSeamen, [
+      numberOfSeamen: new FormControl(obj?.numberOfSeamen, [
         Validators.required,
       ]),
-      callSign: new FormControl(obj.callSign, [Validators.required]),
-      engineType: new FormControl(obj.engineType, [Validators.required]),
-      enginePower: new FormControl(obj.enginePower, [Validators.required]),
-      sliceCount: new FormControl(obj.sliceCount, [Validators.required]),
-      brakeHorsePower: new FormControl(obj.brakeHorsePower, [
+      callSign: new FormControl(obj?.callSign, [Validators.required]),
+      engineType: new FormControl(obj?.engineType, [Validators.required]),
+      enginePower: new FormControl(obj?.enginePower, [Validators.required]),
+      sliceCount: new FormControl(obj?.sliceCount, [Validators.required]),
+      brakeHorsePower: new FormControl(obj?.brakeHorsePower, [
         Validators.required,
       ]),
-      registrationNumber: new FormControl(obj.registrationNumber, [
+      registrationNumber: new FormControl(obj?.registrationNumber, [
         Validators.required,
       ]),
-      registrationPort: new FormControl(obj.registrationPort, [
+      registrationPort: new FormControl(obj?.registrationPort, [
         Validators.required,
       ]),
-      status: new FormControl(obj.status, [Validators.required]),
-      code: new FormControl(obj.code, [Validators.required]),
-      tempDate: new FormControl(new Date(obj.tempDate), [Validators.required]),
-      constructionSite: new FormControl(obj.constructionSite, [
+      status: new FormControl(obj?.status, [Validators.required]),
+      code: new FormControl(obj?.code, [Validators.required]),
+      tempDate: new FormControl(new Date(obj?.tempDate), [Validators.required]),
+      constructionSite: new FormControl(obj?.constructionSite, [
         Validators.required,
       ]),
-      constructionDate: new FormControl(new Date(obj.constructionDate), [
+      constructionDate: new FormControl(new Date(obj?.constructionDate), [
         Validators.required,
       ]),
-      director: new FormControl(obj.director, [Validators.required]),
-      kw: new FormControl(obj.kw, [Validators.required]),
+      director: new FormControl(obj?.director, [Validators.required]),
+      kw: new FormControl(obj?.kw, [Validators.required]),
     });
   }
 
   initializeConstructionForm(obj) {
     this.construction = new FormGroup({
       shipId: new FormControl(null),
-      numberOfDecks: new FormControl(obj.numberOfDecks, [Validators.required]),
-      headOfShip: new FormControl(obj.headOfShip, [Validators.required]),
-      backOfShip: new FormControl(obj.backOfShip, [Validators.required]),
-      structure: new FormControl(obj.structure, [Validators.required]),
-      numberOfPole: new FormControl(obj.numberOfPole, [Validators.required]),
-      hardware: new FormControl(obj.hardware, [Validators.required]),
-      sectionOfShip: new FormControl(obj.sectionOfShip, [Validators.required]),
-      frameFormat: new FormControl(obj.frameFormat, [Validators.required]),
-      description: new FormControl(obj.description, [Validators.required]),
+      numberOfDecks: new FormControl(obj?.numberOfDecks, [Validators.required]),
+      headOfShip: new FormControl(obj?.headOfShip, [Validators.required]),
+      backOfShip: new FormControl(obj?.backOfShip, [Validators.required]),
+      structure: new FormControl(obj?.structure, [Validators.required]),
+      numberOfPole: new FormControl(obj?.numberOfPole, [Validators.required]),
+      hardware: new FormControl(obj?.hardware, [Validators.required]),
+      sectionOfShip: new FormControl(obj?.sectionOfShip, [Validators.required]),
+      frameFormat: new FormControl(obj?.frameFormat, [Validators.required]),
+      description: new FormControl(obj?.description, [Validators.required]),
     });
   }
 
   initializeSizeForm(obj) {
     this.size = new FormGroup({
       shipId: new FormControl(null),
-      frontLength: new FormControl(obj.frontLength, [Validators.required]),
-      width: new FormControl(obj.width, [Validators.required]),
-      fullSize: new FormControl(obj.fullSize, [Validators.required]),
-      depth1: new FormControl(obj.depth1, [Validators.required]),
-      depth2: new FormControl(obj.depth2, [Validators.required]),
-      depth3: new FormControl(obj.depth3, [Validators.required]),
-      depth4: new FormControl(obj.depth4, [Validators.required]),
+      frontLength: new FormControl(obj?.frontLength, [Validators.required]),
+      width: new FormControl(obj?.width, [Validators.required]),
+      fullSize: new FormControl(obj?.fullSize, [Validators.required]),
+      depth1: new FormControl(obj?.depth1, [Validators.required]),
+      depth2: new FormControl(obj?.depth2, [Validators.required]),
+      depth3: new FormControl(obj?.depth3, [Validators.required]),
+      depth4: new FormControl(obj?.depth4, [Validators.required]),
     });
   }
 
   initializeEngineForm(obj) {
     this.engine = new FormGroup({
       shipId: new FormControl(null),
-      machineCount: new FormControl(obj.machineCount, [Validators.required]),
-      cylinderDiameter: new FormControl(obj.cylinderDiameter, [
+      machineCount: new FormControl(obj?.machineCount, [Validators.required]),
+      cylinderDiameter: new FormControl(obj?.cylinderDiameter, [
         Validators.required,
       ]),
-      cylinderCount: new FormControl(obj.cylinderCount, [Validators.required]),
-      timeOfPower_1: new FormControl(obj.timeOfPower_1, [Validators.required]),
-      timeOfPower_2: new FormControl(obj.timeOfPower_2, [Validators.required]),
-      estimatedHorsePower: new FormControl(obj.estimatedHorsePower, [
+      cylinderCount: new FormControl(obj?.cylinderCount, [Validators.required]),
+      timeOfPower_1: new FormControl(obj?.timeOfPower_1, [Validators.required]),
+      timeOfPower_2: new FormControl(obj?.timeOfPower_2, [Validators.required]),
+      estimatedHorsePower: new FormControl(obj?.estimatedHorsePower, [
         Validators.required,
       ]),
-      name: new FormControl(obj.name, [Validators.required]),
-      yearMade: new FormControl(obj.yearMade, [Validators.required]),
-      estimatedSpeed: new FormControl(obj.estimatedSpeed, [
+      name: new FormControl(obj?.name, [Validators.required]),
+      yearMade: new FormControl(obj?.yearMade, [Validators.required]),
+      estimatedSpeed: new FormControl(obj?.estimatedSpeed, [
         Validators.required,
       ]),
-      createrName: new FormControl(obj.createrName, [Validators.required]),
-      createrAddress: new FormControl(obj.createrAddress, [
+      createrName: new FormControl(obj?.createrName, [Validators.required]),
+      createrAddress: new FormControl(obj?.createrAddress, [
         Validators.required,
       ]),
-      motorDetail: new FormControl(obj.motorDetail, [Validators.required]),
-      machineArmsCount: new FormControl(obj.machineArmsCount, [
+      motorDetail: new FormControl(obj?.motorDetail, [Validators.required]),
+      machineArmsCount: new FormControl(obj?.machineArmsCount, [
         Validators.required,
       ]),
     });

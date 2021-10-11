@@ -99,7 +99,18 @@ export class NavbarComponent implements OnInit {
         icon: 'fas fa-wrench',
         isActive: false,
         toggled: false,
-        route: '/crane',
+        children: [
+          {
+            label: 'Pending',
+            icon: 'fas fa-hand-holding-usd',
+            route: '/crane/pending',
+          },
+          {
+            label: 'History',
+            icon: 'fas fa-history',
+            route: '/crane/history',
+          },
+        ],
       },
 
       {

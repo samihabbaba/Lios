@@ -103,6 +103,14 @@
       }
     }
 
+    &:nth-child(7) {
+      .dropdown {
+        height: 70px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
 
   }
 
@@ -126,6 +134,14 @@
     &:last-child {
       .dropdown {
         height: 140px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    &:nth-child(7) {
+      .dropdown {
+        height: 70px;
         opacity: 1;
         pointer-events: auto;
       }

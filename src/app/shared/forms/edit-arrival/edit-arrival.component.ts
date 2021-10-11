@@ -83,8 +83,11 @@ export class EditArrivalComponent implements OnInit {
       .getFormObject()
       .subscribe((value) => {
         this.shipId = value.id;
-        // console.log(value);
         this.tripId = value.tripId;
+        if (!this.tripId) {
+          this.tripId = value.id;
+          this.shipId = value.shipId
+        }
         this.dataService.getArrivalByTipId(this.tripId).subscribe((resp) => {
           this.formObj = resp;
           console.log(this.formObj);

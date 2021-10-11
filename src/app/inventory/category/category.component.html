@@ -99,10 +99,14 @@
                 </span>
               </td>
               <td>
-                <i
-                  class="pi pi-ellipsis-h more-button"
-                  (click)="menu.toggle($event); objToSend = item"
-                ></i>
+                <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-ellipsis-h"
+                class="p-button-rounded p-button-text p-button-plain"
+                (click)="menu.toggle($event); objToSend = item"
+              ></button>
               </td>
             </tr>
           </tbody>

@@ -1,0 +1,24 @@
+<div style="padding-top: 16px" *ngIf="selectedInvoices">
+  <div class="total-amount">
+    {{ "Total Amount" | translate }}: $ {{ returnTotalAmount() }}
+  </div>
+  <p-listbox
+    [options]="invoices"
+    [(ngModel)]="selectedInvoices"
+    [metaKeySelection]="false"
+    [checkbox]="true"
+    [multiple]="true"
+    optionLabel="name"
+    [listStyle]="{ 'max-height': '100%' }"
+    [style]="{ width: '100%' }"
+  >
+    <ng-template let-item pTemplate="item">
+      <div class="country-item" style="display: flex; width: 60%">
+        <div>
+          {{ item.transactions[0].sequenceNumberConstuct }}
+        </div>
+        <div style="margin-left: auto">($ {{ item.amount }})</div>
+      </div>
+    </ng-template>
+  </p-listbox>
+</div>

@@ -1,0 +1,234 @@
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="amount"
+        type="number"
+        pInputText
+        [disabled]="true"
+      />
+      <label>{{ "Amount" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('amount')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="agency"
+        type="text"
+        pInputText
+        [disabled]="true"
+      />
+      <label>{{ "Agency" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('agency')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <p-calendar
+        [disabled]="true"
+        formControlName="date"
+        [showIcon]="true"
+        appendTo="body"
+      ></p-calendar>
+      <label>{{ "Date" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('date')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="chequeNo"
+        [disabled]="true"
+        type="text"
+        pInputText
+      />
+      <label>{{ "Cheque No" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('chequeNo')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="description"
+        [disabled]="true"
+        type="text"
+        pInputText
+      />
+      <label>{{ "Description" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('description')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="dropdownOptions"
+        [disabled]="true"
+        formControlName="port"
+        placeholder="{{ 'Port' | translate }}"
+      ></p-dropdown>
+    </span>
+    <small *ngIf="checkValidity('port')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="banks"
+        [disabled]="true"
+        formControlName="bank"
+        placeholder="{{ 'Bank' | translate }}"
+      ></p-dropdown>
+    </span>
+    <small *ngIf="checkValidity('bank')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9072"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "Other Revenues (9072)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9072')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9049"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "Port and Ship (9049)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9049')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9050"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "Crane (9050)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9050')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9051"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "Other Fees (9051)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9051')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9083"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "Delay Raise (9083)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9083')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9084"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "Penalties (9084)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9084')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="code9195" type="number" pInputText />
+      <label>{{ "Special Crane (9195)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9195')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9138"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "VAT (9138)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9138')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
+      <input
+        formControlName="code9148"
+        [disabled]="true"
+        type="number"
+        pInputText
+      />
+      <label>{{ "Coastal Safety Directorate (9148)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9148')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+</div>

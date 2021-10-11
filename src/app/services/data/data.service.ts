@@ -54,6 +54,32 @@ export class DataService {
     'Practice',
   ];
 
+  banksList = [
+    'All',
+    'Ziraat Bankası',
+    'Türkiye İş Bankası',
+    'Türk Ekonomi Bankası',
+    'Oyak Bank',
+    'Halk Bankası',
+    'Garanti Bankası',
+    'Nova Bank',
+    'Yeşilada Bank',
+    'Viyabank',
+    'Universal Bank (TRNC)',
+    'Turkish Bank',
+    'Şekerbank',
+    'Near East Bank',
+    'Limassol Turkish Cooperative Bank',
+    'Kıbrıs İktisat Bankası',
+    'Kıbrıs Continental Bank',
+    'Denizbank Ltd.',
+    'Cyprus Turkish Cooperative Central Bank',
+    'Creditwest Bank',
+    'Asbank',
+    'Artam Bank',
+    'Fortress Bank',
+  ];
+
   boatInqueryType = ['Gidiş', 'Dönüş', 'ayrılma', 'yanaşma'];
 
   Purposes = ['General', 'Supply', 'Asylum', 'Commercial', 'Shipyard'];

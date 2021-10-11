@@ -41,6 +41,11 @@ export class DeleteArrivalComponent implements OnInit {
           this.shipId = value.id;
           this.tripId = value.tripId;
           this.shipName = value.name;
+          if (!this.tripId) {
+            this.tripId = value.id;
+            this.shipId = value.shipId;
+            this.shipName = value.shipName;
+          }
           this.formService.setFormToValid();
         });
 

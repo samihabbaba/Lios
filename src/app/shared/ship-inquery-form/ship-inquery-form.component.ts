@@ -187,6 +187,7 @@ export class ShipInqueryFormComponent implements OnInit {
       .getFormObject()
       .subscribe((value) => {
         this.tripId = value.tripId;
+        if(!this.tripId) this.tripId = value.id
         this.getOvertimeServices();
         this.getOBoatServices();
 

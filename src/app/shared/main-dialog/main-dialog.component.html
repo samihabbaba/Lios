@@ -4,7 +4,7 @@
   [header]="dialogHeader"
   [(visible)]="displayDialog"
   [modal]="true"
-  [style]="{ width: '70vw' }"
+  [style]="{ width: dialogWidth() }"
 >
   <div [ngSwitch]="formName">
     <div *ngSwitchCase="'addAgencyForm'">
@@ -102,7 +102,6 @@
       <app-arrival></app-arrival>
     </div>
 
-
     <div *ngSwitchCase="'editArrivalForm'">
       <app-edit-arrival></app-edit-arrival>
     </div>
@@ -121,6 +120,30 @@
 
     <div *ngSwitchCase="'payShipForm'">
       <app-pay-ship></app-pay-ship>
+    </div>
+
+    <div *ngSwitchCase="'payCraneForm'">
+      <app-pay-crane></app-pay-crane>
+    </div>
+
+    <div *ngSwitchCase="'cranePaymentsForm'">
+      <app-crane-payments></app-crane-payments>
+    </div>
+
+    <div *ngSwitchCase="'craneDetailsForm'">
+      <app-crane-details></app-crane-details>
+    </div>
+
+    <div *ngSwitchCase="'addCraneForm'">
+      <app-add-crane></app-add-crane>
+    </div>
+
+    <div *ngSwitchCase="'addManualPaymentForm'">
+      <app-add-manual-payment></app-add-manual-payment>
+    </div>
+
+    <div *ngSwitchCase="'manualPaymentDetailsForm'">
+      <app-manual-payment-details></app-manual-payment-details>
     </div>
 
     <div *ngSwitchDefault>

@@ -82,7 +82,11 @@ export class DepartureComponent implements OnInit {
       .subscribe((value) => {
         this.shipId = value.id;
         this.tripId = value.tripId;
-        console.log(this.tripId)
+        if (!this.tripId) {
+          this.tripId = value.id;
+          this.shipId = value.shipId;
+        }
+        // console.log(this.tripId)
         this.initializeForm();
       });
 

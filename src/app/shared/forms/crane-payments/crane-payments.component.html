@@ -1,0 +1,36 @@
+<div style="padding-top: 16px">
+  <p-table *ngIf="crane" [value]="crane.payments" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>Invoice 1</th>
+        <th>Invoice 2</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.date | date: "short" }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Report"
+            class="p-button-warning p-button-text"
+          ></button>
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Report"
+            class="p-button-warning p-button-text"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

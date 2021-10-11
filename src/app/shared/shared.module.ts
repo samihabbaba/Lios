@@ -65,6 +65,13 @@ import { ShipInqueryFormComponent } from './ship-inquery-form/ship-inquery-form.
 import { TelerikViewerComponent } from './telerik-viewer/telerik-viewer.component';
 import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer';
 import { ShipMovementsFormComponent } from './ship-movements-form/ship-movements-form.component';
+import { PayCraneComponent } from './forms/pay-crane/pay-crane.component';
+import { CranePaymentsComponent } from './forms/crane-payments/crane-payments.component';
+import { CraneDetailsComponent } from './forms/crane-details/crane-details.component';
+import { AddCraneComponent } from './forms/add-crane/add-crane.component';
+import { ListboxModule } from 'primeng/listbox';
+import { AddManualPaymentComponent } from './forms/add-manual-payment/add-manual-payment.component';
+import { ManualPaymentDetailsComponent } from './forms/manual-payment-details/manual-payment-details.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +115,12 @@ import { ShipMovementsFormComponent } from './ship-movements-form/ship-movements
     ShipInqueryFormComponent,
     TelerikViewerComponent,
     ShipMovementsFormComponent,
+    PayCraneComponent,
+    CranePaymentsComponent,
+    CraneDetailsComponent,
+    AddCraneComponent,
+    AddManualPaymentComponent,
+    ManualPaymentDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -137,8 +150,8 @@ import { ShipMovementsFormComponent } from './ship-movements-form/ship-movements
     TableModule,
     ToggleButtonModule,
     SelectButtonModule,
-    TelerikReportingModule
-
+    TelerikReportingModule,
+    ListboxModule,
   ],
   exports: [
     ToolbarModule,
@@ -173,7 +186,8 @@ import { ShipMovementsFormComponent } from './ship-movements-form/ship-movements
     ToggleButtonModule,
     SelectButtonModule,
     TelerikViewerComponent,
-    ShipMovementsFormComponent
+    ShipMovementsFormComponent,
+    ListboxModule,
   ],
 })
 export class SharedModule {}

@@ -26,8 +26,7 @@ export class MainDialogComponent implements OnInit {
     if (button.disabled) {
       this.formService.setFormAsDirty();
     } else {
-
-        this.formService.triggerSubmit();
+      this.formService.triggerSubmit();
 
       this.closeDialog.emit();
     }
@@ -39,12 +38,18 @@ export class MainDialogComponent implements OnInit {
       .subscribe((x) => {
         this.formIsValid = x;
       });
-
   }
 
   onDialogHide() {
     this.formValidationSubscription$.unsubscribe();
     this.closeDialog.emit();
     this.formService.setFormToInvalid();
+  }
+
+  dialogWidth(): string {
+    if (this.formName === 'craneDetailsForm') {
+      return '95vw';
+    }
+    return '70vw';
   }
 }

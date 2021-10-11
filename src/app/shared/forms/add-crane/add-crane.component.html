@@ -1,0 +1,171 @@
+<div [formGroup]="form" class="form-container" *ngIf="form">
+  <div class="input-container">
+    <p-autoComplete
+      formControlName="serviceId"
+      [suggestions]="filteredServices"
+      (completeMethod)="filterServices($event)"
+      field="name"
+      [dropdown]="true"
+      appendTo="body"
+      [placeholder]="translate.instant('Service')"
+    >
+      <ng-template let-item pTemplate="item">
+        <div class="country-item">
+          <div>{{ item.name }}</div>
+        </div>
+      </ng-template>
+
+      <small *ngIf="checkValidity('serviceId')" class="p-error">{{
+        "Invalid input." | translate
+      }}</small>
+    </p-autoComplete>
+  </div>
+
+  <div class="input-container">
+    <p-autoComplete
+      formControlName="shipId"
+      [suggestions]="filteredShips"
+      (completeMethod)="filterShips($event)"
+      field="name"
+      [dropdown]="true"
+      appendTo="body"
+      [placeholder]="translate.instant('Ship')"
+    >
+      <ng-template let-item pTemplate="item">
+        <div class="country-item">
+          <div>{{ item.name }}</div>
+        </div>
+      </ng-template>
+
+      <small *ngIf="checkValidity('shipId')" class="p-error">{{
+        "Invalid input." | translate
+      }}</small>
+    </p-autoComplete>
+  </div>
+
+  <div class="input-container">
+    <p-autoComplete
+      formControlName="agencyId"
+      [suggestions]="filteredAgencies"
+      (completeMethod)="filterAgencies($event)"
+      field="name"
+      [dropdown]="true"
+      appendTo="body"
+      [placeholder]="translate.instant('Agency')"
+    >
+      <ng-template let-item pTemplate="item">
+        <div class="country-item">
+          <div>{{ item.name }}</div>
+        </div>
+      </ng-template>
+
+      <small *ngIf="checkValidity('agencyId')" class="p-error">{{
+        "Invalid input." | translate
+      }}</small>
+    </p-autoComplete>
+  </div>
+
+  <div class="input-container" *ngIf="showDateForCrane()">
+    <span class="p-float-label">
+      <p-calendar
+        formControlName="start"
+        [showIcon]="true"
+        [showTime]="true"
+        appendTo="body"
+      ></p-calendar>
+      <label>{{ "Start Time" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('start')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container" *ngIf="showDateForCrane()">
+    <span class="p-float-label">
+      <p-calendar
+        formControlName="end"
+        [showIcon]="true"
+        [showTime]="true"
+        appendTo="body"
+      ></p-calendar>
+      <label>{{ "End Time" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('end')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container" *ngIf="!showDateForCrane()">
+    <span class="p-float-label">
+      <p-calendar
+        formControlName="start"
+        [showIcon]="true"
+        appendTo="body"
+      ></p-calendar>
+      <label>{{ "Start Time" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('start')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container" *ngIf="!showDateForCrane()">
+    <span class="p-float-label">
+      <p-calendar
+        formControlName="end"
+        [showIcon]="true"
+        appendTo="body"
+      ></p-calendar>
+      <label>{{ "End Time" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('end')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container" *ngIf="weightFieldCondition()">
+    <span class="p-float-label">
+      <input formControlName="weight" type="number" pInputText />
+      <label>{{ "Weight" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('weight')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container" *ngIf="weightTonnagePlaceholderCondition()">
+    <span class="p-float-label">
+      <input formControlName="weight" type="number" pInputText />
+      <label>{{ "Tonnage" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('weight')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container" *ngIf="quantityFieldCondition()">
+    <span class="p-float-label">
+      <input formControlName="quantity" type="number" pInputText />
+      <label>{{ quantityPlaceholderCondition() | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('quantity')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container" *ngIf="dropdownConition()">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="weightDropdown"
+        formControlName="weight"
+        placeholder="{{ ' ' | translate }}"
+        optionLabel="label"
+        optionValue="value"
+      ></p-dropdown>
+      <label>{{ "Container size" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('weight')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+</div>
