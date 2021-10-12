@@ -271,7 +271,9 @@ export class ShipDetailsComponent implements OnInit {
       speed: new FormControl(obj?.speed, [Validators.required]),
       orderNo: new FormControl(obj?.orderNo, [Validators.required]),
       exactRegistrationDate: new FormControl(
-        new Date(obj?.exactRegistrationDate),
+        obj?.exactRegistrationDate
+          ? new Date(obj.exactRegistrationDate)
+          : new Date(),
         [Validators.required]
       ),
       expertPrice: new FormControl(obj?.expertPrice, [Validators.required]),
@@ -302,13 +304,17 @@ export class ShipDetailsComponent implements OnInit {
       ]),
       status: new FormControl(obj?.status, [Validators.required]),
       code: new FormControl(obj?.code, [Validators.required]),
-      tempDate: new FormControl(new Date(obj?.tempDate), [Validators.required]),
+      tempDate: new FormControl(
+        obj?.tempDate ? new Date(obj.tempDate) : new Date(),
+        [Validators.required]
+      ),
       constructionSite: new FormControl(obj?.constructionSite, [
         Validators.required,
       ]),
-      constructionDate: new FormControl(new Date(obj?.constructionDate), [
-        Validators.required,
-      ]),
+      constructionDate: new FormControl(
+        obj?.constructionDate ? new Date(obj.constructionDate) : new Date(),
+        [Validators.required]
+      ),
       director: new FormControl(obj?.director, [Validators.required]),
       kw: new FormControl(obj?.kw, [Validators.required]),
     });

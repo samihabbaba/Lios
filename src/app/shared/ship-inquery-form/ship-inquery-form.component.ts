@@ -27,6 +27,7 @@ import { FormService } from 'src/app/services/form-service/form.service';
 })
 export class ShipInqueryFormComponent implements OnInit {
   displayTelerikDialog: boolean = false;
+  telerik: boolean = false;
 
   @Input() displayInqueryDialog: boolean;
   @Output() closeInqueryDialog = new EventEmitter<any>();
@@ -286,5 +287,6 @@ export class ShipInqueryFormComponent implements OnInit {
     }
 
     this.displayTelerikDialog = true;
+    this.telerik = true;
   }
 }

@@ -1,0 +1,29 @@
+.login-body {
+  display: flex;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.login-image {
+  height: 100vh;
+}
+
+.login-panel {
+  height: 100vh;
+  width: 100%;
+  padding: 260px 100px 75px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+}

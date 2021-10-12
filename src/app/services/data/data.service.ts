@@ -99,7 +99,7 @@ export class DataService {
     'Contract Employee',
   ];
 
-  roles = ['Admin', 'Accounting', 'Registry', 'Collection'];
+  roles = ['Admin', 'Accountant', 'Registry', 'Collection'];
 
   months = [
     'January', //31
