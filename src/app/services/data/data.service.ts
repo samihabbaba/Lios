@@ -347,6 +347,23 @@ export class DataService {
     );
   }
 
+
+  getLogging(startDate, endDate, ipAddress, level, type, username, pageNumber, pageSize) {
+    let query = this.convertObjectToQueryString({
+      StartDate:startDate,
+      EndDate:endDate,
+      IpAddress:ipAddress,
+      Level:level,
+      Type:type,
+      userName:username,
+      pageNumber:pageNumber,
+      pageSize:pageSize
+    })
+    return this.http.get<any>(`${environment.apiUrl}log${query}`, {
+      headers: this.httpOptions.headers,
+    });
+  }
+
   /////////////////////////
   //  accounting controller  //
   /////////////////////////
@@ -2334,4 +2351,27 @@ export class DataService {
     const dateRet = dateToReturn.toISOString();
     return dateRet;
   }
+
+
+
+
+
+   /**
+     * Convert query object to query string representation
+     * @param obj Query object
+     * @returns Query string representation of obj
+     */
+    convertObjectToQueryString(obj: any){
+
+      let query = "?";
+      for (const [key, value] of Object.entries(obj)) {
+        
+        if(value === '' || value === null || value === undefined){
+          continue;
+        }
+        query += query[query.length - 1] === '?' ? `${key}=${value}` : `&${key}=${value}`;
+      }
+      if (query === "?") return "";
+      return query;
+    }
 }
