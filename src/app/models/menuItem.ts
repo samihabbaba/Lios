@@ -5,4 +5,5 @@ export interface MenuItem {
   toggled: boolean;
   route?: string;
   children?: any[];
+  visible: any[];
 }

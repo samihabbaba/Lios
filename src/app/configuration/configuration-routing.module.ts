@@ -5,6 +5,7 @@ import { DiscountComponent } from './discount/discount.component';
 import { HolidayComponent } from './holiday/holiday.component';
 import { PortComponent } from './port/port.component';
 import { ServicesComponent } from './services/services.component';
+import { UserLoggingsComponent } from './user-loggings/user-loggings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'discount', pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'port', component: PortComponent },
   { path: 'holiday', component: HolidayComponent },
+  { path: 'loggings', component: UserLoggingsComponent },
 ];
 
 @NgModule({

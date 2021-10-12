@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AuthGuard } from './guards/auth.guard';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,7 +19,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     TranslateModule.forRoot(),
     ToastModule,
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, AuthGuard],
   bootstrap: [AppComponent],
   exports: [TranslateModule],
 })

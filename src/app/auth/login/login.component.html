@@ -7,14 +7,55 @@
     />
   </div>
   <div class="login-panel">
-    <div class="form-container">
+    <div class="form-container-login">
       <div class="logo">
         <img
           src="../../../assets/logo/logo-2.png"
-          height="80px"
-          width="80px"
-          alt=""
+          height="60px"
+          width="60px"
+          alt="Logo"
         />
+        <span>Lios</span>
+      </div>
+
+      <div class="inputs">
+        <span class="p-input-icon-left login-input-container">
+          <i class="pi pi-user"></i>
+          <input
+            class="login-input"
+            type="text"
+            pInputText
+            placeholder="{{ 'Username' | translate }}"
+            [(ngModel)]="email"
+          />
+        </span>
+
+        <span class="p-input-icon-left login-input-container">
+          <i class="pi pi-key"></i>
+          <i
+            class="pi pi-eye"
+            style="right: 10px; cursor: pointer; color: #6c757d"
+            *ngIf="!passwordMasked"
+            (click)="maskPassword()"
+          ></i>
+          <i
+            class="pi pi-eye-slash"
+            style="right: 10px; cursor: pointer; color: #6c757d"
+            *ngIf="passwordMasked"
+            (click)="maskPassword()"
+          ></i>
+          <input
+            class="login-input"
+            [type]="passwordMasked ? 'password' : 'text'"
+            pInputText
+            placeholder="{{ 'Password' | translate }}"
+            [(ngModel)]="password"
+          />
+        </span>
+
+        <button (click)="login()" class="login-btn">
+          {{ "Login" | translate }}
+        </button>
       </div>
     </div>
 

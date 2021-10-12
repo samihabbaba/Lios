@@ -1,6 +1,9 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { DataService } from 'src/app/services/data/data.service';
 import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
@@ -15,7 +18,9 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private translationService: TranslationService,
-    public router: Router
+    public router: Router,
+    private dataService: DataService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -54,5 +59,19 @@ export class ToolbarComponent implements OnInit {
       .replace(/\//g, '  /  ')
       .replace(/\-/g, ' ');
     return url;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.authService.decodedToken = null;
+    this.dataService.currentUser = {};
+    this.dataService.httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ',
+      }),
+    };
+    this.authService.currentUser = null;
+    location.reload();
+    this.router.navigate(['/auth/login']);
   }
 }

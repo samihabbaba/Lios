@@ -8,6 +8,7 @@ import { DiscountComponent } from './discount/discount.component';
 import { ServicesComponent } from './services/services.component';
 import { PortComponent } from './port/port.component';
 import { HolidayComponent } from './holiday/holiday.component';
+import { UserLoggingsComponent } from './user-loggings/user-loggings.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HolidayComponent } from './holiday/holiday.component';
     DiscountComponent,
     ServicesComponent,
     PortComponent,
-    HolidayComponent
+    HolidayComponent,
+    UserLoggingsComponent
   ],
   imports: [
     CommonModule,

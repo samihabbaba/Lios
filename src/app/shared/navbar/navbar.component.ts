@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MegaMenuItem } from 'primeng/api';
 import { MenuItem } from 'src/app/models/menuItem';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,7 @@ import { MenuItem } from 'src/app/models/menuItem';
 export class NavbarComponent implements OnInit {
   navItems: MenuItem[];
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.navItems = [
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
         isActive: true,
         toggled: false,
         route: '/dashboard',
+        visible: ['Admin', 'Accountant', 'Registry', 'Collection'],
       },
 
       {
@@ -45,6 +47,7 @@ export class NavbarComponent implements OnInit {
             route: '/users/local',
           },
         ],
+        visible: ['Admin', 'Accountant'],
       },
       {
         label: 'Inventory',
@@ -68,6 +71,7 @@ export class NavbarComponent implements OnInit {
             route: '/inventory/category',
           },
         ],
+        visible: ['Admin', 'Accountant'],
       },
 
       {
@@ -76,6 +80,7 @@ export class NavbarComponent implements OnInit {
         isActive: false,
         toggled: false,
         route: '/ships',
+        visible: ['Admin', 'Accountant'],
       },
 
       {
@@ -84,6 +89,7 @@ export class NavbarComponent implements OnInit {
         isActive: false,
         toggled: false,
         route: '/ship-registry',
+        visible: ['Admin', 'Registry'],
       },
 
       {
@@ -92,6 +98,7 @@ export class NavbarComponent implements OnInit {
         isActive: false,
         toggled: false,
         route: '/trips',
+        visible: ['Admin', 'Accountant', 'Registry', 'Collection'],
       },
 
       {
@@ -111,6 +118,7 @@ export class NavbarComponent implements OnInit {
             route: '/crane/history',
           },
         ],
+        visible: ['Admin', 'Accountant', 'Collection'],
       },
 
       {
@@ -119,6 +127,7 @@ export class NavbarComponent implements OnInit {
         isActive: false,
         toggled: false,
         route: '/manual-payment',
+        visible: ['Admin', 'Collection'],
       },
 
       {
@@ -147,7 +156,13 @@ export class NavbarComponent implements OnInit {
             icon: 'fas fa-gift',
             route: '/configuration/holiday',
           },
+          {
+            label: 'Loggings',
+            icon: 'fas fa-users-cog',
+            route: '/configuration/loggings',
+          },
         ],
+        visible: ['Admin'],
       },
     ];
   }
@@ -163,4 +178,10 @@ export class NavbarComponent implements OnInit {
   //     this.router.navigate([item.route]);
   //   }
   // }
+
+  checkVisibility(item: MenuItem) {
+    // debugger;
+    // console.log(item.visible.includes(this.authService.currentUser.role))
+    return item.visible.includes(this.authService.currentUser.role);
+  }
 }

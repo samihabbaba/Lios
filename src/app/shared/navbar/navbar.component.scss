@@ -1,9 +1,32 @@
 .navigation-container {
   display: flex;
-  padding: 0 16px;
+  padding: 0;
   flex-wrap: wrap;
+  &.admin {
+    justify-content: space-between;
 
-  justify-content: space-between;
+    .loop-holder {
+      padding: 0;
+      &:empty {
+        display: none !important;
+      }
+    }
+  }
+
+  .loop-holder {
+    padding: 0 1rem;
+    &:empty {
+      display: none !important;
+    }
+
+    // &:nth-child(1) {
+    //   padding-left: 0 !important;
+    // }
+
+    // &:last-child {
+    //   padding-right: 0 !important;
+    // }
+  }
 }
 
 .container {
@@ -95,23 +118,37 @@
       box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
     }
 
-    &:last-child {
+    // &:last-child {
+    //   .dropdown {
+    //     height: 140px;
+    //     opacity: 1;
+    //     pointer-events: auto;
+    //   }
+    // }
+
+    &.big-child {
       .dropdown {
-        height: 140px;
+        height: 175px;
         opacity: 1;
         pointer-events: auto;
       }
     }
 
-    &:nth-child(7) {
+    // &:nth-child(7) {
+    //   .dropdown {
+    //     height: 70px;
+    //     opacity: 1;
+    //     pointer-events: auto;
+    //   }
+    // }
+
+    &.small-child {
       .dropdown {
         height: 70px;
         opacity: 1;
         pointer-events: auto;
       }
     }
-
-
   }
 
   &.toggled {
@@ -131,23 +168,37 @@
       box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
     }
 
-    &:last-child {
+    // &:last-child {
+    //   .dropdown {
+    //     height: 140px;
+    //     opacity: 1;
+    //     pointer-events: auto;
+    //   }
+    // }
+
+    &.big-child {
       .dropdown {
-        height: 140px;
+        height: 175px;
         opacity: 1;
         pointer-events: auto;
       }
     }
 
-    &:nth-child(7) {
+    // &:nth-child(7) {
+    //   .dropdown {
+    //     height: 70px;
+    //     opacity: 1;
+    //     pointer-events: auto;
+    //   }
+    // }
+
+    &.small-child {
       .dropdown {
         height: 70px;
         opacity: 1;
         pointer-events: auto;
       }
     }
-
-
   }
 
   &:hover {

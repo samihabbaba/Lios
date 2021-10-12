@@ -13,6 +13,11 @@ export class AuthService {
   decodedToken: any;
   jwtHelper = new JwtHelperService();
 
+  currentUser = this.jwtHelper.decodeToken(
+    localStorage.getItem('token')?.toString()
+  );
+
+
   realLogin(email: string, password: string): Observable<any> {
     if (!email || !password) {
       return of(null);
@@ -50,11 +55,49 @@ export class AuthService {
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
+    const token: any = localStorage.getItem('token');
     if (token) {
       return !this.jwtHelper.isTokenExpired(token);
     } else {
       return false;
+    }
+  }
+
+  setUserAccess(user) {
+    if (user && user.role && !user.access) {
+      if (user.role === 'Admin') {
+        user.access = [
+          'dashboard',
+          'users',
+          'trips',
+          'ships',
+          'ship-registry',
+          'manual-payment',
+          'inventory',
+          'crane',
+          'configuration',
+        ];
+      }
+
+      if (user.role === 'Accountant') {
+        user.access = [
+          'dashboard',
+          'users',
+          'trips',
+          'ships',
+          'inventory',
+          'crane',
+        ];
+      }
+
+      if (user.role === 'Registry') {
+        user.access = ['dashboard', 'trips', 'ship-registry'];
+      }
+
+      if (user.role === 'Collection') {
+        user.access = ['dashboard', 'trips', 'manual-payment', 'crane'];
+      }
+      console.log(this.currentUser);
     }
   }
 }

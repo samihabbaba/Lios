@@ -16,4 +16,6 @@ export class AppComponent {
   constructor(private translationService: TranslationService) {
     this.translationService.loadTranslations(enLang, trLang);
   }
+
+
 }
