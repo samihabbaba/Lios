@@ -1,0 +1,201 @@
+<div class="card-wrapper">
+  <div class="table-card">
+    <div class="card-header">
+      <!-- <span>Yearly win</span> -->
+
+      <div class="search-container">
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="searchQuery"
+          [placeholder]="translate.instant('Search')"
+          (keyup)="search($event)"
+        />
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-search"
+          styleClass="p-button-warn"
+          (click)="search()"
+        ></button>
+      </div>
+
+      <div class="header-buttons-container">
+        <p-calendar
+          (onSelect)="dateSelection()"
+          [(ngModel)]="dateRanges"
+          selectionMode="range"
+          [readonlyInput]="true"
+          inputId="range"
+          class="table-button mr"
+          [placeholder]="translate.instant('DateRange')"
+          [showIcon]="true"
+          appendTo="body"
+        ></p-calendar>
+
+        <!-- <p-button
+          [label]="translate.instant('Add Ship')"
+          icon="pi pi-plus"
+          class="table-button mr"
+          iconPos="right"
+          (click)="goToAddShip()"
+        ></p-button> -->
+
+        <p-multiSelect
+          (onChange)="selection()"
+          [showHeader]="false"
+          [displaySelectedLabel]="false"
+          [options]="columns"
+          [(ngModel)]="selectedColumns"
+          optionLabel="name"
+        ></p-multiSelect>
+      </div>
+    </div>
+
+    <div class="datatable-container">
+      <div class="datatable-wrapper">
+        <table class="datatable">
+          <thead>
+            <tr>
+              <th
+                *ngFor="let column of columns"
+                [hidden]="!selectedColumns.includes(column)"
+              >
+                <div class="th-content">
+                  {{ column.name }}
+                  <i class="pi pi-sort-alt"></i>
+                </div>
+              </th>
+
+              <th>
+                <div class="align-center">Options</div>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of tableData">
+              <td
+                *ngFor="let column of columns"
+                [hidden]="!selectedColumns.includes(column)"
+              >
+                <span
+                  class="td-text"
+                  *ngIf="
+                    !(
+                      item[column.value] === true ||
+                      item[column.value] === false
+                    )
+                  "
+                >
+                  {{ item[column.value] }}
+                </span>
+
+                <span
+                  class="td-text"
+                  style="text-align: center"
+                  *ngIf="item[column.value] === true"
+                >
+                  <i class="pi pi-check-circle true"></i>
+                </span>
+
+                <span
+                  class="td-text"
+                  style="text-align: center"
+                  *ngIf="item[column.value] === false"
+                >
+                  <i class="pi pi-times-circle false"></i>
+                </span>
+              </td>
+              <td>
+                <!-- <button
+                  [disabled]="true"
+                  pButton
+                  pRipple
+                  *ngIf="!item.inPort"
+                  type="button"
+                  icon="pi pi-ellipsis-h"
+                  class="p-button-rounded p-button-text p-button-plain"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  *ngIf="item.inPort"
+                  type="button"
+                  icon="pi pi-ellipsis-h"
+                  class="p-button-rounded p-button-text p-button-plain"
+                  (click)="toggleMenu(item, $event)"
+                ></button> -->
+
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-file-pdf"
+                  class="p-button-rounded p-button-warning p-button-text"
+                  pTooltip="Report"
+
+                ></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p-paginator
+        #paginator
+        [rows]="pageSize"
+        [totalRecords]="numberOfData"
+        (onPageChange)="pageChange($event)"
+      ></p-paginator>
+    </div>
+  </div>
+</div>
+
+<p-menu
+  #menu
+  styleClass="language-menu"
+  [popup]="true"
+  [model]="optionsMenu"
+></p-menu>
+
+<p-menu
+  #menuInPort
+  styleClass="language-menu"
+  [popup]="true"
+  [model]="optionsMenuInPort"
+></p-menu>
+
+
+<p-menu
+  #reportMenu
+  styleClass="language-menu"
+  [popup]="true"
+  [model]="optionsMenuReport"
+></p-menu>
+
+<app-main-dialog
+  (closeDialog)="displayDialog = false"
+  [formName]="formName"
+  [dialogHeader]="dialogHeader"
+  [displayDialog]="displayDialog"
+></app-main-dialog>
+
+<app-ship-inquery-form
+  [displayInqueryDialog]="displayInqueryDialog"
+  (closeInqueryDialog)="displayInqueryDialog = false"
+>
+</app-ship-inquery-form>
+
+<app-ship-movements-form
+  [displayMovementsDialog]="displayMovementsDialog"
+  (closeMovementsDialog)="displayMovementsDialog = false"
+>
+</app-ship-movements-form>
+
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

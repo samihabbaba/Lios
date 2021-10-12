@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TripsComponent } from './trips.component';
+import { HistoryTripsComponent } from './history-trips/history-trips.component';
+import { PendingTripsComponent } from './pending-trips/pending-trips.component';
 
 const routes: Routes = [
-  { path: '', component: TripsComponent },
-  { path: '', pathMatch: 'full', redirectTo: '' },
+  { path: '', pathMatch: 'pending', redirectTo: '' },
+  { path: 'pending', component: PendingTripsComponent },
+  { path: 'history', component: HistoryTripsComponent },
 ];
 
 @NgModule({

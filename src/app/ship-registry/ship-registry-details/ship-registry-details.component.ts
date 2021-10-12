@@ -102,6 +102,8 @@ export class ShipRegistryDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+
     this.shipId = this.activatedRoute.snapshot.paramMap.get('id');
     this.shipTypes = this.dataService.shipTypes;
     this.countries = this.dataService.countries;

@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { Menu } from 'primeng/menu';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-ship-registry',
@@ -168,10 +169,14 @@ export class ShipRegistryComponent implements OnInit {
     private dataService: DataService,
     private formService: FormService,
     private deleteService: DeleteService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.currentUser.role !== 'Admin') {
+      this.optionsMenu[0].items?.pop();
+    }
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();

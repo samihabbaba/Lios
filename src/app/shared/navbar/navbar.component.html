@@ -1,8 +1,5 @@
-<div
-  class="navigation-container"
-
->
-<!-- [ngClass]="{ admin: authService.currentUser.role === 'Admin' }" -->
+<div class="navigation-container">
+  <!-- [ngClass]="{ admin: authService.currentUser.role === 'Admin' }" -->
   <div *ngFor="let item of navItems" class="loop-holder">
     <div
       class="container"
@@ -10,7 +7,7 @@
         hasChildren: item.children,
         toggled: item.toggled,
         'big-child': item.label === 'Configuration',
-        'small-child': item.label === 'Crane'
+        'small-child': item.label === 'Crane' || item.label === 'Trips'
       }"
       [appNavItem]="item"
       *ngIf="checkVisibility(item)"

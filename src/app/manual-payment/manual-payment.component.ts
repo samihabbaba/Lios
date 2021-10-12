@@ -6,6 +6,7 @@ import { FormService } from 'src/app/services/form-service/form.service';
 import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-manual-payment',
@@ -89,10 +90,14 @@ export class ManualPaymentComponent implements OnInit {
     public translate: TranslateService,
     private dataService: DataService,
     private formService: FormService,
-    private deleteService: DeleteService
+    private deleteService: DeleteService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.currentUser.role !== 'Admin') {
+      this.optionsMenu[0].items?.splice(1, 1);
+    }
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.banksList = this.dataService.banksList;

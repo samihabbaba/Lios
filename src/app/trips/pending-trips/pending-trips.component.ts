@@ -8,14 +8,14 @@ import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { Menu } from 'primeng/menu';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
-  selector: 'app-ship',
-  templateUrl: './ship.component.html',
-  styleUrls: ['./ship.component.scss'],
+  selector: 'app-pending-trips',
+  templateUrl: './pending-trips.component.html',
+  styleUrls: ['./pending-trips.component.scss'],
 })
-export class ShipComponent implements OnInit {
+export class PendingTripsComponent implements OnInit {
   // Menu Variables
   @ViewChild('menu') menu: Menu;
   @ViewChild('menuInPort') menuInPort: Menu;
@@ -36,16 +36,19 @@ export class ShipComponent implements OnInit {
   tableData: any[];
   @ViewChild('paginator') paginator: Paginator;
 
+  dateRanges: any = [new Date(2021, 0, 1), new Date()];
+
   selectedColumns: any[] = [];
+
   columns = [
-    { value: 'id', name: 'Id' },
-    { value: 'name', name: 'Name' },
-    { value: 'agencyName', name: 'Agency Name' },
-    { value: 'country', name: 'Country' },
-    { value: 'grt', name: 'GRT' },
-    { value: 'nrt', name: 'NRT' },
-    { value: 'dwt', name: 'DWT' },
-    { value: 'leangth', name: 'Length' },
+    { value: 'shipName', name: 'Ship Name' },
+    { value: 'source', name: 'Source' },
+    { value: 'port', name: 'Port' },
+    { value: 'destination', name: 'Destination' },
+    { value: 'accommodation', name: 'Accommodation' },
+    { value: 'sequenceNumber', name: 'Sequence Number' },
+    { value: 'arrivalDate', name: 'Arrival Date' },
+    { value: 'departureDate', name: 'Departure Date' },
     { value: 'inPort', name: 'In Port' },
   ];
 
@@ -88,22 +91,22 @@ export class ShipComponent implements OnInit {
   optionsMenuInPort: MenuItem[] = [
     {
       items: [
-        {
-          label: this.translate.instant('Details'),
-          icon: 'pi pi-pencil',
-          command: () => {
-            this.goToShipDetails(this.objToSend.id);
-          },
-        },
-
         // {
-        //   label: this.translate.instant('Inquery'),
-        //   icon: 'pi pi-book',
+        //   label: this.translate.instant('Details'),
+        //   icon: 'pi pi-pencil',
         //   command: () => {
-        //     this.formService.sendObjectToForm(this.objToSend);
-        //     this.displayInqueryDialog = true;
+        //     this.goToShipDetails(this.objToSend.id);
         //   },
         // },
+
+        {
+          label: this.translate.instant('Inquery'),
+          icon: 'pi pi-book',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayInqueryDialog = true;
+          },
+        },
 
         {
           label: this.translate.instant('Edit Arrival'),
@@ -129,37 +132,47 @@ export class ShipComponent implements OnInit {
           },
         },
 
+        {
+          label: this.translate.instant('Departure'),
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Departure'),
+              true
+            );
+          },
+        },
+
+        {
+          label: this.translate.instant('Movements'),
+          icon: 'pi pi-sitemap',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayMovementsDialog = true;
+          },
+        },
         // {
-        //   label: this.translate.instant('Departure'),
-        //   icon: 'pi pi-sign-out',
+        //   label: this.translate.instant('Delete'),
+        //   icon: 'pi pi-trash',
         //   command: () => {
-        //     this.initializeForm(
-        //       'departureForm',
-        //       this.translate.instant('Departure'),
-        //       true
+        //     this.objToSend.isDeleted = true;
+        //     this.deleteService.openDeleteConfirmation(
+        //       this.objToSend.name,
+        //       this.dataService.updateShip(this.objToSend)
         //     );
         //   },
         // },
+      ],
+    },
+  ];
 
-        // {
-        //   label: this.translate.instant('Movements'),
-        //   icon: 'pi pi-sitemap',
-        //   command: () => {
-        //     this.formService.sendObjectToForm(this.objToSend);
-        //     this.displayMovementsDialog = true;
-        //   },
-        // },
-
+  optionsMenuReport: MenuItem[] = [
+    {
+      items: [
         {
-          label: this.translate.instant('Delete'),
-          icon: 'pi pi-trash',
-          command: () => {
-            this.objToSend.isDeleted = true;
-            this.deleteService.openDeleteConfirmation(
-              this.objToSend.name,
-              this.dataService.updateShip(this.objToSend)
-            );
-          },
+          label: this.translate.instant('Ship Report'),
+          command: () => {},
         },
       ],
     },
@@ -175,10 +188,8 @@ export class ShipComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.authService.currentUser.role !== 'Admin') {
-      this.optionsMenu[0].items?.pop();
-      this.optionsMenuInPort[0].items?.pop();
-    }
+
+
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
@@ -190,12 +201,30 @@ export class ShipComponent implements OnInit {
 
   selection() {}
 
+  dateSelection() {
+    // console.log(this.dateRanges);
+    this.getData();
+  }
+
   getData() {
     this.dataService
-      .getAllShips(this.searchQuery, this.pageSize, this.pageNumber)
+      .getAllTrips(
+        this.dateRanges[0]
+          ? this.dateRanges[0].toISOString().split('T')[0]
+          : '',
+        this.dateRanges[1]
+          ? this.dateRanges[1].toISOString().split('T')[0]
+          : '',
+        this.pageNumber,
+        this.pageSize,
+        this.searchQuery,
+        0,
+        false
+      )
       .subscribe(
         (response) => {
-          this.tableData = response.shipList;
+          this.tableData = response.trips;
+          console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
         },
         (error) => {}
@@ -261,4 +290,6 @@ export class ShipComponent implements OnInit {
       this.menu.toggle(event);
     }
   }
+
+  toggleReportMenu(item, event) {}
 }

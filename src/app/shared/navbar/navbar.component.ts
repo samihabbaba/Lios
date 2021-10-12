@@ -98,6 +98,18 @@ export class NavbarComponent implements OnInit {
         isActive: false,
         toggled: false,
         route: '/trips',
+        children: [
+          {
+            label: 'Pending',
+            icon: 'fas fa-search-dollar',
+            route: '/trips/pending',
+          },
+          {
+            label: 'History',
+            icon: 'fas fa-hourglass-end',
+            route: '/trips/history',
+          },
+        ],
         visible: ['Admin', 'Accountant', 'Registry', 'Collection'],
       },
 
