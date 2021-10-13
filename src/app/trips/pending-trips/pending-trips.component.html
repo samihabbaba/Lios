@@ -135,7 +135,7 @@
                   icon="pi pi-file-pdf"
                   class="p-button-rounded p-button-warning p-button-text"
                   pTooltip="Report"
-                
+                  (click)="toggleMenuReports(item, $event)"
                 ></button>
               </td>
             </tr>
@@ -167,13 +167,13 @@
   [model]="optionsMenuInPort"
 ></p-menu>
 
-
 <p-menu
-  #reportMenu
+  #report_menu
   styleClass="language-menu"
   [popup]="true"
-  [model]="optionsMenuReport"
+  [model]="reportOptionsMenu"
 ></p-menu>
+
 
 <app-main-dialog
   (closeDialog)="displayDialog = false"
@@ -199,3 +199,20 @@
   [baseZIndex]="10000"
   rejectButtonStyleClass="p-button-text"
 ></p-confirmDialog>
+
+
+<!-- Telerik Dialog -->
+<p-dialog
+  *ngIf="displayTelerikDialog"
+  [(visible)]="displayTelerikDialog"
+  [modal]="false"
+  [style]="{ width: '90vw' }"
+>
+  <app-telerik-viewer
+    [var1]="this.reportVar1"
+    [var2]="this.reportVar2"
+    [isAlternative]="this.reportIsAlternative"
+    [input]="0"
+  >
+  </app-telerik-viewer>
+</p-dialog>

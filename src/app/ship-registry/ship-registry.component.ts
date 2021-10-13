@@ -20,6 +20,7 @@ export class ShipRegistryComponent implements OnInit {
   // Menu Variables
   @ViewChild('menu') menu: Menu;
   @ViewChild('menuInPort') menuInPort: Menu;
+  @ViewChild('report_menu') report_menu: Menu;
 
   // Form Variables
   formName: string = '';
@@ -84,6 +85,85 @@ export class ShipRegistryComponent implements OnInit {
       ],
     },
   ];
+
+  
+  reportOptionsMenu: MenuItem[] = [
+    {
+      items: [
+        {
+          label: this.translate.instant('MS1'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms1');
+          },
+        },
+        {
+          label: this.translate.instant('MS2'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms2');
+          },
+        },
+        {
+          label: this.translate.instant('MS3'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms3');
+          },
+        },
+        {
+          label: this.translate.instant('MS4'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms4');
+          },
+        },
+        {
+          label: this.translate.instant('MS4a'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms4a');
+          },
+        },
+        {
+          label: this.translate.instant('MS5'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms5');
+          },
+        },
+        {
+          label: this.translate.instant('MS6'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms6');
+          },
+        },
+        {
+          label: this.translate.instant('MS7'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms7');
+          },
+        },
+        {
+          label: this.translate.instant('MS8'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms8');
+          },
+        },
+        {
+          label: this.translate.instant('MS10'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ms10');
+          },
+        },
+      ],
+    },
+  ];
+
 
   // optionsMenuInPort: MenuItem[] = [
   //   {
@@ -258,6 +338,32 @@ export class ShipRegistryComponent implements OnInit {
     } else {
       this.menu.toggle(event);
     }
+  }
+  
+  toggleMenuReports(item, event) {
+    this.objToSend = item;
+    this.report_menu.toggle(event);
+  }
+
+
+  reportVar1
+  reportVar2
+  reportIsAlternative
+  displayTelerikDialog
+  telerik
+  showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
+    
+    this.reportVar1 = var1;
+    this.reportVar2 = var2;
+
+    if (isAlternative) {
+      this.reportIsAlternative = 'true';
+    } else {
+      this.reportIsAlternative = 'false';
+    }
+
+    this.displayTelerikDialog = true;
+    this.telerik = true;
   }
 
 }

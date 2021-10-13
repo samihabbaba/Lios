@@ -31,7 +31,7 @@ export class TelerikViewerComponent implements OnInit {
   baseUrl = 'https://api.lios3.xyz/api/v1/report/';
   ngOnInit(): void {
     this.fullUrl = this.baseUrl + this.var1 + '/' + this.var2;
-
+debugger
     console.log(this.fullUrl);
     this.param.Url = this.fullUrl;
     this.param.isAlternative = this.isAlternative;
@@ -80,6 +80,8 @@ export class TelerikViewerComponent implements OnInit {
       this.reportForm = 'Lios/BankReport';
       this.fullUrl = this.baseUrl + this.var1 + this.var2;
       this.param.Url = this.fullUrl;
+    } else if (this.var2[0] === 'm' && this.var2[1] === 's') {
+      this.reportForm = `LiosRegistry/${this.var2}`;
     }
 
     this.param;

@@ -19,6 +19,7 @@ export class PendingTripsComponent implements OnInit {
   // Menu Variables
   @ViewChild('menu') menu: Menu;
   @ViewChild('menuInPort') menuInPort: Menu;
+  @ViewChild('report_menu') report_menu: Menu;
 
   // Form Variables
   formName: string = '';
@@ -167,12 +168,43 @@ export class PendingTripsComponent implements OnInit {
     },
   ];
 
-  optionsMenuReport: MenuItem[] = [
+  reportOptionsMenu: MenuItem[] = [
     {
       items: [
         {
-          label: this.translate.instant('Ship Report'),
-          command: () => {},
+          label: this.translate.instant('Ship Form'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'ship');
+          },
+        },
+        {
+          label: this.translate.instant('Ship Invoice'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'total');
+          },
+        },
+        {
+          label: this.translate.instant('Crane 1'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'crane/invoice');
+          },
+        },
+        {
+          label: this.translate.instant('Crane 2'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'crane/invoice', true);
+          },
+        },
+        {
+          label: this.translate.instant('Boat Invoice'),
+          icon: 'pi pi-file',
+          command: () => {
+            this.showTelerikReport(this.objToSend.id, 'boat/invoice');
+          },
         },
       ],
     },
@@ -291,5 +323,29 @@ export class PendingTripsComponent implements OnInit {
     }
   }
 
-  toggleReportMenu(item, event) {}
+  toggleMenuReports(item, event) {
+    this.objToSend = item;
+    this.report_menu.toggle(event);
+  }
+
+  reportVar1
+  reportVar2
+  reportIsAlternative
+  displayTelerikDialog
+  telerik
+  showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
+    
+    this.reportVar1 = var1;
+    this.reportVar2 = var2;
+
+    if (isAlternative) {
+      this.reportIsAlternative = 'true';
+    } else {
+      this.reportIsAlternative = 'false';
+    }
+
+    this.displayTelerikDialog = true;
+    this.telerik = true;
+  }
+
 }
