@@ -333,7 +333,7 @@ export class PendingTripsComponent implements OnInit {
   reportIsAlternative
   displayTelerikDialog
   telerik
-  showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
+  showTelerikReport( var2 = '', var1 = '', isAlternative = false) {
     
     this.reportVar1 = var1;
     this.reportVar2 = var2;
