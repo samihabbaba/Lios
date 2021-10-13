@@ -51,6 +51,7 @@ export class PendingTripsComponent implements OnInit {
     { value: 'arrivalDate', name: 'Arrival Date' },
     { value: 'departureDate', name: 'Departure Date' },
     { value: 'inPort', name: 'In Port' },
+    { value: 'isPaid', name: 'Is Paid' },
   ];
 
   optionsMenu: MenuItem[] = [
