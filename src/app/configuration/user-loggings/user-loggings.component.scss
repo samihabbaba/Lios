@@ -4,32 +4,32 @@
 
 th.level-head{
     width: 5rem;
-    max-width: 5em;
+    // max-width: 5em;
 }
 
 th.logged-head{
     width: 11.5rem;
-    max-width: 11.5em;
+    // max-width: 11.5em;
 }
 
 th.message-head{
     width: 22rem;
-    max-width: 25em;
+    // max-width: 25em;
 }
 
 th.type-head{
     width: 7rem;
-    max-width: 7em;
+    // max-width: 7em;
 }
 
 th.user-head{
     width: 11rem;
-    max-width: 11.5em;
+    // max-width: 11.5em;
 }
 
 th.ip-head{
     width: 11rem;
-    max-width: 11.5em;
+    // max-width: 11.5em;
 }
 
 th.userAgent-head{
@@ -48,3 +48,32 @@ th.userAgent-head{
 //     text-align: center;
 // }
 
+@media (min-width: 2300px) {  
+    th.level-head{
+        width: 5%;
+    }
+    
+    th.logged-head{
+        width: 8%;
+    }
+    
+    th.message-head{
+        width: 30%;;
+    }
+    
+    th.type-head{
+        width: 6%;;
+    }
+    
+    th.user-head{
+        width: 8%;;
+    }
+    
+    th.ip-head{
+        width: 8%;;
+    }
+    
+    th.userAgent-head{
+        // width: 12em;
+    }
+}
