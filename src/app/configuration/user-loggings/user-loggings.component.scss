@@ -1,0 +1,50 @@
+.table-card{
+    overflow: auto;
+}
+
+th.level-head{
+    width: 5rem;
+    max-width: 5em;
+}
+
+th.logged-head{
+    width: 11.5rem;
+    max-width: 11.5em;
+}
+
+th.message-head{
+    width: 22rem;
+    max-width: 25em;
+}
+
+th.type-head{
+    width: 7rem;
+    max-width: 7em;
+}
+
+th.user-head{
+    width: 11rem;
+    max-width: 11.5em;
+}
+
+th.ip-head{
+    width: 11rem;
+    max-width: 11.5em;
+}
+
+th.userAgent-head{
+    max-width: 12em;
+}
+
+
+@media (max-width: 1300px) {  
+    th.userAgent-head,
+    td.userAgent-cell{
+        display: none;
+    }
+}
+
+// th , td{
+//     text-align: center;
+// }
+
