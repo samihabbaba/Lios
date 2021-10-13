@@ -21,6 +21,22 @@
         ></button>
       </div>
 
+      <p-button
+          [label]="translate.instant('Bank Report')"
+          icon="pi pi-file"
+          class="table-button mr"
+          iconPos="right"
+          (click)="showTelerikReport('bank')"
+        ></p-button>
+
+        <p-button
+          [label]="translate.instant('Collection Report')"
+          icon="pi pi-file-o"
+          class="table-button mr"
+          iconPos="right"
+          (click)="showTelerikReport('collect')"
+        ></p-button>
+
       <div class="header-buttons-container">
         <p-calendar
           (onSelect)="dateSelection()"
@@ -184,3 +200,20 @@
   [baseZIndex]="10000"
   rejectButtonStyleClass="p-button-text"
 ></p-confirmDialog>
+
+
+<!-- Telerik Dialog -->
+<p-dialog
+  *ngIf="displayTelerikDialog"
+  [(visible)]="displayTelerikDialog"
+  [modal]="false"
+  [style]="{ width: '90vw' }"
+>
+  <app-telerik-viewer
+    [var1]="this.reportVar1"
+    [var2]="this.reportVar2"
+    [isAlternative]="this.reportIsAlternative"
+    [input]="0"
+  >
+  </app-telerik-viewer>
+</p-dialog>
