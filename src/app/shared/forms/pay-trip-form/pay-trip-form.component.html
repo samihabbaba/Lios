@@ -1,0 +1,86 @@
+<p-dialog
+  (onShow)="onDialogShow()"
+  (onHide)="onDialogHide()"
+  header="{{ 'Pay' | translate }}"
+  [(visible)]="displayPayTripDialog"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+>
+  <div [formGroup]="form" class="form-container" *ngIf="form">
+    <div class="input-container">
+      <span class="p-float-label">
+        <p-dropdown
+          [options]="agencyOptions"
+          placeholder=" "
+          optionLabel="agency"
+          (onChange)="onAgencyChange($event)"
+        ></p-dropdown>
+        <label>{{ "Agency" | translate }}</label>
+      </span>
+    </div>
+
+    <div class="input-container">
+      <span class="p-float-label">
+        <p-dropdown
+          [options]="paymentTypes"
+          formControlName="type"
+          placeholder=" "
+        ></p-dropdown>
+        <label>{{ "Type" | translate }}</label>
+      </span>
+      <small *ngIf="checkValidity('type', true)" class="p-error">{{
+        "Invalid input." | translate
+      }}</small>
+    </div>
+
+    <div class="input-container">
+      <span class="p-float-label">
+        <input formControlName="refrence" type="text" pInputText />
+        <label>{{ "Reference" | translate }}</label>
+      </span>
+      <small *ngIf="checkValidity('refrence')" class="p-error">{{
+        "Invalid input." | translate
+      }}</small>
+    </div>
+    <div class="input-container" *ngIf="this.form.controls.amount.value">
+      <h1 style="margin: 0; font-size: 18px">
+        Are you sure you want to pay the amount:
+        {{ form.controls.amount.value }} TL?
+      </h1>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <!-- Edit THIS REPORT BUTTON -->
+    <p-button
+      icon="pi pi-book"
+      label="{{ 'Report' | translate }}"
+      styleClass="p-button-text p-button-warning"
+      (click)="showTelerikReport('inq', tripId)"
+    ></p-button>
+    <p-button
+      #button
+      [disabled]="!form?.valid"
+      icon="pi pi-plus-circle"
+      (onClick)="submit(button)"
+      label="{{ 'Submit' | translate }}"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- Telerik Dialog -->
+<p-dialog
+  *ngIf="telerik"
+  [(visible)]="displayTelerikDialog"
+  [modal]="false"
+  [style]="{ width: '90vw' }"
+>
+  <app-telerik-viewer
+    [var1]="this.reportVar1"
+    [var2]="this.reportVar2"
+    [isAlternative]="this.reportIsAlternative"
+    [input]="0"
+  >
+  </app-telerik-viewer>
+</p-dialog>

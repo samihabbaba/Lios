@@ -14,6 +14,15 @@ export class DataService {
   currentUser: any = {};
   backTo = '';
 
+  paymentTypes: any[] = [
+    'Cash',
+    'Credit Card',
+    'Debt Card',
+    ' Bank Transfer',
+    'Online Transaction',
+    'Check',
+  ];
+
   shipTypes = [
     'RESEARCH',
     'SOLDIER',
@@ -347,18 +356,26 @@ export class DataService {
     );
   }
 
-
-  getLogging(startDate, endDate, ipAddress, level, type, username, pageNumber, pageSize) {
+  getLogging(
+    startDate,
+    endDate,
+    ipAddress,
+    level,
+    type,
+    username,
+    pageNumber,
+    pageSize
+  ) {
     let query = this.convertObjectToQueryString({
-      StartDate:startDate,
-      EndDate:endDate,
-      IpAddress:ipAddress,
-      Level:level,
-      Type:type,
-      userName:username,
-      pageNumber:pageNumber,
-      pageSize:pageSize
-    })
+      StartDate: startDate,
+      EndDate: endDate,
+      IpAddress: ipAddress,
+      Level: level,
+      Type: type,
+      userName: username,
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+    });
     return this.http.get<any>(`${environment.apiUrl}log${query}`, {
       headers: this.httpOptions.headers,
     });
@@ -1226,7 +1243,7 @@ export class DataService {
   }
 
   //get trip invoice by id
-  getTripInvoiceById(tripId) {
+    getTripInvoiceById(tripId) {
     return this.http.get<any>(`${environment.apiUrl}trip/${tripId}/invoice`, {
       headers: this.httpOptions.headers,
     });
@@ -2046,7 +2063,7 @@ export class DataService {
     PageSize,
     SearchQuery,
     ShipId = 0,
-    IsPaid:any = null,
+    IsPaid: any = null,
     Accommodation = '',
     Port = '',
     InPort = false,
@@ -2353,26 +2370,23 @@ export class DataService {
     return dateRet;
   }
 
-
-
-
-
-   /**
-     * Convert query object to query string representation
-     * @param obj Query object
-     * @returns Query string representation of obj
-     */
-    convertObjectToQueryString(obj: any){
-
-      let query = "?";
-      for (const [key, value] of Object.entries(obj)) {
-        
-        if(value === '' || value === null || value === undefined){
-          continue;
-        }
-        query += query[query.length - 1] === '?' ? `${key}=${value}` : `&${key}=${value}`;
+  /**
+   * Convert query object to query string representation
+   * @param obj Query object
+   * @returns Query string representation of obj
+   */
+  convertObjectToQueryString(obj: any) {
+    let query = '?';
+    for (const [key, value] of Object.entries(obj)) {
+      if (value === '' || value === null || value === undefined) {
+        continue;
       }
-      if (query === "?") return "";
-      return query;
+      query +=
+        query[query.length - 1] === '?'
+          ? `${key}=${value}`
+          : `&${key}=${value}`;
     }
+    if (query === '?') return '';
+    return query;
+  }
 }

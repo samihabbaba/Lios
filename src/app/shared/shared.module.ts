@@ -72,6 +72,7 @@ import { AddCraneComponent } from './forms/add-crane/add-crane.component';
 import { ListboxModule } from 'primeng/listbox';
 import { AddManualPaymentComponent } from './forms/add-manual-payment/add-manual-payment.component';
 import { ManualPaymentDetailsComponent } from './forms/manual-payment-details/manual-payment-details.component';
+import { PayTripFormComponent } from './forms/pay-trip-form/pay-trip-form.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { ManualPaymentDetailsComponent } from './forms/manual-payment-details/ma
     AddCraneComponent,
     AddManualPaymentComponent,
     ManualPaymentDetailsComponent,
+    PayTripFormComponent,
   ],
   imports: [
     CommonModule,
@@ -177,6 +179,7 @@ import { ManualPaymentDetailsComponent } from './forms/manual-payment-details/ma
     LabelConvertPipe,
     MainDialogComponent,
     ShipInqueryFormComponent,
+    PayTripFormComponent,
     ConfirmDialogModule,
     InputTextModule,
     InputSwitchModule,
@@ -188,6 +191,7 @@ import { ManualPaymentDetailsComponent } from './forms/manual-payment-details/ma
     TelerikViewerComponent,
     ShipMovementsFormComponent,
     ListboxModule,
+
   ],
 })
 export class SharedModule {}

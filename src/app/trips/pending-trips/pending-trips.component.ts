@@ -19,6 +19,7 @@ export class PendingTripsComponent implements OnInit {
   // Menu Variables
   @ViewChild('menu') menu: Menu;
   @ViewChild('menuInPort') menuInPort: Menu;
+  @ViewChild('menuInPortAndpaid') menuInPortAndpaid: Menu;
   @ViewChild('report_menu') report_menu: Menu;
 
   // Form Variables
@@ -27,6 +28,7 @@ export class PendingTripsComponent implements OnInit {
   displayDialog: boolean = false;
   displayInqueryDialog: boolean = false;
   displayMovementsDialog: boolean = false;
+  displayPayTripDialog: boolean = false;
   objToSend: any = null;
   refreshSubscriber$: Subscription;
 
@@ -36,6 +38,15 @@ export class PendingTripsComponent implements OnInit {
   searchQuery: string = '';
   tableData: any[];
   @ViewChild('paginator') paginator: Paginator;
+
+  payOption = {
+    label: this.translate.instant('Pay'),
+    icon: 'pi pi-paypal',
+    command: () => {
+      this.formService.sendObjectToForm(this.objToSend);
+      this.displayPayTripDialog = true;
+    },
+  };
 
   dateRanges: any = [new Date(2021, 0, 1), new Date()];
 
@@ -54,52 +65,92 @@ export class PendingTripsComponent implements OnInit {
     { value: 'isPaid', name: 'Is Paid' },
   ];
 
-  optionsMenu: MenuItem[] = [
+  optionsMenu: MenuItem[] | any = [
     {
       items: [
         {
-          label: this.translate.instant('Details'),
-          icon: 'pi pi-pencil',
+          label: this.translate.instant('Pay'),
+          icon: 'pi pi-paypal',
           command: () => {
-            this.goToShipDetails(this.objToSend.id);
-          },
-        },
-        {
-          label: this.translate.instant('New Arrival'),
-          icon: 'pi pi-sign-in',
-          command: () => {
-            this.initializeForm(
-              'arrivalForm',
-              this.translate.instant('Ship Arrival'),
-              true
-            );
-          },
-        },
-        {
-          label: this.translate.instant('Delete'),
-          icon: 'pi pi-trash',
-          command: () => {
-            this.objToSend.isDeleted = true;
-            this.deleteService.openDeleteConfirmation(
-              this.objToSend.name,
-              this.dataService.updateShip(this.objToSend)
-            );
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayPayTripDialog = true;
           },
         },
       ],
     },
   ];
 
-  optionsMenuInPort: MenuItem[] = [
+  optionsMenuInPortAndPaid: MenuItem[] | any = [
     {
       items: [
-        // {
-        //   label: this.translate.instant('Details'),
-        //   icon: 'pi pi-pencil',
-        //   command: () => {
-        //     this.goToShipDetails(this.objToSend.id);
-        //   },
-        // },
+        {
+          label: this.translate.instant('Inquery'),
+          icon: 'pi pi-book',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayInqueryDialog = true;
+          },
+        },
+
+        {
+          label: this.translate.instant('Edit Arrival'),
+          icon: 'pi pi-paperclip',
+          command: () => {
+            this.initializeForm(
+              'editArrivalForm',
+              this.translate.instant('Edit Arrival'),
+              true
+            );
+          },
+        },
+
+        {
+          label: this.translate.instant('Delete Arrival'),
+          icon: 'pi pi-exclamation-triangle',
+          command: () => {
+            this.initializeForm(
+              'deleteArrivalForm',
+              this.translate.instant('Delete Arrival'),
+              true
+            );
+          },
+        },
+
+        {
+          label: this.translate.instant('Departure'),
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Departure'),
+              true
+            );
+          },
+        },
+
+        {
+          label: this.translate.instant('Movements'),
+          icon: 'pi pi-sitemap',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayMovementsDialog = true;
+          },
+        },
+      ],
+    },
+  ];
+
+  optionsMenuInPort: MenuItem[] | any = [
+    {
+      items: [
+        {
+          label: this.translate.instant('Pay'),
+          icon: 'pi pi-paypal',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayPayTripDialog = true;
+          },
+        },
 
         {
           label: this.translate.instant('Inquery'),
@@ -154,22 +205,10 @@ export class PendingTripsComponent implements OnInit {
             this.displayMovementsDialog = true;
           },
         },
-        // {
-        //   label: this.translate.instant('Delete'),
-        //   icon: 'pi pi-trash',
-        //   command: () => {
-        //     this.objToSend.isDeleted = true;
-        //     this.deleteService.openDeleteConfirmation(
-        //       this.objToSend.name,
-        //       this.dataService.updateShip(this.objToSend)
-        //     );
-        //   },
-        // },
       ],
     },
   ];
 
-  
   reportOptionsMenuFull = [
     {
       label: this.translate.instant('Ship Form'),
@@ -206,14 +245,11 @@ export class PendingTripsComponent implements OnInit {
         this.showTelerikReport(this.objToSend.id, 'boat/invoice');
       },
     },
-  ]
-  
-  
+  ];
+
   reportOptionsMenu: MenuItem[] = [
     {
-      items: [
-        
-      ],
+      items: [],
     },
   ];
 
@@ -227,8 +263,6 @@ export class PendingTripsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
@@ -263,7 +297,7 @@ export class PendingTripsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.tableData = response.trips;
-          console.log(this.tableData);
+          // console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
         },
         (error) => {}
@@ -323,9 +357,30 @@ export class PendingTripsComponent implements OnInit {
 
   toggleMenu(item, event) {
     this.objToSend = item;
-    if (this.objToSend.inPort) {
+
+    // if (this.objToSend.isPaid) {
+    //   this.optionsMenu[0].items.splice(0, 1);
+    //   this.optionsMenuInPort[0].items.splice(0, 1);
+    // }
+
+    // if (
+    //   !this.objToSend.isPaid &&
+    //   this.optionsMenu[0]?.items[0]?.icon !== 'pi pi-paypal' &&
+    //   this.optionsMenuInPort[0]?.items[0]?.icon !== 'pi pi-paypal'
+    // ) {
+    //   this.optionsMenu[0].items.splice(0, 0, this.payOption);
+    //   this.optionsMenuInPort[0].items.splice(0, 0, this.payOption);
+    // }
+
+    // if (this.optionsMenu[0].items.length < 1) return;
+
+    if (this.objToSend.inPort && !this.objToSend.isPaid) {
       this.menuInPort.toggle(event);
-    } else {
+    }
+    if (this.objToSend.inPort && this.objToSend.isPaid) {
+      this.menuInPortAndpaid.toggle(event);
+    }
+    if (!this.objToSend.inPort && !this.objToSend.isPaid) {
       this.menu.toggle(event);
     }
   }
@@ -334,31 +389,27 @@ export class PendingTripsComponent implements OnInit {
     this.objToSend = item;
 
     this.reportOptionsMenu[0].items = [];
-    if(item.shipInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0])
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1])
+    if (item.shipInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0]);
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1]);
     }
-    if(item.craneInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2])
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3])
+    if (item.craneInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2]);
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3]);
     }
-    if(item.boatInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4])
+    if (item.boatInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4]);
     }
 
     this.report_menu.toggle(event);
   }
 
-  reportVar1
-  reportVar2
-  reportIsAlternative
-  displayTelerikDialog
-  telerik
-  showTelerikReport( var2 = '', var1 = '', isAlternative = false) {
-    
+  reportVar1;
+  reportVar2;
+  reportIsAlternative;
+  displayTelerikDialog;
+  telerik;
+  showTelerikReport(var2 = '', var1 = '', isAlternative = false) {
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 
@@ -371,5 +422,4 @@ export class PendingTripsComponent implements OnInit {
     this.displayTelerikDialog = true;
     this.telerik = true;
   }
-
 }

@@ -17,7 +17,7 @@
           pRipple
           icon="pi pi-search"
           styleClass="p-button-warn"
-          (click)="getData()"
+          (click)="this.paginator.changePageToFirst($event); getData()"
         ></button>
       </div>
 
@@ -166,7 +166,6 @@
   [popup]="true"
   [model]="optionsMenuInPort"
 ></p-menu>
-
 
 <p-menu
   #report_menu

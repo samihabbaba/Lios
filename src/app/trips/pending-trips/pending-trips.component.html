@@ -109,7 +109,7 @@
                 </span>
               </td>
               <td>
-                <button
+                <!-- <button
                   [disabled]="true"
                   pButton
                   pRipple
@@ -117,11 +117,10 @@
                   type="button"
                   icon="pi pi-ellipsis-h"
                   class="p-button-rounded p-button-text p-button-plain"
-                ></button>
+                ></button> -->
                 <button
                   pButton
                   pRipple
-                  *ngIf="item.inPort"
                   type="button"
                   icon="pi pi-ellipsis-h"
                   class="p-button-rounded p-button-text p-button-plain"
@@ -168,12 +167,18 @@
 ></p-menu>
 
 <p-menu
+  #menuInPortAndpaid
+  styleClass="language-menu"
+  [popup]="true"
+  [model]="optionsMenuInPortAndPaid"
+></p-menu>
+
+<p-menu
   #report_menu
   styleClass="language-menu"
   [popup]="true"
   [model]="reportOptionsMenu"
 ></p-menu>
-
 
 <app-main-dialog
   (closeDialog)="displayDialog = false"
@@ -194,12 +199,16 @@
 >
 </app-ship-movements-form>
 
+<app-pay-trip-form
+  [displayPayTripDialog]="displayPayTripDialog"
+  (closePayTripDialog)="displayPayTripDialog = false"
+></app-pay-trip-form>
+
 <p-confirmDialog
   [style]="{ width: '50vw' }"
   [baseZIndex]="10000"
   rejectButtonStyleClass="p-button-text"
 ></p-confirmDialog>
-
 
 <!-- Telerik Dialog -->
 <p-dialog
