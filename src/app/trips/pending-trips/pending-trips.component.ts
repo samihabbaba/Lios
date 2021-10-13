@@ -286,6 +286,10 @@ export class PendingTripsComponent implements OnInit {
     this.getData();
   }
 
+  addTrip() {
+    this.initializeForm('arrivalForm', this.translate.instant('Ship Arrival'));
+  }
+
   getData() {
     this.dataService
       .getAllTrips(

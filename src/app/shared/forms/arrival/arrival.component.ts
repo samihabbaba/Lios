@@ -45,6 +45,9 @@ export class ArrivalComponent implements OnInit {
 
   categoryObj: any = { categoryId: null, quantity: null };
 
+  ships: any[] = [];
+  filteredShips: any;
+
   constructor(
     private dataService: DataService,
     private formService: FormService,
@@ -76,39 +79,42 @@ export class ArrivalComponent implements OnInit {
   ngOnInit() {}
 
   loadSubscriptions() {
-    this.objectSubscriber$ = this.formService
-      .getFormObject()
-      .subscribe((value) => {
-        this.shipId = value.id;
-        console.log(value);
-        this.initializeForm();
-      });
+    // this.objectSubscriber$ = this.formService
+    //   .getFormObject()
+    //   .subscribe((value) => {
+    //     this.shipId = value.id;
+    //     console.log(value);
+    //   });
 
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    this.dataService.getAllShips('', 10000, 1).subscribe((response) => {
+      this.ships = response.shipList;
+      this.initializeForm();
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
 
-    this.formValidationSubscriber$ = this.formService.listenToValueChanges(
-      this.form
-    );
+      this.formValidationSubscriber$ = this.formService.listenToValueChanges(
+        this.form
+      );
 
-    this.dirtyFormSubscriber$ = this.formService
-      .getDirtyFormSubject()
-      .subscribe((value) => {
-        if (value) {
-          Object.keys(this.form.controls).forEach((x) => {
-            this.form.get(x)?.markAsTouched();
-          });
-        }
-      });
+      this.dirtyFormSubscriber$ = this.formService
+        .getDirtyFormSubject()
+        .subscribe((value) => {
+          if (value) {
+            Object.keys(this.form.controls).forEach((x) => {
+              this.form.get(x)?.markAsTouched();
+            });
+          }
+        });
+    });
   }
 
   destroySubscription() {
-    this.objectSubscriber$.unsubscribe();
+    // this.objectSubscriber$.unsubscribe();
     this.submitSubscriber$.unsubscribe();
     this.formValidationSubscriber$.unsubscribe();
     this.dirtyFormSubscriber$.unsubscribe();
@@ -148,7 +154,8 @@ export class ArrivalComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    obj.shipId = this.shipId;
+    // obj.shipId = this.shipId;
+    if (obj.shipId?.id) obj.shipId = obj.shipId.id;
     if (obj.accommodationId?.id) obj.accommodationId = obj.accommodationId.id;
     if (obj.pilotageId?.id) obj.pilotageId = obj.pilotageId.id;
     if (!obj.isPilotage) obj.pilotageId = 0;
@@ -230,4 +237,18 @@ export class ArrivalComponent implements OnInit {
     }
     this.filteredCaptains = filtered;
   }
+
+  filterShips(event) {
+    let filtered: any[] = [];
+    let query = event.query;
+    for (let i = 0; i < this.ships.length; i++) {
+      let item = this.ships[i];
+      if (item.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
+    }
+    this.filteredShips = filtered;
+  }
+
+  loadShips() {}
 }

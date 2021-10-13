@@ -6,6 +6,28 @@
     </ng-template>
     <div [formGroup]="form" class="form-container" *ngIf="form">
       <div class="input-container">
+        <p-autoComplete
+          formControlName="shipId"
+          [suggestions]="filteredShips"
+          (completeMethod)="filterShips($event)"
+          field="name"
+          [dropdown]="true"
+          appendTo="body"
+          [placeholder]="translate.instant('Ship')"
+        >
+          <ng-template let-item pTemplate="item">
+            <div class="country-item">
+              <div>{{ item.name }}</div>
+            </div>
+          </ng-template>
+
+          <small *ngIf="checkValidity('shipId')" class="p-error">{{
+            "Invalid input." | translate
+          }}</small>
+        </p-autoComplete>
+      </div>
+
+      <div class="input-container">
         <span class="p-float-label">
           <p-dropdown
             [options]="ports"

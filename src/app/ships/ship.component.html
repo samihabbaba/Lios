@@ -56,17 +56,22 @@
                 </div>
               </th>
 
-              <th>
+              <!-- <th>
                 <div class="align-center">Options</div>
-              </th>
+              </th> -->
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let item of tableData">
+            <tr
+              *ngFor="let item of tableData"
+              (click)="goToShipDetails(item.id)"
+              style="cursor: pointer;"
+            >
               <td
                 *ngFor="let column of columns"
                 [hidden]="!selectedColumns.includes(column)"
+                style="cursor: pointer;"
               >
                 <span
                   class="td-text"
@@ -96,7 +101,7 @@
                   <i class="pi pi-times-circle false"></i>
                 </span>
               </td>
-              <td>
+              <!-- <td>
                 <button
                 pButton
                 pRipple
@@ -105,7 +110,7 @@
                 class="p-button-rounded p-button-text p-button-plain"
                 (click)="toggleMenu(item, $event)"
               ></button>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -147,7 +152,6 @@
   (closeInqueryDialog)="displayInqueryDialog = false"
 >
 </app-ship-inquery-form>
-
 
 <app-ship-movements-form
   [displayMovementsDialog]="displayMovementsDialog"

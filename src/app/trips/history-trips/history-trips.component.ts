@@ -207,12 +207,12 @@ export class HistoryTripsComponent implements OnInit {
       },
     },
   ]
-  
-  
+
+
   reportOptionsMenu: MenuItem[] = [
     {
       items: [
-        
+
       ],
     },
   ];
@@ -227,7 +227,6 @@ export class HistoryTripsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
 
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
@@ -361,7 +360,7 @@ export class HistoryTripsComponent implements OnInit {
   displayTelerikDialog
   telerik
   showTelerikReport( var2 = '', var1 = '', isAlternative = false) {
-    
+
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 

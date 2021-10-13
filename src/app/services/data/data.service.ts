@@ -2066,9 +2066,9 @@ export class DataService {
     IsPaid: any = null,
     Accommodation = '',
     Port = '',
-    InPort = false,
-    IsArrival = false,
-    IsDeparture = false
+    InPort = null,
+    IsArrival = null,
+    IsDeparture = null
   ) {
     return this.http.get<any>(
       `${environment.apiUrl}trip?startDate=${startDate}&endDate=${endDate}&ShipId=${ShipId}&IsPaid=${IsPaid}&Accommodation=${Accommodation}&Port=${Port}&InPort=${InPort}&IsArrival=${IsArrival}&IsDeparture=${IsDeparture}&SearchQuery=${SearchQuery}&PageNumber=${PageNumber}&PageSize=${PageSize}`,

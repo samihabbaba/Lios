@@ -34,13 +34,13 @@
           appendTo="body"
         ></p-calendar>
 
-        <!-- <p-button
-          [label]="translate.instant('Add Ship')"
+        <p-button
+          [label]="translate.instant('Add Trip')"
           icon="pi pi-plus"
           class="table-button mr"
           iconPos="right"
-          (click)="goToAddShip()"
-        ></p-button> -->
+          (click)="addTrip()"
+        ></p-button>
 
         <p-multiSelect
           (onChange)="selection()"

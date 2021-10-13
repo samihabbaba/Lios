@@ -250,6 +250,7 @@ export class ShipComponent implements OnInit {
   }
 
   goToShipDetails(id: string) {
+    
     this.router.navigate(['ships/' + id]);
   }
 

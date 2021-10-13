@@ -10,12 +10,14 @@
   ></button>
 
   <button
-    (click)="testing()"
+    *ngIf="authService.currentUser.role === 'Admin'"
+    (click)="deleteShip()"
     pButton
     pRipple
     type="button"
-    label="Test Data"
-    class="p-button-text"
+    label="Delete"
+    icon="pi pi-trash"
+    class="p-button-text p-button-danger"
   ></button>
 </div>
 
