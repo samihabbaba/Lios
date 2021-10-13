@@ -168,44 +168,50 @@ export class PendingTripsComponent implements OnInit {
     },
   ];
 
+  
+  reportOptionsMenuFull = [
+    {
+      label: this.translate.instant('Ship Form'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'ship');
+      },
+    },
+    {
+      label: this.translate.instant('Ship Invoice'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'total');
+      },
+    },
+    {
+      label: this.translate.instant('Crane 1'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'crane/invoice');
+      },
+    },
+    {
+      label: this.translate.instant('Crane 2'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'crane/invoice', true);
+      },
+    },
+    {
+      label: this.translate.instant('Boat Invoice'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'boat/invoice');
+      },
+    },
+  ]
+  
+  
   reportOptionsMenu: MenuItem[] = [
     {
       items: [
-        {
-          label: this.translate.instant('Ship Form'),
-          icon: 'pi pi-file',
-          command: () => {
-            this.showTelerikReport(this.objToSend.id, 'ship');
-          },
-        },
-        {
-          label: this.translate.instant('Ship Invoice'),
-          icon: 'pi pi-file',
-          command: () => {
-            this.showTelerikReport(this.objToSend.id, 'total');
-          },
-        },
-        {
-          label: this.translate.instant('Crane 1'),
-          icon: 'pi pi-file',
-          command: () => {
-            this.showTelerikReport(this.objToSend.id, 'crane/invoice');
-          },
-        },
-        {
-          label: this.translate.instant('Crane 2'),
-          icon: 'pi pi-file',
-          command: () => {
-            this.showTelerikReport(this.objToSend.id, 'crane/invoice', true);
-          },
-        },
-        {
-          label: this.translate.instant('Boat Invoice'),
-          icon: 'pi pi-file',
-          command: () => {
-            this.showTelerikReport(this.objToSend.id, 'boat/invoice');
-          },
-        },
+        
       ],
     },
   ];
@@ -325,6 +331,23 @@ export class PendingTripsComponent implements OnInit {
 
   toggleMenuReports(item, event) {
     this.objToSend = item;
+
+    this.reportOptionsMenu[0].items = [];
+    if(item.shipInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0])
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1])
+    }
+    if(item.craneInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2])
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3])
+    }
+    if(item.boatInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4])
+    }
+
     this.report_menu.toggle(event);
   }
 
