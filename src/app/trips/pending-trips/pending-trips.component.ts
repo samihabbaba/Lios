@@ -266,6 +266,13 @@ export class PendingTripsComponent implements OnInit {
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
+    if (
+      this.authService.currentUser.role !== 'Collection' &&
+      this.authService.currentUser.role !== 'Admin'
+    ) {
+      this.optionsMenu[0].items.splice(0, 1);
+      this.optionsMenuInPort[0].items.splice(0, 1);
+    }
   }
 
   ngOnDestroy(): void {
