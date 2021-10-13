@@ -80,7 +80,9 @@ export class ManualPaymentComponent implements OnInit {
         {
           label: this.translate.instant('Print'),
           icon: 'pi pi-file-pdf',
-          command: () => {},
+          command: () => {
+            this.showTelerikReport('payment/manual',this.objToSend.id)
+          },
         },
       ],
     },
