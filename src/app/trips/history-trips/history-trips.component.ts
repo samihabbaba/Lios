@@ -20,6 +20,7 @@ export class HistoryTripsComponent implements OnInit {
   // Menu Variables
   @ViewChild('menu') menu: Menu;
   @ViewChild('menuInPort') menuInPort: Menu;
+  @ViewChild('report_menu') report_menu: Menu;
 
   // Form Variables
   formName: string = '';
@@ -51,6 +52,7 @@ export class HistoryTripsComponent implements OnInit {
     { value: 'arrivalDate', name: 'Arrival Date' },
     { value: 'departureDate', name: 'Departure Date' },
     { value: 'inPort', name: 'In Port' },
+    { value: 'isPaid', name: 'Is Paid' },
   ];
 
   optionsMenu: MenuItem[] = [
@@ -168,13 +170,49 @@ export class HistoryTripsComponent implements OnInit {
     },
   ];
 
-  optionsMenuReport: MenuItem[] = [
+  reportOptionsMenuFull = [
+    {
+      label: this.translate.instant('Ship Form'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'ship');
+      },
+    },
+    {
+      label: this.translate.instant('Ship Invoice'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'total');
+      },
+    },
+    {
+      label: this.translate.instant('Crane 1'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'crane/invoice');
+      },
+    },
+    {
+      label: this.translate.instant('Crane 2'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'crane/invoice', true);
+      },
+    },
+    {
+      label: this.translate.instant('Boat Invoice'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'boat/invoice');
+      },
+    },
+  ]
+  
+  
+  reportOptionsMenu: MenuItem[] = [
     {
       items: [
-        {
-          label: this.translate.instant('Ship Report'),
-          command: () => {},
-        },
+        
       ],
     },
   ];
@@ -292,6 +330,50 @@ export class HistoryTripsComponent implements OnInit {
     }
   }
 
-  toggleReportMenu(item, event) {}
+  toggleMenuReports(item, event) {
+    this.objToSend = item;
+
+    this.reportOptionsMenu[0].items = [];
+    if(item.shipInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0])
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1])
+    }
+    if(item.craneInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2])
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3])
+    }
+    if(item.boatInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4])
+    }
+
+    this.report_menu.toggle(event);
+  }
+
+
+
+
+  reportVar1
+  reportVar2
+  reportIsAlternative
+  displayTelerikDialog
+  telerik
+  showTelerikReport( var2 = '', var1 = '', isAlternative = false) {
+    
+    this.reportVar1 = var1;
+    this.reportVar2 = var2;
+
+    if (isAlternative) {
+      this.reportIsAlternative = 'true';
+    } else {
+      this.reportIsAlternative = 'false';
+    }
+
+    this.displayTelerikDialog = true;
+    this.telerik = true;
+  }
+
 
 }
