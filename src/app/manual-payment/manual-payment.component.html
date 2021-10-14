@@ -51,8 +51,8 @@
         ></p-calendar>
 
         <p-autoComplete
-          (onSelect)="this.getData()"
-          (onClear)="this.getData()"
+          (onSelect)="this.paginator.changePageToFirst($event);this.getData()"
+          (onClear)="this.paginator.changePageToFirst($event);this.getData()"
           [(ngModel)]="agencyQuery"
           appendTo="body"
           type="search"

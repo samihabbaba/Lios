@@ -17,7 +17,7 @@
           pRipple
           icon="pi pi-search"
           styleClass="p-button-warn"
-          (click)="getData()"
+          (click)="this.paginator.changePageToFirst($event); getData()"
         ></button>
       </div>
 
