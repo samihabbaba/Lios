@@ -179,11 +179,11 @@ export class DepartureComponent implements OnInit {
       date: new FormControl(new Date(), []),
       isPilotage: new FormControl(false, []),
       pilotageId: new FormControl(null, []),
-      normalPassenger: new FormControl(null, []),
-      transitPassenger: new FormControl(null, []),
-      soldierPassenger: new FormControl(null, []),
-      normalVehicle: new FormControl(null, []),
-      transitVehicle: new FormControl(null, []),
+      normalPassenger: new FormControl(0, []),
+      transitPassenger: new FormControl(0, []),
+      soldierPassenger: new FormControl(0, []),
+      normalVehicle: new FormControl(0, []),
+      transitVehicle: new FormControl(0, []),
       categories: new FormControl([]),
     });
   }
