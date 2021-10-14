@@ -143,14 +143,14 @@ export class PendingTripsComponent implements OnInit {
   optionsMenuInPort: MenuItem[] | any = [
     {
       items: [
-        {
-          label: this.translate.instant('Pay'),
-          icon: 'pi pi-paypal',
-          command: () => {
-            this.formService.sendObjectToForm(this.objToSend);
-            this.displayPayTripDialog = true;
-          },
-        },
+        // {
+        //   label: this.translate.instant('Pay'),
+        //   icon: 'pi pi-paypal',
+        //   command: () => {
+        //     this.formService.sendObjectToForm(this.objToSend);
+        //     this.displayPayTripDialog = true;
+        //   },
+        // },
 
         {
           label: this.translate.instant('Inquery'),

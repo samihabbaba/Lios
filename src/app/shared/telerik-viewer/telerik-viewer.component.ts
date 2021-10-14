@@ -53,6 +53,13 @@ export class TelerikViewerComponent implements OnInit {
 
       // this.reportForm = 'Lios/CraneInvoice'
       this.reportForm = 'Lios/CraneFatura';
+    } else if (this.var1 === 'total3') {
+      this.var1 = 'total';
+      this.fullUrl = this.baseUrl + this.var1 + '/' + this.var2;
+      this.param.Url = this.fullUrl;
+
+      // this.reportForm = 'Lios/CraneInvoice'
+      this.reportForm = 'Lios/ShipFatura';
     } else if (this.var1 === 'crane/invoice' || this.var1 === 'crane/payment') {
       // if(this.var2 === 'true'){
       //   this.reportForm = 'Lios/CraneInvoice'
