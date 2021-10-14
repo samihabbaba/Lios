@@ -43,24 +43,31 @@
       }}</small>
     </div>
     <div class="input-container" *ngIf="this.form.controls.amount.value">
-      <h1 style="margin: 0; font-size: 18px">
+      <h1 style="margin: 0; font-size: 18px" *ngIf="!form.controls.isPaid.value">
         Are you sure you want to pay the amount:
         {{ form.controls.amount.value }} TL?
       </h1>
+      
+      <h1 style="margin: 0; font-size: 18px; color: red;" *ngIf="form.controls.isPaid.value">
+        This invoice is paid already with the amount:
+        {{ form.controls.amount.value }} TL
+      </h1>
+
     </div>
   </div>
 
   <ng-template pTemplate="footer">
     <!-- Edit THIS REPORT BUTTON -->
     <p-button
+    [disabled]="!form || !form.controls || (!form.controls.isPaid.value) || modalToPrint.invoiceId == -1"
       icon="pi pi-book"
       label="{{ 'Report' | translate }}"
       styleClass="p-button-text p-button-warning"
-      (click)="showTelerikReport('inq', tripId)"
+      (click)="showTelerikReport('total2', tripId, modalToPrint.isAlternative)"
     ></p-button>
     <p-button
       #button
-      [disabled]="!form?.valid"
+      [disabled]="!form?.valid || form.controls.isPaid.value"
       icon="pi pi-plus-circle"
       (onClick)="submit(button)"
       label="{{ 'Submit' | translate }}"
@@ -71,7 +78,7 @@
 
 <!-- Telerik Dialog -->
 <p-dialog
-  *ngIf="telerik"
+  *ngIf="displayTelerikDialog"
   [(visible)]="displayTelerikDialog"
   [modal]="false"
   [style]="{ width: '90vw' }"

@@ -46,8 +46,14 @@ export class PayTripFormComponent implements OnInit {
   submit(button: any) {
     let obj = this.form.getRawValue();
     this.dataService.addNewPayment(obj).subscribe((resp) => {
-      this.formService.triggerRefresh();
-      this.closePayTripDialog.emit();
+      // this.formService.triggerRefresh();
+      // this.closePayTripDialog.emit();
+      let i = this.agencyOptions.findIndex(x=> x.invoiceId == obj.invoiceId)
+      this.agencyOptions[i].isPaid = true;
+
+      this.form.patchValue({
+        isPaid:true
+      });
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
@@ -56,14 +62,26 @@ export class PayTripFormComponent implements OnInit {
     });
   }
 
+  modalToPrint ={ 
+    isAlternative:false,
+    invoiceId:-1
+  }
+  agencyChanged;
   onDialogShow() {
+    this.modalToPrint = { 
+      isAlternative:false,
+      invoiceId:-1
+    }
+    this.agencyOptions = [];
+    
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
         this.tripId = value.id;
         // console.log(value);
         this.dataService.getTripInvoiceById(this.tripId).subscribe((resp) => {
-          this.agencyOptions = resp.filter((x) => !x.isPaid);
+          this.agencyOptions = resp;
+          this.agencyChanged = resp.length > 1;
           this.initializeForm();
         });
       });
@@ -82,6 +100,7 @@ export class PayTripFormComponent implements OnInit {
       refrence: new FormControl(null, [Validators.required]),
       rate: new FormControl(0, [Validators.required]),
       date: new FormControl(new Date(), [Validators.required]),
+      isPaid: new FormControl(false, [Validators.required]),
     });
   }
 
@@ -89,7 +108,19 @@ export class PayTripFormComponent implements OnInit {
     this.form.patchValue({
       invoiceId: event.value.invoiceId,
       amount: event.value.totalAmount,
+      isPaid: event.value.isPaid,
     });
+
+    this.modalToPrint.invoiceId = event.value.invoiceId;
+    let index = this.agencyOptions.findIndex(x=> x.invoiceId == event.value.invoiceId)
+    // this.modalPrintDetails = this.modalToPrint[ index ];
+
+    if(index == 0){
+      this.modalToPrint.isAlternative = false;
+    }else if(index == 1){
+      this.modalToPrint.isAlternative = true;
+    }
+
   }
 
   checkValidity(formControl: string, boat = false) {
@@ -105,6 +136,13 @@ export class PayTripFormComponent implements OnInit {
   showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
     // Check this part of the code again pls
 
+    if(
+      !this.form.controls.isPaid.value || 
+      this.modalToPrint.invoiceId == -1
+    ){
+      return
+    }
+    this.reportVar1 = var1;
     this.reportVar2 = var2;
     if (isAlternative) {
       this.reportIsAlternative = 'true';

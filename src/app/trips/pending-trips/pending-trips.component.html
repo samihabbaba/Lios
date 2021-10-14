@@ -200,6 +200,7 @@
 </app-ship-movements-form>
 
 <app-pay-trip-form
+  *ngIf="displayPayTripDialog"
   [displayPayTripDialog]="displayPayTripDialog"
   (closePayTripDialog)="displayPayTripDialog = false"
 ></app-pay-trip-form>
