@@ -1,3 +1,4 @@
+import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import {
   FormArray,
@@ -10,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Dialog } from 'primeng/dialog';
 import { Subscription } from 'rxjs';
+import { last } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
@@ -68,7 +70,6 @@ export class ArrivalComponent implements OnInit {
 
       this.getGroups();
       this.getCaptains();
-
       this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
@@ -87,8 +88,13 @@ export class ArrivalComponent implements OnInit {
     //     console.log(value);
     //   });
 
-    this.dataService.getAllShips('', 10000, 1).subscribe((response) => {
-      this.ships = response.shipList;
+    this.dataService.getAllShips('', 10000, 1,false,false).subscribe((response) => {
+      this.ships = response.shipList.filter(x=>!x.inPort);
+      if(this.lastQuery != ''){
+        this.filterShips({
+          query:this.lastQuery
+        })
+      }
       this.initializeForm();
       this.submitSubscriber$ = this.formService
         .getSubmitSubject()
@@ -239,16 +245,19 @@ export class ArrivalComponent implements OnInit {
     this.filteredCaptains = filtered;
   }
 
+  lastQuery = ''
   filterShips(event) {
     let filtered: any[] = [];
     let query = event.query;
-    for (let i = 0; i < this.ships.length; i++) {
-      let item = this.ships[i];
-      if (item.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(item);
-      }
-    }
-    this.filteredShips = filtered;
+    this.lastQuery = query;
+    // for (let i = 0; i < this.ships.length; i++) {
+    //   let item = this.ships[i];
+    //   if (item.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+    //     filtered.push(item);
+    //   }
+    // }
+    // this.filteredShips = filtered;
+    this.filteredShips = this.ships.filter(x=> x.name.toLowerCase().includes(query));
   }
 
   loadShips() {}

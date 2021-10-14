@@ -181,6 +181,7 @@
 ></p-menu>
 
 <app-main-dialog
+*ngIf="displayDialog"
   (closeDialog)="displayDialog = false"
   [formName]="formName"
   [dialogHeader]="dialogHeader"
