@@ -251,6 +251,12 @@ export class ShipDetailsComponent implements OnInit {
     this.shipInformation = new FormGroup({
       name: new FormControl(obj?.shipName, [Validators.required]),
       agencyId: new FormControl(obj?.agencyId, [Validators.required]),
+      creationDate: new FormControl(
+        obj?.creationDate
+          ? new Date(obj.creationDate)
+          : new Date(),
+        [Validators.required]
+      ),
       type: new FormControl(obj?.type, [Validators.required]),
       country: new FormControl(obj?.country, [Validators.required]),
       flag: new FormControl(obj?.flag, [Validators.required]),

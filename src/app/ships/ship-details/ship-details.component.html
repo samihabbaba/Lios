@@ -90,6 +90,23 @@
 
         <div class="input-container">
           <span class="p-float-label">
+            <p-calendar
+            appendTo="body"
+              formControlName="creationDate"
+              placeholder=""
+              inputId="basic"
+            ></p-calendar>
+            <label>{{ "Agency Creation Date" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('creationDate', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
+        <div class="input-container">
+          <span class="p-float-label">
             <p-dropdown
               [options]="shipTypes"
               formControlName="type"
