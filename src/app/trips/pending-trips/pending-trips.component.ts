@@ -385,15 +385,15 @@ export class PendingTripsComponent implements OnInit {
 
     // if (this.optionsMenu[0].items.length < 1) return;
 
-    this.menuInPort.toggle(event);
-    // if (this.objToSend.inPort && !this.objToSend.isPaid) {
-    // }
-    // if (this.objToSend.inPort && this.objToSend.isPaid) {
-    //   this.menuInPortAndpaid.toggle(event);
-    // }
-    // if (!this.objToSend.inPort && !this.objToSend.isPaid) {
-    //   this.menu.toggle(event);
-    // }
+    if (this.objToSend.inPort && !this.objToSend.isPaid) {
+      this.menuInPort.toggle(event);
+    }
+    if (this.objToSend.inPort && this.objToSend.isPaid) {
+      this.menuInPortAndpaid.toggle(event);
+    }
+    if (!this.objToSend.inPort && !this.objToSend.isPaid) {
+      this.menu.toggle(event);
+    }
   }
 
   toggleMenuReports(item, event) {
