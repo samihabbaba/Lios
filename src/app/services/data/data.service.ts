@@ -444,6 +444,7 @@ export class DataService {
   }
 
   updateInvoiceItem(item) {
+    this.checkifObjectHasDateTime(item)
     return this.http.put(
       `${environment.apiUrl}service/invoice/item/${item.id}`,
       item,
@@ -476,6 +477,7 @@ export class DataService {
   }
 
   addNewInvoiceItem(obj) {
+    this.checkifObjectHasDateTime(obj)
     return this.http.post(`${environment.apiUrl}service/invoice/item`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -538,7 +540,7 @@ export class DataService {
   }
 
   addNewAgency(obj) {
-    obj.creationDate = this.convertDateTimeToIso(obj.creationDate);
+    this.checkifObjectHasDateTime(obj)
     return this.http.post(`${environment.apiUrl}agency`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -552,6 +554,8 @@ export class DataService {
   }
 
   updateAgency(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}agency/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -572,6 +576,8 @@ export class DataService {
   }
 
   addNewCaptain(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}captain`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -585,6 +591,8 @@ export class DataService {
   }
 
   updateCaptain(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}captain/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -606,6 +614,8 @@ export class DataService {
   }
 
   addNewCrane(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}crane`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -625,6 +635,8 @@ export class DataService {
   }
 
   updateCrane2(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -632,6 +644,7 @@ export class DataService {
   }
 
   payCraneInvoice(id, list) {
+
     return this.http.post(`${environment.apiUrl}crane/invoice/${id}`, list, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -672,6 +685,8 @@ export class DataService {
   }
 
   addNewShipsDiscounts(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}discount/ship`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -685,6 +700,8 @@ export class DataService {
   }
 
   updateShipsDiscount(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}discount/ship/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -701,6 +718,8 @@ export class DataService {
   }
 
   addNewOvertimeDiscounts(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}discount/overtime`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -714,6 +733,8 @@ export class DataService {
   }
 
   updateOvertimeDiscount(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}discount/overtime/${obj.id}`,
       obj,
@@ -739,12 +760,8 @@ export class DataService {
   }
 
   addOvertimeInquery(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}inquiry/overtime`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -752,12 +769,7 @@ export class DataService {
   }
 
   updateOvertimeInquery(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
 
     return this.http.put(
       `${environment.apiUrl}inquiry/overtime/${obj.id}`,
@@ -780,12 +792,8 @@ export class DataService {
   }
 
   addBoatInquery(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}inquiry/boat`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -793,12 +801,8 @@ export class DataService {
   }
 
   updateBoatInquery(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}inquiry/boat/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -819,12 +823,8 @@ export class DataService {
   }
 
   addCraneInquery(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}inquiry/crane`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -832,12 +832,7 @@ export class DataService {
   }
 
   updateCraneInquery(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    
     return this.http.put(`${environment.apiUrl}inquiry/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -867,12 +862,8 @@ export class DataService {
   }
 
   addNewInquiry(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}inquiry`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -886,12 +877,8 @@ export class DataService {
   }
 
   updateInquiry(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}inquiry/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -913,12 +900,8 @@ export class DataService {
   }
 
   addNewInquiryCar(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}inquiry/car`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -932,12 +915,8 @@ export class DataService {
   }
 
   updateInquiryCar(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}inquiry/car/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -959,12 +938,8 @@ export class DataService {
   }
 
   addNewInquiryCrane(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}inquiry/crane`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -978,12 +953,8 @@ export class DataService {
   }
 
   updateInquiryCrane(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}inquiry/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1002,18 +973,14 @@ export class DataService {
   // inquiry overTime part
 
   getAllInquiryOverTimes() {
+    
     return this.http.get<any>(`${environment.apiUrl}inquiry/overTime`, {
       headers: this.httpOptions.headers,
     });
   }
 
   addNewInquiryOverTime(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
 
     return this.http.post(`${environment.apiUrl}inquiry/overTime`, obj, {
       headers: this.httpOptions.headers,
@@ -1028,12 +995,8 @@ export class DataService {
   }
 
   updateInquiryOverTime(obj) {
-    if(obj.start){
-      obj.start = this.convertDateTimeToIso(obj.start)
-    }
-    if(obj.end){
-      obj.end = this.convertDateTimeToIso(obj.end)
-    }
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}inquiry/overTime/${obj.id}`,
       obj,
@@ -1063,6 +1026,8 @@ export class DataService {
   }
 
   addNewBrand(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}brand`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1076,6 +1041,8 @@ export class DataService {
   }
 
   updateBrand(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}brand/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1091,6 +1058,8 @@ export class DataService {
   }
 
   addNewGroup(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}group`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1104,6 +1073,8 @@ export class DataService {
   }
 
   updateGroup(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}group/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1122,6 +1093,8 @@ export class DataService {
   }
 
   addNewCategory(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}category`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1135,6 +1108,8 @@ export class DataService {
   }
 
   updateCategory(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}category/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1153,6 +1128,8 @@ export class DataService {
   }
 
   addNewProduct(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}product`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1166,6 +1143,8 @@ export class DataService {
   }
 
   updateProduct(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}product/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1173,6 +1152,8 @@ export class DataService {
   }
 
   addNewProducCategory(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}product/category`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1180,6 +1161,7 @@ export class DataService {
   }
 
   updateProductCategory(categoryId) {
+
     return this.http.put(
       `${environment.apiUrl}product/category/${categoryId}`,
       {},
@@ -1200,6 +1182,8 @@ export class DataService {
   }
 
   addNewSign(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}sign`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1213,6 +1197,8 @@ export class DataService {
   }
 
   updateSign(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}sign/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1234,6 +1220,7 @@ export class DataService {
   }
 
   updateCurrency(id, rate) {
+
     return this.http.put(`${environment.apiUrl}currency/${id}`, rate, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1281,6 +1268,8 @@ export class DataService {
   }
 
   updateHoliday(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}holiday/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1288,6 +1277,8 @@ export class DataService {
   }
 
   addNewHoliday(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}holiday`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1310,6 +1301,8 @@ export class DataService {
 
   // add new payment
   addNewPayment(payment) {
+    this.checkifObjectHasDateTime(payment)
+
     return this.http.post<any>(`${environment.apiUrl}payment`, payment, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1366,6 +1359,8 @@ export class DataService {
 
   // add new payment
   addNewManualPayment(payment) {
+    this.checkifObjectHasDateTime(payment)
+
     return this.http.post<any>(`${environment.apiUrl}payment/manual`, payment, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1383,6 +1378,8 @@ export class DataService {
   }
 
   updateManualPayment(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}payment/manual/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1401,6 +1398,8 @@ export class DataService {
   }
 
   addNewShipsService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post<any>(`${environment.apiUrl}service/ship`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1414,6 +1413,8 @@ export class DataService {
   }
 
   updateShipsService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}service/ship/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1421,6 +1422,8 @@ export class DataService {
   }
 
   updateShipsServiceCharge(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}service/ship/charge/${obj.id}`,
       obj,
@@ -1436,6 +1439,8 @@ export class DataService {
   }
 
   addNewOvertimeService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post<any>(`${environment.apiUrl}service/overtime`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1449,6 +1454,8 @@ export class DataService {
   }
 
   updateOvertimeService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}service/overtime/${obj.id}`,
       obj,
@@ -1457,6 +1464,8 @@ export class DataService {
   }
 
   updateOvertimeServiceCharge(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}service/overtime/charge/${obj.id}`,
       obj,
@@ -1472,6 +1481,8 @@ export class DataService {
   }
 
   addNewBoatService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post<any>(`${environment.apiUrl}service/boat`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1485,6 +1496,8 @@ export class DataService {
   }
 
   updateBoatService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}service/boat/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1492,6 +1505,8 @@ export class DataService {
   }
 
   updateBoatServiceCharge(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}service/boat/charge/${obj.id}`,
       obj,
@@ -1507,6 +1522,8 @@ export class DataService {
   }
 
   addNewCraneService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post<any>(`${environment.apiUrl}service/crane`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1520,6 +1537,8 @@ export class DataService {
   }
 
   updateCraneService(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}service/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1527,6 +1546,8 @@ export class DataService {
   }
 
   updateCraneServiceCharge(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}service/crane/charge/${obj.id}`,
       obj,
@@ -1548,6 +1569,8 @@ export class DataService {
   }
 
   addNewPort(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post<any>(`${environment.apiUrl}port`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1561,6 +1584,8 @@ export class DataService {
   }
 
   updatePort(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}port/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1572,6 +1597,7 @@ export class DataService {
   ///////////////////////
 
   getReportTemplate(reportType) {
+
     return this.http.post<any>(
       // `${environment.apiUrl}initviewer?reportType=${reportType}`,
       `http://193.140.43.22/initviewer?reportType=${reportType}`,
@@ -1670,6 +1696,8 @@ export class DataService {
   }
 
   addNewShip(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1701,6 +1729,8 @@ export class DataService {
 
   //local
   addNewShipLocal(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/local`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1716,6 +1746,8 @@ export class DataService {
   }
 
   updateShipDetail(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}ship/detail/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1730,6 +1762,8 @@ export class DataService {
   }
 
   addNewShipExtra(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/extra`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1737,6 +1771,8 @@ export class DataService {
   }
 
   updateShipExtra(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}ship/extra/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1755,6 +1791,8 @@ export class DataService {
   }
 
   addNewShipConstruction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/construction`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1762,6 +1800,8 @@ export class DataService {
   }
 
   updateShipConstruction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}ship/construction/${obj.id}`,
       obj,
@@ -1778,6 +1818,8 @@ export class DataService {
   }
 
   addNewShipSize(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/size`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1785,6 +1827,8 @@ export class DataService {
   }
 
   updateShipSize(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}ship/size/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1809,6 +1853,8 @@ export class DataService {
   }
 
   addNewShipDocument(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/document`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1816,6 +1862,8 @@ export class DataService {
   }
 
   updateDocument(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}ship/document/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1831,6 +1879,8 @@ export class DataService {
   }
 
   addNewShipEngine(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/engine`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1838,6 +1888,8 @@ export class DataService {
   }
 
   updateShipEngine(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}ship/engine/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1862,6 +1914,8 @@ export class DataService {
   }
 
   addNewShipMortage(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/mortage`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1869,6 +1923,8 @@ export class DataService {
   }
 
   updateMortage(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}ship/mortage/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1890,6 +1946,8 @@ export class DataService {
   }
 
   addNewShipOwner(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}ship/owner`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1897,6 +1955,8 @@ export class DataService {
   }
 
   updateOwner(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}ship/owner/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1924,6 +1984,8 @@ export class DataService {
   }
 
   addNewShipTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}transaction`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1937,6 +1999,8 @@ export class DataService {
   }
 
   updateShipTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}transaction/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1964,6 +2028,8 @@ export class DataService {
   }
 
   addNewCarTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}transaction/car`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1971,6 +2037,8 @@ export class DataService {
   }
 
   updateCarTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}transaction/car/${obj.id}`,
       obj,
@@ -1999,6 +2067,8 @@ export class DataService {
   }
 
   addNewPassengerTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}transaction/passenger`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2006,6 +2076,8 @@ export class DataService {
   }
 
   updatePassengerTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}transaction/passenger/${obj.id}`,
       obj,
@@ -2034,6 +2106,8 @@ export class DataService {
   }
 
   addNewProductTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}transaction/product`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2041,6 +2115,8 @@ export class DataService {
   }
 
   updateProductTransaction(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}transaction/product/${obj.id}`,
       obj,
@@ -2062,6 +2138,8 @@ export class DataService {
   }
 
   addNewStaff(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}staff`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2075,6 +2153,8 @@ export class DataService {
   }
 
   updateStaff(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}staff/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2091,6 +2171,8 @@ export class DataService {
   }
 
   addNewContact(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}staff/contact`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2098,6 +2180,8 @@ export class DataService {
   }
 
   updateContact(obj, contactId) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}staff/contact/${obj.id}?contactId=${contactId}`,
       obj,
@@ -2182,9 +2266,9 @@ export class DataService {
   }
 
   addArrival(obj) {
-    
-    obj.date = this.convertDateTimeToIso(obj.date)
+    this.checkifObjectHasDateTime(obj)
 
+    this.checkifObjectHasDateTime(obj)
     return this.http.post(`${environment.apiUrl}trip/arrival`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2192,6 +2276,8 @@ export class DataService {
   }
 
   updateArrival(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(
       `${environment.apiUrl}trip/arrival/${obj.id}`,
       // `${environment.apiUrl}trip/arrival/${obj.tripId}`,
@@ -2208,6 +2294,8 @@ export class DataService {
   }
 
   addDeparture(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}trip/departure`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2215,6 +2303,8 @@ export class DataService {
   }
 
   updateDeparture(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}trip/departure/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2235,6 +2325,8 @@ export class DataService {
   }
 
   addLoad(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}load`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2242,6 +2334,8 @@ export class DataService {
   }
 
   updateLoad(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}load/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2262,6 +2356,8 @@ export class DataService {
   }
 
   addMovement(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}trip/movement`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2269,6 +2365,8 @@ export class DataService {
   }
 
   updateMovement(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}trip/movement/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2289,6 +2387,8 @@ export class DataService {
   }
 
   addOvertime(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}trip/overtime`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2296,6 +2396,8 @@ export class DataService {
   }
 
   updateOvertime(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}trip/overtime/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2316,6 +2418,8 @@ export class DataService {
   }
 
   addBoat(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}trip/boat`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2323,6 +2427,8 @@ export class DataService {
   }
 
   updateBoat(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}trip/boat/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2343,6 +2449,8 @@ export class DataService {
   }
 
   addCrane(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.post(`${environment.apiUrl}trip/crane`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2350,6 +2458,8 @@ export class DataService {
   }
 
   updateCrane(obj) {
+    this.checkifObjectHasDateTime(obj)
+
     return this.http.put(`${environment.apiUrl}trip/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2486,6 +2596,19 @@ export class DataService {
     dateTime.setTime(dateTime.getTime() + (offset*60*60*1000))
     dateTime = dateTime.toISOString(); 
     return dateTime;
+  }
+
+  checkifObjectHasDateTime(obj){
+    try{
+      for (let key in obj) {
+        if(Object.prototype.toString.call(obj[key]) === '[object Date]'){
+          obj[key] = this.convertDateTimeToIso(obj[key]);
+        }
+      }
+    }
+    catch(ex){
+      return
+    }
   }
 
 }
