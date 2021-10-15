@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { ObjectUnsubscribedError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -537,6 +538,7 @@ export class DataService {
   }
 
   addNewAgency(obj) {
+    obj.creationDate = this.convertDateTimeToIso(obj.creationDate);
     return this.http.post(`${environment.apiUrl}agency`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -737,6 +739,12 @@ export class DataService {
   }
 
   addOvertimeInquery(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.post(`${environment.apiUrl}inquiry/overtime`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -744,6 +752,13 @@ export class DataService {
   }
 
   updateOvertimeInquery(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
+
     return this.http.put(
       `${environment.apiUrl}inquiry/overtime/${obj.id}`,
       obj,
@@ -765,6 +780,12 @@ export class DataService {
   }
 
   addBoatInquery(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.post(`${environment.apiUrl}inquiry/boat`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -772,6 +793,12 @@ export class DataService {
   }
 
   updateBoatInquery(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.put(`${environment.apiUrl}inquiry/boat/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -792,6 +819,12 @@ export class DataService {
   }
 
   addCraneInquery(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.post(`${environment.apiUrl}inquiry/crane`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -799,6 +832,12 @@ export class DataService {
   }
 
   updateCraneInquery(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.put(`${environment.apiUrl}inquiry/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -828,6 +867,12 @@ export class DataService {
   }
 
   addNewInquiry(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.post(`${environment.apiUrl}inquiry`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -841,6 +886,12 @@ export class DataService {
   }
 
   updateInquiry(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.put(`${environment.apiUrl}inquiry/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -862,6 +913,12 @@ export class DataService {
   }
 
   addNewInquiryCar(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.post(`${environment.apiUrl}inquiry/car`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -875,6 +932,12 @@ export class DataService {
   }
 
   updateInquiryCar(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.put(`${environment.apiUrl}inquiry/car/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -896,6 +959,12 @@ export class DataService {
   }
 
   addNewInquiryCrane(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.post(`${environment.apiUrl}inquiry/crane`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -909,6 +978,12 @@ export class DataService {
   }
 
   updateInquiryCrane(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.put(`${environment.apiUrl}inquiry/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -933,6 +1008,13 @@ export class DataService {
   }
 
   addNewInquiryOverTime(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
+
     return this.http.post(`${environment.apiUrl}inquiry/overTime`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -946,6 +1028,12 @@ export class DataService {
   }
 
   updateInquiryOverTime(obj) {
+    if(obj.start){
+      obj.start = this.convertDateTimeToIso(obj.start)
+    }
+    if(obj.end){
+      obj.end = this.convertDateTimeToIso(obj.end)
+    }
     return this.http.put(
       `${environment.apiUrl}inquiry/overTime/${obj.id}`,
       obj,
@@ -2399,4 +2487,5 @@ export class DataService {
     dateTime = dateTime.toISOString(); 
     return dateTime;
   }
+
 }
