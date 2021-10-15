@@ -93,6 +93,13 @@ export class BrandDetailsComponent implements OnInit {
         summary: 'Success',
         detail: 'Brand başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

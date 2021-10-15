@@ -111,6 +111,13 @@ export class LocalDetailsComponent implements OnInit {
               summary: 'Success',
               detail: 'kullanıcı başarıyla güncellendi',
             });
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
           });
       //   } else {
       //     this.messageService.add({

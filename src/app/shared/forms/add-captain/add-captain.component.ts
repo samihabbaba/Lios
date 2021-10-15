@@ -92,6 +92,13 @@ export class AddCaptainComponent implements OnInit {
         summary: 'Success',
         detail: 'Yeni kaptan başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

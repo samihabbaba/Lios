@@ -47,6 +47,13 @@ export class LayoutComponent implements OnInit {
           this.currencyIds.push({ name: 'd', id: c.id, rate: c.rate });
         }
       }
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

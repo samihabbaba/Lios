@@ -88,6 +88,13 @@ export class CraneDetailsComponent implements OnInit {
         summary: 'Success',
         detail: 'Başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -116,6 +123,13 @@ export class CraneDetailsComponent implements OnInit {
       });
 
       this.crane.inquiry[i].transactions.splice(index, 1);
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

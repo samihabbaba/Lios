@@ -107,6 +107,13 @@ export class AgencyDetailsComponent implements OnInit {
         summary: 'Success',
         detail: 'Acente başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

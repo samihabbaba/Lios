@@ -19,7 +19,7 @@ import { FormService } from 'src/app/services/form-service/form.service';
   styleUrls: ['./ship-details.component.scss'],
 })
 export class ShipDetailsComponent implements OnInit {
-  activeTab: string = 'Ship Information';
+  activeTab: string = 'Dashboard';
   shipId: any;
   extraId: string;
   constructionId: string;
@@ -63,6 +63,9 @@ export class ShipDetailsComponent implements OnInit {
   numberOfData2: number;
   paymentsTableData: any[];
   @ViewChild('paginator2') paginator2: Paginator;
+
+  shipDetails: any;
+  shipDashboard:any;
 
   selectedColumns: any[] = [];
   columns = [
@@ -108,24 +111,74 @@ export class ShipDetailsComponent implements OnInit {
     this.shipTypes = this.dataService.shipTypes;
     this.countries = this.dataService.countries;
 
-    this.dataService.getShipDetail(this.shipId).subscribe((resp) => {
-      this.initializeShipInfoForm(resp);
-    });
-    this.dataService.getShipExtra(this.shipId).subscribe((resp) => {
-      // console.log(resp);
-      this.initializeExtraInfoForm(resp);
-    });
-    this.dataService
-      .getAllConstructionsForShip(this.shipId)
-      .subscribe((resp) => {
+    this.dataService.getShipDashboard(this.shipId).subscribe((resp) => {
+      console.log(resp);
+      this.shipDashboard = resp;
+    })
+
+    this.dataService.getShipDetail(this.shipId).subscribe(
+      (resp) => {
+        this.shipDetails = resp;
+
+        this.getAgencies();
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
+    this.dataService.getShipExtra(this.shipId).subscribe(
+      (resp) => {
+        // console.log(resp);
+        this.initializeExtraInfoForm(resp);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
+    this.dataService.getAllConstructionsForShip(this.shipId).subscribe(
+      (resp) => {
         this.initializeConstructionForm(resp);
-      });
-    this.dataService.getAllSizesForShip(this.shipId).subscribe((resp) => {
-      this.initializeSizeForm(resp);
-    });
-    this.dataService.getAllEnginesForShip(this.shipId).subscribe((resp) => {
-      this.initializeEngineForm(resp);
-    });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
+    this.dataService.getAllSizesForShip(this.shipId).subscribe(
+      (resp) => {
+        this.initializeSizeForm(resp);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
+    this.dataService.getAllEnginesForShip(this.shipId).subscribe(
+      (resp) => {
+        this.initializeEngineForm(resp);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
     this.initializeMortageForm();
     this.initializeOwnerForm();
     this.selectedColumns = [...this.columns];
@@ -157,10 +210,19 @@ export class ShipDetailsComponent implements OnInit {
         this.shipId,
         null
       )
-      .subscribe((resp) => {
-        this.paymentsTableData = resp.paymentList;
-        this.numberOfData2 = resp.pagingInfo.totalCount;
-      });
+      .subscribe(
+        (resp) => {
+          this.paymentsTableData = resp.paymentList;
+          this.numberOfData2 = resp.pagingInfo.totalCount;
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
   }
 
   getTrips() {
@@ -177,10 +239,19 @@ export class ShipDetailsComponent implements OnInit {
         '',
         this.shipId
       )
-      .subscribe((resp) => {
-        this.tripsTableData = resp.trips;
-        this.numberOfData = resp.pagingInfo.totalCount;
-      });
+      .subscribe(
+        (resp) => {
+          this.tripsTableData = resp.trips;
+          this.numberOfData = resp.pagingInfo.totalCount;
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
   }
 
   pageChange(event: any) {
@@ -194,8 +265,8 @@ export class ShipDetailsComponent implements OnInit {
   }
 
   toolbarItems: any[] = [
-    { label: 'Dashboard', isActive: false, locked: true },
-    { label: 'Ship Information', isActive: true, locked: false },
+    { label: 'Dashboard', isActive: true, locked: false },
+    { label: 'Ship Information', isActive: false, locked: false },
     { label: 'Extra Information', isActive: false, locked: false },
     { label: 'Construction', isActive: false, locked: false },
     { label: 'Size', isActive: false, locked: false },
@@ -247,14 +318,14 @@ export class ShipDetailsComponent implements OnInit {
   }
 
   initializeShipInfoForm(obj) {
-    this.getAgencies();
     this.shipInformation = new FormGroup({
       name: new FormControl(obj?.shipName, [Validators.required]),
-      agencyId: new FormControl(obj?.agencyId, [Validators.required]),
+      agencyId: new FormControl(
+        this.agencies.find((x) => x.id === obj.agencyId),
+        [Validators.required]
+      ),
       creationDate: new FormControl(
-        obj?.creationDate
-          ? new Date(obj.creationDate)
-          : new Date(),
+        obj?.creationDate ? new Date(obj.creationDate) : new Date(),
         [Validators.required]
       ),
       type: new FormControl(obj?.type, [Validators.required]),
@@ -422,21 +493,50 @@ export class ShipDetailsComponent implements OnInit {
   }
 
   getAgencies() {
-    this.dataService.getAllAgencies('', '', 1, 10000).subscribe((resp) => {
-      this.agencies = resp.agencyList;
-    });
+    this.dataService.getAllAgencies('', '', 1, 10000).subscribe(
+      (resp) => {
+        this.agencies = resp.agencyList;
+        // console.log(this.shipDetails);
+        this.initializeShipInfoForm(this.shipDetails);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   getCaptains() {
-    this.dataService.getAllCaptains('', 1, 10000).subscribe((resp) => {
-      this.captains = resp.captainList;
-    });
+    this.dataService.getAllCaptains('', 1, 10000).subscribe(
+      (resp) => {
+        this.captains = resp.captainList;
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   getCurrencies() {
-    this.dataService.getAllCurrencies().subscribe((resp) => {
-      this.currencies = resp;
-    });
+    this.dataService.getAllCurrencies().subscribe(
+      (resp) => {
+        this.currencies = resp;
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   // Filtering autoCompletes
@@ -471,43 +571,79 @@ export class ShipDetailsComponent implements OnInit {
     if (this.toolbarItems[3].locked) {
       let obj = this.shipInformation.getRawValue();
       if (obj.agencyId.hasOwnProperty('id')) obj.agencyId = obj.agencyId.id;
-      this.dataService.addNewShip(obj).subscribe((resp: any) => {
-        this.shipId = resp.body.id;
-        this.unlockTabs();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Yeni gemi başarıyla eklendi',
-        });
-      });
-    } else {
-      this.dataService.getShipDetail(this.shipId).subscribe((resp) => {
-        const detailId = resp.id;
-        let obj = this.shipInformation.getRawValue();
-        if (obj.agencyId.hasOwnProperty('id')) obj.agencyId = obj.agencyId.id;
-        obj.shipId = this.shipId;
-        obj.id = detailId;
-        this.dataService.updateShipDetail(obj).subscribe((resp: any) => {
+      this.dataService.addNewShip(obj).subscribe(
+        (resp: any) => {
+          this.shipId = resp.body.id;
+          this.unlockTabs();
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Gemi bilgileri başarıyla güncellendi',
+            detail: 'Yeni gemi başarıyla eklendi',
           });
-        });
-      });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
+    } else {
+      this.dataService.getShipDetail(this.shipId).subscribe(
+        (resp) => {
+          const detailId = resp.id;
+          let obj = this.shipInformation.getRawValue();
+          if (obj.agencyId.hasOwnProperty('id')) obj.agencyId = obj.agencyId.id;
+          obj.shipId = this.shipId;
+          obj.id = detailId;
+          this.dataService.updateShipDetail(obj).subscribe(
+            (resp: any) => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Gemi bilgileri başarıyla güncellendi',
+              });
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
+            }
+          );
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     }
   }
 
   deleteShip() {
     const obj = { id: this.shipId, isDeleted: true };
-    this.dataService.updateShip(obj).subscribe((resp) => {
-      this.router.navigate(['/ships']);
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Info',
-        detail: 'Gemi başarıyla silindi',
-      });
-    });
+    this.dataService.updateShip(obj).subscribe(
+      (resp) => {
+        this.router.navigate(['/ships']);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Info',
+          detail: 'Gemi başarıyla silindi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   submitExtra() {
@@ -515,28 +651,55 @@ export class ShipDetailsComponent implements OnInit {
       let obj = this.extraInformation.getRawValue();
       if (obj.captainId.hasOwnProperty('id')) obj.captainId = obj.captainId.id;
       obj.shipId = this.shipId;
-      this.dataService.addNewShipExtra(obj).subscribe((resp: any) => {
-        this.dataService.getShipExtra(this.shipId).subscribe((resp) => {
-          this.extraId = resp.id;
-        });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.addNewShipExtra(obj).subscribe(
+        (resp: any) => {
+          this.dataService.getShipExtra(this.shipId).subscribe(
+            (resp) => {
+              this.extraId = resp.id;
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
+            }
+          );
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     } else {
       let obj = this.extraInformation.getRawValue();
       if (obj.captainId.hasOwnProperty('id')) obj.captainId = obj.captainId.id;
       obj.shipId = this.shipId;
       obj.id = this.extraId;
-      this.dataService.updateShipExtra(obj).subscribe((resp: any) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.updateShipExtra(obj).subscribe(
+        (resp: any) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     }
   }
 
@@ -544,18 +707,34 @@ export class ShipDetailsComponent implements OnInit {
     if (!this.constructionId) {
       let obj = this.construction.getRawValue();
       obj.shipId = this.shipId;
-      this.dataService.addNewShipConstruction(obj).subscribe((resp: any) => {
-        this.dataService
-          .getAllConstructionsForShip(this.shipId)
-          .subscribe((resp) => {
-            this.constructionId = resp.id;
+      this.dataService.addNewShipConstruction(obj).subscribe(
+        (resp: any) => {
+          this.dataService.getAllConstructionsForShip(this.shipId).subscribe(
+            (resp) => {
+              this.constructionId = resp.id;
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
+            }
+          );
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
           });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     } else {
       let obj = this.construction.getRawValue();
       obj.shipId = this.shipId;
@@ -574,27 +753,54 @@ export class ShipDetailsComponent implements OnInit {
     if (!this.sizeId) {
       let obj = this.size.getRawValue();
       obj.shipId = this.shipId;
-      this.dataService.addNewShipSize(obj).subscribe((resp: any) => {
-        this.dataService.getAllSizesForShip(this.shipId).subscribe((resp) => {
-          this.sizeId = resp.id;
-        });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.addNewShipSize(obj).subscribe(
+        (resp: any) => {
+          this.dataService.getAllSizesForShip(this.shipId).subscribe(
+            (resp) => {
+              this.sizeId = resp.id;
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
+            }
+          );
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     } else {
       let obj = this.size.getRawValue();
       obj.shipId = this.shipId;
       obj.id = this.sizeId;
-      this.dataService.updateShipSize(obj).subscribe((resp: any) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.updateShipSize(obj).subscribe(
+        (resp: any) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     }
   }
 
@@ -602,27 +808,54 @@ export class ShipDetailsComponent implements OnInit {
     if (!this.engineId) {
       let obj = this.engine.getRawValue();
       obj.shipId = this.shipId;
-      this.dataService.addNewShipEngine(obj).subscribe((resp: any) => {
-        this.dataService.getAllEnginesForShip(this.shipId).subscribe((resp) => {
-          this.engineId = resp.id;
-        });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.addNewShipEngine(obj).subscribe(
+        (resp: any) => {
+          this.dataService.getAllEnginesForShip(this.shipId).subscribe(
+            (resp) => {
+              this.engineId = resp.id;
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
+            }
+          );
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     } else {
       let obj = this.size.getRawValue();
       obj.shipId = this.shipId;
       obj.id = this.engineId;
-      this.dataService.updateShipEngine(obj).subscribe((resp: any) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.updateShipEngine(obj).subscribe(
+        (resp: any) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     }
   }
 
@@ -634,35 +867,62 @@ export class ShipDetailsComponent implements OnInit {
       if (obj.currencyId?.hasOwnProperty('id')) {
         obj.currencyId = obj.currencyId.id;
       }
-      this.dataService.addNewShipMortage(obj).subscribe((resp: any) => {
-        this.mortageId = resp.body.id;
-        this.getAllMortages();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.addNewShipMortage(obj).subscribe(
+        (resp: any) => {
+          this.mortageId = resp.body.id;
+          this.getAllMortages();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     } else {
       let obj = this.mortage.getRawValue();
       obj.shipId = this.shipId;
       obj.id = this.mortageId;
       if (obj.currencyId.id) obj.currencyId = obj.currencyId.id;
-      this.dataService.updateMortage(obj).subscribe((resp: any) => {
-        this.getAllMortages();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.updateMortage(obj).subscribe(
+        (resp: any) => {
+          this.getAllMortages();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     }
   }
 
   getAllMortages() {
-    this.dataService.getAllMortagesForShip(this.shipId).subscribe((resp) => {
-      this.mortages = resp;
-    });
+    this.dataService.getAllMortagesForShip(this.shipId).subscribe(
+      (resp) => {
+        this.mortages = resp;
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   addNewMortage() {
@@ -683,13 +943,22 @@ export class ShipDetailsComponent implements OnInit {
     delete obj.shipName;
     delete obj.currencyCode;
     obj.isDeleted = true;
-    this.dataService.updateMortage(obj).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Confirmed',
-        detail: 'Kayıt başarıyla silindi',
-      });
-    });
+    this.dataService.updateMortage(obj).subscribe(
+      (resp) => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'Kayıt başarıyla silindi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
     this.addNewMortage();
   }
 
@@ -704,37 +973,64 @@ export class ShipDetailsComponent implements OnInit {
       if (obj.agencyId?.hasOwnProperty('id')) {
         obj.agencyId = obj.agencyId.id;
       }
-      this.dataService.addNewShipOwner(obj).subscribe((resp: any) => {
-        this.ownerId = resp.body.id;
-        this.getAllOwners();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.addNewShipOwner(obj).subscribe(
+        (resp: any) => {
+          this.ownerId = resp.body.id;
+          this.getAllOwners();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     } else {
       let obj = this.owner.getRawValue();
       obj.shipId = this.shipId;
       obj.id = this.ownerId;
       if (obj.currencyId.id) obj.currencyId = obj.currencyId.id;
       if (obj.agencyId.id) obj.agencyId = obj.agencyId.id;
-      this.dataService.updateOwner(obj).subscribe((resp: any) => {
-        this.getAllOwners();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Gemi bilgileri başarıyla güncellendi',
-        });
-      });
+      this.dataService.updateOwner(obj).subscribe(
+        (resp: any) => {
+          this.getAllOwners();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Gemi bilgileri başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
     }
   }
 
   getAllOwners() {
-    this.dataService.getAllOwnersForShip(this.shipId).subscribe((resp) => {
-      this.owners = resp;
-      // console.log(this.owners);
-    });
+    this.dataService.getAllOwnersForShip(this.shipId).subscribe(
+      (resp) => {
+        this.owners = resp;
+        // console.log(this.owners);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   addNewOwner() {
@@ -755,13 +1051,24 @@ export class ShipDetailsComponent implements OnInit {
     let obj = item;
     delete obj.shipId;
     obj.isDeleted = true;
-    this.dataService.updateOwner(obj).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Confirmed',
-        detail: 'Kayıt başarıyla silindi',
-      });
-    });
+    this.dataService.updateOwner(obj).subscribe(
+      (resp) => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'Kayıt başarıyla silindi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
     this.addNewOwner();
   }
+
+
 }

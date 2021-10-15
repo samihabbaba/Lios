@@ -78,6 +78,13 @@ export class PayCraneComponent implements OnInit {
   getInvoice() {
     this.dataService.getCraneByInvoiceId(this.crane.id).subscribe((resp) => {
       this.crane = resp;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -100,6 +107,13 @@ export class PayCraneComponent implements OnInit {
         severity: 'success',
         summary: 'Success',
         detail: 'Ödeme başarıyla gerçekleşti',
+      });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
       });
     });
   }

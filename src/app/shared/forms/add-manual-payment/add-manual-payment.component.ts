@@ -94,6 +94,13 @@ export class AddManualPaymentComponent implements OnInit {
         summary: 'Success',
         detail: 'Yeni ödeme başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -116,7 +123,7 @@ export class AddManualPaymentComponent implements OnInit {
       code9138: new FormControl(0, []),
       code9148: new FormControl(0, []),
     });
-  
+
   }
 
   checkValidity(formControl: string) {
@@ -145,6 +152,13 @@ export class AddManualPaymentComponent implements OnInit {
       .subscribe((response) => {
         this.agencies = response.agencyList;
         // console.log(this.agencies);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
   }
 }

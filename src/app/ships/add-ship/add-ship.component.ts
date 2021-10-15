@@ -261,18 +261,39 @@ export class AddShipComponent implements OnInit {
   getAgencies() {
     this.dataService.getAllAgencies('', '', 1, 10000).subscribe((resp) => {
       this.agencies = resp.agencyList;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
   getCaptains() {
     this.dataService.getAllCaptains('', 1, 10000).subscribe((resp) => {
       this.captains = resp.captainList;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
   getCurrencies() {
     this.dataService.getAllCurrencies().subscribe((resp) => {
       this.currencies = resp;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -316,6 +337,13 @@ export class AddShipComponent implements OnInit {
           summary: 'Success',
           detail: 'Yeni gemi başarıyla eklendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     } else {
       this.dataService.getShipDetail(this.shipId).subscribe((resp) => {
@@ -330,6 +358,20 @@ export class AddShipComponent implements OnInit {
             summary: 'Success',
             detail: 'Gemi bilgileri başarıyla güncellendi',
           });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
         });
       });
     }
@@ -343,11 +385,25 @@ export class AddShipComponent implements OnInit {
       this.dataService.addNewShipExtra(obj).subscribe((resp: any) => {
         this.dataService.getShipExtra(this.shipId).subscribe((resp) => {
           this.extraId = resp.id;
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
         });
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
         });
       });
     } else {
@@ -360,6 +416,13 @@ export class AddShipComponent implements OnInit {
           severity: 'success',
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
         });
       });
     }
@@ -374,11 +437,25 @@ export class AddShipComponent implements OnInit {
           .getAllConstructionsForShip(this.shipId)
           .subscribe((resp) => {
             this.constructionId = resp.id;
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
           });
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
         });
       });
     } else {
@@ -391,6 +468,13 @@ export class AddShipComponent implements OnInit {
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     }
   }
@@ -402,11 +486,25 @@ export class AddShipComponent implements OnInit {
       this.dataService.addNewShipSize(obj).subscribe((resp: any) => {
         this.dataService.getAllSizesForShip(this.shipId).subscribe((resp) => {
           this.sizeId = resp.id;
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
         });
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
         });
       });
     } else {
@@ -419,6 +517,13 @@ export class AddShipComponent implements OnInit {
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     }
   }
@@ -430,11 +535,25 @@ export class AddShipComponent implements OnInit {
       this.dataService.addNewShipEngine(obj).subscribe((resp: any) => {
         this.dataService.getAllEnginesForShip(this.shipId).subscribe((resp) => {
           this.engineId = resp.id;
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
         });
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
         });
       });
     } else {
@@ -446,6 +565,13 @@ export class AddShipComponent implements OnInit {
           severity: 'success',
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
         });
       });
     }
@@ -467,6 +593,13 @@ export class AddShipComponent implements OnInit {
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     } else {
       let obj = this.mortage.getRawValue();
@@ -480,6 +613,13 @@ export class AddShipComponent implements OnInit {
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     }
   }
@@ -487,6 +627,13 @@ export class AddShipComponent implements OnInit {
   getAllMortages() {
     this.dataService.getAllMortagesForShip(this.shipId).subscribe((resp) => {
       this.mortages = resp;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -514,6 +661,13 @@ export class AddShipComponent implements OnInit {
         summary: 'Confirmed',
         detail: 'Kayıt başarıyla silindi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
     this.addNewMortage();
   }
@@ -537,6 +691,13 @@ export class AddShipComponent implements OnInit {
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     } else {
       let obj = this.owner.getRawValue();
@@ -551,6 +712,13 @@ export class AddShipComponent implements OnInit {
           summary: 'Success',
           detail: 'Gemi bilgileri başarıyla güncellendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     }
   }
@@ -559,6 +727,13 @@ export class AddShipComponent implements OnInit {
     this.dataService.getAllOwnersForShip(this.shipId).subscribe((resp) => {
       this.owners = resp;
       console.log(this.owners);
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -585,6 +760,13 @@ export class AddShipComponent implements OnInit {
         severity: 'info',
         summary: 'Confirmed',
         detail: 'Kayıt başarıyla silindi',
+      });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
       });
     });
     this.addNewOwner();

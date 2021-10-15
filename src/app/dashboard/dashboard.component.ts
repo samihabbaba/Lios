@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-currency.component';
 import { DataService } from '../services/data/data.service';
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public dataService: DataService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -33,6 +35,13 @@ export class DashboardComponent implements OnInit {
         this.displayCurrencyDialog = true;
         // document.getElementById('currencyBtn').click();
       }
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -74,6 +83,13 @@ export class DashboardComponent implements OnInit {
           },
         ],
       };
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 }

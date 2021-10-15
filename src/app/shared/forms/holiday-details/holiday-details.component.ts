@@ -102,6 +102,13 @@ export class HolidayDetailsComponent implements OnInit {
         summary: 'Success',
         detail: 'Tatil başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

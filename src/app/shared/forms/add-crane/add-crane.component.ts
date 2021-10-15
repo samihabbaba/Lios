@@ -173,12 +173,19 @@ export class AddCraneComponent implements OnInit {
   }
 
   loadShips() {
-    this.dataService
-      .getAllShips('', 10000, 1, false, true)
-      .subscribe((response) => {
+    this.dataService.getAllShips('', 10000, 1, false, true).subscribe(
+      (response) => {
         this.ships = response.shipList;
         // console.log(this.ships);
-      });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   filterAgencies(event) {
@@ -194,12 +201,19 @@ export class AddCraneComponent implements OnInit {
   }
 
   loadAgencies() {
-    this.dataService
-      .getAllAgencies('', 10000, 1, false)
-      .subscribe((response) => {
+    this.dataService.getAllAgencies('', 10000, 1, false).subscribe(
+      (response) => {
         this.agencies = response.agencyList;
         // console.log(this.agencies);
-      });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   ////// field Conditions

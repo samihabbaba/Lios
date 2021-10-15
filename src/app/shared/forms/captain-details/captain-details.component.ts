@@ -93,6 +93,13 @@ export class CaptainDetailsComponent implements OnInit {
         summary: 'Success',
         detail: 'Kaptan başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

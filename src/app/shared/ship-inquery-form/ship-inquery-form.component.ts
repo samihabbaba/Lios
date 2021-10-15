@@ -82,6 +82,13 @@ export class ShipInqueryFormComponent implements OnInit {
                 this.overtimeInqueries.findIndex((x) => x == this.selectedRow),
                 1
               );
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
             });
           },
         },
@@ -119,6 +126,13 @@ export class ShipInqueryFormComponent implements OnInit {
                 this.boatInqueries.findIndex((x) => x == this.selectedRow),
                 1
               );
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
             });
           },
         },
@@ -145,10 +159,24 @@ export class ShipInqueryFormComponent implements OnInit {
       obj.id = this.selectedRow.id;
       this.dataService.updateOvertimeInquery(obj).subscribe((resp) => {
         this.getOvertimeInquery();
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     } else {
       this.dataService.addOvertimeInquery(obj).subscribe((resp) => {
         this.getOvertimeInquery();
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     }
   }
@@ -160,10 +188,24 @@ export class ShipInqueryFormComponent implements OnInit {
       obj.id = this.selectedRow.id;
       this.dataService.updateBoatInquery(obj).subscribe((resp) => {
         this.getBoatInquery();
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     } else {
       this.dataService.addBoatInquery(obj).subscribe((resp) => {
         this.getBoatInquery();
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     }
   }
@@ -171,6 +213,13 @@ export class ShipInqueryFormComponent implements OnInit {
   getBoatInquery() {
     this.dataService.getAllBoatInqueryForTrip(this.tripId).subscribe((resp) => {
       this.boatInqueries = resp;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -206,6 +255,13 @@ export class ShipInqueryFormComponent implements OnInit {
     this.dataService.getAllOvertimeServices().subscribe((resp) => {
       this.initializeOvertimeForm();
       this.overtimeServices = resp;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -213,6 +269,13 @@ export class ShipInqueryFormComponent implements OnInit {
     this.dataService.getAllBoatServices().subscribe((resp) => {
       this.initializeBoatForm();
       this.boatServices = resp;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

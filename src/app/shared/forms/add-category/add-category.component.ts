@@ -95,6 +95,13 @@ export class AddCategoryComponent implements OnInit {
         summary: 'Success',
         detail: 'Kategori başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -130,6 +137,13 @@ export class AddCategoryComponent implements OnInit {
       for (const item of response) {
         this.groups.push({ name: item.name, value: item.id });
       }
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 }

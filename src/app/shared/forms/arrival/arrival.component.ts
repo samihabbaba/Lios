@@ -63,9 +63,23 @@ export class ArrivalComponent implements OnInit {
       this.purposesDropdown = this.dataService.Purposes;
       this.dataService.getAllPorts(1, 10000, '').subscribe((resp) => {
         this.ports = resp.portList.map((x) => x.name);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
       this.dataService.getAllAccommodations().subscribe((resp) => {
         this.accomodations = resp;
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
 
       this.getGroups();
@@ -117,6 +131,13 @@ export class ArrivalComponent implements OnInit {
             });
           }
         });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -131,6 +152,13 @@ export class ArrivalComponent implements OnInit {
   getCaptains() {
     this.dataService.getAllCaptains('', 1, 10000).subscribe((resp) => {
       this.captains = resp.captainList.filter((x) => x.isGuidline === true);
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -140,7 +168,13 @@ export class ArrivalComponent implements OnInit {
         this.groupsArr = resp;
         // console.log(this.groupsArr);
       },
-      (error) => {}
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
     );
   }
 
@@ -155,7 +189,13 @@ export class ArrivalComponent implements OnInit {
         this.categoriesArr = resp;
         // console.log(this.categoriesArr);
       },
-      (error) => {}
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
     );
   }
 
@@ -178,6 +218,13 @@ export class ArrivalComponent implements OnInit {
         severity: 'success',
         summary: 'Success',
         detail: 'Yeni geliş başarıyla eklendi',
+      });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
       });
     });
   }

@@ -92,6 +92,13 @@ export class GroupDetailsComponent implements OnInit {
         summary: 'Success',
         detail: 'Grup başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

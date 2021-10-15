@@ -115,6 +115,13 @@ export class AddLocalComponent implements OnInit {
             detail: 'Kullanıcı adı başka bir kullanıcıya ait',
           });
         }
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
   }
 

@@ -8,6 +8,16 @@
   height: 100vh;
 }
 
+@media screen and (max-width: 1000px) {
+  .login-image {
+    display: none;
+  }
+  .login-panel {
+    padding: 0 !important;
+    justify-content: center;
+  }
+}
+
 .login-panel {
   height: 100vh;
   width: 100%;
@@ -91,5 +101,3 @@
     border-color: #027eef;
   }
 }
-
-

@@ -104,6 +104,13 @@ export class ManualPaymentDetailsComponent implements OnInit {
         summary: 'Success',
         detail: 'Yeni ödeme başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -155,6 +162,13 @@ export class ManualPaymentDetailsComponent implements OnInit {
       .subscribe((response) => {
         this.agencies = response.agencyList;
         // console.log(this.agencies);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
   }
 }

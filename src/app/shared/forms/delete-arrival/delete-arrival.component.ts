@@ -60,6 +60,13 @@ export class DeleteArrivalComponent implements OnInit {
                 summary: 'Info',
                 detail: 'Geliş başarıyla silindi',
               });
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
             });
           }
         });

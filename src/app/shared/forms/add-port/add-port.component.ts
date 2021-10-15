@@ -91,6 +91,13 @@ export class AddPortComponent implements OnInit {
         summary: 'Success',
         detail: 'Yeni liman başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

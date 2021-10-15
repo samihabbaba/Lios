@@ -99,6 +99,13 @@ export class AddAgencyComponent implements OnInit {
         summary: 'Success',
         detail: 'Yeni acente başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

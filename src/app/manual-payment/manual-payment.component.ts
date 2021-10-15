@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
@@ -93,7 +93,8 @@ export class ManualPaymentComponent implements OnInit {
     private dataService: DataService,
     private formService: FormService,
     private deleteService: DeleteService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -148,7 +149,13 @@ export class ManualPaymentComponent implements OnInit {
           console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
         },
-        (error) => {}
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
       );
   }
 
@@ -199,6 +206,13 @@ export class ManualPaymentComponent implements OnInit {
   getAgencies() {
     this.dataService.getAllAgencies('', '', 1, 10000).subscribe((resp) => {
       this.agencies = resp.agencyList;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -220,7 +234,7 @@ export class ManualPaymentComponent implements OnInit {
   displayTelerikDialog
   telerik
   showTelerikReport(  var1 = '', var2 = '', isAlternative = false) {
-    
+
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 

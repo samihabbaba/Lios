@@ -59,12 +59,30 @@ export class EditArrivalComponent implements OnInit {
     this.dialogRef.onShow.subscribe(() => {
       this.movementsTypeDropdown = this.dataService.movementType;
       this.purposesDropdown = this.dataService.Purposes;
-      this.dataService.getAllPorts(1, 10000, '').subscribe((resp) => {
-        this.ports = resp.portList.map((x) => x.name);
-      });
-      this.dataService.getAllAccommodations().subscribe((resp) => {
-        this.accomodations = resp;
-      });
+      this.dataService.getAllPorts(1, 10000, '').subscribe(
+        (resp) => {
+          this.ports = resp.portList.map((x) => x.name);
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
+      this.dataService.getAllAccommodations().subscribe(
+        (resp) => {
+          this.accomodations = resp;
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
 
       this.getGroups();
       this.getCaptains();
@@ -86,15 +104,24 @@ export class EditArrivalComponent implements OnInit {
         this.tripId = value.tripId;
         if (!this.tripId) {
           this.tripId = value.id;
-          this.shipId = value.shipId
+          this.shipId = value.shipId;
         }
-        this.dataService.getArrivalByTipId(this.tripId).subscribe((resp) => {
-          this.formObj = resp;
-          console.log(this.formObj);
-          this.initializeForm();
-          this.formValidationSubscriber$ =
-            this.formService.listenToValueChanges(this.form);
-        });
+        this.dataService.getArrivalByTipId(this.tripId).subscribe(
+          (resp) => {
+            this.formObj = resp;
+            console.log(this.formObj);
+            this.initializeForm();
+            this.formValidationSubscriber$ =
+              this.formService.listenToValueChanges(this.form);
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
+          }
+        );
       });
 
     this.submitSubscriber$ = this.formService
@@ -125,9 +152,18 @@ export class EditArrivalComponent implements OnInit {
   }
 
   getCaptains() {
-    this.dataService.getAllCaptains('', 1, 10000).subscribe((resp) => {
-      this.captains = resp.captainList.filter((x) => x.isGuidline === true);
-    });
+    this.dataService.getAllCaptains('', 1, 10000).subscribe(
+      (resp) => {
+        this.captains = resp.captainList.filter((x) => x.isGuidline === true);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   getGroups() {
@@ -136,7 +172,13 @@ export class EditArrivalComponent implements OnInit {
         this.groupsArr = resp;
         // console.log(this.groupsArr);
       },
-      (error) => {}
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
     );
   }
 
@@ -151,7 +193,13 @@ export class EditArrivalComponent implements OnInit {
         this.categoriesArr = resp;
         // console.log(this.categoriesArr);
       },
-      (error) => {}
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
     );
   }
 
@@ -169,14 +217,23 @@ export class EditArrivalComponent implements OnInit {
     }
     obj.tripId = this.tripId;
     // console.log(obj);
-    this.dataService.updateArrival(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Geliş başarıyla güncellendi',
-      });
-    });
+    this.dataService.updateArrival(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Geliş başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -225,7 +282,16 @@ export class EditArrivalComponent implements OnInit {
       quantity: this.categoryObj.quantity,
     };
 
-    this.dataService.addLoad(load).subscribe((resp) => {});
+    this.dataService.addLoad(load).subscribe(
+      (resp) => {},
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
     // console.log(this.categories.value);
     this.categoryObj = { categoryId: null, quantity: null };
   }
@@ -238,7 +304,16 @@ export class EditArrivalComponent implements OnInit {
       quantity: product.quantity,
       id: product.id,
     };
-    this.dataService.updateLoad(obj).subscribe(() => {});
+    this.dataService.updateLoad(obj).subscribe(
+      () => {},
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
     this.categories.value.splice(index, 1);
   }
 

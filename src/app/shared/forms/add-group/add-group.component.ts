@@ -93,6 +93,13 @@ export class AddGroupComponent implements OnInit {
         summary: 'Success',
         detail: 'Grup başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

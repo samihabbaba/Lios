@@ -91,6 +91,13 @@ export class AddBrandComponent implements OnInit {
         summary: 'Success',
         detail: 'Brand başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

@@ -61,6 +61,13 @@ export class ShipServicesComponent implements OnInit {
 
             this.formValidationSubscriber$ =
               this.formService.listenToValueChanges(this.form);
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
           });
         }
       });
@@ -106,6 +113,13 @@ export class ShipServicesComponent implements OnInit {
         summary: 'Success',
         detail: 'Servis başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
@@ -150,6 +164,13 @@ export class ShipServicesComponent implements OnInit {
         severity: 'success',
         summary: 'Success',
         detail: 'Değişiklikleriniz kaydedildi',
+      });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
       });
     });
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
@@ -20,7 +20,7 @@ export class UserLoggingsComponent implements OnInit {
   displayDialog: boolean = false;
   objToSend: any = null;
   refreshSubscriber$: Subscription;
-  
+
   pageSize = 50;
   pageNumber = 1;
   numberOfData: number;
@@ -28,7 +28,7 @@ export class UserLoggingsComponent implements OnInit {
   searchQuery2: string = '';
   tableData: any[];
   @ViewChild('paginator') paginator: Paginator;
-  
+
   selectedColumns: any[] = [];
   columns = [
     { value: 'level', name: 'Level' },
@@ -39,7 +39,7 @@ export class UserLoggingsComponent implements OnInit {
     { value: 'ip', name: 'IP' },
     { value: 'userAgent', name: 'User Agent' },
   ];
-  
+
   dropdownOptions = [
     {
       label: this.translate.instant('Level'),
@@ -56,7 +56,7 @@ export class UserLoggingsComponent implements OnInit {
     value: '',
   };
 
-  
+
   dropdownOptions2 = [
     {
       label: this.translate.instant('Type'),
@@ -78,7 +78,7 @@ export class UserLoggingsComponent implements OnInit {
   };
 
   dateRanges: any = [new Date(2021, 0, 1), new Date()];
-  
+
   optionsMenu: MenuItem[] = [
     // {
     //   items: [
@@ -107,35 +107,36 @@ export class UserLoggingsComponent implements OnInit {
     //   ],
     // },
   ];
-  
+
   constructor(
     public translate: TranslateService,
     private dataService: DataService,
     private formService: FormService,
-    private deleteService: DeleteService
+    private deleteService: DeleteService,
+    private messageService: MessageService
   ) {}
-  
+
   ngOnInit(): void {
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
   }
-  
+
   ngOnDestroy(): void {
     this.destroySubscriptions();
   }
-  
+
   selection() {}
-  
+
   dropdownChange() {
     this.getData();
   }
-  
+
   dateSelection() {
     // console.log(this.dateRanges);
     this.getData();
   }
-  
+
   getData() {
     this.dataService
       .getLogging(
@@ -162,15 +163,21 @@ export class UserLoggingsComponent implements OnInit {
           this.tableData = response.logList;
           this.numberOfData = response.pagingInfo.totalCount;
         },
-        (error) => {}
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
       );
   }
-  
+
   pageChange(event: any) {
     this.pageNumber = event.page + 1;
     this.getData();
   }
-  
+
   search(event?) {
     if (event) {
       if (event.keyCode === 13) {
@@ -182,7 +189,7 @@ export class UserLoggingsComponent implements OnInit {
       this.getData();
     }
   }
-  
+
   initializeForm(
     formName: string,
     dialogHeader: string,
@@ -190,11 +197,11 @@ export class UserLoggingsComponent implements OnInit {
   ) {
     if (objectToSend) this.formService.sendObjectToForm(this.objToSend);
     this.formName = formName;
-  
+
     this.dialogHeader = dialogHeader;
     this.displayDialog = true;
   }
-  
+
   loadSubscriptions() {
     this.refreshSubscriber$ = this.formService
       .getRefreshSubject()
@@ -204,10 +211,9 @@ export class UserLoggingsComponent implements OnInit {
         }
       });
   }
-  
+
   destroySubscriptions() {
     this.refreshSubscriber$.unsubscribe();
   }
-  
+
   }
-  

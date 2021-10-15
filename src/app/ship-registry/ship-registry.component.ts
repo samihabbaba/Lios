@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
@@ -86,7 +86,7 @@ export class ShipRegistryComponent implements OnInit {
     },
   ];
 
-  
+
   reportOptionsMenu: MenuItem[] = [
     {
       items: [
@@ -250,7 +250,8 @@ export class ShipRegistryComponent implements OnInit {
     private formService: FormService,
     private deleteService: DeleteService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -276,7 +277,13 @@ export class ShipRegistryComponent implements OnInit {
           this.tableData = response.shipList;
           this.numberOfData = response.pagingInfo.totalCount;
         },
-        (error) => {}
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
       );
   }
 
@@ -339,7 +346,7 @@ export class ShipRegistryComponent implements OnInit {
       this.menu.toggle(event);
     }
   }
-  
+
   toggleMenuReports(item, event) {
     this.objToSend = item;
     this.report_menu.toggle(event);
@@ -352,7 +359,7 @@ export class ShipRegistryComponent implements OnInit {
   displayTelerikDialog
   telerik
   showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
-    
+
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 

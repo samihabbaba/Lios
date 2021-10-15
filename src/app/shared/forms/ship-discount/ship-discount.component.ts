@@ -101,6 +101,13 @@ export class ShipDiscountComponent implements OnInit {
         summary: 'Success',
         detail: 'Yüzdelik başarıyla güncellendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

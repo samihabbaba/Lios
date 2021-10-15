@@ -45,35 +45,46 @@ export class PayTripFormComponent implements OnInit {
 
   submit(button: any) {
     let obj = this.form.getRawValue();
-    this.dataService.addNewPayment(obj).subscribe((resp) => {
-      // this.formService.triggerRefresh();
-      // this.closePayTripDialog.emit();
-      let i = this.agencyOptions.findIndex(x=> x.invoiceId == obj.invoiceId)
-      this.agencyOptions[i].isPaid = true;
+    this.dataService.addNewPayment(obj).subscribe(
+      (resp) => {
+        this.formService.triggerRefresh();
+        // this.closePayTripDialog.emit();
+        let i = this.agencyOptions.findIndex(
+          (x) => x.invoiceId == obj.invoiceId
+        );
+        this.agencyOptions[i].isPaid = true;
 
-      this.form.patchValue({
-        isPaid:true
-      });
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Ödeme başarı ile yapıldı',
-      });
-    });
+        this.form.patchValue({
+          isPaid: true,
+        });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Ödeme başarı ile yapıldı',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
-  modalToPrint ={ 
-    isAlternative:false,
-    invoiceId:-1
-  }
+  modalToPrint = {
+    isAlternative: false,
+    invoiceId: -1,
+  };
   agencyChanged;
   onDialogShow() {
-    this.modalToPrint = { 
-      isAlternative:false,
-      invoiceId:-1
-    }
+    this.modalToPrint = {
+      isAlternative: false,
+      invoiceId: -1,
+    };
     this.agencyOptions = [];
-    
+
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
@@ -83,12 +94,20 @@ export class PayTripFormComponent implements OnInit {
           this.agencyOptions = resp;
           this.agencyChanged = resp.length > 1;
           this.initializeForm();
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
         });
       });
   }
 
   onDialogHide() {
     this.objectSubscriber$.unsubscribe();
+    this.form.reset();
     this.closePayTripDialog.emit();
   }
 
@@ -112,15 +131,16 @@ export class PayTripFormComponent implements OnInit {
     });
 
     this.modalToPrint.invoiceId = event.value.invoiceId;
-    let index = this.agencyOptions.findIndex(x=> x.invoiceId == event.value.invoiceId)
+    let index = this.agencyOptions.findIndex(
+      (x) => x.invoiceId == event.value.invoiceId
+    );
     // this.modalPrintDetails = this.modalToPrint[ index ];
 
-    if(index == 0){
+    if (index == 0) {
       this.modalToPrint.isAlternative = false;
-    }else if(index == 1){
+    } else if (index == 1) {
       this.modalToPrint.isAlternative = true;
     }
-
   }
 
   checkValidity(formControl: string, boat = false) {
@@ -136,11 +156,8 @@ export class PayTripFormComponent implements OnInit {
   showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
     // Check this part of the code again pls
 
-    if(
-      !this.form.controls.isPaid.value || 
-      this.modalToPrint.invoiceId == -1
-    ){
-      return
+    if (!this.form.controls.isPaid.value || this.modalToPrint.invoiceId == -1) {
+      return;
     }
     this.reportVar1 = var1;
     this.reportVar2 = var2;

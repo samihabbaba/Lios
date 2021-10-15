@@ -35,7 +35,23 @@
   </div>
 
   <div class="content">
-    <div *ngIf="activeTab === 'Dashboard'">Dashboard</div>
+    <div *ngIf="activeTab === 'Dashboard'" style="height: 100%">
+      <div class="dashboard-container">
+        <div class="top-container">
+          <div class="card flag-card">Flag</div>
+          <div class="ship-name-container card">
+            <span class="ship-name">Ship Name</span>
+            <span style="margin: 0">Captain: Captain Name</span>
+          </div>
+        </div>
+        <div class="bottom-container">
+          <div class="card bottom-card">lastEntryDate</div>
+          <div class="card bottom-card">lastDepartureDate</div>
+          <div class="card bottom-card">lastLocation</div>
+          <div class="card bottom-card">owners,documents and mortages</div>
+        </div>
+      </div>
+    </div>
     <div *ngIf="activeTab === 'Ship Information'">
       <div class="header">
         <span>{{ "Ship Information" | translate }}</span>
@@ -91,7 +107,7 @@
             <p-dropdown
               [options]="shipTypes"
               formControlName="type"
-              placeholder="{{ 'Ship Type' | translate }}"
+              placeholder=""
             ></p-dropdown>
             <label>{{ "Ship Type" | translate }}</label>
           </span>
@@ -107,7 +123,7 @@
             <p-dropdown
               [options]="countries"
               formControlName="country"
-              placeholder="{{ 'Country' | translate }}"
+              placeholder=" "
             ></p-dropdown>
             <label>{{ "Country" | translate }}</label>
           </span>
@@ -123,7 +139,7 @@
             <p-dropdown
               [options]="countries"
               formControlName="flag"
-              placeholder="{{ 'Flag' | translate }}"
+              placeholder=""
             ></p-dropdown>
             <label>{{ "Flag" | translate }}</label>
           </span>
@@ -1086,9 +1102,9 @@
               [options]="currencies"
               formControlName="currencyId"
               optionLabel="code"
-              placeholder="{{ 'Currency' | translate }}"
+              placeholder=""
             ></p-dropdown>
-            <!-- <label>{{ "Currency" | translate }}</label> -->
+            <label>{{ "Currency" | translate }}</label>
           </span>
           <small *ngIf="checkValidity('currencyId', mortage)" class="p-error">{{
             "Invalid input." | translate
@@ -1405,9 +1421,10 @@
             <p-dropdown
               [options]="currencies"
               formControlName="currencyId"
-              placeholder="{{ 'Currency' | translate }}"
+              placeholder=""
               optionLabel="code"
             ></p-dropdown>
+            <label>{{ "Currency" | translate }}</label>
           </span>
           <small *ngIf="checkValidity('currencyId', owner)" class="p-error">{{
             "Invalid input." | translate

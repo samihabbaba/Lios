@@ -90,6 +90,13 @@ export class ShipMovementsFormComponent implements OnInit {
                 summary: 'Info',
                 detail: 'Hareket başarıyla silindi',
               });
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
             });
           },
         },
@@ -123,6 +130,13 @@ export class ShipMovementsFormComponent implements OnInit {
           summary: 'Success',
           detail: 'Hareket başarıyla güncellendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     } else {
       obj.tripId = this.tripId;
@@ -133,6 +147,13 @@ export class ShipMovementsFormComponent implements OnInit {
           summary: 'Success',
           detail: 'Hareket başarıyla eklendi',
         });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
     }
   }
@@ -140,13 +161,27 @@ export class ShipMovementsFormComponent implements OnInit {
   getMovements() {
     this.dataService.getAllMovmentsForTrip(this.tripId).subscribe((resp) => {
       this.movements = resp;
-      console.log(this.movements);
+      // console.log(this.movements);
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
   onDialogShow() {
     this.dataService.getAllAccommodations().subscribe((resp) => {
       this.accomodations = resp;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
 
     this.objectSubscriber$ = this.formService
@@ -198,6 +233,13 @@ export class ShipMovementsFormComponent implements OnInit {
   getCaptains() {
     this.dataService.getAllCaptains('', 1, 10000).subscribe((resp) => {
       this.captains = resp.captainList.filter((x) => x.isGuidline === true);
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

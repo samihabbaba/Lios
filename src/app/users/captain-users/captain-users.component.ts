@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
@@ -76,7 +76,8 @@ export class CaptainUsersComponent implements OnInit {
     private dataService: DataService,
     private formService: FormService,
     private deleteService: DeleteService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService:MessageService
   ) {}
 
   ngOnInit(): void {
@@ -102,7 +103,13 @@ export class CaptainUsersComponent implements OnInit {
           this.tableData = response.captainList;
           this.numberOfData = response.pagingInfo.totalCount;
         },
-        (error) => {}
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
       );
   }
 

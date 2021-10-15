@@ -95,3 +95,50 @@
     padding: 8px 16px !important;
   }
 }
+
+
+// Dashboard styles
+.dashboard-container {
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.top-container {
+  display: flex;
+  height: 40%;
+  width: 100%;
+}
+
+.bottom-container {
+  display: flex;
+  height: 60%;
+  width: 100%;
+  align-items: center;
+}
+
+.card {
+  margin: 1rem;
+}
+.bottom-card {
+  flex: 1;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  padding: 6px;
+  height: 100%;
+}
+
+.flag-card {
+  width: 40%;
+}
+
+.ship-name-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  text-align: right;
+  .ship-name {
+    margin: 0;
+    font-size: 22px;
+  }
+}

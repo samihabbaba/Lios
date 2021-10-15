@@ -5,6 +5,7 @@ import { FormService } from 'src/app/services/form-service/form.service';
 import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-discount',
@@ -46,7 +47,8 @@ export class DiscountComponent implements OnInit {
     public translate: TranslateService,
     private dataService: DataService,
     private formService: FormService,
-    private deleteService: DeleteService
+    private deleteService: DeleteService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -68,12 +70,25 @@ export class DiscountComponent implements OnInit {
       (response) => {
         this.tableData = response;
       },
-      (error) => {}
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
     );
   }
   getOvertimeData() {
     this.dataService.getAllOvertimeDiscounts().subscribe((response) => {
       this.tableData2 = response;
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 

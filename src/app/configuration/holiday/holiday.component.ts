@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
@@ -70,7 +70,8 @@ export class HolidayComponent implements OnInit {
     public translate: TranslateService,
     private dataService: DataService,
     private formService: FormService,
-    private deleteService: DeleteService
+    private deleteService: DeleteService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -90,7 +91,13 @@ export class HolidayComponent implements OnInit {
       (response) => {
         this.tableData = response;
       },
-      (error) => {}
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
     );
   }
 

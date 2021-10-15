@@ -98,6 +98,13 @@ export class AddHolidayComponent implements OnInit {
         summary: 'Success',
         detail: 'Yeni tatil başarıyla eklendi',
       });
+    },
+    () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
     });
   }
 
