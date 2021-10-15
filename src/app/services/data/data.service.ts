@@ -2094,6 +2094,9 @@ export class DataService {
   }
 
   addArrival(obj) {
+    
+    obj.date = this.convertDateTimeToIso(obj.date)
+
     return this.http.post(`${environment.apiUrl}trip/arrival`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2388,5 +2391,12 @@ export class DataService {
     }
     if (query === '?') return '';
     return query;
+  }
+
+  convertDateTimeToIso(dateTime){
+    const offset = new Date().getTimezoneOffset()/-60;
+    dateTime.setTime(dateTime.getTime() + (offset*60*60*1000))
+    dateTime = dateTime.toISOString(); 
+    return dateTime;
   }
 }
