@@ -97,4 +97,13 @@
   </div>
 </div>
 
-<app-update-currency [display]="displayCurrencyDialog" #currecyDialog></app-update-currency>
+<app-update-currency
+  [display]="displayCurrencyDialog"
+  #currecyDialog
+></app-update-currency>
+
+<div (click)="developersMenu.toggle($event)" class="developers">
+  <i class="fas fa-question-circle"></i>
+</div>
+
+<p-menu #developersMenu [popup]="true" [model]="developers"></p-menu>

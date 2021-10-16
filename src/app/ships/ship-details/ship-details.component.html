@@ -38,19 +38,98 @@
 
   <div class="content">
     <div *ngIf="activeTab === 'Dashboard'" style="height: 100%">
-      <div class="dashboard-container">
+      <div class="dashboard-container" *ngIf="shipDetails && shipDashboard">
         <div class="top-container">
-          <div class="card flag-card">Flag</div>
+          <div
+            class="card flag-card"
+            *ngIf="
+              shipDetails.flag !== 'Northern Cyprus (TRNC)' &&
+              shipDetails.flag !== 'Northern Cyprus (KKTC)' &&
+              shipDetails.flag !== 'Northern Cyprus' &&
+              shipDetails.flag !== 'KKTC'
+            "
+          >
+            <span
+              class="flag-height flag-icon flag-icon-{{
+                shipDetails.flag | lowercase
+              }} "
+            ></span>
+          </div>
+          <div
+            class="card flag-card"
+            *ngIf="
+              shipDetails.flag === 'Northern Cyprus (TRNC)' ||
+              shipDetails.flag === 'Northern Cyprus (KKTC)' ||
+              shipDetails.flag === 'Northern Cyprus' ||
+              shipDetails.flag === 'KKTC'
+            "
+          >
+            <img
+              style="height: 100%; width: 70%; display: flex; margin: 0 auto"
+              src="assets/KKTC-flag.svg"
+              alt="KKTC FLAG"
+            />
+          </div>
           <div class="ship-name-container card">
-            <span class="ship-name">Ship Name</span>
-            <span class="captain-name">Captain: Captain Name</span>
+            <span class="ship-name">{{ shipDashboard.shipName }}</span>
+            <span class="captain-name"
+              >Captain :
+              {{
+                shipDetails.captainName
+                  ? shipDashboard.captainName
+                  : "no captain details"
+              }}</span
+            >
           </div>
         </div>
         <div class="bottom-container">
-          <div class="card bottom-card">lastEntryDate</div>
-          <div class="card bottom-card">lastDepartureDate</div>
-          <div class="card bottom-card">lastLocation</div>
-          <div class="card bottom-card">owners,documents and mortages</div>
+          <div class="card bottom-card">
+            <span>{{ "Last Entry Date" | translate }}</span>
+            <div
+              style="align-items: center; margin: auto; font-size: 22px"
+              *ngIf="shipDashboard.lastEntryDate !== '01/01/0001'"
+            >
+              {{ shipDashboard.lastEntryDate }}
+            </div>
+          </div>
+          <div class="card bottom-card">
+            <span>{{ "Last Departure Date" | translate }}</span>
+            <div
+              style="align-items: center; margin: auto; font-size: 22px"
+              *ngIf="shipDashboard.lastDepartureDate !== '01/01/0001'"
+            >
+              {{ shipDashboard.lastDepartureDate }}
+            </div>
+          </div>
+          <div class="card bottom-card">
+            <span>{{ "Last Location" | translate }}</span>
+            <div style="align-items: center; margin: auto; font-size: 22px">
+              {{ shipDashboard.lastLocation | titlecase }}
+            </div>
+          </div>
+          <div
+            class="card bottom-card"
+            style="display: flex; flex-direction: column"
+          >
+            <div style="margin: 12px 0; display: flex">
+              <span>Documents</span
+              ><span style="margin-left: auto">{{
+                this.shipDashboard.documents
+              }}</span>
+            </div>
+            <div style="margin: 12px 0; display: flex">
+              <span>Owners</span
+              ><span style="margin-left: auto">{{
+                this.shipDashboard.owners
+              }}</span>
+            </div>
+            <div style="margin: 12px 0; display: flex">
+              <span>Mortages</span
+              ><span style="margin-left: auto">{{
+                this.shipDashboard.mortages
+              }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

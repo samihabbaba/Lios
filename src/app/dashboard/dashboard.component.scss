@@ -66,3 +66,16 @@
     }
   }
 }
+
+
+.developers{
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-size: 20px;
+  color: rgba(68, 72, 109, 0.5);
+  cursor: pointer;
+  &:hover {
+    color: #0f8bfd;
+  }
+}

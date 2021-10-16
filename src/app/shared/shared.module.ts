@@ -191,7 +191,6 @@ import { PayTripFormComponent } from './forms/pay-trip-form/pay-trip-form.compon
     TelerikViewerComponent,
     ShipMovementsFormComponent,
     ListboxModule,
-
   ],
 })
 export class SharedModule {}

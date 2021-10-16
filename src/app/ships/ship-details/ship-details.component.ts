@@ -65,7 +65,7 @@ export class ShipDetailsComponent implements OnInit {
   @ViewChild('paginator2') paginator2: Paginator;
 
   shipDetails: any;
-  shipDashboard:any;
+  shipDashboard: any;
 
   selectedColumns: any[] = [];
   columns = [
@@ -112,14 +112,30 @@ export class ShipDetailsComponent implements OnInit {
     this.countries = this.dataService.countries;
 
     this.dataService.getShipDashboard(this.shipId).subscribe((resp) => {
-      console.log(resp);
+      // console.log(resp);
       this.shipDashboard = resp;
-    })
+    });
 
     this.dataService.getShipDetail(this.shipId).subscribe(
       (resp) => {
+        // console.log(resp);
         this.shipDetails = resp;
-
+        if (
+          this.shipDetails.country === 'KKTC' ||
+          this.shipDetails.country === 'Northern Cyprus' ||
+          this.shipDetails.country === 'Northern Cyprus (KKTC)' ||
+          this.shipDetails.country === 'Northern Cyprus (TRNC)'
+        ) {
+          this.shipDetails.flag = this.countries[0];
+        }
+        if (
+          this.shipDetails.country === 'KKTC' ||
+          this.shipDetails.country === 'Northern Cyprus' ||
+          this.shipDetails.country === 'Northern Cyprus (KKTC)' ||
+          this.shipDetails.country === 'Northern Cyprus (TRNC)'
+        ) {
+          this.shipDetails.country = this.countries[0];
+        }
         this.getAgencies();
       },
       () => {
@@ -1069,6 +1085,4 @@ export class ShipDetailsComponent implements OnInit {
     );
     this.addNewOwner();
   }
-
-
 }
