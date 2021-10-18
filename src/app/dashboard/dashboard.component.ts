@@ -30,16 +30,16 @@ export class DashboardComponent implements OnInit {
       items: [
         {
           label: 'Amro Mobayed',
-          icon: 'pi pi-external-link',
+          icon: 'pi pi-desktop',
           command: () => {
-            window.open('https://www.linkedin.com/in/amro-mobayed-65a373223/');
+            // window.open('https://www.linkedin.com/in/amro-mobayed-65a373223/');
           },
         },
         {
           label: 'Sami Habbaba',
-          icon: 'pi pi-external-link',
+          icon: 'pi pi-desktop',
           command: () => {
-            window.open('https://www.linkedin.com/in/sami-habbaba-9538b4217/');
+            // window.open('https://www.linkedin.com/in/sami-habbaba-9538b4217/');
           },
         },
       ],
