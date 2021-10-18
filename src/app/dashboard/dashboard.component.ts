@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   developers = [
     {
-      label: 'Front-end Developers',
+      label: 'Cloudsoft Front-end Developers',
       items: [
         {
           label: 'Amro Mobayed',
