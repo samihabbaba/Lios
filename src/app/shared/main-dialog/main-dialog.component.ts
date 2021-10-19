@@ -21,7 +21,6 @@ export class MainDialogComponent implements OnInit {
   @Input() formName: string;
   @Output() closeDialog = new EventEmitter<any>();
 
-
   formIsValid: boolean = false;
   formValidationSubscription$: Subscription;
 
@@ -37,7 +36,9 @@ export class MainDialogComponent implements OnInit {
     } else {
       this.formService.triggerSubmit();
 
-      this.closeDialog.emit();
+      if (this.formName !== 'payCraneForm') {
+        this.closeDialog.emit();
+      }
     }
   }
 
