@@ -24,19 +24,23 @@
 
   <div class="buttons-container-crane">
     <button
+      [disabled]='paymentId == null'
       pButton
       pRipple
       type="button"
       label="Report 1"
       class="p-button-warning p-button-text"
+      (click)="showTelerikReport('crane/payment---Lios/craneFatura',paymentId,false)"
     ></button>
 
     <button
+      [disabled]='paymentId == null'
       pButton
       pRipple
       type="button"
       label="Report 2"
       class="p-button-warning p-button-text"
+      (click)="showTelerikReport('crane/payment---Lios/craneFatura',paymentId,true)"
     ></button>
   </div>
 </div>

@@ -19,6 +19,7 @@
             type="button"
             label="Report"
             class="p-button-warning p-button-text"
+            (click)="showTelerikReport('crane/payment',product.id,false)"
           ></button>
         </td>
         <td>
@@ -28,9 +29,31 @@
             type="button"
             label="Report"
             class="p-button-warning p-button-text"
+            (click)="showTelerikReport('crane/payment',product.id,true)"
           ></button>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
+
+
+
+
+
+<!-- Telerik Dialog -->
+<p-dialog
+  *ngIf="displayTelerikDialog"
+  [(visible)]="displayTelerikDialog"
+  [modal]="false"
+  [style]="{ width: '90vw' }"
+>
+  <app-telerik-viewer
+    [var1]="this.reportVar1"
+    [var2]="this.reportVar2"
+    [isAlternative]="this.reportIsAlternative"
+    [input]="0"
+  >
+  </app-telerik-viewer>
+</p-dialog>
+

@@ -71,11 +71,11 @@ export class HistoryCraneComponent implements OnInit {
         },
 
 
-        {
-          label: this.translate.instant('Report'),
-          icon: 'pi pi-file-pdf',
-          command: () => {},
-        },
+        // {
+        //   label: this.translate.instant('Report'),
+        //   icon: 'pi pi-file-pdf',
+        //   command: () => {},
+        // },
       ],
     },
   ];

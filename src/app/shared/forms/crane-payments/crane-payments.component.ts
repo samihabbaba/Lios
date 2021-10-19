@@ -54,4 +54,25 @@ export class CranePaymentsComponent implements OnInit {
   destroySubscription() {
     this.objectSubscriber$.unsubscribe();
   }
+
+
+  reportVar1
+  reportVar2
+  reportIsAlternative
+  displayTelerikDialog
+  telerik
+  showTelerikReport(  var1 = '', var2 = '', isAlternative = false) {
+
+    this.reportVar1 = var1;
+    this.reportVar2 = var2;
+
+    if (isAlternative) {
+      this.reportIsAlternative = 'true';
+    } else {
+      this.reportIsAlternative = 'false';
+    }
+
+    this.displayTelerikDialog = true;
+    this.telerik = true;
+  }
 }

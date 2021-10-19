@@ -34,8 +34,9 @@ export class PayCraneComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
       this.dialogRef.onShow.subscribe(() => {
+         debugger
+        this.paymentId = null
         this.loadSubscriptions();
       });
       this.dialogRef.onHide.subscribe(() => {
@@ -44,7 +45,8 @@ export class PayCraneComponent implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {    
+  }
 
   loadSubscriptions() {
     this.objectSubscriber$ = this.formService
@@ -101,6 +103,7 @@ export class PayCraneComponent implements OnInit {
     this.formService.setFormToInvalid();
   }
 
+  paymentId:any = null;
   submitForm() {
     let arr: any = [];
     this.selectedInvoices.forEach((x: any) => {
@@ -110,6 +113,7 @@ export class PayCraneComponent implements OnInit {
     if (this.crane) {
       this.dataService.payCraneInvoice(this.crane.id, arr).subscribe(
         (resp) => {
+          this.paymentId = resp
           this.formService.triggerRefresh();
           this.messageService.add({
             severity: 'success',
@@ -126,5 +130,26 @@ export class PayCraneComponent implements OnInit {
         }
       );
     }
+  }
+
+
+  reportVar1
+  reportVar2
+  reportIsAlternative
+  displayTelerikDialog
+  telerik
+  showTelerikReport(  var1 = '', var2 = '', isAlternative = false) {
+
+    this.reportVar1 = var1;
+    this.reportVar2 = var2;
+
+    if (isAlternative) {
+      this.reportIsAlternative = 'true';
+    } else {
+      this.reportIsAlternative = 'false';
+    }
+
+    this.displayTelerikDialog = true;
+    this.telerik = true;
   }
 }
