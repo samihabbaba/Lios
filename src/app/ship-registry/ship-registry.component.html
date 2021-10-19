@@ -57,16 +57,21 @@
               </th>
 
               <th>
-                <div class="align-center">Options</div>
+                <div class="align-center">Reports</div>
               </th>
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let item of tableData">
+            <tr
+              *ngFor="let item of tableData"
+              (click)="goToShipDetails(item.id)"
+              style="cursor: pointer"
+            >
               <td
                 *ngFor="let column of columns"
                 [hidden]="!selectedColumns.includes(column)"
+                style="cursor: pointer;"
               >
                 <span
                   class="td-text"
@@ -97,16 +102,16 @@
                 </span>
               </td>
               <td>
-                <button
-                pButton
-                pRipple
-                type="button"
-                icon="pi pi-ellipsis-h"
-                class="p-button-rounded p-button-text p-button-plain"
-                (click)="toggleMenu(item, $event)"
-              ></button>
+                <!-- <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-ellipsis-h"
+                  class="p-button-rounded p-button-text p-button-plain"
+                  (click)="toggleMenu(item, $event)"
+                ></button> -->
 
-              <button
+                <button
                   pButton
                   pRipple
                   type="button"
@@ -115,7 +120,6 @@
                   pTooltip="Report"
                   (click)="toggleMenuReports(item, $event)"
                 ></button>
-
               </td>
             </tr>
           </tbody>
@@ -138,7 +142,6 @@
   [popup]="true"
   [model]="optionsMenu"
 ></p-menu>
-
 
 <p-menu
   #report_menu
@@ -167,7 +170,6 @@
 >
 </app-ship-inquery-form>
 
-
 <app-ship-movements-form
   [displayMovementsDialog]="displayMovementsDialog"
   (closeMovementsDialog)="displayMovementsDialog = false"
@@ -179,10 +181,6 @@
   [baseZIndex]="10000"
   rejectButtonStyleClass="p-button-text"
 ></p-confirmDialog>
-
-
-
-
 
 <!-- Telerik Dialog -->
 <p-dialog

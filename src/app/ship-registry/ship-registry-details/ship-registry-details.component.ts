@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 @Component({
@@ -100,7 +101,8 @@ export class ShipRegistryDetailsComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     public translate: TranslateService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -1050,5 +1052,27 @@ export class ShipRegistryDetailsComponent implements OnInit {
       }
     );
     this.addNewOwner();
+  }
+
+
+  deleteShip() {
+    const obj = { id: this.shipId, isDeleted: true };
+    this.dataService.updateShip(obj).subscribe(
+      (resp) => {
+        this.router.navigate(['/ship-registry']);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Info',
+          detail: 'Gemi başarıyla silindi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 }

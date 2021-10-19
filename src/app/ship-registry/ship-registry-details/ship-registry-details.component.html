@@ -9,6 +9,17 @@
     class="p-button-text p-button-plain"
   ></button>
 
+  <button
+    *ngIf="authService.currentUser.role === 'Admin'"
+    (click)="deleteShip()"
+    pButton
+    pRipple
+    type="button"
+    label="Delete"
+    icon="pi pi-trash"
+    class="p-button-text p-button-danger"
+  ></button>
+
   <!-- <button
     (click)="testing()"
     pButton

@@ -348,6 +348,7 @@ export class ShipRegistryComponent implements OnInit {
   }
 
   toggleMenuReports(item, event) {
+    event.stopPropagation();
     this.objToSend = item;
     this.report_menu.toggle(event);
   }
@@ -372,5 +373,6 @@ export class ShipRegistryComponent implements OnInit {
     this.displayTelerikDialog = true;
     this.telerik = true;
   }
+
 
 }
