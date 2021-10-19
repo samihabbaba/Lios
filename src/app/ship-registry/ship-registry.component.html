@@ -71,7 +71,7 @@
               <td
                 *ngFor="let column of columns"
                 [hidden]="!selectedColumns.includes(column)"
-                style="cursor: pointer;"
+                style="cursor: pointer"
               >
                 <span
                   class="td-text"
@@ -101,7 +101,7 @@
                   <i class="pi pi-times-circle false"></i>
                 </span>
               </td>
-              <td>
+              <td (click)="$event.stopPropagation()">
                 <!-- <button
                   pButton
                   pRipple
