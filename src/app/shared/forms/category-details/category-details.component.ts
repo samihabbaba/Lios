@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -29,6 +29,8 @@ export class CategoryDetailsComponent implements OnInit {
 
   objReceived: any;
 
+  @Input() formName: any;
+
   constructor(
     private dataService: DataService,
     private formService: FormService,
@@ -37,13 +39,15 @@ export class CategoryDetailsComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.loadGroups();
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.loadGroups();
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -57,6 +61,7 @@ export class CategoryDetailsComponent implements OnInit {
       });
 
     this.initializeForm();
+    if(this.formName === 'categoryDetailsForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -64,7 +69,7 @@ export class CategoryDetailsComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

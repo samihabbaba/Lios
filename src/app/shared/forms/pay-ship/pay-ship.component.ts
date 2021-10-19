@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pay-ship',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pay-ship.component.scss']
 })
 export class PayShipComponent implements OnInit {
+
+  @Input() formName: any;
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -24,6 +24,7 @@ export class AddPortComponent implements OnInit {
   form: FormGroup;
 
   dropdownOptions: any[];
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -32,14 +33,17 @@ export class AddPortComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.dropdownOptions = this.dataService.countries;
-      this.initializeForm();
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.dropdownOptions = this.dataService.countries;
+        this.initializeForm();
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -50,7 +54,7 @@ export class AddPortComponent implements OnInit {
       .subscribe((value) => {
         console.log(value);
       });
-
+      if(this.formName === 'addPortForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -58,7 +62,7 @@ export class AddPortComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
@@ -84,21 +88,23 @@ export class AddPortComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    this.dataService.addNewPort(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni liman başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addNewPort(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni liman başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {

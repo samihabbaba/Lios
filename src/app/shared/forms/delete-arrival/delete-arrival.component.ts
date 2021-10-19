@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -25,6 +25,7 @@ export class DeleteArrivalComponent implements OnInit {
   shipId: string;
   tripId: string;
   shipName: string;
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -48,28 +49,31 @@ export class DeleteArrivalComponent implements OnInit {
           }
           this.formService.setFormToValid();
         });
-
-      this.submitSubscriber$ = this.formService
-        .getSubmitSubject()
-        .subscribe((value) => {
-          if (value === 'submit') {
-            this.dataService.deleteArrival(this.tripId).subscribe((resp) => {
-              this.formService.triggerRefresh();
-              this.messageService.add({
-                severity: 'info',
-                summary: 'Info',
-                detail: 'Geliş başarıyla silindi',
-              });
-            },
-            () => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Bir hata oluştu.',
-              });
-            });
-          }
-        });
+      if (this.formName === 'deleteArrivalForm') {
+        this.submitSubscriber$ = this.formService
+          .getSubmitSubject()
+          .subscribe((value) => {
+            if (value === 'submit') {
+              this.dataService.deleteArrival(this.tripId).subscribe(
+                (resp) => {
+                  this.formService.triggerRefresh();
+                  this.messageService.add({
+                    severity: 'info',
+                    summary: 'Info',
+                    detail: 'Geliş başarıyla silindi',
+                  });
+                },
+                () => {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Bir hata oluştu.',
+                  });
+                }
+              );
+            }
+          });
+      }
     });
     this.dialogRef.onHide.subscribe(() => {
       this.submitSubscriber$.unsubscribe();

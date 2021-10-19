@@ -1,5 +1,5 @@
 import { query } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -36,6 +36,7 @@ export class ArrivalComponent implements OnInit {
   shipId: string;
   ports: any[];
   accomodations: any[];
+  @Input() formName: any;
 
   selectOptions = [
     { label: 'Free', value: true },
@@ -58,41 +59,46 @@ export class ArrivalComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.movementsTypeDropdown = this.dataService.movementType;
-      this.purposesDropdown = this.dataService.Purposes;
-      this.dataService.getAllPorts(1, 10000, '').subscribe((resp) => {
-        this.ports = resp.portList.map((x) => x.name);
-      },
-      () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Bir hata oluştu.',
-        });
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.movementsTypeDropdown = this.dataService.movementType;
+        this.purposesDropdown = this.dataService.Purposes;
+        this.dataService.getAllPorts(1, 10000, '').subscribe(
+          (resp) => {
+            this.ports = resp.portList.map((x) => x.name);
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
+          }
+        );
+        this.dataService.getAllAccommodations().subscribe(
+          (resp) => {
+            this.accomodations = resp;
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
+          }
+        );
+
+        this.getGroups();
+        this.getCaptains();
+        this.loadSubscriptions();
       });
-      this.dataService.getAllAccommodations().subscribe((resp) => {
-        this.accomodations = resp;
-      },
-      () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Bir hata oluştu.',
-        });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
       });
 
-      this.getGroups();
-      this.getCaptains();
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   loadSubscriptions() {
     // this.objectSubscriber$ = this.formService
@@ -102,43 +108,46 @@ export class ArrivalComponent implements OnInit {
     //     console.log(value);
     //   });
 
-    this.dataService.getAllShips('', 10000, 1,false,false).subscribe((response) => {
-      this.ships = response.shipList.filter(x=>!x.inPort);
-      if(this.lastQuery != ''){
-        this.filterShips({
-          query:this.lastQuery
-        })
+    this.dataService.getAllShips('', 10000, 1, false, false).subscribe(
+      (response) => {
+        this.ships = response.shipList.filter((x) => !x.inPort);
+        if (this.lastQuery != '') {
+          this.filterShips({
+            query: this.lastQuery,
+          });
+        }
+        this.initializeForm();
+        if (this.formName === 'arrivalForm') {
+        this.submitSubscriber$ = this.formService
+          .getSubmitSubject()
+          .subscribe((value) => {
+            if (value === 'submit') {
+              this.submitForm();
+            }
+          });
+        }
+        this.formValidationSubscriber$ = this.formService.listenToValueChanges(
+          this.form
+        );
+
+        this.dirtyFormSubscriber$ = this.formService
+          .getDirtyFormSubject()
+          .subscribe((value) => {
+            if (value) {
+              Object.keys(this.form.controls).forEach((x) => {
+                this.form.get(x)?.markAsTouched();
+              });
+            }
+          });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       }
-      this.initializeForm();
-      this.submitSubscriber$ = this.formService
-        .getSubmitSubject()
-        .subscribe((value) => {
-          if (value === 'submit') {
-            this.submitForm();
-          }
-        });
-
-      this.formValidationSubscriber$ = this.formService.listenToValueChanges(
-        this.form
-      );
-
-      this.dirtyFormSubscriber$ = this.formService
-        .getDirtyFormSubject()
-        .subscribe((value) => {
-          if (value) {
-            Object.keys(this.form.controls).forEach((x) => {
-              this.form.get(x)?.markAsTouched();
-            });
-          }
-        });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    );
   }
 
   destroySubscription() {
@@ -150,16 +159,18 @@ export class ArrivalComponent implements OnInit {
   }
 
   getCaptains() {
-    this.dataService.getAllCaptains('', 1, 10000).subscribe((resp) => {
-      this.captains = resp.captainList.filter((x) => x.isGuidline === true);
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.getAllCaptains('', 1, 10000).subscribe(
+      (resp) => {
+        this.captains = resp.captainList.filter((x) => x.isGuidline === true);
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   getGroups() {
@@ -212,21 +223,23 @@ export class ArrivalComponent implements OnInit {
       }
     }
     // console.log(obj);
-    this.dataService.addArrival(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni geliş başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addArrival(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni geliş başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -292,7 +305,7 @@ export class ArrivalComponent implements OnInit {
     this.filteredCaptains = filtered;
   }
 
-  lastQuery = ''
+  lastQuery = '';
   filterShips(event) {
     let filtered: any[] = [];
     let query = event.query;
@@ -304,7 +317,9 @@ export class ArrivalComponent implements OnInit {
     //   }
     // }
     // this.filteredShips = filtered;
-    this.filteredShips = this.ships.filter(x=> x.name.toLowerCase().includes(query));
+    this.filteredShips = this.ships.filter((x) =>
+      x.name.toLowerCase().includes(query)
+    );
   }
 
   loadShips() {}

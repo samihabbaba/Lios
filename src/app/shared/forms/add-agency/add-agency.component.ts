@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -22,6 +22,7 @@ export class AddAgencyComponent implements OnInit {
   formValidationSubscriber$: Subscription;
   dirtyFormSubscriber$: Subscription;
   form: FormGroup;
+  @Input() formName: any;
 
   agencyTypes = [
     {
@@ -41,13 +42,16 @@ export class AddAgencyComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.initializeForm();
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.initializeForm();
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -59,13 +63,15 @@ export class AddAgencyComponent implements OnInit {
         console.log(value);
       });
 
+      if(this.formName === 'addAgencyForm') {
+
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
         if (value === 'submit') {
           this.submitForm();
         }
-      });
+      });}
 
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form

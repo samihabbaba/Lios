@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -28,6 +28,7 @@ export class BoatServicesComponent implements OnInit {
 
   tabView: string;
   objReceived: any;
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -37,12 +38,15 @@ export class BoatServicesComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -73,7 +77,7 @@ export class BoatServicesComponent implements OnInit {
           });
         }
       });
-
+      if(this.formName === 'boatServicesForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -81,7 +85,7 @@ export class BoatServicesComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
       .subscribe((value) => {

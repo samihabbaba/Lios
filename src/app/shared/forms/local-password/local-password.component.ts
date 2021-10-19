@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -25,6 +25,8 @@ export class LocalPasswordComponent implements OnInit {
 
   objReceived: any;
 
+  @Input() formName: any;
+
   constructor(
     private dataService: DataService,
     private formService: FormService,
@@ -32,12 +34,15 @@ export class LocalPasswordComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -51,13 +56,14 @@ export class LocalPasswordComponent implements OnInit {
 
     this.initializeForm();
 
+    if(this.formName === 'localPasswordForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
         if (value === 'submit') {
           this.submitForm();
         }
-      });
+      });}
 
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form

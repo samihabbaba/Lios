@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgIf, NgSwitch } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormService } from 'src/app/services/form-service/form.service';
 
@@ -12,6 +20,7 @@ export class MainDialogComponent implements OnInit {
   @Input() dialogHeader: string = 'Default Header';
   @Input() formName: string;
   @Output() closeDialog = new EventEmitter<any>();
+
 
   formIsValid: boolean = false;
   formValidationSubscription$: Subscription;

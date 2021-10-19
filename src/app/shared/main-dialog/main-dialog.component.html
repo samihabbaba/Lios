@@ -6,146 +6,146 @@
   [modal]="true"
   [style]="{ width: dialogWidth() }"
 >
-  <div [ngSwitch]="formName">
+  <div [ngSwitch]="formName" #ngSwitch>
     <div *ngSwitchCase="'addAgencyForm'">
-      <app-add-agency></app-add-agency>
+      <app-add-agency [formName]="formName"></app-add-agency>
     </div>
     <div *ngSwitchCase="'agencyDetailsForm'">
-      <app-agency-details></app-agency-details>
+      <app-agency-details [formName]="formName"></app-agency-details>
     </div>
 
     <div *ngSwitchCase="'addCaptainForm'">
-      <app-add-captain></app-add-captain>
+      <app-add-captain [formName]="formName"></app-add-captain>
     </div>
 
     <div *ngSwitchCase="'captainDetailsForm'">
-      <app-captain-details></app-captain-details>
+      <app-captain-details [formName]="formName"></app-captain-details>
     </div>
 
     <div *ngSwitchCase="'addLocalForm'">
-      <app-add-local></app-add-local>
+      <app-add-local [formName]="formName"></app-add-local>
     </div>
 
     <div *ngSwitchCase="'localDetailsForm'">
-      <app-local-details></app-local-details>
+      <app-local-details [formName]="formName"></app-local-details>
     </div>
 
     <div *ngSwitchCase="'localPasswordForm'">
-      <app-local-password></app-local-password>
+      <app-local-password [formName]="formName"></app-local-password>
     </div>
 
     <div *ngSwitchCase="'addBrandForm'">
-      <app-add-brand></app-add-brand>
+      <app-add-brand [formName]="formName"></app-add-brand>
     </div>
 
     <div *ngSwitchCase="'addGroupForm'">
-      <app-add-group></app-add-group>
+      <app-add-group [formName]="formName"></app-add-group>
     </div>
 
     <div *ngSwitchCase="'addCategoryForm'">
-      <app-add-category></app-add-category>
+      <app-add-category [formName]="formName"></app-add-category>
     </div>
 
     <div *ngSwitchCase="'groupDetailsForm'">
-      <app-group-details></app-group-details>
+      <app-group-details [formName]="formName"></app-group-details>
     </div>
 
     <div *ngSwitchCase="'brandDetailsForm'">
-      <app-brand-details></app-brand-details>
+      <app-brand-details [formName]="formName"></app-brand-details>
     </div>
 
     <div *ngSwitchCase="'categoryDetailsForm'">
-      <app-category-details></app-category-details>
+      <app-category-details [formName]="formName"></app-category-details>
     </div>
 
     <div *ngSwitchCase="'shipDiscountForm'">
-      <app-ship-discount></app-ship-discount>
+      <app-ship-discount [formName]="formName"></app-ship-discount>
     </div>
 
     <div *ngSwitchCase="'overtimeDiscountForm'">
-      <app-overtime-discount></app-overtime-discount>
+      <app-overtime-discount [formName]="formName"></app-overtime-discount>
     </div>
 
     <div *ngSwitchCase="'addPortForm'">
-      <app-add-port></app-add-port>
+      <app-add-port [formName]="formName"></app-add-port>
     </div>
 
     <div *ngSwitchCase="'portDetailsForm'">
-      <app-port-details></app-port-details>
+      <app-port-details [formName]="formName"></app-port-details>
     </div>
 
     <div *ngSwitchCase="'shipServicesForm'">
-      <app-ship-services></app-ship-services>
+      <app-ship-services [formName]="formName"></app-ship-services>
     </div>
 
     <div *ngSwitchCase="'overtimeServicesForm'">
-      <app-overtime-services></app-overtime-services>
+      <app-overtime-services [formName]="formName"></app-overtime-services>
     </div>
 
     <div *ngSwitchCase="'boatServicesForm'">
-      <app-boat-services></app-boat-services>
+      <app-boat-services [formName]="formName"></app-boat-services>
     </div>
 
     <div *ngSwitchCase="'craneServicesForm'">
-      <app-crane-services></app-crane-services>
+      <app-crane-services [formName]="formName"></app-crane-services>
     </div>
 
     <div *ngSwitchCase="'addHolidayForm'">
-      <app-add-holiday></app-add-holiday>
+      <app-add-holiday [formName]="formName"></app-add-holiday>
     </div>
 
     <div *ngSwitchCase="'holidayDetailsForm'">
-      <app-holiday-details></app-holiday-details>
+      <app-holiday-details [formName]="formName"></app-holiday-details>
     </div>
 
     <div *ngSwitchCase="'arrivalForm'">
-      <app-arrival></app-arrival>
+      <app-arrival [formName]="formName"></app-arrival>
     </div>
 
     <div *ngSwitchCase="'editArrivalForm'">
-      <app-edit-arrival></app-edit-arrival>
+      <app-edit-arrival [formName]="formName"></app-edit-arrival>
     </div>
 
     <div *ngSwitchCase="'deleteArrivalForm'">
-      <app-delete-arrival></app-delete-arrival>
+      <app-delete-arrival [formName]="formName"></app-delete-arrival>
     </div>
 
     <div *ngSwitchCase="'departureForm'">
-      <app-departure></app-departure>
+      <app-departure [formName]="formName"></app-departure>
     </div>
 
     <div *ngSwitchCase="'checkoutTripForm'">
-      <app-checkout-trip></app-checkout-trip>
+      <app-checkout-trip [formName]="formName"></app-checkout-trip>
     </div>
 
     <div *ngSwitchCase="'payShipForm'">
-      <app-pay-ship></app-pay-ship>
+      <app-pay-ship [formName]="formName"></app-pay-ship>
     </div>
 
     <div *ngSwitchCase="'payCraneForm'">
-      <app-pay-crane></app-pay-crane>
+      <app-pay-crane [formName]="formName"></app-pay-crane>
     </div>
 
     <div *ngSwitchCase="'cranePaymentsForm'">
-      <app-crane-payments></app-crane-payments>
+      <app-crane-payments [formName]="formName"></app-crane-payments>
     </div>
 
     <div *ngSwitchCase="'craneDetailsForm'">
-      <app-crane-details></app-crane-details>
+        <app-crane-details [formName]="formName"></app-crane-details>
     </div>
 
     <div *ngSwitchCase="'addCraneForm'">
-      <app-add-crane></app-add-crane>
+      <app-add-crane [formName]="formName"></app-add-crane>
     </div>
 
     <div *ngSwitchCase="'addManualPaymentForm'">
-      <app-add-manual-payment></app-add-manual-payment>
+      <app-add-manual-payment [formName]="formName"></app-add-manual-payment>
     </div>
 
     <div *ngSwitchCase="'manualPaymentDetailsForm'">
-      <app-manual-payment-details></app-manual-payment-details>
+      <app-manual-payment-details [formName]="formName"></app-manual-payment-details>
     </div>
-  
+
 
     <div *ngSwitchDefault>
       <p>Not a valid form</p>

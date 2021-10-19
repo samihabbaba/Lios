@@ -90,16 +90,16 @@
                 [maxDate]="today"
               ></p-calendar>
               <p-calendar
-                [(ngModel)]="item.start"
+                [(ngModel)]="today"
                 *ngIf="!showDateForCrane(item.serviceName)"
                 [showIcon]="true"
                 [showTime]="true"
-                [maxDate]="today"
+                [maxDate]="item.start"
                 appendTo="body"
               ></p-calendar>
             </ng-template>
             <ng-template pTemplate="output">
-              {{ item?.start | date }}
+              {{ item?.start | date}}
             </ng-template>
           </p-cellEditor>
         </td>
@@ -124,7 +124,7 @@
               ></p-calendar>
             </ng-template>
             <ng-template pTemplate="output">
-              {{ item?.end | date }}
+              {{ item?.end | date}}
             </ng-template>
           </p-cellEditor>
         </td>

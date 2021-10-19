@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -34,6 +34,7 @@ export class AddCraneComponent implements OnInit {
 
   agencies: any[] = [];
   filteredAgencies: any;
+  @Input() formName: any;
 
   weightDropdown: any = [
     { label: '20" Container', value: 20 },
@@ -50,16 +51,19 @@ export class AddCraneComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.initializeForm();
-      this.loadCraneServices();
-      this.loadShips();
-      this.loadAgencies();
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.initializeForm();
+        this.loadCraneServices();
+        this.loadShips();
+        this.loadAgencies();
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -70,7 +74,7 @@ export class AddCraneComponent implements OnInit {
     //   .subscribe((value) => {
     //     console.log(value);
     //   });
-
+    if(this.formName === 'addCraneForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -78,7 +82,7 @@ export class AddCraneComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

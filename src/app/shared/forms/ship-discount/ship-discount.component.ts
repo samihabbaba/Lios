@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -27,6 +27,8 @@ export class ShipDiscountComponent implements OnInit {
   objReceived: any;
   tabView: string;
 
+  @Input() formName: any;
+
   constructor(
     private dataService: DataService,
     private formService: FormService,
@@ -34,12 +36,15 @@ export class ShipDiscountComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -57,7 +62,7 @@ export class ShipDiscountComponent implements OnInit {
       });
 
     this.initializeForm();
-
+    if(this.formName === 'shipDiscountForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((x) => {
@@ -66,7 +71,7 @@ export class ShipDiscountComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

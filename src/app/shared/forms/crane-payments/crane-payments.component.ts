@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -15,13 +15,13 @@ import { FormService } from 'src/app/services/form-service/form.service';
 @Component({
   selector: 'app-crane-payments',
   templateUrl: './crane-payments.component.html',
-  styleUrls: ['./crane-payments.component.scss']
+  styleUrls: ['./crane-payments.component.scss'],
 })
 export class CranePaymentsComponent implements OnInit {
-
   objectSubscriber$: Subscription;
-  crane: any
+  crane: any;
 
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -30,9 +30,10 @@ export class CranePaymentsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
-    });
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.loadSubscriptions();
+      });
     this.dialogRef.onHide.subscribe(() => {
       this.destroySubscription();
     });
@@ -47,12 +48,10 @@ export class CranePaymentsComponent implements OnInit {
         this.crane = value;
       });
 
-    this.formService.setFormToInvalid()
+    this.formService.setFormToInvalid();
   }
 
   destroySubscription() {
     this.objectSubscriber$.unsubscribe();
   }
-
-
 }

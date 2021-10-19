@@ -8,3 +8,13 @@
   font-size: 18px;
   font-weight: 600;
 }
+
+.buttons-container-crane {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+
+  button {
+    margin: 0.5rem 0.5rem 0 0.5rem;
+  }
+}

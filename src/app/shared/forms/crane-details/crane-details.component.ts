@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -18,6 +18,7 @@ import { FormService } from 'src/app/services/form-service/form.service';
 })
 export class CraneDetailsComponent implements OnInit {
   objectSubscriber$: Subscription;
+  @Input() formName: any;
 
   crane: any;
   clonedRow: any;
@@ -54,14 +55,18 @@ export class CraneDetailsComponent implements OnInit {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
-        this.crane = value;
+        this.crane = { ...value };
+        console.log(this.crane);
         for (let inq of this.crane.inquiry) {
           for (let transaction of inq.transactions) {
-            transaction.start = new Date(transaction.start);
-            transaction.end = new Date(transaction.end);
+            transaction.start = new Date(
+              String(this.reverseString(transaction.start.slice(0, -9)))
+            );
+            transaction.end = new Date(
+              String(this.reverseString(transaction.end.slice(0, -9)))
+            );
           }
         }
-        console.log(this.crane)
       });
   }
 
@@ -74,28 +79,32 @@ export class CraneDetailsComponent implements OnInit {
   }
 
   onRowEditSave(row: any) {
-    let obj = {
-      id: this.clonedRow.id,
-      weight: row.weight,
-      quantity: row.quantity,
-      start: row.start.toJSON(),
-      end: row.end.toJSON(),
-    };
+    if (this.formName === 'craneDetailsForm') {
+      let obj = {
+        id: this.clonedRow.id,
+        weight: row.weight,
+        quantity: row.quantity,
+        start: row.start.toJSON(),
+        end: row.end.toJSON(),
+      };
 
-    this.dataService.updateCrane2(obj).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+      this.dataService.updateCrane2(obj).subscribe(
+        (resp) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Başarıyla güncellendi',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
+    }
   }
 
   onRowEditCancel(row: any, index: number, i: number) {
@@ -106,31 +115,35 @@ export class CraneDetailsComponent implements OnInit {
   }
 
   deleteRow(row: any, index: number, i: number) {
-    let obj = {
-      id: this.clonedRow.id,
-      weight: row.weight,
-      quantity: row.quantity,
-      start: row.start.toJSON(),
-      end: row.end.toJSON(),
-      isDeleted: true,
-    };
+    if (this.formName === 'craneDetailsForm') {
+      let obj = {
+        id: this.clonedRow.id,
+        weight: row.weight,
+        quantity: row.quantity,
+        start: row.start.toJSON(),
+        end: row.end.toJSON(),
+        isDeleted: true,
+      };
 
-    this.dataService.updateCrane2(obj).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Info',
-        detail: 'Başarıyla silindi',
-      });
+      this.dataService.updateCrane2(obj).subscribe(
+        (resp) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Info',
+            detail: 'Başarıyla silindi',
+          });
 
-      this.crane.inquiry[i].transactions.splice(index, 1);
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+          this.crane.inquiry[i].transactions.splice(index, 1);
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
+    }
   }
 
   ////// field Conditions
@@ -227,5 +240,12 @@ export class CraneDetailsComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  reverseString(str) {
+    let splitString = str.split(/([/])/);
+    let reverseArray = splitString.reverse();
+    let joinArray = reverseArray.join('');
+    return joinArray;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -24,6 +24,7 @@ export class AddCaptainComponent implements OnInit {
   form: FormGroup;
 
   dropdownOptions: any[];
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -32,14 +33,16 @@ export class AddCaptainComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.dropdownOptions = this.dataService.countries;
-      this.initializeForm();
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.dropdownOptions = this.dataService.countries;
+        this.initializeForm();
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -51,18 +54,18 @@ export class AddCaptainComponent implements OnInit {
         console.log(value);
       });
 
+      if (this.formName === 'addCaptainForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
         if (value === 'submit') {
           this.submitForm();
         }
-      });
+      });}
 
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
-
 
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -85,21 +88,23 @@ export class AddCaptainComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    this.dataService.addNewCaptain(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni kaptan başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addNewCaptain(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni kaptan başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -29,6 +29,7 @@ export class AddLocalComponent implements OnInit {
   bloodTypes: any[];
   staffTypes: any[];
   roles: any[];
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -63,14 +64,15 @@ export class AddLocalComponent implements OnInit {
 
     this.initializeForm();
 
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
-
+    if (this.formName === 'addLocalForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
@@ -97,32 +99,34 @@ export class AddLocalComponent implements OnInit {
   submitForm() {
     this.dataService
       .staffUsernameAvailable(this.form.get('userName')?.value)
-      .subscribe((response) => {
-        if (response.body) {
-          let obj = this.form.getRawValue();
-          this.dataService.addNewStaff(obj).subscribe((response) => {
-            this.formService.triggerRefresh();
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Yeni kullanıcı başarıyla eklendi',
+      .subscribe(
+        (response) => {
+          if (response.body) {
+            let obj = this.form.getRawValue();
+            this.dataService.addNewStaff(obj).subscribe((response) => {
+              this.formService.triggerRefresh();
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Yeni kullanıcı başarıyla eklendi',
+              });
             });
-          });
-        } else {
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Kullanıcı adı başka bir kullanıcıya ait',
+            });
+          }
+        },
+        () => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Kullanıcı adı başka bir kullanıcıya ait',
+            detail: 'Bir hata oluştu.',
           });
         }
-      },
-      () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Bir hata oluştu.',
-        });
-      });
+      );
   }
 
   initializeForm() {

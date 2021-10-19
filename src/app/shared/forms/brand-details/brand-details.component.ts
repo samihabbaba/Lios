@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -24,6 +24,7 @@ export class BrandDetailsComponent implements OnInit {
   form: FormGroup;
 
   objReceived: any;
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -32,12 +33,14 @@ export class BrandDetailsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -51,7 +54,7 @@ export class BrandDetailsComponent implements OnInit {
       });
 
     this.initializeForm();
-
+    if(this.formName === 'brandDetailsForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -59,7 +62,7 @@ export class BrandDetailsComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

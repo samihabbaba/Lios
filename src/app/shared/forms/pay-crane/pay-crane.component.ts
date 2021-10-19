@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -25,6 +25,7 @@ export class PayCraneComponent implements OnInit {
 
   invoices: any[];
   selectedInvoices: any[];
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -33,12 +34,14 @@ export class PayCraneComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -52,7 +55,7 @@ export class PayCraneComponent implements OnInit {
         this.invoices = [...this.crane.inquiry];
         this.selectedInvoices = [...this.invoices];
       });
-
+      if (this.formName === 'payCraneForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -60,6 +63,7 @@ export class PayCraneComponent implements OnInit {
           this.submitForm();
         }
       });
+    }
     if (this.selectedInvoices.length < 1) {
       this.formService.setFormToInvalid();
     } else {
@@ -76,16 +80,18 @@ export class PayCraneComponent implements OnInit {
   }
 
   getInvoice() {
-    this.dataService.getCraneByInvoiceId(this.crane.id).subscribe((resp) => {
-      this.crane = resp;
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.getCraneByInvoiceId(this.crane.id).subscribe(
+      (resp) => {
+        this.crane = resp;
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   destroySubscription() {
@@ -101,20 +107,24 @@ export class PayCraneComponent implements OnInit {
       arr.push(x.id);
     });
 
-    this.dataService.payCraneInvoice(this.crane.id, arr).subscribe((resp) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Ödeme başarıyla gerçekleşti',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    if (this.crane) {
+      this.dataService.payCraneInvoice(this.crane.id, arr).subscribe(
+        (resp) => {
+          this.formService.triggerRefresh();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Ödeme başarıyla gerçekleşti',
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
+    }
   }
 }

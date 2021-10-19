@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -30,6 +30,8 @@ export class AddManualPaymentComponent implements OnInit {
   agencies: any[] = [];
   filteredAgencies: any;
 
+  @Input() formName: any;
+
   constructor(
     private dataService: DataService,
     private formService: FormService,
@@ -38,13 +40,16 @@ export class AddManualPaymentComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.initializeForm();
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.initializeForm();
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -52,6 +57,7 @@ export class AddManualPaymentComponent implements OnInit {
   loadSubscriptions() {
     this.banks = this.dataService.banksList;
     this.loadAgencies();
+    if(this.formName === 'addManualPaymentForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -59,7 +65,7 @@ export class AddManualPaymentComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

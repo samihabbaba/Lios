@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-checkout-trip',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./checkout-trip.component.scss']
 })
 export class CheckoutTripComponent implements OnInit {
+
+  @Input() formName: any;
 
   constructor() { }
 

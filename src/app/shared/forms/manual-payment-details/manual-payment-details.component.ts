@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -31,6 +31,7 @@ export class ManualPaymentDetailsComponent implements OnInit {
   agencies: any[] = [];
   filteredAgencies: any;
 
+  @Input() formName: any;
   payment: any;
 
   constructor(
@@ -62,14 +63,15 @@ export class ManualPaymentDetailsComponent implements OnInit {
 
     this.banks = this.dataService.banksList;
     this.loadAgencies();
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
-
+    if (this.formName === 'manualPaymentDetailsForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
@@ -97,21 +99,23 @@ export class ManualPaymentDetailsComponent implements OnInit {
     let obj = this.form.getRawValue();
     if (obj.agency?.name) obj.agency = obj.agency.name;
 
-    this.dataService.addNewManualPayment(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni ödeme başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addNewManualPayment(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni ödeme başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -157,9 +161,8 @@ export class ManualPaymentDetailsComponent implements OnInit {
   }
 
   loadAgencies() {
-    this.dataService
-      .getAllAgencies('', 10000, 1, false)
-      .subscribe((response) => {
+    this.dataService.getAllAgencies('', 10000, 1, false).subscribe(
+      (response) => {
         this.agencies = response.agencyList;
         // console.log(this.agencies);
       },
@@ -169,6 +172,7 @@ export class ManualPaymentDetailsComponent implements OnInit {
           summary: 'Error',
           detail: 'Bir hata oluştu.',
         });
-      });
+      }
+    );
   }
 }

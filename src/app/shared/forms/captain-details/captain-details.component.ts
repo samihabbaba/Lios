@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -24,6 +24,7 @@ export class CaptainDetailsComponent implements OnInit {
   dirtyFormSubscriber$: Subscription;
   objReceived: any;
 
+  @Input() formName: any;
   dropdownOptions: any[];
 
   constructor(
@@ -33,13 +34,16 @@ export class CaptainDetailsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.dropdownOptions = this.dataService.countries;
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+    if(this.formName === 'captainDetailsForm') {
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.dropdownOptions = this.dataService.countries;
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+    }
   }
 
   ngOnInit() {}
@@ -52,6 +56,7 @@ export class CaptainDetailsComponent implements OnInit {
       });
 
     this.initializeForm();
+    if (this.formName === 'addCaptainForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -59,7 +64,7 @@ export class CaptainDetailsComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

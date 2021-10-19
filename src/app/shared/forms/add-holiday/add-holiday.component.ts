@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -27,6 +27,7 @@ export class AddHolidayComponent implements OnInit {
 
   months: any[] = [];
   days31: any[] = [];
+  @Input() formName: any;
 
   constructor(
     private dataService: DataService,
@@ -35,6 +36,7 @@ export class AddHolidayComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
+
     this.dialogRef.onShow.subscribe(() => {
       for (let i = 1; i <= 31; i++) {
         this.days31.push(i);
@@ -47,6 +49,7 @@ export class AddHolidayComponent implements OnInit {
     this.dialogRef.onHide.subscribe(() => {
       this.destroySubscription();
     });
+
   }
 
   ngOnInit() {}
@@ -57,7 +60,7 @@ export class AddHolidayComponent implements OnInit {
       .subscribe((value) => {
         console.log(value);
       });
-
+      if(this.formName === 'addHolidayForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -65,7 +68,7 @@ export class AddHolidayComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

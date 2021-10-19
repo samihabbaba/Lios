@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -23,6 +23,7 @@ export class AgencyDetailsComponent implements OnInit {
   dirtyFormSubscriber$: Subscription;
   form: FormGroup;
   objReceived: any;
+  @Input() formName: any;
 
   agencyTypes = [
     {
@@ -65,13 +66,15 @@ export class AgencyDetailsComponent implements OnInit {
         }
       });
     this.initializeForm();
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'agencyDetailsForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
+    }
 
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -100,21 +103,23 @@ export class AgencyDetailsComponent implements OnInit {
     let obj = this.form.getRawValue();
     obj.agencyType = obj.agencyType.value;
     obj.id = this.objReceived.id;
-    this.dataService.updateAgency(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Acente başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateAgency(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Acente başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {

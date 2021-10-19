@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -24,6 +24,7 @@ export class LocalDetailsComponent implements OnInit {
   form: FormGroup;
 
   objReceived: any;
+  @Input() formName: any;
 
   countryDropdown: any[];
   martialStatus: any[];
@@ -39,20 +40,23 @@ export class LocalDetailsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      this.countryDropdown = this.dataService.countries;
-      this.martialStatus = this.dataService.martialStatus;
-      this.gender = this.dataService.gender;
-      this.bloodTypes = this.dataService.bloodTypes;
-      this.staffTypes = this.dataService.staffTypes;
-      this.roles = this.dataService.roles;
 
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
-  }
+
+      this.dialogRef.onShow.subscribe(() => {
+        this.countryDropdown = this.dataService.countries;
+        this.martialStatus = this.dataService.martialStatus;
+        this.gender = this.dataService.gender;
+        this.bloodTypes = this.dataService.bloodTypes;
+        this.staffTypes = this.dataService.staffTypes;
+        this.roles = this.dataService.roles;
+
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
+    }
 
   ngOnInit() {}
 
@@ -66,6 +70,7 @@ export class LocalDetailsComponent implements OnInit {
 
     this.initializeForm();
 
+    if(this.formName === 'localDetailsForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -73,7 +78,7 @@ export class LocalDetailsComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

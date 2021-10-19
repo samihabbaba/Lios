@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -27,6 +27,7 @@ export class HolidayDetailsComponent implements OnInit {
 
   months: any[] = [];
   days31: any[] = [];
+  @Input() formName: any;
 
   objReceived: any;
 
@@ -37,16 +38,19 @@ export class HolidayDetailsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    this.dialogRef.onShow.subscribe(() => {
-      for (let i = 1; i <= 31; i++) {
-        this.days31.push(i);
-      }
-      this.months = this.dataService.months;
-      this.loadSubscriptions();
-    });
-    this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-    });
+
+
+      this.dialogRef.onShow.subscribe(() => {
+        for (let i = 1; i <= 31; i++) {
+          this.days31.push(i);
+        }
+        this.months = this.dataService.months;
+        this.loadSubscriptions();
+      });
+      this.dialogRef.onHide.subscribe(() => {
+        this.destroySubscription();
+      });
+
   }
 
   ngOnInit() {}
@@ -60,7 +64,7 @@ export class HolidayDetailsComponent implements OnInit {
       });
 
     this.initializeForm();
-
+    if(this.formName === 'holidayDetailsForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -68,7 +72,7 @@ export class HolidayDetailsComponent implements OnInit {
           this.submitForm();
         }
       });
-
+    }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
