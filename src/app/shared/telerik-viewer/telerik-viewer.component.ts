@@ -33,8 +33,8 @@ export class TelerikViewerComponent implements OnInit {
     debugger
 
     if(this.var1.includes('---')){
-      this.var1 = this.var1.split('---')[0]
       this.input = this.var1.split('---')[1]
+      this.var1 = this.var1.split('---')[0]
     }
 
     
