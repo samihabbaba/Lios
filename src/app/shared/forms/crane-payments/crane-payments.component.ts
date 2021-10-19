@@ -45,7 +45,7 @@ export class CranePaymentsComponent implements OnInit {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
-        this.crane = value;
+        this.crane = {...value};
       });
 
     this.formService.setFormToInvalid();

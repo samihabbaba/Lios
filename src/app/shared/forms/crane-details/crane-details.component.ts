@@ -59,12 +59,16 @@ export class CraneDetailsComponent implements OnInit {
         console.log(this.crane);
         for (let inq of this.crane.inquiry) {
           for (let transaction of inq.transactions) {
-            transaction.start = new Date(
-              String(this.reverseString(transaction.start.slice(0, -9)))
-            );
-            transaction.end = new Date(
-              String(this.reverseString(transaction.end.slice(0, -9)))
-            );
+            if (transaction.start.length > 10) {
+              transaction.start = new Date(
+                String(this.reverseString(transaction?.start.slice(0, -9)))
+              );
+            }
+            if (transaction.end.length > 10) {
+              transaction.end = new Date(
+                String(this.reverseString(transaction?.end.slice(0, -9)))
+              );
+            }
           }
         }
       });
