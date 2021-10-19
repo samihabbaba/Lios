@@ -35,12 +35,14 @@ export class PayCraneComponent implements OnInit {
     private dialogRef: Dialog
   ) {
       this.dialogRef.onShow.subscribe(() => {
-         debugger
+        //  debugger
+        
         this.paymentId = null
         this.loadSubscriptions();
       });
       this.dialogRef.onHide.subscribe(() => {
         this.destroySubscription();
+        this.formName = null;
       });
 
   }
@@ -62,6 +64,7 @@ export class PayCraneComponent implements OnInit {
       .getSubmitSubject()
       .subscribe((value) => {
         if (value === 'submit') {
+          console.log(this.formName)
           this.submitForm();
         }
       });

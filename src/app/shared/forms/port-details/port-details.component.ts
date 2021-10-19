@@ -40,6 +40,7 @@ export class PortDetailsComponent implements OnInit {
       });
       this.dialogRef.onHide.subscribe(() => {
         this.destroySubscription();
+this.formName = null;
       });
 
   }

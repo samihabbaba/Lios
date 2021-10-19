@@ -54,6 +54,7 @@ export class LocalDetailsComponent implements OnInit {
       });
       this.dialogRef.onHide.subscribe(() => {
         this.destroySubscription();
+this.formName = null;
       });
 
     }

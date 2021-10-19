@@ -62,6 +62,7 @@ export class AddCraneComponent implements OnInit {
       });
       this.dialogRef.onHide.subscribe(() => {
         this.destroySubscription();
+this.formName = null;
       });
 
   }
@@ -74,11 +75,12 @@ export class AddCraneComponent implements OnInit {
     //   .subscribe((value) => {
     //     console.log(value);
     //   });
+    console.log(this.formName)
     if(this.formName === 'addCraneForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
-        if (value === 'submit') {
+        if (value === 'submit' && this.formName === 'addCraneForm') {
           this.submitForm();
         }
       });
