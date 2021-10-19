@@ -46,6 +46,7 @@ export class ManualPaymentDetailsComponent implements OnInit {
       this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
+      this.formName = null;
       this.destroySubscription();
     });
   }

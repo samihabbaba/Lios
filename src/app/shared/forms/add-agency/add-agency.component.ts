@@ -50,6 +50,7 @@ export class AddAgencyComponent implements OnInit {
       });
       this.dialogRef.onHide.subscribe(() => {
         this.destroySubscription();
+        this.formName = null;
       });
 
   }

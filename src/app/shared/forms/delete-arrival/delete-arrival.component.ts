@@ -76,6 +76,7 @@ export class DeleteArrivalComponent implements OnInit {
       }
     });
     this.dialogRef.onHide.subscribe(() => {
+      this.formName = null;
       this.submitSubscriber$.unsubscribe();
       this.formService.setFormToInvalid();
     });

@@ -45,6 +45,7 @@ export class CraneDetailsComponent implements OnInit {
       this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
+      this.formName = null;
       this.destroySubscription();
     });
   }
@@ -253,7 +254,7 @@ export class CraneDetailsComponent implements OnInit {
     return joinArray;
   }
 
-  
+
   reportVar1
   reportVar2
   reportIsAlternative

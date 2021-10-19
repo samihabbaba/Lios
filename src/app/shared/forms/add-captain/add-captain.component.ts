@@ -41,6 +41,7 @@ export class AddCaptainComponent implements OnInit {
       });
       this.dialogRef.onHide.subscribe(() => {
         this.destroySubscription();
+        this.formName = null;
       });
 
   }
