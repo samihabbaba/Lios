@@ -1,235 +1,248 @@
-<!-- <p-tabView>
-  <p-tabPanel header="Header I" >
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </p-tabPanel>
-</p-tabView> -->
-
-<div *ngIf="crane?.inquiry" style="padding-top: 16px">
-  <p-table
+<p-tabView *ngIf="crane?.inquiry">
+  <p-tabPanel
     *ngFor="let inq of crane.inquiry; let i = index"
-    [value]="inq.transactions"
-    dataKey="id"
-    editMode="row"
-    responsiveLayout="scroll"
+    header="{{ 'Group' | translate }} {{ inq.group }} - [{{ inq.id }}]  (${{
+      inq.amount
+    }})"
   >
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Service Name</th>
-        <th>Ship Name</th>
-        <th>Sequence Number</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>
-          <div style="display: flex; align-items: center">
-            Quantity
-            <i
-              pTooltip="Tonnage / Lift / Number of Containers"
-              class="pi pi-question"
-            ></i>
-          </div>
-        </th>
-        <th>
-          <div style="display: flex; align-items: center">
-            Weight
-            <i pTooltip="Weight / Container Size" class="pi pi-question"></i>
-          </div>
-        </th>
-        <th>Service Charge</th>
-        <th>Charge</th>
-        <th style="width: 8rem" *ngIf="!crane.isPaid"></th>
-      </tr>
-    </ng-template>
-    <ng-template
-      pTemplate="body"
-      let-item
-      let-editing="editing"
-      let-ri="rowIndex"
-    >
-      <tr [pEditableRow]="item">
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              {{ item.serviceName }}
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item.serviceName }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              {{ item.shipName }}
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item.shipName }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              {{ item.sequenceNumberConstuct }}
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item.sequenceNumberConstuct }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+    <div *ngIf="inq">
+      <p-table
+        [value]="inq.transactions"
+        dataKey="id"
+        editMode="row"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Service Name</th>
+            <th>Ship Name</th>
+            <th>Sequence Number</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>
+              <div style="display: flex; align-items: center">
+                Quantity
+                <i
+                  pTooltip="Tonnage / Lift / Number of Containers"
+                  class="pi pi-question"
+                ></i>
+              </div>
+            </th>
+            <th>
+              <div style="display: flex; align-items: center">
+                Weight
+                <i
+                  pTooltip="Weight / Container Size"
+                  class="pi pi-question"
+                ></i>
+              </div>
+            </th>
+            <th>Service Charge</th>
+            <th>Charge</th>
+            <th style="width: 8rem" *ngIf="!crane.isPaid"></th>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="body"
+          let-item
+          let-editing="editing"
+          let-ri="rowIndex"
+        >
+          <tr [pEditableRow]="item">
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  {{ item.serviceName }}
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.serviceName }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  {{ item.shipName }}
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.shipName }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  {{ item.sequenceNumberConstuct }}
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.sequenceNumberConstuct }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <p-calendar
-                [(ngModel)]="item.start"
-                *ngIf="showDateForCrane(item.serviceName)"
-                [showIcon]="true"
-                appendTo="body"
-                [maxDate]="today"
-              ></p-calendar>
-              <p-calendar
-                [(ngModel)]="today"
-                *ngIf="!showDateForCrane(item.serviceName)"
-                [showIcon]="true"
-                [showTime]="true"
-                [maxDate]="item.start"
-                appendTo="body"
-              ></p-calendar>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item?.start | date}}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <p-calendar
+                    [(ngModel)]="item.start"
+                    *ngIf="showDateForCrane(item.serviceName)"
+                    [showIcon]="true"
+                    appendTo="body"
+                    [maxDate]="today"
+                  ></p-calendar>
+                  <p-calendar
+                    [(ngModel)]="today"
+                    *ngIf="!showDateForCrane(item.serviceName)"
+                    [showIcon]="true"
+                    [showTime]="true"
+                    [maxDate]="item.start"
+                    appendTo="body"
+                  ></p-calendar>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item?.start | date }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <p-calendar
-                [(ngModel)]="item.end"
-                *ngIf="showDateForCrane(item.serviceName)"
-                [showIcon]="true"
-                [maxDate]="today"
-                appendTo="body"
-              ></p-calendar>
-              <p-calendar
-                [(ngModel)]="item.end"
-                *ngIf="!showDateForCrane(item.serviceName)"
-                [showIcon]="true"
-                [showTime]="true"
-                [maxDate]="today"
-                appendTo="body"
-              ></p-calendar>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item?.end | date}}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <p-calendar
+                    [(ngModel)]="item.end"
+                    *ngIf="showDateForCrane(item.serviceName)"
+                    [showIcon]="true"
+                    [maxDate]="today"
+                    appendTo="body"
+                  ></p-calendar>
+                  <p-calendar
+                    [(ngModel)]="item.end"
+                    *ngIf="!showDateForCrane(item.serviceName)"
+                    [showIcon]="true"
+                    [showTime]="true"
+                    [maxDate]="today"
+                    appendTo="body"
+                  ></p-calendar>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item?.end | date }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="number" [(ngModel)]="item.quantity" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item.quantity }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="number" [(ngModel)]="item.quantity" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.quantity }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input
-                *ngIf="!dropdownConition(item.serviceName)"
-                pInputText
-                type="number"
-                [(ngModel)]="item.weight"
-              />
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input
+                    *ngIf="!dropdownConition(item.serviceName)"
+                    pInputText
+                    type="number"
+                    [(ngModel)]="item.weight"
+                  />
 
-              <p-dropdown
-                *ngIf="dropdownConition(item.serviceName)"
-                [options]="weightDropdown"
-                [(ngModel)]="item.weight"
-                placeholder="{{ ' ' | translate }}"
-                optionLabel="label"
-                optionValue="value"
-              ></p-dropdown>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item.weight }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+                  <p-dropdown
+                    *ngIf="dropdownConition(item.serviceName)"
+                    [options]="weightDropdown"
+                    [(ngModel)]="item.weight"
+                    placeholder="{{ ' ' | translate }}"
+                    optionLabel="label"
+                    optionValue="value"
+                  ></p-dropdown>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.weight }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              {{ item.serviceCharge }}
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item.serviceCharge }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  {{ item.serviceCharge }}
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.serviceCharge }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              {{ item.charge }}
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item.charge }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  {{ item.charge }}
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.charge }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
 
-        <td style="text-align: center" *ngIf="!crane.isPaid">
-          <button
-            *ngIf="!editing"
-            pButton
-            pRipple
-            type="button"
-            pInitEditableRow
-            icon="pi pi-pencil"
-            (click)="onRowEditInit(item)"
-            class="p-button-rounded p-button-text"
-          ></button>
-          <button
-            *ngIf="editing"
-            pButton
-            pRipple
-            type="button"
-            pSaveEditableRow
-            icon="pi pi-check"
-            (click)="onRowEditSave(item)"
-            class="p-button-rounded p-button-text p-button-success p-mr-2"
-          ></button>
+            <td style="text-align: center" *ngIf="!crane.isPaid">
+              <button
+                *ngIf="!editing"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                icon="pi pi-pencil"
+                (click)="onRowEditInit(item)"
+                class="p-button-rounded p-button-text"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(item)"
+                class="p-button-rounded p-button-text p-button-success p-mr-2"
+              ></button>
 
-          <button
-            *ngIf="editing"
-            pButton
-            pRipple
-            type="button"
-            icon="pi pi-trash"
-            (click)="deleteRow(item, ri, i)"
-            class="p-button-rounded p-button-text p-button-danger p-mr-2"
-          ></button>
-          <button
-            *ngIf="editing"
-            pButton
-            pRipple
-            type="button"
-            pCancelEditableRow
-            icon="pi pi-times"
-            (click)="onRowEditCancel(item, ri, i)"
-            class="p-button-rounded p-button-text p-button-plain"
-          ></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                (click)="deleteRow(item, ri, i)"
+                class="p-button-rounded p-button-text p-button-danger p-mr-2"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(item, ri, i)"
+                class="p-button-rounded p-button-text p-button-plain"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <div style="display: flex; justify-content: flex-end; padding: 0.5rem 0">
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Report"
+          class="p-button-warning p-button-text"
+        ></button>
+      </div>
+    </div>
+  </p-tabPanel>
+</p-tabView>
