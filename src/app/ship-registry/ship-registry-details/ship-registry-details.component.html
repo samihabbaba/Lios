@@ -66,6 +66,7 @@
           </div>
           <div
             class="card flag-card"
+            style="margin-top: 0"
             *ngIf="
               shipDetails.flag === 'Northern Cyprus (TRNC)' ||
               shipDetails.flag === 'Northern Cyprus (KKTC)' ||
@@ -73,11 +74,7 @@
               shipDetails.flag === 'KKTC'
             "
           >
-            <img
-              style="height: 100%; width: 70%; display: flex; margin: 0 auto"
-              src="assets/KKTC-flag.svg"
-              alt="KKTC FLAG"
-            />
+            <img class="kktc-flag" src="assets/KKTC-flag.svg" alt="KKTC FLAG" />
           </div>
           <div class="ship-name-container card">
             <span class="ship-name">{{ shipDashboard.shipName }}</span>
@@ -90,54 +87,69 @@
               }}</span
             >
           </div>
-        </div>
-        <div class="bottom-container">
-          <div class="card bottom-card">
-            <span>{{ "Last Entry Date" | translate }}</span>
-            <div
-              style="align-items: center; margin: auto; font-size: 22px"
-              *ngIf="shipDashboard.lastEntryDate !== '01/01/0001'"
-            >
-              {{ shipDashboard.lastEntryDate }}
-            </div>
-          </div>
-          <div class="card bottom-card">
-            <span>{{ "Last Departure Date" | translate }}</span>
-            <div
-              style="align-items: center; margin: auto; font-size: 22px"
-              *ngIf="shipDashboard.lastDepartureDate !== '01/01/0001'"
-            >
-              {{ shipDashboard.lastDepartureDate }}
-            </div>
-          </div>
-          <div class="card bottom-card">
-            <span>{{ "Last Location" | translate }}</span>
-            <div style="align-items: center; margin: auto; font-size: 22px">
-              {{ shipDashboard.lastLocation | titlecase }}
-            </div>
-          </div>
-          <div
-            class="card bottom-card"
-            style="display: flex; flex-direction: column"
-          >
+
+          <div class="ship-owners-container card">
             <div style="margin: 12px 0; display: flex">
-              <span>Documents</span
+              <span style="padding-right: 2rem">Documents</span
               ><span style="margin-left: auto">{{
                 this.shipDashboard.documents
               }}</span>
             </div>
             <div style="margin: 12px 0; display: flex">
-              <span>Owners</span
+              <span style="padding-right: 2rem">Owners</span
               ><span style="margin-left: auto">{{
                 this.shipDashboard.owners
               }}</span>
             </div>
             <div style="margin: 12px 0; display: flex">
-              <span>Mortages</span
+              <span style="padding-right: 2rem">Mortages</span
               ><span style="margin-left: auto">{{
                 this.shipDashboard.mortages
               }}</span>
             </div>
+          </div>
+        </div>
+        <div class="bottom-container">
+          <div class="info-container">
+            <i class="fas fa-user-tie"></i> {{ "Agency" | translate }} :
+            {{ shipDetails.agencyName }}
+          </div>
+
+          <div class="info-container">
+            <i class="fas fa-flag"></i> {{ "Flag" | translate }} :
+            {{ shipDetails.flag }}
+          </div>
+
+          <div class="info-container">
+            <i class="fas fa-globe-europe"></i> {{ "Country" | translate }} :
+            {{ shipDetails.country }}
+          </div>
+
+          <div class="info-container">
+            <i class="fas fa-calendar-plus"></i> {{ "Last Entry Date" | translate }} :
+            {{ shipDashboard.lastEntryDate }}
+          </div>
+
+          <div class="info-container">
+            <i class="fas fa-calendar-minus"></i>
+            {{ "Last Departure Date" | translate }} :
+            {{ shipDashboard.lastDepartureDate }}
+          </div>
+
+          <div class="info-container">
+            <i class="fas fa-location-arrow"></i> {{ "Last Location" | translate }} :
+            {{ shipDashboard.lastLocation | titlecase }}
+          </div>
+
+          <div class="info-container">
+            <i class="fas fa-cog"></i> {{ "Type" | translate }} :
+            {{ shipDetails.type }}
+          </div>
+
+
+          <div class="info-container">
+            <i class="fas fa-ruler-vertical"></i> {{ "Length" | translate }} :
+            {{ shipDetails.leangth }}
           </div>
         </div>
       </div>
