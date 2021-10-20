@@ -116,7 +116,7 @@ export class PayCraneComponent implements OnInit {
     if (this.crane) {
       this.dataService.payCraneInvoice(this.crane.id, arr).subscribe(
         (resp) => {
-          this.paymentId = resp
+          this.paymentId = resp.body
           this.formService.triggerRefresh();
           this.messageService.add({
             severity: 'success',

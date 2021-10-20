@@ -30,7 +30,6 @@ export class TelerikViewerComponent implements OnInit {
   fullUrl = '';
   baseUrl = 'https://api.lios3.xyz/api/v1/report/';
   ngOnInit(): void {
-    debugger
 
     if(this.var1.includes('---')){
       this.input = this.var1.split('---')[1]
@@ -74,7 +73,7 @@ export class TelerikViewerComponent implements OnInit {
       // } else{
       //   this.reportForm = 'Lios/CraneInvoice'
       // }
-debugger
+
       if (this.input === 0) {
         this.reportForm = 'Lios/CraneInvoice';
       } else {

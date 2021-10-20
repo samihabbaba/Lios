@@ -44,3 +44,24 @@
     ></button>
   </div>
 </div>
+
+
+
+
+<!-- Telerik Dialog -->
+<p-dialog
+  *ngIf="displayTelerikDialog"
+  [(visible)]="displayTelerikDialog"
+  [modal]="false"
+  [style]="{ width: '90vw', top:'-30vh'}"
+  [contentStyle]="{minHeight: '80vh'}"
+>
+  <app-telerik-viewer
+    [var1]="this.reportVar1"
+    [var2]="this.reportVar2"
+    [isAlternative]="this.reportIsAlternative"
+    [input]="0"
+  >
+  </app-telerik-viewer>
+</p-dialog>
+
