@@ -257,7 +257,8 @@
   *ngIf="displayTelerikDialog"
   [(visible)]="displayTelerikDialog"
   [modal]="false"
-  [style]="{ width: '90vw' }"
+  [style]="{ width: '90vw', top:'-25vh'}"
+  [contentStyle]="{minHeight: '80vh'}"
 >
   <app-telerik-viewer
     [var1]="this.reportVar1"
