@@ -141,11 +141,11 @@ export class UserLoggingsComponent implements OnInit {
     this.dataService
       .getLogging(
         this.dateRanges[0]
-          ? this.dateRanges[0].toISOString().split('T')[0]
-          : '',
-        this.dateRanges[1]
-          ? this.dateRanges[1].toISOString().split('T')[0]
-          : '',
+        ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
+        : '',
+      this.dateRanges[1]
+        ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
+        : '',
           this.searchQuery,
           this.selectedDropdownOption.value,
           this.selectedDropdownOption2.value,

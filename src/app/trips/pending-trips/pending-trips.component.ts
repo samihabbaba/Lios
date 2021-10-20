@@ -295,10 +295,10 @@ export class PendingTripsComponent implements OnInit {
     this.dataService
       .getAllTrips(
         this.dateRanges[0]
-          ? this.dateRanges[0].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
           : '',
         this.dateRanges[1]
-          ? this.dateRanges[1].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
           : '',
         this.pageNumber,
         this.pageSize,

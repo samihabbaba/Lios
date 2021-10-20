@@ -818,8 +818,7 @@ export class DataService {
 
   getAllCranes(StartDate, EndDate, PageNumber, PageSize, SearchQuery, IsPaid) {
     return this.http.get<any>(
-      `${environment.apiUrl}crane/invoice?StartDate=${StartDate}&EndDate=${EndDate}
-      &PageNumber=${PageNumber}&PageSize=${PageSize}&SearchQuery=${SearchQuery}&IsPaid=${IsPaid}`,
+      `${environment.apiUrl}crane/invoice?StartDate=${StartDate}&EndDate=${EndDate}&PageNumber=${PageNumber}&PageSize=${PageSize}&SearchQuery=${SearchQuery}&IsPaid=${IsPaid}`,
       {
         headers: this.httpOptions.headers,
       }
