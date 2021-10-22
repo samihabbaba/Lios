@@ -182,6 +182,7 @@ export class ShipInqueryFormComponent implements OnInit {
   }
 
   submitBoat(button: any) {
+    debugger
     let obj = this.boatForm.getRawValue();
     if (obj.serviceId.id) obj.serviceId = obj.serviceId.id;
     if (this.boatEditMode) {

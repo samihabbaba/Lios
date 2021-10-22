@@ -1004,6 +1004,10 @@ export class DataService {
   }
 
   addBoatInquery(obj) {
+    debugger
+    if(!obj.charge){
+      obj.charge = 0;
+    }
     this.checkifObjectHasDateTime(obj)
 
     return this.http.post(`${environment.apiUrl}inquiry/boat`, obj, {
@@ -2804,6 +2808,7 @@ export class DataService {
   }
 
   convertDateTimeToIso(dateTime){
+    debugger
     const offset = new Date().getTimezoneOffset()/-60;
     dateTime.setTime(dateTime.getTime() + (offset*60*60*1000))
     dateTime = dateTime.toISOString();
@@ -2813,6 +2818,7 @@ export class DataService {
   checkifObjectHasDateTime(obj){
     try{
       for (let key in obj) {
+        debugger
         if(Object.prototype.toString.call(obj[key]) === '[object Date]'){
           obj[key] = this.convertDateTimeToIso(obj[key]);
         }
