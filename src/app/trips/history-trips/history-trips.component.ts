@@ -206,7 +206,22 @@ export class HistoryTripsComponent implements OnInit {
         this.showTelerikReport(this.objToSend.id, 'boat/invoice');
       },
     },
-  ]
+    {
+      label: this.translate.instant('Overtime Report'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'overtime');
+      },
+    },
+    {
+      label: this.translate.instant('Boat Report'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'boat');
+      },
+    },
+  ];
+
 
 
   reportOptionsMenu: MenuItem[] = [
@@ -353,6 +368,12 @@ export class HistoryTripsComponent implements OnInit {
     if(item.boatInvoice)
     {
       this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4])
+    }
+    if (item.overTimeReport) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[5]);
+    }
+    if (item.boatReport) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[6]);
     }
 
     this.report_menu.toggle(event);

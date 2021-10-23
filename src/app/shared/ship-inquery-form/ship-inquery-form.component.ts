@@ -335,6 +335,7 @@ export class ShipInqueryFormComponent implements OnInit {
   reportIsAlternative = '';
 
   showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
+    debugger
     if (var1 === 'inq') {
       if (this.overtimeTab._selected) {
         this.reportVar1 = 'overtime';
