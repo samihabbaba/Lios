@@ -158,6 +158,7 @@ export class ShipInqueryFormComponent implements OnInit {
     if (this.overtimeEditMode) {
       obj.id = this.selectedRow.id;
       this.dataService.updateOvertimeInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getOvertimeInquery();
       },
       () => {
@@ -169,6 +170,7 @@ export class ShipInqueryFormComponent implements OnInit {
       });
     } else {
       this.dataService.addOvertimeInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getOvertimeInquery();
       },
       () => {
@@ -182,12 +184,12 @@ export class ShipInqueryFormComponent implements OnInit {
   }
 
   submitBoat(button: any) {
-    debugger
     let obj = this.boatForm.getRawValue();
     if (obj.serviceId.id) obj.serviceId = obj.serviceId.id;
     if (this.boatEditMode) {
       obj.id = this.selectedRow.id;
       this.dataService.updateBoatInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getBoatInquery();
       },
       () => {
@@ -199,6 +201,7 @@ export class ShipInqueryFormComponent implements OnInit {
       });
     } else {
       this.dataService.addBoatInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getBoatInquery();
       },
       () => {

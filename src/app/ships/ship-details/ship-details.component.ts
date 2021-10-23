@@ -1164,7 +1164,7 @@ export class ShipDetailsComponent implements OnInit {
   ];
 
   toggleMenuReports(item, event) {
-    debugger
+
     this.objToSend = item;
 
     this.reportOptionsMenu[0].items = [];
