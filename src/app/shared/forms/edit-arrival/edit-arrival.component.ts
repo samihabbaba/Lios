@@ -258,6 +258,7 @@ this.formName = null;
       ]),
       isFree: new FormControl(this.formObj.isFree, []),
       isPilotage: new FormControl(this.formObj.isPilotage, []),
+      isDefective: new FormControl(this.formObj.isDefective, []),
       pilotageId: new FormControl(this.formObj.pilotageId, []),
       normalPassenger: new FormControl(this.formObj.normalPassenger, []),
       transitPassenger: new FormControl(this.formObj.transitPassenger, []),
