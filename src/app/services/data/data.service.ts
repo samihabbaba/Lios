@@ -2681,6 +2681,19 @@ export class DataService {
     });
   }
 
+
+
+  ////////////////////
+
+  updateTripRate(obj) {
+    this.checkifObjectHasDateTime(obj);
+
+    return this.http.put(`${environment.apiUrl}trip/departure/${obj.tripId}/rate`, obj, {
+      headers: this.httpOptions.headers,
+      observe: 'response',
+    });
+  }
+
   // not API functions
 
   displayFormattedNumber(num: any, isMoney = true) {

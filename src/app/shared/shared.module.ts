@@ -73,6 +73,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { AddManualPaymentComponent } from './forms/add-manual-payment/add-manual-payment.component';
 import { ManualPaymentDetailsComponent } from './forms/manual-payment-details/manual-payment-details.component';
 import { PayTripFormComponent } from './forms/pay-trip-form/pay-trip-form.component';
+import { UpdateTripRateComponent } from './forms/update-trip-rate/update-trip-rate.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { PayTripFormComponent } from './forms/pay-trip-form/pay-trip-form.compon
     AddManualPaymentComponent,
     ManualPaymentDetailsComponent,
     PayTripFormComponent,
+    UpdateTripRateComponent,
   ],
   imports: [
     CommonModule,
@@ -191,6 +193,7 @@ import { PayTripFormComponent } from './forms/pay-trip-form/pay-trip-form.compon
     TelerikViewerComponent,
     ShipMovementsFormComponent,
     ListboxModule,
+    UpdateTripRateComponent
   ],
 })
 export class SharedModule {}

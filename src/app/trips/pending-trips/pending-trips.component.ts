@@ -29,6 +29,7 @@ export class PendingTripsComponent implements OnInit {
   displayInqueryDialog: boolean = false;
   displayMovementsDialog: boolean = false;
   displayPayTripDialog: boolean = false;
+  displayTripRateUpdateDialog: boolean = false;
   objToSend: any = null;
   refreshSubscriber$: Subscription;
 
@@ -65,137 +66,14 @@ export class PendingTripsComponent implements OnInit {
     { value: 'isPaid', name: 'Is Paid' },
   ];
 
-  fullMenu = [
-        // optionsMenu 0,1
-        {
-          label: this.translate.instant('Pay'),
-          icon: 'pi pi-paypal',
-          command: () => {
-            this.formService.sendObjectToForm(this.objToSend);
-            this.displayPayTripDialog = true;
-          },
-        },
-        {
-          label: this.translate.instant('Departure'),
-          icon: 'pi pi-sign-out',
-          command: () => {
-            this.getDepartureById(this.objToSend);
-          },
-        },
-
-        //options menu in port and paid 2,3,4,5,6
-        {
-          label: this.translate.instant('Inquery'),
-          icon: 'pi pi-book',
-          command: () => {
-            this.formService.sendObjectToForm(this.objToSend);
-            this.displayInqueryDialog = true;
-          },
-        },
-        {
-          label: this.translate.instant('Edit Arrival'),
-          icon: 'pi pi-paperclip',
-          command: () => {
-            this.initializeForm(
-              'editArrivalForm',
-              this.translate.instant('Edit Arrival'),
-              true
-            );
-          },
-        },
-        {
-          label: this.translate.instant('Delete Arrival'),
-          icon: 'pi pi-exclamation-triangle',
-          command: () => {
-            this.initializeForm(
-              'deleteArrivalForm',
-              this.translate.instant('Delete Arrival'),
-              true
-            );
-          },
-        },
-        {
-          label: this.translate.instant('Departure'),
-          icon: 'pi pi-sign-out',
-          command: () => {
-            this.initializeForm(
-              'departureForm',
-              this.translate.instant('Departure'),
-              true
-            );
-          },
-        },
-        {
-          label: this.translate.instant('Movements'),
-          icon: 'pi pi-sitemap',
-          command: () => {
-            this.formService.sendObjectToForm(this.objToSend);
-            this.displayMovementsDialog = true;
-          },
-        },
-
-        //optionsMenuInPort 7,8,9,10,11
-        {
-          label: this.translate.instant('Inquery'),
-          icon: 'pi pi-book',
-          command: () => {
-            this.formService.sendObjectToForm(this.objToSend);
-            this.displayInqueryDialog = true;
-          },
-        },
-        {
-          label: this.translate.instant('Edit Arrival'),
-          icon: 'pi pi-paperclip',
-          command: () => {
-            this.initializeForm(
-              'editArrivalForm',
-              this.translate.instant('Edit Arrival'),
-              true
-            );
-          },
-        },
-        {
-          label: this.translate.instant('Delete Arrival'),
-          icon: 'pi pi-exclamation-triangle',
-          command: () => {
-            this.initializeForm(
-              'deleteArrivalForm',
-              this.translate.instant('Delete Arrival'),
-              true
-            );
-          },
-        },
-        {
-          label: this.translate.instant('Departure'),
-          icon: 'pi pi-sign-out',
-          command: () => {
-            this.initializeForm(
-              'departureForm',
-              this.translate.instant('Departure'),
-              true
-            );
-          },
-        },
-        {
-          label: this.translate.instant('Movements'),
-          icon: 'pi pi-sitemap',
-          command: () => {
-            this.formService.sendObjectToForm(this.objToSend);
-            this.displayMovementsDialog = true;
-          },
-        },
-
-        // other 12, ...etc
-        {
-          label: this.translate.instant('Update Rate'),
-          icon: 'pi pi-dollar',
-          command: () => {
-           
-            
-          },
-        },
-
+  menuToShow : MenuItem[] | any = [
+    {
+      items: [
+      ],
+    },
   ];
+
+
   optionsMenu: MenuItem[] | any = [
     {
       items: [
@@ -426,8 +304,6 @@ export class PendingTripsComponent implements OnInit {
       this.authService.currentUser.role !== 'Collection' &&
       this.authService.currentUser.role !== 'Admin'
     ) {
-      this.fullMenu.splice(0,1)
-      this.fullMenu.splice(7-1,1) // -1 ==> from the removed above it
       this.optionsMenu[0].items.splice(0,1);
       this.optionsMenuInPort[0].items.splice(0, 1);
     }
@@ -570,38 +446,40 @@ export class PendingTripsComponent implements OnInit {
     // }
 
     debugger
-    this.optionsMenu[0].items = [];
-
-    if (this.objToSend.inPort && !this.objToSend.isPaid) {
-      this.optionsMenu[0].items.push(this.fullMenu[0]);
-      this.optionsMenu[0].items.push(this.fullMenu[1]);
-    }
-    if (this.objToSend.inPort && this.objToSend.isPaid) {
-      this.optionsMenu[0].items.push(this.fullMenu[2]);
-      this.optionsMenu[0].items.push(this.fullMenu[3]);
-      this.optionsMenu[0].items.push(this.fullMenu[4]);
-      this.optionsMenu[0].items.push(this.fullMenu[5]);
-      this.optionsMenu[0].items.push(this.fullMenu[6]);
-    }
-    if (!this.objToSend.inPort && !this.objToSend.isPaid) {
-      this.optionsMenu[0].items.push(this.fullMenu[7]);
-      this.optionsMenu[0].items.push(this.fullMenu[8]);
-      this.optionsMenu[0].items.push(this.fullMenu[9]);
-      this.optionsMenu[0].items.push(this.fullMenu[10]);
-      this.optionsMenu[0].items.push(this.fullMenu[11]);
-    }
-
-    if(this.objToSend.isRateUpdateAvailable){
-      this.optionsMenu[0].items.push(this.fullMenu[12]);
+    this.menuToShow[0].items = [];
+    
+    if (!this.objToSend.inPort && !this.objToSend.isPaid) { //menu  --> optionsMenu
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenu[0].items);
     }
     
-    if(this.optionsMenu[0].items.length > 0){
+    if (this.objToSend.inPort && this.objToSend.isPaid) {  //menuInPortAndpaid  --> optionsMenuInPortAndPaid
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.menuInPortAndpaid[0].items);
+    }
+    if (this.objToSend.inPort && !this.objToSend.isPaid) {  //menuInPort --> optionsMenuInPort
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenuInPort[0].items);
+    }
+
+
+    if(this.objToSend.isRateUpdateAvailable){
+      this.menuToShow[0].items.push({
+        label: this.translate.instant('Update Rate'),
+        icon: 'pi pi-dollar',
+        command: () => {
+          this.formService.sendObjectToForm(this.objToSend);
+          this.displayTripRateUpdateDialog = true;
+        },
+      },);
+    }
+    
+    if(this.menuToShow[0].items.length > 0){
       this.menu.toggle(event);
     }
 
   }
 
   toggleMenuReports(item, event) {
+    debugger
+
     this.objToSend = item;
 
     this.reportOptionsMenu[0].items = [];
