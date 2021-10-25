@@ -445,7 +445,6 @@ export class PendingTripsComponent implements OnInit {
     //   this.menu.toggle(event);
     // }
 
-    debugger
     this.menuToShow[0].items = [];
     
     if (!this.objToSend.inPort && !this.objToSend.isPaid) { //menu  --> optionsMenu
@@ -478,7 +477,6 @@ export class PendingTripsComponent implements OnInit {
   }
 
   toggleMenuReports(item, event) {
-    debugger
 
     this.objToSend = item;
 
