@@ -65,6 +65,137 @@ export class PendingTripsComponent implements OnInit {
     { value: 'isPaid', name: 'Is Paid' },
   ];
 
+  fullMenu = [
+        // optionsMenu 0,1
+        {
+          label: this.translate.instant('Pay'),
+          icon: 'pi pi-paypal',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayPayTripDialog = true;
+          },
+        },
+        {
+          label: this.translate.instant('Departure'),
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.getDepartureById(this.objToSend);
+          },
+        },
+
+        //options menu in port and paid 2,3,4,5,6
+        {
+          label: this.translate.instant('Inquery'),
+          icon: 'pi pi-book',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayInqueryDialog = true;
+          },
+        },
+        {
+          label: this.translate.instant('Edit Arrival'),
+          icon: 'pi pi-paperclip',
+          command: () => {
+            this.initializeForm(
+              'editArrivalForm',
+              this.translate.instant('Edit Arrival'),
+              true
+            );
+          },
+        },
+        {
+          label: this.translate.instant('Delete Arrival'),
+          icon: 'pi pi-exclamation-triangle',
+          command: () => {
+            this.initializeForm(
+              'deleteArrivalForm',
+              this.translate.instant('Delete Arrival'),
+              true
+            );
+          },
+        },
+        {
+          label: this.translate.instant('Departure'),
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Departure'),
+              true
+            );
+          },
+        },
+        {
+          label: this.translate.instant('Movements'),
+          icon: 'pi pi-sitemap',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayMovementsDialog = true;
+          },
+        },
+
+        //optionsMenuInPort 7,8,9,10,11
+        {
+          label: this.translate.instant('Inquery'),
+          icon: 'pi pi-book',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayInqueryDialog = true;
+          },
+        },
+        {
+          label: this.translate.instant('Edit Arrival'),
+          icon: 'pi pi-paperclip',
+          command: () => {
+            this.initializeForm(
+              'editArrivalForm',
+              this.translate.instant('Edit Arrival'),
+              true
+            );
+          },
+        },
+        {
+          label: this.translate.instant('Delete Arrival'),
+          icon: 'pi pi-exclamation-triangle',
+          command: () => {
+            this.initializeForm(
+              'deleteArrivalForm',
+              this.translate.instant('Delete Arrival'),
+              true
+            );
+          },
+        },
+        {
+          label: this.translate.instant('Departure'),
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.initializeForm(
+              'departureForm',
+              this.translate.instant('Departure'),
+              true
+            );
+          },
+        },
+        {
+          label: this.translate.instant('Movements'),
+          icon: 'pi pi-sitemap',
+          command: () => {
+            this.formService.sendObjectToForm(this.objToSend);
+            this.displayMovementsDialog = true;
+          },
+        },
+
+        // other 12, ...etc
+        {
+          label: this.translate.instant('Update Rate'),
+          icon: 'pi pi-dollar',
+          command: () => {
+           
+            
+          },
+        },
+
+  ];
   optionsMenu: MenuItem[] | any = [
     {
       items: [
@@ -82,11 +213,6 @@ export class PendingTripsComponent implements OnInit {
           icon: 'pi pi-sign-out',
           command: () => {
             this.getDepartureById(this.objToSend);
-            // this.initializeForm(
-            //   'departureForm',
-            //   this.translate.instant('Departure'),
-            //   true
-            // );
           },
         },
 
@@ -222,6 +348,7 @@ export class PendingTripsComponent implements OnInit {
       ],
     },
   ];
+
 
   reportOptionsMenuFull = [
     {
@@ -429,31 +556,47 @@ export class PendingTripsComponent implements OnInit {
   toggleMenu(item, event) {
     this.objToSend = item;
 
-    // if (this.objToSend.isPaid) {
-    //   this.optionsMenu[0].items.splice(0, 1);
-    //   this.optionsMenuInPort[0].items.splice(0, 1);
+
+    // if (this.objToSend.inPort && !this.objToSend.isPaid) {
+    //   this.menuInPort.toggle(event);
+    // }
+    // if (this.objToSend.inPort && this.objToSend.isPaid) {
+    //   this.menuInPortAndpaid.toggle(event);
+    // }
+    // if (!this.objToSend.inPort && !this.objToSend.isPaid) {
+    //   this.menu.toggle(event);
     // }
 
-    // if (
-    //   !this.objToSend.isPaid &&
-    //   this.optionsMenu[0]?.items[0]?.icon !== 'pi pi-paypal' &&
-    //   this.optionsMenuInPort[0]?.items[0]?.icon !== 'pi pi-paypal'
-    // ) {
-    //   this.optionsMenu[0].items.splice(0, 0, this.payOption);
-    //   this.optionsMenuInPort[0].items.splice(0, 0, this.payOption);
-    // }
-
-    // if (this.optionsMenu[0].items.length < 1) return;
+    debugger
+    this.optionsMenu[0].items = [];
 
     if (this.objToSend.inPort && !this.objToSend.isPaid) {
-      this.menuInPort.toggle(event);
+      this.optionsMenu[0].items.push(this.fullMenu[0]);
+      this.optionsMenu[0].items.push(this.fullMenu[1]);
     }
     if (this.objToSend.inPort && this.objToSend.isPaid) {
-      this.menuInPortAndpaid.toggle(event);
+      this.optionsMenu[0].items.push(this.fullMenu[2]);
+      this.optionsMenu[0].items.push(this.fullMenu[3]);
+      this.optionsMenu[0].items.push(this.fullMenu[4]);
+      this.optionsMenu[0].items.push(this.fullMenu[5]);
+      this.optionsMenu[0].items.push(this.fullMenu[6]);
     }
     if (!this.objToSend.inPort && !this.objToSend.isPaid) {
+      this.optionsMenu[0].items.push(this.fullMenu[7]);
+      this.optionsMenu[0].items.push(this.fullMenu[8]);
+      this.optionsMenu[0].items.push(this.fullMenu[9]);
+      this.optionsMenu[0].items.push(this.fullMenu[10]);
+      this.optionsMenu[0].items.push(this.fullMenu[11]);
+    }
+
+    if(this.objToSend.isRateUpdateAvailable){
+      this.optionsMenu[0].items.push(this.fullMenu[12]);
+    }
+    
+    if(this.optionsMenu[0].items.length > 0){
       this.menu.toggle(event);
     }
+
   }
 
   toggleMenuReports(item, event) {
