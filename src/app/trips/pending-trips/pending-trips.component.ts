@@ -426,7 +426,9 @@ export class PendingTripsComponent implements OnInit {
       this.authService.currentUser.role !== 'Collection' &&
       this.authService.currentUser.role !== 'Admin'
     ) {
-      this.optionsMenu[0].items.splice(0, 1);
+      this.fullMenu.splice(0,1)
+      this.fullMenu.splice(7-1,1) // -1 ==> from the removed above it
+      this.optionsMenu[0].items.splice(0,1);
       this.optionsMenuInPort[0].items.splice(0, 1);
     }
   }
