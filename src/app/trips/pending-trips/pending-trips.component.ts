@@ -76,6 +76,20 @@ export class PendingTripsComponent implements OnInit {
             this.displayPayTripDialog = true;
           },
         },
+
+        {
+          label: this.translate.instant('Departure'),
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.getDepartureById(this.objToSend);
+            // this.initializeForm(
+            //   'departureForm',
+            //   this.translate.instant('Departure'),
+            //   true
+            // );
+          },
+        },
+
       ],
     },
   ];
@@ -385,6 +399,31 @@ export class PendingTripsComponent implements OnInit {
 
   goToShipDetails(id: string) {
     this.router.navigate(['ships/' + id]);
+  }
+
+  getDepartureById(obj){
+
+    this.dataService.getDepartureByTipId(obj.id).subscribe( resp => {
+
+      let modalObj = {...resp};
+      // this.CurrentAddCaptain = this.getCaptainNameById(modalObj.pilotageId)
+      modalObj.time = modalObj.date.split('T')[1];
+      modalObj.time = modalObj.time.split(':')[0]+':'+modalObj.time.split(':')[1];
+      modalObj.date1 = modalObj.date.split('T')[0];
+
+      this.objToSend.lastDeparture = {
+        ...modalObj
+      }
+
+      this.initializeForm(
+        'departureForm',
+        this.translate.instant('Departure'),
+        true
+      );
+
+    }, error =>{
+    
+    })
   }
 
   toggleMenu(item, event) {

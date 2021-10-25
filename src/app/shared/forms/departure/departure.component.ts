@@ -58,6 +58,7 @@ export class DepartureComponent implements OnInit {
 
 
       this.dialogRef.onShow.subscribe(() => {
+
         this.movementsTypeDropdown = this.dataService.movementType;
         this.purposesDropdown = this.dataService.Purposes;
         this.dataService.getAllPorts(1, 10000, '').subscribe((resp) => {
@@ -95,10 +96,13 @@ this.formName = null;
 
   ngOnInit() {}
 
+  deaprtureUpdate = false;
+  lastDeparture:any = {}
   loadSubscriptions() {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
+
         this.shipId = value.id;
         this.tripId = value.tripId;
         if (!this.tripId) {
@@ -106,7 +110,9 @@ this.formName = null;
           this.shipId = value.shipId;
         }
         // console.log(this.tripId)
-        this.initializeForm();
+        value.lastDeparture? this.deaprtureUpdate=true : this.deaprtureUpdate=false;
+        this.lastDeparture = value.lastDeparture
+        this.initializeForm(value.lastDeparture);
       });
 
       if(this.formName === 'departureForm') {
@@ -144,6 +150,17 @@ this.formName = null;
   getCaptains() {
     this.dataService.getAllCaptains('', 1, 10000).subscribe((resp) => {
       this.captains = resp.captainList.filter((x) => x.isGuidline === true);
+
+      if(this.deaprtureUpdate){
+        
+        let index = this.captains.findIndex(x=> x.id == this.lastDeparture.pilotageId)
+        if(index !== -1){
+          this.form.patchValue({
+            pilotageId: {...this.captains[index]},
+          });
+        }
+
+      }
     }),
     () => {
       this.messageService.add({
@@ -192,6 +209,7 @@ this.formName = null;
   }
 
   submitForm() {
+
     let obj = this.form.getRawValue();
     obj.tripId = this.tripId;
     if (obj.pilotageId?.id) obj.pilotageId = obj.pilotageId.id;
@@ -202,35 +220,68 @@ this.formName = null;
       }
     }
     // console.log(obj);
-    this.dataService.addDeparture(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni gidiş başarıyla eklendi',
+    if(this.deaprtureUpdate)
+    {
+      obj.id = this.lastDeparture.id;
+      this.dataService.updateDeparture(obj).subscribe((response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni gidiş başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
+    }
+    else{
+      this.dataService.addDeparture(obj).subscribe((response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni gidiş başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       });
-    });
+    }
+    
   }
 
-  initializeForm() {
+  initializeForm(dataUpdate:any = undefined) {
+
+
+    if(dataUpdate && dataUpdate.pilotageId && this.captains){
+      let index = this.captains.findIndex(x=> x.id == dataUpdate.pilotageId)
+      if(index !== -1){
+        this.form.patchValue({
+          pilotageId: {...this.captains[index]},
+        });
+      }
+    }
+
     this.form = this.fb.group({
-      destinationPort: new FormControl(null, [Validators.required]),
-      date: new FormControl(new Date(), []),
-      isPilotage: new FormControl(false, []),
-      pilotageId: new FormControl(null, []),
-      normalPassenger: new FormControl(0, []),
-      transitPassenger: new FormControl(0, []),
-      soldierPassenger: new FormControl(0, []),
-      normalVehicle: new FormControl(0, []),
-      transitVehicle: new FormControl(0, []),
-      categories: new FormControl([]),
+      destinationPort: new FormControl(dataUpdate? dataUpdate.destinationPort : null, [Validators.required]),
+      date: new FormControl(dataUpdate? new Date(dataUpdate.date) :new Date(), []),
+      isPilotage: new FormControl(dataUpdate? dataUpdate.isPilotage :false, []),
+      pilotageId: new FormControl((dataUpdate && dataUpdate.pilotageId.id)? dataUpdate.pilotageId :null, []),
+      normalPassenger: new FormControl(dataUpdate? dataUpdate.normalPassenger :0, []),
+      transitPassenger: new FormControl(dataUpdate? dataUpdate.transitPassenger :0, []),
+      soldierPassenger: new FormControl(dataUpdate? dataUpdate.soldierPassenger :0, []),
+      normalVehicle: new FormControl(dataUpdate? dataUpdate.normalVehicle :0, []),
+      transitVehicle: new FormControl(dataUpdate? dataUpdate.transitVehicle :0, []),
+      categories: new FormControl(dataUpdate? dataUpdate.categories :[]),
     });
   }
 
@@ -239,6 +290,7 @@ this.formName = null;
   }
 
   addProduct() {
+
     this.categoryObj.categoryId.categoryName = JSON.stringify(
       this.categoryObj?.categoryId?.name,
       null
@@ -246,12 +298,25 @@ this.formName = null;
     delete this.categoryObj?.categoryId?.name;
     this.categories.value.push(this.categoryObj);
     // console.log(this.categories.value);
+    
+    if(this.deaprtureUpdate){
+      this.dataService.addLoad({...this.categoryObj, transactionId:this.lastDeparture.id, categoryId:this.categoryObj.categoryId.id}).subscribe(resp => {
+
+      }, error => {
+        
+      })
+    }
+    
     this.categoryObj = { categoryId: null, quantity: null };
   }
 
   deleteProduct(product: any, index: any) {
     // console.log(product);
     this.categories.value.splice(index, 1);
+
+    this.dataService.updateLoad({...product, transactionId:this.lastDeparture.id, isDeleted:true}).subscribe(resp =>{
+    })
+
   }
 
   checkValidity(formControl: string) {
