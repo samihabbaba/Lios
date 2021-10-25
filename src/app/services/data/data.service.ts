@@ -1902,6 +1902,22 @@ export class DataService {
     isLocal = false,
     inPort = false
   ) {
+    let params = {
+      isLocal:isLocal,
+      inPort:inPort,
+      PageNumber:PageNumber,
+      PageSize:PageSize,
+      SearchQuery:SearchQuery
+    }
+
+    return this.http.get<any>(
+      `${environment.apiUrl}ship`,
+      {
+        params:params,
+        headers: this.httpOptions.headers,
+      }
+    );
+
     return this.http.get<any>(
       `${environment.apiUrl}ship?isLocal=${isLocal}&inPort=${inPort}&SearchQuery=${SearchQuery}&PageSize=${PageSize}&PageNumber=${PageNumber}`,
       {
