@@ -117,6 +117,7 @@ export class AddHolidayComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       month: new FormControl(null, [Validators.required]),
       day: new FormControl(null, [Validators.required]),
+      duration: new FormControl(null, [Validators.required]),
       startHour: new FormControl(null, [Validators.required]),
       endHour: new FormControl(null, [Validators.required]),
     });

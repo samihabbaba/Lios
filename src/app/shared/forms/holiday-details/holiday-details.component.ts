@@ -122,6 +122,7 @@ this.formName = null;
       name: new FormControl(this.objReceived?.name, [Validators.required]),
       month: new FormControl(this.objReceived?.month, [Validators.required]),
       day: new FormControl(this.objReceived?.day, [Validators.required]),
+      duration: new FormControl(this.objReceived?.duration, [Validators.required]),
       startHour: new FormControl(null, [Validators.required]),
       endHour: new FormControl(null, [Validators.required]),
     });

@@ -98,7 +98,10 @@ export class PendingTripsComponent implements OnInit {
           label: this.translate.instant('Delete Departure'),
           icon: 'pi pi-trash',
           command: () => {
-
+            this.deleteService.openDeleteConfirmation(
+              'departure',
+              this.dataService.deleteDeparture(this.objToSend.id)
+            );
           },
         },
 
@@ -465,23 +468,23 @@ export class PendingTripsComponent implements OnInit {
     }
     
     if (this.objToSend.inPort && this.objToSend.isPaid) {  //menuInPortAndpaid  --> optionsMenuInPortAndPaid
-      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.menuInPortAndpaid[0].items);
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenuInPortAndPaid[0].items);
     }
     if (this.objToSend.inPort && !this.objToSend.isPaid) {  //menuInPort --> optionsMenuInPort
       this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenuInPort[0].items);
     }
 
 
-    if(this.objToSend.isRateUpdateAvailable){
-      this.menuToShow[0].items.push({
-        label: this.translate.instant('Update Rate'),
-        icon: 'pi pi-dollar',
-        command: () => {
-          this.formService.sendObjectToForm(this.objToSend);
-          this.displayTripRateUpdateDialog = true;
-        },
-      },);
-    }
+    // if(this.objToSend.isRateUpdateAvailable){
+    //   this.menuToShow[0].items.push({
+    //     label: this.translate.instant('Update Rate'),
+    //     icon: 'pi pi-dollar',
+    //     command: () => {
+    //       this.formService.sendObjectToForm(this.objToSend);
+    //       this.displayTripRateUpdateDialog = true;
+    //     },
+    //   },);
+    // }
     
     if(this.menuToShow[0].items.length > 0){
       this.menu.toggle(event);
