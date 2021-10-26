@@ -426,7 +426,7 @@ export class PendingTripsComponent implements OnInit {
       }
 
       this.initializeForm(
-        'departureForm',
+        'departureFormUpdate',
         this.translate.instant('Departure'),
         true
       );

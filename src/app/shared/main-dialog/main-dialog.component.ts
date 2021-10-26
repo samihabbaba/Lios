@@ -30,12 +30,12 @@ export class MainDialogComponent implements OnInit {
 
   ngOnDestroy() {}
 
-  submitForm(button: any) {
+  submitForm(button: any, del = false) {
     if (button.disabled) {
       this.formService.setFormAsDirty();
     } else {
-      this.formService.triggerSubmit();
 
+      this.formService.triggerSubmit(del?'delete':'submit');
       if (this.formName !== 'payCraneForm') {
         this.closeDialog.emit();
       }

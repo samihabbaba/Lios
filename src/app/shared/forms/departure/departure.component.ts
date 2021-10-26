@@ -115,12 +115,15 @@ this.formName = null;
         this.initializeForm(value.lastDeparture);
       });
 
-      if(this.formName === 'departureForm') {
+      if(this.formName === 'departureForm' || this.formName === 'departureFormUpdate') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
         if (value === 'submit') {
           this.submitForm();
+        }
+        else if(value == 'delete'){
+          this.deleteDeparture();
         }
       });}
 
@@ -257,6 +260,24 @@ this.formName = null;
       });
     }
     
+  }
+
+  deleteDeparture(){
+    this.dataService.deleteDeparture(this.tripId).subscribe(resp => {
+      this.formService.triggerRefresh();
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Yeni gidiş başarıyla eklendi',
+      });
+    },
+    error => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Bir hata oluştu.',
+      });
+    })
   }
 
   initializeForm(dataUpdate:any = undefined) {
