@@ -47,7 +47,10 @@ export class UpdateTripRateComponent implements OnInit {
 
 
   submit(button: any) {
-   
+
+    if(isNaN(this.newRate) || this.newRate == null){
+      return 
+    }
 
     this.dataService.updateTripRate({
       tripId:this.tripId,
@@ -64,6 +67,7 @@ export class UpdateTripRateComponent implements OnInit {
 
       },
       () => {
+
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

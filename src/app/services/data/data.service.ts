@@ -2703,8 +2703,7 @@ export class DataService {
 
   updateTripRate(obj) {
     this.checkifObjectHasDateTime(obj);
-
-    return this.http.put(`${environment.apiUrl}trip/departure/${obj.tripId}/rate`, obj, {
+    return this.http.put(`${environment.apiUrl}trip/departure/${obj.tripId}/rate`, +obj.rate, {
       headers: this.httpOptions.headers,
       observe: 'response',
     });
