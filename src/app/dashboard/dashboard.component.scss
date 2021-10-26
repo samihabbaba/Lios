@@ -146,3 +146,16 @@
     color: rgb(0, 208, 222);
   }
 }
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  h2 {
+    font-size: 16px;
+    color: #44486d;
+  }
+
+  p {
+    color: #8a8ea6;
+  }
+}
