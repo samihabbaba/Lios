@@ -94,6 +94,28 @@
         ></p-chart>
       </div>
     </div>
+    <div class="payment-card">
+      <div class="header"><p>Invoices</p></div>
+      <div style="padding: 16px">
+        <p-timeline [value]="invoices">
+          <ng-template pTemplate="marker" let-event>
+            <span
+              class="custom-marker p-shadow-2"
+              [style.backgroundColor]="event.color"
+            >
+              <i [ngClass]="event.icon"></i>
+            </span>
+          </ng-template>
+
+          <ng-template pTemplate="content" let-event>
+            <div class="invoice-list">
+            <span>{{ event.status }}</span>
+            <p>${{ event.amount }}</p>
+            </div>
+          </ng-template>
+        </p-timeline>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -102,8 +124,31 @@
   #currecyDialog
 ></app-update-currency>
 
-<div (click)="developersMenu.toggle($event)" class="developers">
+<div (click)="displayDevelopers = true" class="developers">
   <i class="fas fa-question-circle"></i>
 </div>
 
-<p-menu #developersMenu [popup]="true" [model]="developers"></p-menu>
+<p-dialog
+  header=""
+  [(visible)]="displayDevelopers"
+  [style]="{ width: 'auto', padding: '0px' }"
+>
+  <div class="dev-title">
+    <img src="../../assets/cloudsoft-logo.png" height="40px" alt="" />
+    <span> Cloudsoft Front-End Developers </span>
+  </div>
+
+  <div style="margin-top: 8px">
+    <div class="dev-item">Amro Mobayed</div>
+    <div class="dev-item">Sami Habbaba</div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayDevelopers = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

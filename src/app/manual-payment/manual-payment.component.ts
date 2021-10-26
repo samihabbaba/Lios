@@ -71,7 +71,7 @@ export class ManualPaymentComponent implements OnInit {
           command: () => {
             this.objToSend.isDeleted = true;
             this.deleteService.openDeleteConfirmation(
-              this.objToSend.name,
+              'payment',
               this.dataService.updateManualPayment(this.objToSend)
             );
           },

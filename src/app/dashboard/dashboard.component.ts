@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-currency.component';
 import { DataService } from '../services/data/data.service';
+import { PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,34 +18,34 @@ export class DashboardComponent implements OnInit {
   dashboardData: any;
   chartOptions: any;
   displayCurrencyDialog: boolean = false;
+  displayDevelopers: boolean = false;
+
+  invoices = [
+    {
+      status: 'Invoices Amount',
+      amount: '',
+      icon: PrimeIcons.WALLET,
+      color: 'rgb(15, 139, 253)',
+    },
+    {
+      status: 'Invoice Paid Amount',
+      amount: '',
+      icon: PrimeIcons.DOLLAR,
+      color: 'rgb(11, 209, 138)',
+    },
+    {
+      status: 'Invoices Due Amount',
+      amount: '',
+      icon: PrimeIcons.CALENDAR_TIMES,
+      color: 'rgb(252, 97, 97)',
+    },
+  ];
 
   constructor(
     public dataService: DataService,
     private translate: TranslateService,
     private messageService: MessageService
   ) {}
-
-  developers = [
-    {
-      label: 'Cloudsoft Front-end Developers',
-      items: [
-        {
-          label: 'Amro Mobayed',
-          icon: 'pi pi-desktop',
-          command: () => {
-            // window.open('https://www.linkedin.com/in/amro-mobayed-65a373223/');
-          },
-        },
-        {
-          label: 'Sami Habbaba',
-          icon: 'pi pi-desktop',
-          command: () => {
-            // window.open('https://www.linkedin.com/in/sami-habbaba-9538b4217/');
-          },
-        },
-      ],
-    },
-  ];
 
   ngOnInit() {
     this.checkCurrencyIfUpdated();
@@ -73,6 +74,7 @@ export class DashboardComponent implements OnInit {
     this.dataService.getDashboard().subscribe(
       (data) => {
         this.dashboardData = data;
+        console.log(this.dashboardData);
         this.data = {
           labels: [
             this.translate.instant('Departure Ships'),
@@ -103,11 +105,14 @@ export class DashboardComponent implements OnInit {
                 this.dashboardData.magusaPortShip,
                 this.dashboardData.girnePortShip,
               ],
-              backgroundColor: ['#00D0DE', '#FC6161'],
-              hoverBackgroundColor: ['#00D0DE', '#FC6161'],
+              backgroundColor: ['#00D0DE', '#0F8BFD'],
+              hoverBackgroundColor: ['#00D0DE', '#0F8BFD'],
             },
           ],
         };
+        this.invoices[0].amount = this.dashboardData.invoicesAmount;
+        this.invoices[1].amount = this.dashboardData.invoicesPaidAmount;
+        this.invoices[2].amount = this.dashboardData.invoicesDueAmount;
       },
       () => {
         this.messageService.add({
@@ -118,4 +123,6 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
+
 }

@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { ChartModule } from 'primeng/chart';
+import {TimelineModule} from 'primeng/timeline';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ChartModule } from 'primeng/chart';
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    ChartModule
+    ChartModule,
+    TimelineModule
   ],
 })
 export class DashboardModule { }
