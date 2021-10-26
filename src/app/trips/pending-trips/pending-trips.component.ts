@@ -94,6 +94,14 @@ export class PendingTripsComponent implements OnInit {
           },
         },
 
+        {
+          label: this.translate.instant('Delete Departure'),
+          icon: 'pi pi-trash',
+          command: () => {
+
+          },
+        },
+
       ],
     },
   ];
