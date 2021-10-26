@@ -387,11 +387,16 @@ export class PendingTripsComponent implements OnInit {
   loadSubscriptions() {
     this.refreshSubscriber$ = this.formService
       .getRefreshSubject()
-      .subscribe((value) => {
+      .subscribe(async (value) => {
         if (value === 'refresh') {
+          await this.delay(300);
           this.getData();
         }
       });
+  }
+
+  private delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   destroySubscriptions() {
