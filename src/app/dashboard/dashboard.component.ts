@@ -22,19 +22,19 @@ export class DashboardComponent implements OnInit {
 
   invoices = [
     {
-      status: 'Invoices Amount',
+      status: this.translate.instant('Invoices Amount'),
       amount: '',
       icon: PrimeIcons.WALLET,
       color: 'rgb(15, 139, 253)',
     },
     {
-      status: 'Invoice Paid Amount',
+      status: this.translate.instant('Invoice Paid Amount'),
       amount: '',
       icon: PrimeIcons.DOLLAR,
       color: 'rgb(11, 209, 138)',
     },
     {
-      status: 'Invoices Due Amount',
+      status: this.translate.instant('Invoices Due Amount'),
       amount: '',
       icon: PrimeIcons.CALENDAR_TIMES,
       color: 'rgb(252, 97, 97)',
@@ -122,6 +122,4 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
-
 }

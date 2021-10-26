@@ -31,7 +31,11 @@
         <span class="item-label">{{ item.label | translate }}</span>
         <i class="pi pi-chevron-down dropdown-icon" *ngIf="item.children"></i>
 
-        <div class="dropdown" *ngIf="item.children">
+        <div
+          class="dropdown"
+          *ngIf="item.children"
+          [ngClass]="{ turkish: isTurkish && item === navItems[6] }"
+        >
           <span
             *ngFor="let child of item.children"
             class="child-item"

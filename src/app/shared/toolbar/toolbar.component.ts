@@ -24,6 +24,13 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('language') === 'en') {
+      this.flag = '../../../assets/flags/226-united-states.svg';
+    }
+    if (localStorage.getItem('language') === 'tr') {
+      this.flag = '../../../assets/flags/006-turkey.svg';
+    }
+
     this.languages = [
       {
         items: [

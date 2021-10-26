@@ -148,6 +148,12 @@
         opacity: 1;
         pointer-events: auto;
       }
+
+      .dropdown.turkish {
+        height: 140px;
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
   }
 
@@ -195,6 +201,12 @@
     &.small-child {
       .dropdown {
         height: 70px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .dropdown.turkish {
+        height: 140px;
         opacity: 1;
         pointer-events: auto;
       }

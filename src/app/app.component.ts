@@ -15,7 +15,14 @@ export class AppComponent {
 
   constructor(private translationService: TranslationService) {
     this.translationService.loadTranslations(enLang, trLang);
+    if (localStorage.getItem('language') === 'en') {
+      this.translationService.setLanguage('en');
+    }
+    if (localStorage.getItem('language') === 'tr') {
+      this.translationService.setLanguage('tr');
+    }
+    if (!localStorage.getItem('language')) {
+      this.translationService.setLanguage('en');
+    }
   }
-
-
 }

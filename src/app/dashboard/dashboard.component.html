@@ -96,34 +96,36 @@
     </div>
 
     <div class="payment-card">
-      <div class="header"><p>Details</p></div>
+      <div class="header">
+        <p>{{ "Details" | translate }}</p>
+      </div>
       <div style="padding: 16px">
         <div class="detail-item">
-          <h2>Dollar Rate</h2>
+          <h2>{{ "Dollar Rate" | translate }}</h2>
           <p style="margin-left: auto">{{ dashboardData?.currencyRate }}</p>
         </div>
 
         <div class="detail-item">
-          <h2>Open Ship Invoices</h2>
+          <h2>{{ "Open Ship Invoices" | translate }}</h2>
           <p style="margin-left: auto">{{ dashboardData?.openShipInvoices }}</p>
         </div>
 
         <div class="detail-item">
-          <h2>Open Crane Invoices</h2>
+          <h2>{{ "Open Crane Invoices" | translate }}</h2>
           <p style="margin-left: auto">
             {{ dashboardData?.openCraneInvoices }}
           </p>
         </div>
 
         <div class="detail-item">
-          <h2>Local Ships</h2>
+          <h2>{{ "Local Ships" | translate }}</h2>
           <p style="margin-left: auto">{{ dashboardData?.localShips }}</p>
         </div>
       </div>
     </div>
 
     <div class="payment-card">
-      <div class="header"><p>Invoices</p></div>
+      <div class="header"><p>{{'Invoices' | translate}}</p></div>
       <div style="padding: 16px">
         <p-timeline [value]="invoices">
           <ng-template pTemplate="marker" let-event>

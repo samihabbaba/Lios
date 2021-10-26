@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { MegaMenuItem } from 'primeng/api';
 import { MenuItem } from 'src/app/models/menuItem';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -11,10 +12,20 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
   navItems: MenuItem[];
+  isTurkish: boolean = false;
 
-  constructor(public router: Router, public authService: AuthService) {}
+  constructor(
+    public router: Router,
+    public authService: AuthService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
+    // console.log(localStorage.getItem('language'));
+    if (localStorage.getItem('language') === 'tr') {
+      this.isTurkish = true;
+    }
+    // console.log(this.translate.getDefaultLang());
     this.navItems = [
       {
         label: 'Dashboard',
