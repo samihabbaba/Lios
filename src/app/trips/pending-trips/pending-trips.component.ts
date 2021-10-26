@@ -86,13 +86,13 @@ export class PendingTripsComponent implements OnInit {
           },
         },
 
-        {
-          label: this.translate.instant('Departure'),
-          icon: 'pi pi-sign-out',
-          command: () => {
-            this.getDepartureById(this.objToSend);
-          },
-        },
+        // {
+        //   label: this.translate.instant('Departure'),
+        //   icon: 'pi pi-sign-out',
+        //   command: () => {
+        //     this.getDepartureById(this.objToSend);
+        //   },
+        // },
 
         {
           label: this.translate.instant('Delete Departure'),
@@ -311,12 +311,18 @@ export class PendingTripsComponent implements OnInit {
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
+
     if (
       this.authService.currentUser.role !== 'Collection' &&
       this.authService.currentUser.role !== 'Admin'
     ) {
       this.optionsMenu[0].items.splice(0,1);
       this.optionsMenuInPort[0].items.splice(0, 1);
+    }
+
+    if(this.authService.currentUser.role !== 'Admin'){
+      // this.optionsMenu[0].items.splice( this.optionsMenu[0].items.findIndex(x=>x.icon == 'pi pi-trash') ,1);
+      this.optionsMenu[0].items.splice( this.optionsMenu[0].items.length-1 ,1);
     }
   }
 
