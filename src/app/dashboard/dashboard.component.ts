@@ -74,7 +74,6 @@ export class DashboardComponent implements OnInit {
     this.dataService.getDashboard().subscribe(
       (data) => {
         this.dashboardData = data;
-        console.log(this.dashboardData);
         this.data = {
           labels: [
             this.translate.instant('Departure Ships'),
