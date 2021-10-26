@@ -818,8 +818,7 @@ export class DataService {
 
   getAllCranes(StartDate, EndDate, PageNumber, PageSize, SearchQuery, IsPaid) {
     return this.http.get<any>(
-      `${environment.apiUrl}crane/invoice?StartDate=${StartDate}&EndDate=${EndDate}
-      &PageNumber=${PageNumber}&PageSize=${PageSize}&SearchQuery=${SearchQuery}&IsPaid=${IsPaid}`,
+      `${environment.apiUrl}crane/invoice?StartDate=${StartDate}&EndDate=${EndDate}&PageNumber=${PageNumber}&PageSize=${PageSize}&SearchQuery=${SearchQuery}&IsPaid=${IsPaid}`,
       {
         headers: this.httpOptions.headers,
       }
@@ -1004,7 +1003,10 @@ export class DataService {
     });
   }
 
-  addBoatInquery(obj) {
+  addBoatInquery({...obj}) {
+    if(!obj.charge){
+      obj.charge = 0;
+    }
     this.checkifObjectHasDateTime(obj)
 
     return this.http.post(`${environment.apiUrl}inquiry/boat`, obj, {
@@ -1900,6 +1902,22 @@ export class DataService {
     isLocal = false,
     inPort = false
   ) {
+    let params = {
+      isLocal:isLocal,
+      inPort:inPort,
+      PageNumber:PageNumber,
+      PageSize:PageSize,
+      SearchQuery:SearchQuery
+    }
+
+    return this.http.get<any>(
+      `${environment.apiUrl}ship`,
+      {
+        params:params,
+        headers: this.httpOptions.headers,
+      }
+    );
+
     return this.http.get<any>(
       `${environment.apiUrl}ship?isLocal=${isLocal}&inPort=${inPort}&SearchQuery=${SearchQuery}&PageSize=${PageSize}&PageNumber=${PageNumber}`,
       {
@@ -2674,6 +2692,18 @@ export class DataService {
     this.checkifObjectHasDateTime(obj)
 
     return this.http.put(`${environment.apiUrl}trip/crane/${obj.id}`, obj, {
+      headers: this.httpOptions.headers,
+      observe: 'response',
+    });
+  }
+
+
+
+  ////////////////////
+
+  updateTripRate(obj) {
+    this.checkifObjectHasDateTime(obj);
+    return this.http.put(`${environment.apiUrl}trip/departure/${obj.tripId}/rate`, +obj.rate, {
       headers: this.httpOptions.headers,
       observe: 'response',
     });

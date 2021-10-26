@@ -114,6 +114,12 @@
       <app-departure [formName]="formName"></app-departure>
     </div>
 
+    
+    <div *ngSwitchCase="'departureFormUpdate'">
+      <app-departure [formName]="formName"></app-departure>
+    </div>
+
+
     <div *ngSwitchCase="'checkoutTripForm'">
       <app-checkout-trip [formName]="formName"></app-checkout-trip>
     </div>
@@ -153,6 +159,18 @@
   </div>
 
   <ng-template pTemplate="footer">
+
+    <p-button
+    *ngIf="this.formName == 'departureFormUpdate'"
+      #button
+      [disabled]="false"
+      icon="pi pi-check"
+      (click)="submitForm(button, true)"
+      label="{{ 'Delete' | translate }}"
+      styleClass="p-button-text"
+    ></p-button>
+
+    
     <p-button
       #button
       [disabled]="!formIsValid"
@@ -161,5 +179,6 @@
       label="{{ 'Submit' | translate }}"
       styleClass="p-button-text"
     ></p-button>
+
   </ng-template>
 </p-dialog>

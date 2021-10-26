@@ -1,0 +1,37 @@
+<p-dialog
+  (onShow)="onDialogShow()"
+  (onHide)="onDialogHide()"
+  header="{{ 'Rate' | translate }}"
+  [(visible)]="displayTripRateUpdateDialog"
+  [modal]="true"
+  [style]="{ width: '400px' }"
+>
+  <p-tabView styleClass="tabview-custom">
+
+    <div class="input-container">
+        <span class="p-float-label">
+          <input type="number" pInputText [(ngModel)]="newRate" />
+          <label>{{ "Rate" | translate }}</label>
+        </span>
+        <small *ngIf="false" class="p-error">{{
+          "Invalid input." | translate
+        }}</small>
+      </div>
+
+    </p-tabView>
+
+  <ng-template pTemplate="footer">
+
+    
+      <p-button
+        #button
+        icon="pi pi-plus-circle"
+        (click)="submit(button)"
+        label="{{ 'Submit' | translate }}"
+        styleClass="p-button-text"
+      ></p-button>
+
+      
+  </ng-template>
+</p-dialog>
+

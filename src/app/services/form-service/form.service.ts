@@ -19,8 +19,8 @@ export class FormService {
     this.formObject.next(object);
   }
 
-  triggerSubmit() {
-    this.submitSubject.next('submit');
+  triggerSubmit(value = 'submit') {
+    this.submitSubject.next(value);
     this.submitSubject = new BehaviorSubject<any>(null);
   }
 

@@ -29,6 +29,7 @@ export class PendingTripsComponent implements OnInit {
   displayInqueryDialog: boolean = false;
   displayMovementsDialog: boolean = false;
   displayPayTripDialog: boolean = false;
+  displayTripRateUpdateDialog: boolean = false;
   objToSend: any = null;
   refreshSubscriber$: Subscription;
 
@@ -65,6 +66,14 @@ export class PendingTripsComponent implements OnInit {
     { value: 'isPaid', name: 'Is Paid' },
   ];
 
+  menuToShow : MenuItem[] | any = [
+    {
+      items: [
+      ],
+    },
+  ];
+
+
   optionsMenu: MenuItem[] | any = [
     {
       items: [
@@ -76,6 +85,26 @@ export class PendingTripsComponent implements OnInit {
             this.displayPayTripDialog = true;
           },
         },
+
+        {
+          label: this.translate.instant('Departure'),
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.getDepartureById(this.objToSend);
+          },
+        },
+
+        {
+          label: this.translate.instant('Delete Departure'),
+          icon: 'pi pi-trash',
+          command: () => {
+            this.deleteService.openDeleteConfirmation(
+              'departure',
+              this.dataService.deleteDeparture(this.objToSend.id)
+            );
+          },
+        },
+
       ],
     },
   ];
@@ -209,6 +238,7 @@ export class PendingTripsComponent implements OnInit {
     },
   ];
 
+
   reportOptionsMenuFull = [
     {
       label: this.translate.instant('Ship Form'),
@@ -245,6 +275,20 @@ export class PendingTripsComponent implements OnInit {
         this.showTelerikReport(this.objToSend.id, 'boat/invoice');
       },
     },
+    {
+      label: this.translate.instant('Overtime Report'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'overtime');
+      },
+    },
+    {
+      label: this.translate.instant('Boat Report'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'boat');
+      },
+    },
   ];
 
   reportOptionsMenu: MenuItem[] = [
@@ -271,7 +315,7 @@ export class PendingTripsComponent implements OnInit {
       this.authService.currentUser.role !== 'Collection' &&
       this.authService.currentUser.role !== 'Admin'
     ) {
-      this.optionsMenu[0].items.splice(0, 1);
+      this.optionsMenu[0].items.splice(0,1);
       this.optionsMenuInPort[0].items.splice(0, 1);
     }
   }
@@ -295,10 +339,10 @@ export class PendingTripsComponent implements OnInit {
     this.dataService
       .getAllTrips(
         this.dateRanges[0]
-          ? this.dateRanges[0].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
           : '',
         this.dateRanges[1]
-          ? this.dateRanges[1].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
           : '',
         this.pageNumber,
         this.pageSize,
@@ -354,11 +398,16 @@ export class PendingTripsComponent implements OnInit {
   loadSubscriptions() {
     this.refreshSubscriber$ = this.formService
       .getRefreshSubject()
-      .subscribe((value) => {
+      .subscribe(async (value) => {
         if (value === 'refresh') {
+          await this.delay(300);
           this.getData();
         }
       });
+  }
+
+  private delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   destroySubscriptions() {
@@ -373,37 +422,78 @@ export class PendingTripsComponent implements OnInit {
     this.router.navigate(['ships/' + id]);
   }
 
+  getDepartureById(obj){
+
+    this.dataService.getDepartureByTipId(obj.id).subscribe( resp => {
+
+      let modalObj = {...resp};
+      // this.CurrentAddCaptain = this.getCaptainNameById(modalObj.pilotageId)
+      modalObj.time = modalObj.date.split('T')[1];
+      modalObj.time = modalObj.time.split(':')[0]+':'+modalObj.time.split(':')[1];
+      modalObj.date1 = modalObj.date.split('T')[0];
+
+      this.objToSend.lastDeparture = {
+        ...modalObj
+      }
+
+      this.initializeForm(
+        'departureFormUpdate',
+        this.translate.instant('Departure'),
+        true
+      );
+
+    }, error =>{
+    
+    })
+  }
+
   toggleMenu(item, event) {
     this.objToSend = item;
 
-    // if (this.objToSend.isPaid) {
-    //   this.optionsMenu[0].items.splice(0, 1);
-    //   this.optionsMenuInPort[0].items.splice(0, 1);
+
+    // if (this.objToSend.inPort && !this.objToSend.isPaid) {
+    //   this.menuInPort.toggle(event);
+    // }
+    // if (this.objToSend.inPort && this.objToSend.isPaid) {
+    //   this.menuInPortAndpaid.toggle(event);
+    // }
+    // if (!this.objToSend.inPort && !this.objToSend.isPaid) {
+    //   this.menu.toggle(event);
     // }
 
-    // if (
-    //   !this.objToSend.isPaid &&
-    //   this.optionsMenu[0]?.items[0]?.icon !== 'pi pi-paypal' &&
-    //   this.optionsMenuInPort[0]?.items[0]?.icon !== 'pi pi-paypal'
-    // ) {
-    //   this.optionsMenu[0].items.splice(0, 0, this.payOption);
-    //   this.optionsMenuInPort[0].items.splice(0, 0, this.payOption);
+    this.menuToShow[0].items = [];
+    
+    if (!this.objToSend.inPort && !this.objToSend.isPaid) { //menu  --> optionsMenu
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenu[0].items);
+    }
+    
+    if (this.objToSend.inPort && this.objToSend.isPaid) {  //menuInPortAndpaid  --> optionsMenuInPortAndPaid
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenuInPortAndPaid[0].items);
+    }
+    if (this.objToSend.inPort && !this.objToSend.isPaid) {  //menuInPort --> optionsMenuInPort
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenuInPort[0].items);
+    }
+
+
+    // if(this.objToSend.isRateUpdateAvailable){
+    //   this.menuToShow[0].items.push({
+    //     label: this.translate.instant('Update Rate'),
+    //     icon: 'pi pi-dollar',
+    //     command: () => {
+    //       this.formService.sendObjectToForm(this.objToSend);
+    //       this.displayTripRateUpdateDialog = true;
+    //     },
+    //   },);
     // }
-
-    // if (this.optionsMenu[0].items.length < 1) return;
-
-    if (this.objToSend.inPort && !this.objToSend.isPaid) {
-      this.menuInPort.toggle(event);
-    }
-    if (this.objToSend.inPort && this.objToSend.isPaid) {
-      this.menuInPortAndpaid.toggle(event);
-    }
-    if (!this.objToSend.inPort && !this.objToSend.isPaid) {
+    
+    if(this.menuToShow[0].items.length > 0){
       this.menu.toggle(event);
     }
+
   }
 
   toggleMenuReports(item, event) {
+
     this.objToSend = item;
 
     this.reportOptionsMenu[0].items = [];
@@ -417,6 +507,12 @@ export class PendingTripsComponent implements OnInit {
     }
     if (item.boatInvoice) {
       this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4]);
+    }
+    if (item.overTimeReport) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[5]);
+    }
+    if (item.boatReport) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[6]);
     }
 
     this.report_menu.toggle(event);

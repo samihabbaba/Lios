@@ -133,10 +133,10 @@ export class ManualPaymentComponent implements OnInit {
         this.pageNumber,
         this.pageSize,
         this.dateRanges[0]
-          ? this.dateRanges[0].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
           : '',
         this.dateRanges[1]
-          ? this.dateRanges[1].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
           : '',
 
         bank,

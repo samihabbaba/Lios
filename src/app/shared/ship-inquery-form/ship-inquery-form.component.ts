@@ -158,6 +158,7 @@ export class ShipInqueryFormComponent implements OnInit {
     if (this.overtimeEditMode) {
       obj.id = this.selectedRow.id;
       this.dataService.updateOvertimeInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getOvertimeInquery();
       },
       () => {
@@ -169,6 +170,7 @@ export class ShipInqueryFormComponent implements OnInit {
       });
     } else {
       this.dataService.addOvertimeInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getOvertimeInquery();
       },
       () => {
@@ -187,6 +189,7 @@ export class ShipInqueryFormComponent implements OnInit {
     if (this.boatEditMode) {
       obj.id = this.selectedRow.id;
       this.dataService.updateBoatInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getBoatInquery();
       },
       () => {
@@ -198,6 +201,7 @@ export class ShipInqueryFormComponent implements OnInit {
       });
     } else {
       this.dataService.addBoatInquery(obj).subscribe((resp) => {
+        this.onDialogShow();
         this.getBoatInquery();
       },
       () => {
@@ -279,9 +283,10 @@ export class ShipInqueryFormComponent implements OnInit {
     });
   }
 
-  initializeOvertimeForm() {
+  initializeOvertimeForm(serviceChanged = false) {
+
     this.overtimeForm = this.fb.group({
-      serviceId: new FormControl(null, [Validators.required]),
+      serviceId: new FormControl(serviceChanged? this.overtimeForm.value.serviceId: null, [Validators.required]),
       tripId: new FormControl(this.tripId, []),
       operator: new FormControl(0, []),
       start: new FormControl(new Date(), [Validators.required]),
@@ -289,11 +294,11 @@ export class ShipInqueryFormComponent implements OnInit {
     });
   }
 
-  initializeBoatForm() {
+  initializeBoatForm(serviceChanged = false) {
     this.boatForm = this.fb.group({
-      serviceId: new FormControl(null, [Validators.required]),
+      serviceId: new FormControl(serviceChanged? this.boatForm.value.serviceId: null, [Validators.required]),
       tripId: new FormControl(this.tripId, []),
-      charge: new FormControl(null, []),
+      charge: new FormControl(0, []),
       type: new FormControl(null, []),
       start: new FormControl(new Date(), [Validators.required]),
       end: new FormControl(new Date(), [Validators.required]),
@@ -331,6 +336,7 @@ export class ShipInqueryFormComponent implements OnInit {
   reportIsAlternative = '';
 
   showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
+
     if (var1 === 'inq') {
       if (this.overtimeTab._selected) {
         this.reportVar1 = 'overtime';

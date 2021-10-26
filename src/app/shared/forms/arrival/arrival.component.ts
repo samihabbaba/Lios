@@ -254,6 +254,7 @@ this.formName = null;
       sourcePort: new FormControl(null, [Validators.required]),
       isFree: new FormControl(false, []),
       isPilotage: new FormControl(false, []),
+      isDefective: new FormControl(false, []),
       pilotageId: new FormControl(null, []),
       normalPassenger: new FormControl(0, []),
       transitPassenger: new FormControl(0, []),

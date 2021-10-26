@@ -40,6 +40,16 @@
 
   <div class="input-container">
     <span class="p-float-label">
+      <input formControlName="duration" type="number" pInputText />
+      <label>{{ "Duration" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('duration')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
 
       <p-calendar
       formControlName="startHour"

@@ -175,7 +175,14 @@
           <p-inputSwitch formControlName="isPilotage"></p-inputSwitch>
           <p class="m-0 ml-2">{{ "Pilotage" | translate }}</p>
         </div>
+      
+        <div style="display: flex">
+          <p-inputSwitch formControlName="isDefective"></p-inputSwitch>
+          <p class="m-0 ml-2">{{ "Defective" | translate }}</p>
+        </div>
       </div>
+      
+      
 
       <p-autoComplete
         *ngIf="form.get('isPilotage')?.value === true"

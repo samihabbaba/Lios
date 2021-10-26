@@ -7,11 +7,13 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
+import { Menu } from 'primeng/menu';
+
 @Component({
   selector: 'app-ship-registry-details',
   templateUrl: './ship-registry-details.component.html',
@@ -234,10 +236,10 @@ export class ShipRegistryDetailsComponent implements OnInit {
     this.dataService
       .getAllTrips(
         this.dateRanges[0]
-          ? this.dateRanges[0].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
           : '',
         this.dateRanges[1]
-          ? this.dateRanges[1].toISOString().split('T')[0]
+          ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
           : '',
         this.pageNumber,
         this.pageSize,
@@ -1074,5 +1076,109 @@ export class ShipRegistryDetailsComponent implements OnInit {
         });
       }
     );
+  }
+
+
+
+
+
+
+
+  
+  // reports work
+  @ViewChild('report_menu') report_menu: Menu;
+
+
+  reportVar1
+  reportVar2
+  reportIsAlternative
+  displayTelerikDialog
+  telerik
+  showTelerikReport( var2 = '', var1 = '', isAlternative = false) {
+
+    this.reportVar1 = var1;
+    this.reportVar2 = var2;
+
+    if (isAlternative) {
+      this.reportIsAlternative = 'true';
+    } else {
+      this.reportIsAlternative = 'false';
+    }
+
+    this.displayTelerikDialog = true;
+    this.telerik = true;
+  }
+
+  
+  objToSend: any = null;
+
+  reportOptionsMenuFull = [
+    {
+      label: this.translate.instant('Ship Form'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'ship');
+      },
+    },
+    {
+      label: this.translate.instant('Ship Invoice'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'total');
+      },
+    },
+    {
+      label: this.translate.instant('Crane 1'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'crane/invoice');
+      },
+    },
+    {
+      label: this.translate.instant('Crane 2'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'crane/invoice', true);
+      },
+    },
+    {
+      label: this.translate.instant('Boat Invoice'),
+      icon: 'pi pi-file',
+      command: () => {
+        this.showTelerikReport(this.objToSend.id, 'boat/invoice');
+      },
+    },
+  ]
+
+
+  reportOptionsMenu: MenuItem[] = [
+    {
+      items: [
+
+      ],
+    },
+  ];
+
+  toggleMenuReports(item, event) {
+
+    this.objToSend = item;
+
+    this.reportOptionsMenu[0].items = [];
+    if(item.shipInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0])
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1])
+    }
+    if(item.craneInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2])
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3])
+    }
+    if(item.boatInvoice)
+    {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4])
+    }
+
+    this.report_menu.toggle(event);
   }
 }

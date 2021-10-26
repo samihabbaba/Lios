@@ -177,7 +177,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
         <tr>
-          <td>{{ product.categoryId.categoryName }}</td>
+          <td>{{ product.categoryName? product.categoryName :product.categoryId.categoryName }}</td>
           <td>{{ product.quantity }}</td>
           <td>
             <i

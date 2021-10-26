@@ -26,6 +26,7 @@
               formControlName="serviceId"
               placeholder=" "
               optionLabel="name"
+              (onChange)="initializeOvertimeForm(true)"
             ></p-dropdown>
             <label>{{ "Service" | translate }}</label>
           </span>
@@ -134,6 +135,7 @@
               formControlName="serviceId"
               placeholder=" "
               optionLabel="name"
+              (onChange)="initializeBoatForm(true)"
             ></p-dropdown>
             <label>{{ "Service" | translate }}</label>
           </span>

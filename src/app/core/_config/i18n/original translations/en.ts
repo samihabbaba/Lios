@@ -229,8 +229,6 @@ export const locale = {
 
     // ship create/edit page
 
-
-
     Ships: 'Ships',
     'Enter the requiered information': 'Enter the requiered information',
     Save: 'Save',
@@ -518,7 +516,7 @@ export const locale = {
     'Defective Official Entry': 'Defective Official Entry',
     'Shift to Idle': 'Shift to Idle',
     'Official Release': 'Official Release',
-    'Picture Introduction': 'Official Entry',
+    'Picture Introduction': 'Picture Introduction',
     Shifting: 'Shifting',
 
     //Purpose
@@ -564,13 +562,13 @@ export const locale = {
     'Source Port': 'Source Port',
 
     // list of accomadations
-    'In-port Iron': 'Inner Archorage Area',
-    'Out of Port Iron': 'Outer Archorage Area',
-    Dock: 'Berth',
-    'Repair at the Dock': 'Repair at the Berth',
+    'In-port Iron': 'In-port Iron',
+    'Out of Port Iron': 'Out of Port Iron',
+    Dock: 'Dock',
+    'Repair at the Dock': 'Repair at the Dock',
     // 'Shipyard':'Shipyard',
 
-    Free: 'Free Port',
+    Free: 'Free',
     Conventional: 'Conventional',
     Pilotage: 'Pilotage',
     Quantity: 'Quantity',
@@ -615,24 +613,14 @@ export const locale = {
     'Charge has been updated': 'Charge has been updated',
     'Work Description': 'Work Description',
     'Normal Charge': 'Normal Charge',
-    'Over Charge': 'Holiday Charge',
-    'Extra Charge': 'Tug Charge',
+    'Over Charge': 'Over Charge',
+    'Extra Charge': 'Extra Charge',
     configuration: 'Configuration',
 
     Famagusta: 'Famagusta',
     kyrenia: 'kyrenia',
     Lefke: 'Lefke',
     'kalecik ': 'kalecik ',
-
-
-    //////////////////////////////
-
-    'Enter Anchorage':'Outer Anchorage Area',
-    'Berth repair':'Repair at Berth',
-    'BERTAGE FEE':'BERTHAGE', 
-    'Trips':'Ship Transactions',
-
-
 
     // countries
     'Northern Cyprus (TRNC)': 'Northern Cyprus (TRNC)',
