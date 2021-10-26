@@ -336,6 +336,7 @@ export class PendingTripsComponent implements OnInit {
   }
 
   getData() {
+
     this.dataService
       .getAllTrips(
         this.dateRanges[0]
