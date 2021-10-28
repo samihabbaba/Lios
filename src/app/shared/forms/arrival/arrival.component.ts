@@ -35,6 +35,7 @@ export class ArrivalComponent implements OnInit {
 
   shipId: string;
   ports: any[];
+  destinationPorts: any[] = [];
   accomodations: any[];
   @Input() formName: any;
 
@@ -59,44 +60,47 @@ export class ArrivalComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
+    this.dialogRef.onShow.subscribe(() => {
+      this.movementsTypeDropdown = this.dataService.movementType;
+      this.purposesDropdown = this.dataService.Purposes;
+      this.dataService.getAllPorts(1, 10000, '').subscribe(
+        (resp) => {
+          this.ports = resp.portList.map((x) => x.name);
+          this.ports.forEach((x) => {
+            if (/KKTC/.test(x)) {
+              this.destinationPorts.push(x);
+            }
+          });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
+      this.dataService.getAllAccommodations().subscribe(
+        (resp) => {
+          this.accomodations = resp;
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Bir hata oluştu.',
+          });
+        }
+      );
 
-      this.dialogRef.onShow.subscribe(() => {
-        this.movementsTypeDropdown = this.dataService.movementType;
-        this.purposesDropdown = this.dataService.Purposes;
-        this.dataService.getAllPorts(1, 10000, '').subscribe(
-          (resp) => {
-            this.ports = resp.portList.map((x) => x.name);
-          },
-          () => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Bir hata oluştu.',
-            });
-          }
-        );
-        this.dataService.getAllAccommodations().subscribe(
-          (resp) => {
-            this.accomodations = resp;
-          },
-          () => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Bir hata oluştu.',
-            });
-          }
-        );
-
-        this.getGroups();
-        this.getCaptains();
-        this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
-        this.destroySubscription();
-this.formName = null;
-      });
-
+      this.getGroups();
+      this.getCaptains();
+      this.loadSubscriptions();
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      this.destroySubscription();
+      this.formName = null;
+    });
   }
 
   ngOnInit() {}
@@ -119,13 +123,13 @@ this.formName = null;
         }
         this.initializeForm();
         if (this.formName === 'arrivalForm') {
-        this.submitSubscriber$ = this.formService
-          .getSubmitSubject()
-          .subscribe((value) => {
-            if (value === 'submit') {
-              this.submitForm();
-            }
-          });
+          this.submitSubscriber$ = this.formService
+            .getSubmitSubject()
+            .subscribe((value) => {
+              if (value === 'submit') {
+                this.submitForm();
+              }
+            });
         }
         this.formValidationSubscriber$ = this.formService.listenToValueChanges(
           this.form
