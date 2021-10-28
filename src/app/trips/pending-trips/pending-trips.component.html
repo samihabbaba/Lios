@@ -190,7 +190,7 @@
 
 <app-ship-inquery-form
   [displayInqueryDialog]="displayInqueryDialog"
-  (closeInqueryDialog)="displayInqueryDialog = false"
+  (closeInqueryDialog)="displayInqueryDialog = false; this.getData(); "
 >
 </app-ship-inquery-form>
 
