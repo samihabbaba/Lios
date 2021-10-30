@@ -37,16 +37,16 @@ export class OvertimeServicesComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('overtimeServicesForm')) {
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('overtimeServicesForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -72,14 +72,14 @@ this.formName = null;
         }
       });
 
-      if(this.formName === 'overtimeServicesForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit' && this.tabView === 'overtime') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'overtimeServicesForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit' && this.tabView === 'overtime') {
+            this.submitForm();
+          }
+        });
     }
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -107,21 +107,23 @@ this.formName = null;
     obj.charges = this.objReceived.charges;
     obj.category = this.objReceived.category;
     obj.categoryId = this.objReceived.categoryId;
-    this.dataService.updateOvertimeService(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Servis başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateOvertimeService(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Servis başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -151,20 +153,22 @@ this.formName = null;
   }
 
   onRowEditSave(item) {
-    this.dataService.updateOvertimeServiceCharge(item).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Değişiklikleriniz kaydedildi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateOvertimeServiceCharge(item).subscribe(
+      (resp) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Değişiklikleriniz kaydedildi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   onRowEditCancel(i) {

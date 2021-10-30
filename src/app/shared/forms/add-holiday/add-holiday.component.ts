@@ -36,21 +36,22 @@ export class AddHolidayComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
     this.dialogRef.onShow.subscribe(() => {
-      for (let i = 1; i <= 31; i++) {
-        this.days31.push(i);
+      if (this.formService.checkForm('addHolidayForm')) {
+        for (let i = 1; i <= 31; i++) {
+          this.days31.push(i);
+        }
+        this.dropdownOptions = this.dataService.countries;
+        this.months = this.dataService.months;
+        this.initializeForm();
+        this.loadSubscriptions();
       }
-      this.dropdownOptions = this.dataService.countries;
-      this.months = this.dataService.months;
-      this.initializeForm();
-      this.loadSubscriptions();
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-      this.formName = null;
+      if (this.formService.checkForm('addHolidayForm')) {
+        this.destroySubscription();
+      }
     });
-
   }
 
   ngOnInit() {}
@@ -61,14 +62,14 @@ export class AddHolidayComponent implements OnInit {
       .subscribe((value) => {
         console.log(value);
       });
-      if(this.formName === 'addHolidayForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'addHolidayForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -95,21 +96,23 @@ export class AddHolidayComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
-    this.dataService.addNewHoliday(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni tatil başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addNewHoliday(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni tatil başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {

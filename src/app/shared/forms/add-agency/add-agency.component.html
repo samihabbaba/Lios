@@ -31,7 +31,11 @@
 
   <div class="input-container">
     <span class="p-float-label">
-      <p-calendar formControlName="creationDate" [showIcon]="true" appendTo="body"></p-calendar>
+      <p-calendar
+        formControlName="creationDate"
+        [showIcon]="true"
+        appendTo="body"
+      ></p-calendar>
       <label>{{ "Creation Date" | translate }}</label>
     </span>
     <small *ngIf="checkValidity('creationDate')" class="p-error">{{
@@ -126,7 +130,23 @@
   <div class="input-container">
     <div class="flex align-items-center">
       <p-inputSwitch formControlName="isInsured"></p-inputSwitch>
-      <p class="m-0 ml-2">{{'Is Insured' | translate}}</p>
+      <p class="m-0 ml-2">{{ "Is Insured" | translate }}</p>
     </div>
   </div>
+
+  <div class="input-container" *ngIf="form.get('isInsured')?.value ===  true">
+    <span class="p-float-label">
+      <p-calendar
+        formControlName="insuranceExpiryDate"
+        [showIcon]="true"
+        appendTo="body"
+      ></p-calendar>
+      <label>{{ "Insurance Expiry Date" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('insuranceExpiryDate')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
 </div>
+
+

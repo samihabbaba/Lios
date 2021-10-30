@@ -1,4 +1,4 @@
-<div class="card-wrapper">
+<div class="card-wrapper" *ngIf="!isLoading" [@fadeInOut]>
   <div class="table-card">
     <div class="card-header">
       <!-- <span>Yearly win</span> -->
@@ -152,6 +152,8 @@
   </div>
 </div>
 
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>
+
 <p-menu
   #menu
   styleClass="language-menu"
@@ -181,7 +183,7 @@
 ></p-menu>
 
 <app-main-dialog
-*ngIf="displayDialog"
+  *ngIf="displayDialog"
   (closeDialog)="displayDialog = false"
   [formName]="formName"
   [dialogHeader]="dialogHeader"
@@ -190,7 +192,7 @@
 
 <app-ship-inquery-form
   [displayInqueryDialog]="displayInqueryDialog"
-  (closeInqueryDialog)="displayInqueryDialog = false; this.getData(); "
+  (closeInqueryDialog)="displayInqueryDialog = false; this.getData()"
 >
 </app-ship-inquery-form>
 
@@ -207,9 +209,9 @@
 ></app-pay-trip-form>
 
 <app-update-trip-rate
-*ngIf="displayTripRateUpdateDialog"
-[displayTripRateUpdateDialog]="displayTripRateUpdateDialog"
-(closeInqueryDialog)="displayTripRateUpdateDialog = false"
+  *ngIf="displayTripRateUpdateDialog"
+  [displayTripRateUpdateDialog]="displayTripRateUpdateDialog"
+  (closeInqueryDialog)="displayTripRateUpdateDialog = false"
 ></app-update-trip-rate>
 
 <p-confirmDialog

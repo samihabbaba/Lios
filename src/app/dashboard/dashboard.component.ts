@@ -5,13 +5,16 @@ import { Subscription } from 'rxjs';
 import { UpdateCurrencyComponent } from '../dialogs/update-currency/update-currency.component';
 import { DataService } from '../services/data/data.service';
 import { PrimeIcons } from 'primeng/api';
+import { fadeInOut } from '../animations/animation';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  animations: [fadeInOut()],
 })
 export class DashboardComponent implements OnInit {
+  isLoading: boolean = false;
   @ViewChild('currencyDialog') currencyDiaglog: UpdateCurrencyComponent;
   data: any;
   data2: any;
@@ -19,6 +22,8 @@ export class DashboardComponent implements OnInit {
   chartOptions: any;
   displayCurrencyDialog: boolean = false;
   displayDevelopers: boolean = false;
+
+  expiredInsurances: any[];
 
   invoices = [
     {
@@ -48,6 +53,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.checkCurrencyIfUpdated();
     this.initializeDashbaord();
   }
@@ -71,6 +77,12 @@ export class DashboardComponent implements OnInit {
   }
 
   initializeDashbaord() {
+    this.dataService.getExpiredInsurances().subscribe((resp) => {
+      this.expiredInsurances = resp;
+      if (this.expiredInsurances && this.invoices[2].amount) {
+        this.isLoading = false;
+      }
+    });
     this.dataService.getDashboard().subscribe(
       (data) => {
         this.dashboardData = data;
@@ -112,6 +124,9 @@ export class DashboardComponent implements OnInit {
         this.invoices[0].amount = this.dashboardData.invoicesAmount;
         this.invoices[1].amount = this.dashboardData.invoicesPaidAmount;
         this.invoices[2].amount = this.dashboardData.invoicesDueAmount;
+        if (this.expiredInsurances && this.invoices[2].amount) {
+          this.isLoading = false;
+        }
       },
       () => {
         this.messageService.add({

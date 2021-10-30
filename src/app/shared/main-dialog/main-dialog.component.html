@@ -11,7 +11,10 @@
       <app-add-agency [formName]="formName"></app-add-agency>
     </div>
     <div *ngSwitchCase="'agencyDetailsForm'">
-      <app-agency-details [formName]="formName"></app-agency-details>
+      <app-agency-details
+        *ngIf="formName"
+        [formName]="formName"
+      ></app-agency-details>
     </div>
 
     <div *ngSwitchCase="'addCaptainForm'">
@@ -114,19 +117,11 @@
       <app-departure [formName]="formName"></app-departure>
     </div>
 
-    
     <div *ngSwitchCase="'departureFormUpdate'">
       <app-departure [formName]="formName"></app-departure>
     </div>
 
-
-    <div *ngSwitchCase="'checkoutTripForm'">
-      <app-checkout-trip [formName]="formName"></app-checkout-trip>
-    </div>
-
-    <div *ngSwitchCase="'payShipForm'">
-      <app-pay-ship [formName]="formName"></app-pay-ship>
-    </div>
+   
 
     <div *ngSwitchCase="'payCraneForm'">
       <app-pay-crane [formName]="formName"></app-pay-crane>
@@ -137,7 +132,7 @@
     </div>
 
     <div *ngSwitchCase="'craneDetailsForm'">
-        <app-crane-details [formName]="formName"></app-crane-details>
+      <app-crane-details [formName]="formName"></app-crane-details>
     </div>
 
     <div *ngSwitchCase="'addCraneForm'">
@@ -149,9 +144,10 @@
     </div>
 
     <div *ngSwitchCase="'manualPaymentDetailsForm'">
-      <app-manual-payment-details [formName]="formName"></app-manual-payment-details>
+      <app-manual-payment-details
+        [formName]="formName"
+      ></app-manual-payment-details>
     </div>
-
 
     <div *ngSwitchDefault>
       <p>Not a valid form</p>
@@ -159,9 +155,8 @@
   </div>
 
   <ng-template pTemplate="footer">
-
     <p-button
-    *ngIf="this.formName == 'departureFormUpdate'"
+      *ngIf="this.formName == 'departureFormUpdate'"
       #button
       [disabled]="false"
       icon="pi pi-check"
@@ -170,7 +165,6 @@
       styleClass="p-button-text"
     ></p-button>
 
-    
     <p-button
       #button
       [disabled]="!formIsValid"
@@ -179,6 +173,5 @@
       label="{{ 'Submit' | translate }}"
       styleClass="p-button-text"
     ></p-button>
-
   </ng-template>
 </p-dialog>

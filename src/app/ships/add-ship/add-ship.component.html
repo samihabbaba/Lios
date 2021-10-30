@@ -1,4 +1,4 @@
-<div class="action-buttons">
+<div class="action-buttons" *ngIf="!isLoading" [@fadeInOut]>
   <button
     (click)="goBack()"
     pButton
@@ -20,7 +20,7 @@
 
 </div>
 
-<div class="ship-content">
+<div class="ship-content" *ngIf="!isLoading" [@fadeInOut]>
   <div class="toolbar-container">
     <div
       class="menu-item"
@@ -1507,3 +1507,6 @@
     <div *ngIf="activeTab === 'Payments'">Payments</div> -->
   </div>
 </div>
+
+
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>

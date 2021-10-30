@@ -43,11 +43,14 @@ export class ManualPaymentDetailsComponent implements OnInit {
     public translate: TranslateService
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
+      if (this.formService.checkForm('manualPaymentDetailsForm')) {
+        this.loadSubscriptions();
+      }
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.formName = null;
-      this.destroySubscription();
+      if (this.formService.checkForm('manualPaymentDetailsForm')) {
+        this.destroySubscription();
+      }
     });
   }
 

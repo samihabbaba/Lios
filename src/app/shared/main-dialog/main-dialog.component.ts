@@ -18,7 +18,7 @@ import { FormService } from 'src/app/services/form-service/form.service';
 export class MainDialogComponent implements OnInit {
   @Input() displayDialog: boolean = true;
   @Input() dialogHeader: string = 'Default Header';
-  @Input() formName: string;
+  @Input() formName: any;
   @Output() closeDialog = new EventEmitter<any>();
 
   formIsValid: boolean = false;
@@ -34,8 +34,7 @@ export class MainDialogComponent implements OnInit {
     if (button.disabled) {
       this.formService.setFormAsDirty();
     } else {
-
-      this.formService.triggerSubmit(del?'delete':'submit');
+      this.formService.triggerSubmit(del ? 'delete' : 'submit');
       if (this.formName !== 'payCraneForm') {
         this.closeDialog.emit();
       }
@@ -43,6 +42,8 @@ export class MainDialogComponent implements OnInit {
   }
 
   onDialogShow() {
+    // console.log(this.formName);
+    this.formService.currentlyOpenForm = this.formName;
     this.formValidationSubscription$ = this.formService
       .getFormValidationSubject()
       .subscribe((x) => {
@@ -54,6 +55,7 @@ export class MainDialogComponent implements OnInit {
     this.formValidationSubscription$.unsubscribe();
     this.closeDialog.emit();
     this.formService.setFormToInvalid();
+    // this.formName = null;
   }
 
   dialogWidth(): string {

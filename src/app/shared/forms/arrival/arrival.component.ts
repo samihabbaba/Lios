@@ -61,45 +61,48 @@ export class ArrivalComponent implements OnInit {
     public translate: TranslateService
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.movementsTypeDropdown = this.dataService.movementType;
-      this.purposesDropdown = this.dataService.Purposes;
-      this.dataService.getAllPorts(1, 10000, '').subscribe(
-        (resp) => {
-          this.ports = resp.portList.map((x) => x.name);
-          this.ports.forEach((x) => {
-            if (/KKTC/.test(x)) {
-              this.destinationPorts.push(x);
-            }
-          });
-        },
-        () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Bir hata oluştu.',
-          });
-        }
-      );
-      this.dataService.getAllAccommodations().subscribe(
-        (resp) => {
-          this.accomodations = resp;
-        },
-        () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Bir hata oluştu.',
-          });
-        }
-      );
+      if (this.formService.checkForm('arrivalForm')) {
+        this.movementsTypeDropdown = this.dataService.movementType;
+        this.purposesDropdown = this.dataService.Purposes;
+        this.dataService.getAllPorts(1, 10000, '').subscribe(
+          (resp) => {
+            this.ports = resp.portList.map((x) => x.name);
+            this.ports.forEach((x) => {
+              if (/KKTC/.test(x)) {
+                this.destinationPorts.push(x);
+              }
+            });
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
+          }
+        );
+        this.dataService.getAllAccommodations().subscribe(
+          (resp) => {
+            this.accomodations = resp;
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Bir hata oluştu.',
+            });
+          }
+        );
 
-      this.getGroups();
-      this.getCaptains();
-      this.loadSubscriptions();
+        this.getGroups();
+        this.getCaptains();
+        this.loadSubscriptions();
+      }
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
-      this.formName = null;
+      if (this.formService.checkForm('arrivalForm')) {
+        this.destroySubscription();
+      }
     });
   }
 

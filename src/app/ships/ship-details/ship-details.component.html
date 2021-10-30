@@ -1,4 +1,4 @@
-<div class="action-buttons">
+<div class="action-buttons" *ngIf="!isLoading" [@fadeInOut]>
   <button
     (click)="goBack()"
     pButton
@@ -21,7 +21,7 @@
   ></button>
 </div>
 
-<div class="ship-content">
+<div class="ship-content" *ngIf="!isLoading" [@fadeInOut]>
   <div class="toolbar-container">
     <div
       class="menu-item"
@@ -117,7 +117,8 @@
           </div>
 
           <div class="info-container">
-            <i class="fas fa-calendar-plus"></i> {{ "Last Entry Date" | translate }} :
+            <i class="fas fa-calendar-plus"></i>
+            {{ "Last Entry Date" | translate }} :
             {{ shipDashboard.lastEntryDate }}
           </div>
 
@@ -128,7 +129,8 @@
           </div>
 
           <div class="info-container">
-            <i class="fas fa-location-arrow"></i> {{ "Last Location" | translate }} :
+            <i class="fas fa-location-arrow"></i>
+            {{ "Last Location" | translate }} :
             {{ shipDashboard.lastLocation | titlecase }}
           </div>
 
@@ -136,7 +138,6 @@
             <i class="fas fa-cog"></i> {{ "Type" | translate }} :
             {{ shipDetails.type }}
           </div>
-
 
           <div class="info-container">
             <i class="fas fa-ruler-vertical"></i> {{ "Length" | translate }} :
@@ -1730,14 +1731,14 @@
                   </td>
                   <td>
                     <button
-                  pButton
-                  pRipple
-                  type="button"
-                  icon="pi pi-file-pdf"
-                  class="p-button-rounded p-button-warning p-button-text"
-                  pTooltip="Report"
-                  (click)="toggleMenuReports(item, $event)"
-                ></button>
+                      pButton
+                      pRipple
+                      type="button"
+                      icon="pi pi-file-pdf"
+                      class="p-button-rounded p-button-warning p-button-text"
+                      pTooltip="Report"
+                      (click)="toggleMenuReports(item, $event)"
+                    ></button>
                   </td>
                 </tr>
               </tbody>
@@ -1863,12 +1864,7 @@
   </div>
 </div>
 
-
-
-
-
-
-
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>
 
 <p-menu
   #report_menu
@@ -1876,8 +1872,6 @@
   [popup]="true"
   [model]="reportOptionsMenu"
 ></p-menu>
-
-
 
 <!-- Telerik Dialog -->
 <p-dialog

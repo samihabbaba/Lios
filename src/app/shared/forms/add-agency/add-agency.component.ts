@@ -42,20 +42,27 @@ export class AddAgencyComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('addAgencyForm')) {
         this.initializeForm();
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('addAgencyForm')) {
         this.destroySubscription();
-        this.formName = null;
-      });
-
+      }
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.initializeForm();
+    // this.loadSubscriptions();
+  }
+
+  ngOnDestroy() {
+    // this.destroySubscription();
+  }
 
   loadSubscriptions() {
     this.objectSubscriber$ = this.formService
@@ -64,15 +71,14 @@ export class AddAgencyComponent implements OnInit {
         console.log(value);
       });
 
-      if(this.formName === 'addAgencyForm') {
-
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });}
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
+    
 
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -99,21 +105,23 @@ export class AddAgencyComponent implements OnInit {
   submitForm() {
     let obj = this.form.getRawValue();
     obj.agencyType = obj.agencyType.value;
-    this.dataService.addNewAgency(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni acente başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addNewAgency(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni acente başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -131,6 +139,7 @@ export class AddAgencyComponent implements OnInit {
       webLink: new FormControl(null, []),
       email: new FormControl(null, []),
       isInsured: new FormControl(false, []),
+      insuranceExpiryDate: new FormControl(new Date(), []),
     });
   }
 

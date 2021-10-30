@@ -7,13 +7,17 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-agency-users',
   templateUrl: './agency-users.component.html',
   styleUrls: ['./agency-users.component.scss'],
+  animations: [fadeInOut()]
 })
 export class AgencyUsersComponent implements OnInit {
+  isLoading: boolean = false;
+
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -90,10 +94,11 @@ export class AgencyUsersComponent implements OnInit {
     private formService: FormService,
     private deleteService: DeleteService,
     private authService: AuthService,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.authService.currentUser.role !== 'Admin') {
       this.optionsMenu[0].items?.pop();
     }
@@ -112,8 +117,6 @@ export class AgencyUsersComponent implements OnInit {
     this.getData();
   }
 
-
-
   getData() {
     this.dataService
       .getAllAgencies(
@@ -126,6 +129,7 @@ export class AgencyUsersComponent implements OnInit {
         (response) => {
           this.tableData = response.agencyList;
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({

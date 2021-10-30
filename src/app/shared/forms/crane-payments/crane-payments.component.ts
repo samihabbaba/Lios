@@ -30,13 +30,15 @@ export class CranePaymentsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('cranePaymentsForm')) {
         this.loadSubscriptions();
-      });
+      }
+    });
     this.dialogRef.onHide.subscribe(() => {
-      this.formName = null;
-      this.destroySubscription();
+      if (this.formService.checkForm('cranePaymentsForm')) {
+        this.destroySubscription();
+      }
     });
   }
 
@@ -46,7 +48,7 @@ export class CranePaymentsComponent implements OnInit {
     this.objectSubscriber$ = this.formService
       .getFormObject()
       .subscribe((value) => {
-        this.crane = {...value};
+        this.crane = { ...value };
       });
 
     this.formService.setFormToInvalid();
@@ -56,14 +58,12 @@ export class CranePaymentsComponent implements OnInit {
     this.objectSubscriber$.unsubscribe();
   }
 
-
-  reportVar1
-  reportVar2
-  reportIsAlternative
-  displayTelerikDialog
-  telerik
-  showTelerikReport(  var1 = '', var2 = '', isAlternative = false) {
-
+  reportVar1;
+  reportVar2;
+  reportIsAlternative;
+  displayTelerikDialog;
+  telerik;
+  showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 

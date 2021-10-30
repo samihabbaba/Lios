@@ -36,49 +36,52 @@ export class DeleteArrivalComponent implements OnInit {
     public translate: TranslateService
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.objectSubscriber$ = this.formService
-        .getFormObject()
-        .subscribe((value) => {
-          this.shipId = value.id;
-          this.tripId = value.tripId;
-          this.shipName = value.name;
-          if (!this.tripId) {
-            this.tripId = value.id;
-            this.shipId = value.shipId;
-            this.shipName = value.shipName;
-          }
-          this.formService.setFormToValid();
-        });
-      if (this.formName === 'deleteArrivalForm') {
-        this.submitSubscriber$ = this.formService
-          .getSubmitSubject()
+      if (this.formService.checkForm('deleteArrivalForm')) {
+        this.objectSubscriber$ = this.formService
+          .getFormObject()
           .subscribe((value) => {
-            if (value === 'submit') {
-              this.dataService.deleteArrival(this.tripId).subscribe(
-                (resp) => {
-                  this.formService.triggerRefresh();
-                  this.messageService.add({
-                    severity: 'info',
-                    summary: 'Info',
-                    detail: 'Geliş başarıyla silindi',
-                  });
-                },
-                () => {
-                  this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: 'Bir hata oluştu.',
-                  });
-                }
-              );
+            this.shipId = value.id;
+            this.tripId = value.tripId;
+            this.shipName = value.name;
+            if (!this.tripId) {
+              this.tripId = value.id;
+              this.shipId = value.shipId;
+              this.shipName = value.shipName;
             }
+            this.formService.setFormToValid();
           });
+        if (this.formName === 'deleteArrivalForm') {
+          this.submitSubscriber$ = this.formService
+            .getSubmitSubject()
+            .subscribe((value) => {
+              if (value === 'submit') {
+                this.dataService.deleteArrival(this.tripId).subscribe(
+                  (resp) => {
+                    this.formService.triggerRefresh();
+                    this.messageService.add({
+                      severity: 'info',
+                      summary: 'Info',
+                      detail: 'Geliş başarıyla silindi',
+                    });
+                  },
+                  () => {
+                    this.messageService.add({
+                      severity: 'error',
+                      summary: 'Error',
+                      detail: 'Bir hata oluştu.',
+                    });
+                  }
+                );
+              }
+            });
+        }
       }
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.formName = null;
-      this.submitSubscriber$.unsubscribe();
-      this.formService.setFormToInvalid();
+      if (this.formService.checkForm('deleteArrivalForm')) {
+        this.submitSubscriber$.unsubscribe();
+        this.formService.setFormToInvalid();
+      }
     });
   }
 

@@ -39,18 +39,21 @@ export class AddLocalComponent implements OnInit {
     private dialogRef: Dialog
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.countryDropdown = this.dataService.countries;
-      this.martialStatus = this.dataService.martialStatus;
-      this.gender = this.dataService.gender;
-      this.bloodTypes = this.dataService.bloodTypes;
-      this.staffTypes = this.dataService.staffTypes;
-      this.roles = this.dataService.roles;
+      if (this.formService.checkForm('addLocalForm')) {
+        this.countryDropdown = this.dataService.countries;
+        this.martialStatus = this.dataService.martialStatus;
+        this.gender = this.dataService.gender;
+        this.bloodTypes = this.dataService.bloodTypes;
+        this.staffTypes = this.dataService.staffTypes;
+        this.roles = this.dataService.roles;
 
-      this.loadSubscriptions();
+        this.loadSubscriptions();
+      }
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.formName = null;
-      this.destroySubscription();
+      if (this.formService.checkForm('addLocalForm')) {
+        this.destroySubscription();
+      }
     });
   }
 

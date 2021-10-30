@@ -57,8 +57,8 @@ export class EditArrivalComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('editArrivalForm')) {
         this.movementsTypeDropdown = this.dataService.movementType;
         this.purposesDropdown = this.dataService.Purposes;
         this.dataService.getAllPorts(1, 10000, '').subscribe(
@@ -90,12 +90,13 @@ export class EditArrivalComponent implements OnInit {
         this.getCaptains();
 
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('editArrivalForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -127,14 +128,14 @@ this.formName = null;
           }
         );
       });
-      if (this.formName === 'editArrivalForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'editArrivalForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()

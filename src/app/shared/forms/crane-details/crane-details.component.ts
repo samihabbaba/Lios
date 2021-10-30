@@ -42,11 +42,14 @@ export class CraneDetailsComponent implements OnInit {
     private dialogRef: Dialog
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
+      if (this.formService.checkForm('craneDetailsForm')) {
+        this.loadSubscriptions();
+      }
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.formName = null;
-      this.destroySubscription();
+      if (this.formService.checkForm('craneDetailsForm')) {
+        this.destroySubscription();
+      }
     });
   }
 
@@ -254,14 +257,12 @@ export class CraneDetailsComponent implements OnInit {
     return joinArray;
   }
 
-
-  reportVar1
-  reportVar2
-  reportIsAlternative
-  displayTelerikDialog
-  telerik
-  showTelerikReport(  var1 = '', var2 = '', isAlternative = false) {
-
+  reportVar1;
+  reportVar2;
+  reportIsAlternative;
+  displayTelerikDialog;
+  telerik;
+  showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 

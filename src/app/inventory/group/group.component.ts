@@ -7,13 +7,16 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss'],
+  animations: [fadeInOut()]
 })
 export class GroupComponent implements OnInit {
+  isLoading: boolean = false;
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -80,6 +83,7 @@ export class GroupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.authService.currentUser.role !== 'Admin') {
       this.optionsMenu[0].items?.pop();
     }
@@ -99,6 +103,7 @@ export class GroupComponent implements OnInit {
       (response) => {
         this.tableData = response;
         this.fullDataSource = response;
+        this.isLoading = false;
       },
       () => {
         this.messageService.add({

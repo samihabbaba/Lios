@@ -13,13 +13,17 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 import { Menu } from 'primeng/menu';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-ship-details',
   templateUrl: './ship-details.component.html',
   styleUrls: ['./ship-details.component.scss'],
+  animations: [fadeInOut()],
 })
 export class ShipDetailsComponent implements OnInit {
+  isLoading: boolean = false;
+
   activeTab: string = 'Dashboard';
   shipId: any;
   extraId: string;
@@ -108,6 +112,7 @@ export class ShipDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.shipId = this.activatedRoute.snapshot.paramMap.get('id');
     this.shipTypes = this.dataService.shipTypes;
     this.countries = this.dataService.countries;
@@ -115,6 +120,7 @@ export class ShipDetailsComponent implements OnInit {
     this.dataService.getShipDashboard(this.shipId).subscribe((resp) => {
       // console.log(resp);
       this.shipDashboard = resp;
+      this.isLoading = false;
     });
 
     this.dataService.getShipDetail(this.shipId).subscribe(
@@ -122,10 +128,10 @@ export class ShipDetailsComponent implements OnInit {
         // console.log(resp);
         this.shipDetails = resp;
         if (
-          this.shipDetails.country === 'KKTC' ||
-          this.shipDetails.country === 'Northern Cyprus' ||
-          this.shipDetails.country === 'Northern Cyprus (KKTC)' ||
-          this.shipDetails.country === 'Northern Cyprus (TRNC)'
+          this.shipDetails.flag === 'KKTC' ||
+          this.shipDetails.flag === 'Northern Cyprus' ||
+          this.shipDetails.flag === 'Northern Cyprus (KKTC)' ||
+          this.shipDetails.flag === 'Northern Cyprus (TRNC)'
         ) {
           this.shipDetails.flag = this.countries[0];
         }
@@ -246,10 +252,14 @@ export class ShipDetailsComponent implements OnInit {
     this.dataService
       .getAllTrips(
         this.dateRanges[0]
-          ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[0])
+              .split('T')[0]
           : '',
         this.dateRanges[1]
-          ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[1])
+              .split('T')[0]
           : '',
         this.pageNumber,
         this.pageSize,
@@ -1087,19 +1097,15 @@ export class ShipDetailsComponent implements OnInit {
     this.addNewOwner();
   }
 
-
-
   // reports work
   @ViewChild('report_menu') report_menu: Menu;
 
-
-  reportVar1
-  reportVar2
-  reportIsAlternative
-  displayTelerikDialog
-  telerik
-  showTelerikReport( var2 = '', var1 = '', isAlternative = false) {
-
+  reportVar1;
+  reportVar2;
+  reportIsAlternative;
+  displayTelerikDialog;
+  telerik;
+  showTelerikReport(var2 = '', var1 = '', isAlternative = false) {
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 
@@ -1113,7 +1119,6 @@ export class ShipDetailsComponent implements OnInit {
     this.telerik = true;
   }
 
-  
   objToSend: any = null;
 
   reportOptionsMenuFull = [
@@ -1152,35 +1157,28 @@ export class ShipDetailsComponent implements OnInit {
         this.showTelerikReport(this.objToSend.id, 'boat/invoice');
       },
     },
-  ]
-
+  ];
 
   reportOptionsMenu: MenuItem[] = [
     {
-      items: [
-
-      ],
+      items: [],
     },
   ];
 
   toggleMenuReports(item, event) {
-
     this.objToSend = item;
 
     this.reportOptionsMenu[0].items = [];
-    if(item.shipInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0])
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1])
+    if (item.shipInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0]);
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1]);
     }
-    if(item.craneInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2])
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3])
+    if (item.craneInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2]);
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3]);
     }
-    if(item.boatInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4])
+    if (item.boatInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4]);
     }
 
     this.report_menu.toggle(event);

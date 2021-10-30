@@ -43,7 +43,7 @@ export class ToolbarComponent implements OnInit {
             },
           },
           {
-            label: 'Turkish',
+            label: 'Türkçe',
             // icon: 'pi pi-slack',
             command: () => {
               this.changeLanguage('tr');

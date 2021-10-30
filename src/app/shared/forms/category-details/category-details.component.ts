@@ -39,16 +39,17 @@ export class CategoryDetailsComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('categoryDetailsForm')) {
         this.loadGroups();
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('categoryDetailsForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -62,14 +63,14 @@ this.formName = null;
       });
 
     this.initializeForm();
-    if(this.formName === 'categoryDetailsForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'categoryDetailsForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -98,21 +99,23 @@ this.formName = null;
     let obj = this.form.getRawValue();
     obj.groupId = obj.groupId.value;
     obj.id = this.objReceived.id;
-    this.dataService.updateCategory(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Kategori başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateCategory(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Kategori başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -146,17 +149,19 @@ this.formName = null;
   }
 
   loadGroups() {
-    this.dataService.getAllGroups('').subscribe((response) => {
-      for (const item of response) {
-        this.groups.push({ name: item.name, value: item.id });
+    this.dataService.getAllGroups('').subscribe(
+      (response) => {
+        for (const item of response) {
+          this.groups.push({ name: item.name, value: item.id });
+        }
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
       }
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    );
   }
 }

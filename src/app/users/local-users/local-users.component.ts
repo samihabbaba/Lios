@@ -7,13 +7,16 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-local-users',
   templateUrl: './local-users.component.html',
   styleUrls: ['./local-users.component.scss'],
+  animations: [fadeInOut()]
 })
 export class LocalUsersComponent implements OnInit {
+  isLoading: boolean = false;
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -96,6 +99,7 @@ export class LocalUsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.authService.currentUser.role !== 'Admin') {
       this.optionsMenu[0].items?.pop();
     }
@@ -117,6 +121,7 @@ export class LocalUsersComponent implements OnInit {
         (response) => {
           this.tableData = response.staffList;
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({

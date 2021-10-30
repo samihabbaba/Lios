@@ -5,19 +5,18 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { ChartModule } from 'primeng/chart';
-import {TimelineModule} from 'primeng/timeline';
-
+import { TimelineModule } from 'primeng/timeline';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
     ChartModule,
-    TimelineModule
+    TimelineModule,
+    AccordionModule,
   ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

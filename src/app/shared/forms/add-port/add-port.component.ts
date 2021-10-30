@@ -33,18 +33,18 @@ export class AddPortComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('addPortForm')) {
         this.dropdownOptions = this.dataService.countries;
         this.initializeForm();
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('addPortForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -55,14 +55,14 @@ this.formName = null;
       .subscribe((value) => {
         console.log(value);
       });
-      if(this.formName === 'addPortForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'addPortForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form

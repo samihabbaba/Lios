@@ -38,20 +38,20 @@ export class HolidayDetailsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('holidayDetailsForm')) {
         for (let i = 1; i <= 31; i++) {
           this.days31.push(i);
         }
         this.months = this.dataService.months;
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('holidayDetailsForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -65,14 +65,14 @@ this.formName = null;
       });
 
     this.initializeForm();
-    if(this.formName === 'holidayDetailsForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'holidayDetailsForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -100,21 +100,23 @@ this.formName = null;
   submitForm() {
     let obj = this.form.getRawValue();
     obj.id = this.objReceived.id;
-    this.dataService.updateHoliday(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Tatil başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateHoliday(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Tatil başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -122,7 +124,9 @@ this.formName = null;
       name: new FormControl(this.objReceived?.name, [Validators.required]),
       month: new FormControl(this.objReceived?.month, [Validators.required]),
       day: new FormControl(this.objReceived?.day, [Validators.required]),
-      duration: new FormControl(this.objReceived?.duration, [Validators.required]),
+      duration: new FormControl(this.objReceived?.duration, [
+        Validators.required,
+      ]),
       startHour: new FormControl(null, [Validators.required]),
       endHour: new FormControl(null, [Validators.required]),
     });

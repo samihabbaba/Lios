@@ -12,8 +12,13 @@ export class FormService {
   private dirtyFormSubject = new BehaviorSubject<any>(false);
   public ngSwitchSubject = new BehaviorSubject<any>(null);
   tabPage = new BehaviorSubject<string>('');
+  currentlyOpenForm: string;
 
   constructor() {}
+
+  checkForm(formName: string) {
+    return this.currentlyOpenForm === formName;
+  }
 
   sendObjectToForm(object: any) {
     this.formObject.next(object);

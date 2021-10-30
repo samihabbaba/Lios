@@ -89,16 +89,37 @@
   }
 }
 
+.accordion-container {
+  display: flex;
+
+}
+
+.acc-card {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+  .title {
+    font-weight: 500;
+    line-height: 24px;
+  }
+}
+
 .dev-title {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-top: 16px;
   padding-bottom: 16px;
-  span {
-    margin-left: 16px;
-    font-size: 19px;
-    margin-top: 8px;
-  }
+}
+
+.title-text {
+  font-weight: 800;
+  font-size: 21px;
+  margin: 16px;
 }
 
 .dev-item {
@@ -107,8 +128,8 @@
   justify-content: center;
   font-size: 18px;
   align-items: center;
-  font-weight: 600;
-  border: 1px solid rgba(68, 72, 109, 0.2);
+  font-weight: 500;
+  // border: 1px solid rgba(68, 72, 109, 0.2);
   &:hover {
     background: rgba(68, 72, 109, 0.07);
   }

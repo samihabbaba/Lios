@@ -54,15 +54,19 @@ export class AddCraneComponent implements OnInit {
 
 
       this.dialogRef.onShow.subscribe(() => {
-        this.initializeForm();
-        this.loadCraneServices();
-        this.loadShips();
-        this.loadAgencies();
-        this.loadSubscriptions();
+        if(this.formService.checkForm('addCraneForm')) {
+
+          this.initializeForm();
+          this.loadCraneServices();
+          this.loadShips();
+          this.loadAgencies();
+          this.loadSubscriptions();
+        }
       });
       this.dialogRef.onHide.subscribe(() => {
-        this.destroySubscription();
-this.formName = null;
+        if(this.formService.checkForm('addCraneForm')) {
+          this.destroySubscription();
+        }
       });
 
   }
@@ -76,7 +80,6 @@ this.formName = null;
     //     console.log(value);
     //   });
     console.log(this.formName)
-    if(this.formName === 'addCraneForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -84,7 +87,7 @@ this.formName = null;
           this.submitForm();
         }
       });
-    }
+    
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

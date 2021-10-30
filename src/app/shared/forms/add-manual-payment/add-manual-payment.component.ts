@@ -23,7 +23,7 @@ export class AddManualPaymentComponent implements OnInit {
   dirtyFormSubscriber$: Subscription;
   form: FormGroup;
 
-  dropdownOptions: any[] =['Mağusa', 'Girne'];
+  dropdownOptions: any[] = ['Mağusa', 'Girne'];
 
   banks: any[];
 
@@ -40,17 +40,17 @@ export class AddManualPaymentComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('addManualPaymentForm')) {
         this.initializeForm();
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('addManualPaymentForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -58,14 +58,14 @@ this.formName = null;
   loadSubscriptions() {
     this.banks = this.dataService.banksList;
     this.loadAgencies();
-    if(this.formName === 'addManualPaymentForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'addManualPaymentForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -94,21 +94,23 @@ this.formName = null;
     let obj = this.form.getRawValue();
     if (obj.agency?.name) obj.agency = obj.agency.name;
 
-    this.dataService.addNewManualPayment(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yeni ödeme başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addNewManualPayment(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yeni ödeme başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -120,7 +122,7 @@ this.formName = null;
       description: new FormControl(null, []),
       port: new FormControl(null, []),
       bank: new FormControl(null, []),
-      code9072: new FormControl(0, [],),
+      code9072: new FormControl(0, []),
       code9049: new FormControl(0, []),
       code9050: new FormControl(0, []),
       code9051: new FormControl(0, []),
@@ -130,7 +132,6 @@ this.formName = null;
       code9138: new FormControl(0, []),
       code9148: new FormControl(0, []),
     });
-
   }
 
   checkValidity(formControl: string) {
@@ -154,9 +155,8 @@ this.formName = null;
   }
 
   loadAgencies() {
-    this.dataService
-      .getAllAgencies('', 10000, 1, false)
-      .subscribe((response) => {
+    this.dataService.getAllAgencies('', 10000, 1, false).subscribe(
+      (response) => {
         this.agencies = response.agencyList;
         // console.log(this.agencies);
       },
@@ -166,6 +166,7 @@ this.formName = null;
           summary: 'Error',
           detail: 'Bir hata oluştu.',
         });
-      });
+      }
+    );
   }
 }

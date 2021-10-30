@@ -37,14 +37,16 @@ export class ShipServicesComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-
     this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
+      if (this.formService.checkForm('shipServicesForm')) {
+        this.loadSubscriptions();
+      }
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.destroySubscription();
+      if (this.formService.checkForm('shipServicesForm')) {
+        this.destroySubscription();
+      }
     });
-
   }
 
   ngOnInit() {}
@@ -58,31 +60,33 @@ export class ShipServicesComponent implements OnInit {
       .getFormObject()
       .subscribe((value) => {
         if (this.tabView === 'ship') {
-          this.dataService.getShipsServiceById(value.id).subscribe((resp) => {
-            this.objReceived = resp;
-            // console.log(this.objReceived)
-            this.initializeForm();
+          this.dataService.getShipsServiceById(value.id).subscribe(
+            (resp) => {
+              this.objReceived = resp;
+              // console.log(this.objReceived)
+              this.initializeForm();
 
-            this.formValidationSubscriber$ =
-              this.formService.listenToValueChanges(this.form);
-          },
-          () => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Bir hata oluştu.',
-            });
-          });
+              this.formValidationSubscriber$ =
+                this.formService.listenToValueChanges(this.form);
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
+            }
+          );
         }
       });
-      if(this.formName === 'shipServicesForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit' && this.tabView === 'ship') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'shipServicesForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit' && this.tabView === 'ship') {
+            this.submitForm();
+          }
+        });
     }
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -110,21 +114,23 @@ export class ShipServicesComponent implements OnInit {
     obj.charges = this.objReceived.charges;
     obj.category = this.objReceived.category;
     obj.categoryId = this.objReceived.categoryId;
-    this.dataService.updateShipsService(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Servis başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateShipsService(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Servis başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -163,20 +169,22 @@ export class ShipServicesComponent implements OnInit {
   }
 
   onRowEditSave(item) {
-    this.dataService.updateShipsServiceCharge(item).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Değişiklikleriniz kaydedildi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateShipsServiceCharge(item).subscribe(
+      (resp) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Değişiklikleriniz kaydedildi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   onRowEditCancel(i) {

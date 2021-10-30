@@ -13,13 +13,17 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 import { Menu } from 'primeng/menu';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-ship-registry-details',
   templateUrl: './ship-registry-details.component.html',
   styleUrls: ['./ship-registry-details.component.scss'],
+  animations: [fadeInOut()]
 })
 export class ShipRegistryDetailsComponent implements OnInit {
+  isLoading: boolean = false;
+
   activeTab: string = 'Dashboard';
   shipId: any;
   extraId: string;
@@ -108,6 +112,7 @@ export class ShipRegistryDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.shipId = this.activatedRoute.snapshot.paramMap.get('id');
     this.shipTypes = this.dataService.shipTypes;
     this.countries = this.dataService.countries;
@@ -115,16 +120,17 @@ export class ShipRegistryDetailsComponent implements OnInit {
     this.dataService.getShipDashboard(this.shipId).subscribe((resp) => {
       // console.log(resp);
       this.shipDashboard = resp;
+      this.isLoading = false;
     });
 
     this.dataService.getShipDetail(this.shipId).subscribe(
       (resp) => {
         this.shipDetails = resp;
         if (
-          this.shipDetails.country === 'KKTC' ||
-          this.shipDetails.country === 'Northern Cyprus' ||
-          this.shipDetails.country === 'Northern Cyprus (KKTC)' ||
-          this.shipDetails.country === 'Northern Cyprus (TRNC)'
+          this.shipDetails.flag === 'KKTC' ||
+          this.shipDetails.flag === 'Northern Cyprus' ||
+          this.shipDetails.flag === 'Northern Cyprus (KKTC)' ||
+          this.shipDetails.flag === 'Northern Cyprus (TRNC)'
         ) {
           this.shipDetails.flag = this.countries[0];
         }
@@ -1084,7 +1090,7 @@ export class ShipRegistryDetailsComponent implements OnInit {
 
 
 
-  
+
   // reports work
   @ViewChild('report_menu') report_menu: Menu;
 
@@ -1109,7 +1115,7 @@ export class ShipRegistryDetailsComponent implements OnInit {
     this.telerik = true;
   }
 
-  
+
   objToSend: any = null;
 
   reportOptionsMenuFull = [

@@ -8,15 +8,19 @@ import {
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
+import { fadeInOut } from 'src/app/animations/animation';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
 @Component({
   selector: 'app-add-ship-registry',
   templateUrl: './add-ship-registry.component.html',
-  styleUrls: ['./add-ship-registry.component.scss']
+  styleUrls: ['./add-ship-registry.component.scss'],
+  animations: [fadeInOut()]
 })
 export class AddShipRegistryComponent implements OnInit {
+  isLoading: boolean = false;
+
   activeTab: string = 'Ship Information';
   shipId: string;
   extraId: string;
@@ -60,6 +64,7 @@ export class AddShipRegistryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.shipTypes = this.dataService.shipTypes;
     this.countries = this.dataService.countries;
     this.initializeShipInfoForm();
@@ -261,6 +266,7 @@ export class AddShipRegistryComponent implements OnInit {
   getAgencies() {
     this.dataService.getAllAgencies('', '', 1, 10000).subscribe((resp) => {
       this.agencies = resp.agencyList;
+      this.isLoading = false;
     },
     () => {
       this.messageService.add({

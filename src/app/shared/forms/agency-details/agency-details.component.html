@@ -119,4 +119,18 @@
       <p class="m-0 ml-2">{{ "Is Insured" | translate }}</p>
     </div>
   </div>
+
+  <div class="input-container" *ngIf="form.get('isInsured')?.value ===  true">
+    <span class="p-float-label">
+      <p-calendar
+        formControlName="insuranceExpiryDate"
+        [showIcon]="true"
+        appendTo="body"
+      ></p-calendar>
+      <label>{{ "Insurance Expiry Date" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('insuranceExpiryDate')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
 </div>

@@ -35,16 +35,16 @@ export class OvertimeDiscountComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('overtimeDiscountForm')) {
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('overtimeDiscountForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -52,7 +52,7 @@ this.formName = null;
   loadSubscriptions() {
     this.tabViewSubscriber$ = this.formService.tabPage.subscribe((value) => {
       this.tabView = value;
-    })
+    });
 
     this.objectSubscriber$ = this.formService
       .getFormObject()
@@ -62,14 +62,14 @@ this.formName = null;
       });
 
     this.initializeForm();
-    if(this.formName === 'overtimeDiscountForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((x) => {
-        if (x === 'submit' && this.tabView === 'overtime') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'overtimeDiscountForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((x) => {
+          if (x === 'submit' && this.tabView === 'overtime') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -98,21 +98,23 @@ this.formName = null;
   submitForm() {
     let obj = this.form.getRawValue();
     obj.id = this.objReceived.id;
-    this.dataService.updateOvertimeDiscount(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yüzdelik başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateOvertimeDiscount(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yüzdelik başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {

@@ -7,13 +7,16 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
+  animations: [fadeInOut()],
 })
 export class CategoryComponent implements OnInit {
+  isLoading: boolean = false;
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -81,6 +84,7 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.authService.currentUser.role !== 'Admin') {
       this.optionsMenu[0].items?.pop();
     }
@@ -100,6 +104,7 @@ export class CategoryComponent implements OnInit {
       (response) => {
         this.tableData = response;
         this.fullDataSource = response;
+        this.isLoading = false;
       },
       () => {
         this.messageService.add({

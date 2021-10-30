@@ -7,14 +7,17 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 
 @Component({
   selector: 'app-brand',
   templateUrl: './brand.component.html',
-  styleUrls: ['./brand.component.scss']
+  styleUrls: ['./brand.component.scss'],
+  animations: [fadeInOut()]
 })
 export class BrandComponent implements OnInit {
+  isLoading: boolean = false;
 
   // Form Variables
   formName: string = '';
@@ -75,6 +78,7 @@ export class BrandComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.authService.currentUser.role !== 'Admin') {
       this.optionsMenu[0].items?.pop();
     }
@@ -93,6 +97,7 @@ export class BrandComponent implements OnInit {
     this.dataService.getAllBrands(this.searchQuery).subscribe(
       (response) => {
         this.tableData = response;
+        this.isLoading = false;
       },
       () => {
         this.messageService.add({

@@ -44,11 +44,14 @@ export class AgencyDetailsComponent implements OnInit {
     private dialogRef: Dialog
   ) {
     this.dialogRef.onShow.subscribe(() => {
-      this.loadSubscriptions();
+      if (this.formService.checkForm('agencyDetailsForm')) {
+        this.loadSubscriptions();
+      }
     });
     this.dialogRef.onHide.subscribe(() => {
-      this.formName = null;
-      this.destroySubscription();
+      if (this.formService.checkForm('agencyDetailsForm')) {
+        this.destroySubscription();
+      }
     });
   }
 
@@ -67,6 +70,7 @@ export class AgencyDetailsComponent implements OnInit {
         }
       });
     this.initializeForm();
+
     if (this.formName === 'agencyDetailsForm') {
       this.submitSubscriber$ = this.formService
         .getSubmitSubject()
@@ -139,7 +143,24 @@ export class AgencyDetailsComponent implements OnInit {
       webLink: new FormControl(this.objReceived.webLink, []),
       email: new FormControl(this.objReceived.email, []),
       isInsured: new FormControl(this.objReceived.isInsured, []),
+      insuranceExpiryDate: new FormControl(
+        this.objReceived.insuranceExpiryDate
+          ? new Date(
+              this.reverseString(
+                this.objReceived.insuranceExpiryDate.slice(0, -9)
+              )
+            )
+          : this.objReceived.insuranceExpiryDate,
+        []
+      ),
     });
+  }
+
+  reverseString(str) {
+    let splitString = str.split(/([/])/);
+    let reverseArray = splitString.reverse();
+    let joinArray = reverseArray.join('');
+    return joinArray;
   }
 
   checkValidity(formControl: string) {

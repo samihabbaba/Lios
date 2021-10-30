@@ -39,12 +39,16 @@ export class AddCategoryComponent implements OnInit {
 
 
       this.dialogRef.onShow.subscribe(() => {
-        this.loadGroups();
-        this.loadSubscriptions();
+        if(this.formService.checkForm('addCategoryForm')){
+
+          this.loadGroups();
+          this.loadSubscriptions();
+        }
       });
       this.dialogRef.onHide.subscribe(() => {
+        if(this.formService.checkForm('addCategoryForm')){
         this.destroySubscription();
-        this.formName = null;
+        }
       });
 
   }
@@ -59,7 +63,6 @@ export class AddCategoryComponent implements OnInit {
       });
 
     this.initializeForm();
-    if(this.formName === 'addCategoryForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
@@ -67,7 +70,7 @@ export class AddCategoryComponent implements OnInit {
           this.submitForm();
         }
       });
-    }
+    
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );

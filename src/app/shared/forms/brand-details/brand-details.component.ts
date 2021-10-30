@@ -35,11 +35,16 @@ export class BrandDetailsComponent implements OnInit {
   ) {
 
       this.dialogRef.onShow.subscribe(() => {
-        this.loadSubscriptions();
-      });
+        if(this.formService.checkForm('brandDetailsForm')) {
+
+          this.loadSubscriptions();
+        }
+        });
       this.dialogRef.onHide.subscribe(() => {
-        this.destroySubscription();
-this.formName = null;
+        if(this.formService.checkForm('brandDetailsForm')) {
+
+          this.destroySubscription();
+        }
       });
 
   }

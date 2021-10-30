@@ -36,16 +36,16 @@ export class ShipDiscountComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('shipDiscountForm')) {
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('shipDiscountForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -63,15 +63,15 @@ this.formName = null;
       });
 
     this.initializeForm();
-    if(this.formName === 'shipDiscountForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((x) => {
-        console.log(x);
-        if (x === 'submit' && this.tabView === 'ship') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'shipDiscountForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((x) => {
+          console.log(x);
+          if (x === 'submit' && this.tabView === 'ship') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -100,21 +100,23 @@ this.formName = null;
   submitForm() {
     let obj = this.form.getRawValue();
     obj.id = this.objReceived.id;
-    this.dataService.updateShipsDiscount(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Yüzdelik başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateShipsDiscount(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Yüzdelik başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {

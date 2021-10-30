@@ -335,217 +335,215 @@ export class DataService {
     'Zimbabwe',
   ];
 
-
-
   flags = [
-    { country: "Northern Cyprus (TRNC)", code: "KKTC" },
-    { country: "Afghanistan", code: "AF " },
-    { country: "Albania", code: "AL " },
-    { country: "Algeria", code: "DZ " },
-    { country: "Andorra", code: "AD " },
-    { country: "Angola", code: "AO " },
-    { country: "Antigua and Barbuda", code: "AG" },
-    { country: "Argentina", code: "AR " },
-    { country: "Armenia", code: "AM" },
-    { country: "Australia", code: "AU" },
-    { country: "Austria", code: "AT" },
-    { country: "Azerbaijan", code: "AZ" },
-    { country: "Bahamas", code: "BS " },
-    { country: "Bahrain", code: "BH " },
-    { country: "Bangladesh", code: "BD " },
-    { country: "Barbados", code: "BB " },
-    { country: "Belarus", code: "BY " },
-    { country: "Belgium", code: "BE " },
-    { country: "Belize", code: "BZ " },
-    { country: "Benin", code: "BJ " },
-    { country: "Bhutan", code: "BT " },
-    { country: "Bolivia", code: "BO " },
-    { country: "Bosnia and Herz.", code: "BA " },
-    { country: "Botswana", code: "BW " },
-    { country: "Brazil", code: "BR " },
-    { country: "Brunei", code: "BN " },
-    { country: "Bulgaria", code: "BG " },
-    { country: "Burkina Faso", code: "BF " },
-    { country: "Burundi", code: "BI " },
-    { country: "Cambodia", code: "KH " },
-    { country: "Cameroon", code: "CM " },
-    { country: "Canada", code: "CA " },
-    { country: "Cape Verde", code: "CV " },
-    { country: "Central African Rep.", code: "CF " },
-    { country: "Chad", code: "TD " },
-    { country: "Chile", code: "CL " },
-    { country: "China", code: "CN " },
-    { country: "Colombia", code: "CO " },
-    { country: "Comoros", code: "KM " },
-    { country: "The Democr. Rep. of the congo", code: "CD " },
-    { country: "Costa Rica", code: "CR " },
-    { country: "Cote d'Ivoire", code: "CI " },
-    { country: "Croatia", code: "HR " },
-    { country: "Cuba", code: "CU " },
-    { country: "Cyprus", code: "CY " },
-    { country: "Czech Republic", code: "CZ " },
-    { country: "Denmark", code: "DK " },
-    { country: "Djibouti", code: "DJ " },
-    { country: "Dominica", code: "DM " },
-    { country: "Dominican Republic", code: "DO " },
-    { country: "East Timor", code: "TL " },
-    { country: "Ecuador", code: "EC " },
-    { country: "Egypt", code: "EG " },
-    { country: "El Salvador", code: "SV " },
-    { country: "Equatorial Guinea", code: "GQ " },
-    { country: "Eritrea", code: "ER " },
-    { country: "Estonia", code: "EE " },
-    { country: "Ethiopia", code: "ET " },
-    { country: "Fiji", code: "FJ " },
-    { country: "Finland", code: "FI " },
-    { country: "France", code: "FR " },
-    { country: "French Polynesia", code: "PF " },
-    { country: "Gabon", code: "GA " },
-    { country: "Gambia", code: "GM " },
-    { country: "Georgia", code: "GE " },
-    { country: "Germany", code: "DE " },
-    { country: "Ghana", code: "GH " },
-    { country: "Gibraltar", code: "GI " },
-    { country: "Greece", code: "GR " },
-    { country: "Greenland", code: "GL " },
-    { country: "Grenada", code: "GD " },
-    { country: "Guadeloupe", code: "GP " },
-    { country: "Guatemala", code: "GT " },
-    { country: "Guinea", code: "GN " },
-    { country: "Guinea Bissau", code: "GW " },
-    { country: "Guyana", code: "GY " },
-    { country: "Haiti", code: "HT " },
-    { country: "Honduras", code: "HN " },
-    { country: "Hong Kong SAR", code: "HK " },
-    { country: "Hungary", code: "HU " },
-    { country: "Iceland", code: "IS " },
-    { country: "India", code: "IN " },
-    { country: "Indonesia", code: "ID " },
-    { country: "Iran", code: "IR " },
-    { country: "Iraq", code: "IQ " },
-    { country: "Ireland", code: "IE " },
-    { country: "Israel", code: "IL " },
-    { country: "Italy", code: "IT " },
-    { country: "Jamaica", code: "JM " },
-    { country: "Japan", code: "JP " },
-    { country: "Jordan", code: "JO " },
-    { country: "Kazakhstan", code: "KZ " },
-    { country: "Kenya", code: "KE " },
-    { country: "Kiribati", code: "KI " },
-    { country: "Korea, North", code: "KP " },
-    { country: "Korea, South", code: "KR " },
-    { country: "Kuwait", code: "KW " },
-    { country: "Kyrgyzstan", code: "KG " },
-    { country: "Laos", code: "LA " },
-    { country: "Latvia", code: "LV " },
-    { country: "Lebanon", code: "LB " },
-    { country: "Lesotho", code: "LS " },
-    { country: "Liberia", code: "LR " },
-    { country: "Libya", code: "LY " },
-    { country: "Liechtenstein", code: "LI " },
-    { country: "Lithuania", code: "LT " },
-    { country: "Luxembourg", code: "LU " },
-    { country: "Macau SAR", code: "MO " },
-    { country: "Macedonia", code: "MK " },
-    { country: "Madagascar", code: "MG " },
-    { country: "Malawi", code: "MW " },
-    { country: "Malaysia", code: "MY " },
-    { country: "Maldives", code: "MV " },
-    { country: "Mali", code: "ML " },
-    { country: "Malta", code: "MT " },
-    { country: "Marshall Islands", code: "MH " },
-    { country: "Martinique", code: "MQ " },
-    { country: "Mauritania", code: "MR " },
-    { country: "Mauritius", code: "MU " },
-    { country: "Mexico", code: "MX " },
-    { country: "Fed. States of Micronesia", code: "FM " },
-    { country: "Moldova", code: "MD " },
-    { country: "Monaco", code: "MC " },
-    { country: "Mongolia", code: "MN " },
-    { country: "Montenegro", code: "ME " },
-    { country: "Morocco", code: "MA " },
-    { country: "Mozambique", code: "MZ " },
-    { country: "Myanmar", code: "MM " },
-    { country: "Namibia", code: "NA " },
-    { country: "Nauru", code: "NR " },
-    { country: "Nepal", code: "NP " },
-    { country: "Netherlands", code: "NL " },
-    { country: "New Caledonia", code: "NC " },
-    { country: "New Zealand", code: "NZ " },
-    { country: "Nicaragua", code: "NI " },
-    { country: "Niger", code: "NE " },
-    { country: "Nigeria", code: "NG " },
-    { country: "Northern Mariana Islands", code: "MP " },
-    { country: "Norway", code: "NO " },
-    { country: "Oman", code: "OM " },
-    { country: "Pakistan", code: "PK " },
-    { country: "Palau", code: "PW " },
-    { country: "Palestinian Territories", code: "PS " },
-    { country: "Panama", code: "PA " },
-    { country: "Papua New Guinea", code: "PG " },
-    { country: "Paraguay", code: "PY " },
-    { country: "Peru", code: "PE " },
-    { country: "Philippines", code: "PH " },
-    { country: "Poland", code: "PL " },
-    { country: "Portugal", code: "PT " },
-    { country: "Puerto Rico", code: "PR " },
-    { country: "Qatar", code: "QA " },
-    { country: "Réunion", code: "RE " },
-    { country: "Romania", code: "RO " },
-    { country: "Russian Federation", code: "RU " },
-    { country: "Rwanda", code: "RW " },
-    { country: "Saint Kitts and Nevis", code: "KN " },
-    { country: "Saint Lucia", code: "LC " },
-    { country: "Samoa", code: "WS " },
-    { country: "San Marino", code: "SM " },
-    { country: "Sao Tome and Princ.", code: "ST " },
-    { country: "Saudi Arabia", code: "SA " },
-    { country: "Senegal", code: "SN " },
-    { country: "Serbia", code: "RS " },
-    { country: "Seychelles", code: "SC " },
-    { country: "Sierra Leone", code: "SL " },
-    { country: "Singapore", code: "SG " },
-    { country: "Slovakia", code: "SK " },
-    { country: "Slovenia", code: "SI " },
-    { country: "Solomon Islands", code: "SB " },
-    { country: "Somalia", code: "SO " },
-    { country: "South Africa", code: "ZA " },
-    { country: "Spain", code: "ES " },
-    { country: "Sri Lanka", code: "LK " },
-    { country: "St Vincent and Gren.", code: "VC " },
-    { country: "Sudan", code: "SD " },
-    { country: "Suriname", code: "SR " },
-    { country: "Swaziland", code: "SZ " },
-    { country: "Sweden", code: "SE " },
-    { country: "Switzerland", code: "CH " },
-    { country: "Syria", code: "SY " },
-    { country: "Taiwan", code: "TW " },
-    { country: "Tajikistan", code: "TJ " },
-    { country: "Tanzania", code: "TZ " },
-    { country: "Thailand", code: "TH " },
-    { country: "Togo", code: "TG " },
-    { country: "Tonga", code: "TO " },
-    { country: "Trinidad and Tobago", code: "TT " },
-    { country: "Tunisia", code: "TN " },
-    { country: "Turkey", code: "TR " },
-    { country: "Turkmenistan", code: "TM " },
-    { country: "Tuvalu", code: "TV " },
-    { country: "Uganda", code: "UG " },
-    { country: "Ukraine", code: "UA " },
-    { country: "United Arab Emirates", code: "AE " },
-    { country: "United Kingdom", code: "GB " },
-    { country: "United States", code: "US " },
-    { country: "Uruguay", code: "UY " },
-    { country: "Uzbekistan", code: "UZ " },
-    { country: "Vanuatu", code: "VU " },
-    { country: "Vatican City", code: "VA " },
-    { country: "Venezuela", code: "VE " },
-    { country: "Vietnam", code: "VN " },
-    { country: "Virgin Islands, British", code: "VG " },
-    { country: "Virgin Islands, U.S.", code: "VI " },
-    { country: "Western Sahara", code: "EH " },
-    { country: "Zambia", code: "ZM " },
-    { country: "Zimbabwe", code: "ZW " },
+    { country: 'Northern Cyprus (TRNC)', code: 'KKTC' },
+    { country: 'Afghanistan', code: 'AF ' },
+    { country: 'Albania', code: 'AL ' },
+    { country: 'Algeria', code: 'DZ ' },
+    { country: 'Andorra', code: 'AD ' },
+    { country: 'Angola', code: 'AO ' },
+    { country: 'Antigua and Barbuda', code: 'AG' },
+    { country: 'Argentina', code: 'AR ' },
+    { country: 'Armenia', code: 'AM' },
+    { country: 'Australia', code: 'AU' },
+    { country: 'Austria', code: 'AT' },
+    { country: 'Azerbaijan', code: 'AZ' },
+    { country: 'Bahamas', code: 'BS ' },
+    { country: 'Bahrain', code: 'BH ' },
+    { country: 'Bangladesh', code: 'BD ' },
+    { country: 'Barbados', code: 'BB ' },
+    { country: 'Belarus', code: 'BY ' },
+    { country: 'Belgium', code: 'BE ' },
+    { country: 'Belize', code: 'BZ ' },
+    { country: 'Benin', code: 'BJ ' },
+    { country: 'Bhutan', code: 'BT ' },
+    { country: 'Bolivia', code: 'BO ' },
+    { country: 'Bosnia and Herz.', code: 'BA ' },
+    { country: 'Botswana', code: 'BW ' },
+    { country: 'Brazil', code: 'BR ' },
+    { country: 'Brunei', code: 'BN ' },
+    { country: 'Bulgaria', code: 'BG ' },
+    { country: 'Burkina Faso', code: 'BF ' },
+    { country: 'Burundi', code: 'BI ' },
+    { country: 'Cambodia', code: 'KH ' },
+    { country: 'Cameroon', code: 'CM ' },
+    { country: 'Canada', code: 'CA ' },
+    { country: 'Cape Verde', code: 'CV ' },
+    { country: 'Central African Rep.', code: 'CF ' },
+    { country: 'Chad', code: 'TD ' },
+    { country: 'Chile', code: 'CL ' },
+    { country: 'China', code: 'CN ' },
+    { country: 'Colombia', code: 'CO ' },
+    { country: 'Comoros', code: 'KM ' },
+    { country: 'The Democr. Rep. of the congo', code: 'CD ' },
+    { country: 'Costa Rica', code: 'CR ' },
+    { country: "Cote d'Ivoire", code: 'CI ' },
+    { country: 'Croatia', code: 'HR ' },
+    { country: 'Cuba', code: 'CU ' },
+    { country: 'Cyprus', code: 'CY ' },
+    { country: 'Czech Republic', code: 'CZ ' },
+    { country: 'Denmark', code: 'DK ' },
+    { country: 'Djibouti', code: 'DJ ' },
+    { country: 'Dominica', code: 'DM ' },
+    { country: 'Dominican Republic', code: 'DO ' },
+    { country: 'East Timor', code: 'TL ' },
+    { country: 'Ecuador', code: 'EC ' },
+    { country: 'Egypt', code: 'EG ' },
+    { country: 'El Salvador', code: 'SV ' },
+    { country: 'Equatorial Guinea', code: 'GQ ' },
+    { country: 'Eritrea', code: 'ER ' },
+    { country: 'Estonia', code: 'EE ' },
+    { country: 'Ethiopia', code: 'ET ' },
+    { country: 'Fiji', code: 'FJ ' },
+    { country: 'Finland', code: 'FI ' },
+    { country: 'France', code: 'FR ' },
+    { country: 'French Polynesia', code: 'PF ' },
+    { country: 'Gabon', code: 'GA ' },
+    { country: 'Gambia', code: 'GM ' },
+    { country: 'Georgia', code: 'GE ' },
+    { country: 'Germany', code: 'DE ' },
+    { country: 'Ghana', code: 'GH ' },
+    { country: 'Gibraltar', code: 'GI ' },
+    { country: 'Greece', code: 'GR ' },
+    { country: 'Greenland', code: 'GL ' },
+    { country: 'Grenada', code: 'GD ' },
+    { country: 'Guadeloupe', code: 'GP ' },
+    { country: 'Guatemala', code: 'GT ' },
+    { country: 'Guinea', code: 'GN ' },
+    { country: 'Guinea Bissau', code: 'GW ' },
+    { country: 'Guyana', code: 'GY ' },
+    { country: 'Haiti', code: 'HT ' },
+    { country: 'Honduras', code: 'HN ' },
+    { country: 'Hong Kong SAR', code: 'HK ' },
+    { country: 'Hungary', code: 'HU ' },
+    { country: 'Iceland', code: 'IS ' },
+    { country: 'India', code: 'IN ' },
+    { country: 'Indonesia', code: 'ID ' },
+    { country: 'Iran', code: 'IR ' },
+    { country: 'Iraq', code: 'IQ ' },
+    { country: 'Ireland', code: 'IE ' },
+    { country: 'Israel', code: 'IL ' },
+    { country: 'Italy', code: 'IT ' },
+    { country: 'Jamaica', code: 'JM ' },
+    { country: 'Japan', code: 'JP ' },
+    { country: 'Jordan', code: 'JO ' },
+    { country: 'Kazakhstan', code: 'KZ ' },
+    { country: 'Kenya', code: 'KE ' },
+    { country: 'Kiribati', code: 'KI ' },
+    { country: 'Korea, North', code: 'KP ' },
+    { country: 'Korea, South', code: 'KR ' },
+    { country: 'Kuwait', code: 'KW ' },
+    { country: 'Kyrgyzstan', code: 'KG ' },
+    { country: 'Laos', code: 'LA ' },
+    { country: 'Latvia', code: 'LV ' },
+    { country: 'Lebanon', code: 'LB ' },
+    { country: 'Lesotho', code: 'LS ' },
+    { country: 'Liberia', code: 'LR ' },
+    { country: 'Libya', code: 'LY ' },
+    { country: 'Liechtenstein', code: 'LI ' },
+    { country: 'Lithuania', code: 'LT ' },
+    { country: 'Luxembourg', code: 'LU ' },
+    { country: 'Macau SAR', code: 'MO ' },
+    { country: 'Macedonia', code: 'MK ' },
+    { country: 'Madagascar', code: 'MG ' },
+    { country: 'Malawi', code: 'MW ' },
+    { country: 'Malaysia', code: 'MY ' },
+    { country: 'Maldives', code: 'MV ' },
+    { country: 'Mali', code: 'ML ' },
+    { country: 'Malta', code: 'MT ' },
+    { country: 'Marshall Islands', code: 'MH ' },
+    { country: 'Martinique', code: 'MQ ' },
+    { country: 'Mauritania', code: 'MR ' },
+    { country: 'Mauritius', code: 'MU ' },
+    { country: 'Mexico', code: 'MX ' },
+    { country: 'Fed. States of Micronesia', code: 'FM ' },
+    { country: 'Moldova', code: 'MD ' },
+    { country: 'Monaco', code: 'MC ' },
+    { country: 'Mongolia', code: 'MN ' },
+    { country: 'Montenegro', code: 'ME ' },
+    { country: 'Morocco', code: 'MA ' },
+    { country: 'Mozambique', code: 'MZ ' },
+    { country: 'Myanmar', code: 'MM ' },
+    { country: 'Namibia', code: 'NA ' },
+    { country: 'Nauru', code: 'NR ' },
+    { country: 'Nepal', code: 'NP ' },
+    { country: 'Netherlands', code: 'NL ' },
+    { country: 'New Caledonia', code: 'NC ' },
+    { country: 'New Zealand', code: 'NZ ' },
+    { country: 'Nicaragua', code: 'NI ' },
+    { country: 'Niger', code: 'NE ' },
+    { country: 'Nigeria', code: 'NG ' },
+    { country: 'Northern Mariana Islands', code: 'MP ' },
+    { country: 'Norway', code: 'NO ' },
+    { country: 'Oman', code: 'OM ' },
+    { country: 'Pakistan', code: 'PK ' },
+    { country: 'Palau', code: 'PW ' },
+    { country: 'Palestinian Territories', code: 'PS ' },
+    { country: 'Panama', code: 'PA ' },
+    { country: 'Papua New Guinea', code: 'PG ' },
+    { country: 'Paraguay', code: 'PY ' },
+    { country: 'Peru', code: 'PE ' },
+    { country: 'Philippines', code: 'PH ' },
+    { country: 'Poland', code: 'PL ' },
+    { country: 'Portugal', code: 'PT ' },
+    { country: 'Puerto Rico', code: 'PR ' },
+    { country: 'Qatar', code: 'QA ' },
+    { country: 'Réunion', code: 'RE ' },
+    { country: 'Romania', code: 'RO ' },
+    { country: 'Russian Federation', code: 'RU ' },
+    { country: 'Rwanda', code: 'RW ' },
+    { country: 'Saint Kitts and Nevis', code: 'KN ' },
+    { country: 'Saint Lucia', code: 'LC ' },
+    { country: 'Samoa', code: 'WS ' },
+    { country: 'San Marino', code: 'SM ' },
+    { country: 'Sao Tome and Princ.', code: 'ST ' },
+    { country: 'Saudi Arabia', code: 'SA ' },
+    { country: 'Senegal', code: 'SN ' },
+    { country: 'Serbia', code: 'RS ' },
+    { country: 'Seychelles', code: 'SC ' },
+    { country: 'Sierra Leone', code: 'SL ' },
+    { country: 'Singapore', code: 'SG ' },
+    { country: 'Slovakia', code: 'SK ' },
+    { country: 'Slovenia', code: 'SI ' },
+    { country: 'Solomon Islands', code: 'SB ' },
+    { country: 'Somalia', code: 'SO ' },
+    { country: 'South Africa', code: 'ZA ' },
+    { country: 'Spain', code: 'ES ' },
+    { country: 'Sri Lanka', code: 'LK ' },
+    { country: 'St Vincent and Gren.', code: 'VC ' },
+    { country: 'Sudan', code: 'SD ' },
+    { country: 'Suriname', code: 'SR ' },
+    { country: 'Swaziland', code: 'SZ ' },
+    { country: 'Sweden', code: 'SE ' },
+    { country: 'Switzerland', code: 'CH ' },
+    { country: 'Syria', code: 'SY ' },
+    { country: 'Taiwan', code: 'TW ' },
+    { country: 'Tajikistan', code: 'TJ ' },
+    { country: 'Tanzania', code: 'TZ ' },
+    { country: 'Thailand', code: 'TH ' },
+    { country: 'Togo', code: 'TG ' },
+    { country: 'Tonga', code: 'TO ' },
+    { country: 'Trinidad and Tobago', code: 'TT ' },
+    { country: 'Tunisia', code: 'TN ' },
+    { country: 'Turkey', code: 'TR ' },
+    { country: 'Turkmenistan', code: 'TM ' },
+    { country: 'Tuvalu', code: 'TV ' },
+    { country: 'Uganda', code: 'UG ' },
+    { country: 'Ukraine', code: 'UA ' },
+    { country: 'United Arab Emirates', code: 'AE ' },
+    { country: 'United Kingdom', code: 'GB ' },
+    { country: 'United States', code: 'US ' },
+    { country: 'Uruguay', code: 'UY ' },
+    { country: 'Uzbekistan', code: 'UZ ' },
+    { country: 'Vanuatu', code: 'VU ' },
+    { country: 'Vatican City', code: 'VA ' },
+    { country: 'Venezuela', code: 'VE ' },
+    { country: 'Vietnam', code: 'VN ' },
+    { country: 'Virgin Islands, British', code: 'VG ' },
+    { country: 'Virgin Islands, U.S.', code: 'VI ' },
+    { country: 'Western Sahara', code: 'EH ' },
+    { country: 'Zambia', code: 'ZM ' },
+    { country: 'Zimbabwe', code: 'ZW ' },
   ];
 
   constructor(private http: HttpClient, private router: Router) {
@@ -657,7 +655,7 @@ export class DataService {
   }
 
   updateInvoiceItem(item) {
-    this.checkifObjectHasDateTime(item)
+    this.checkifObjectHasDateTime(item);
     return this.http.put(
       `${environment.apiUrl}service/invoice/item/${item.id}`,
       item,
@@ -690,7 +688,7 @@ export class DataService {
   }
 
   addNewInvoiceItem(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
     return this.http.post(`${environment.apiUrl}service/invoice/item`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -753,7 +751,7 @@ export class DataService {
   }
 
   addNewAgency(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
     return this.http.post(`${environment.apiUrl}agency`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -767,7 +765,7 @@ export class DataService {
   }
 
   updateAgency(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}agency/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -789,7 +787,7 @@ export class DataService {
   }
 
   addNewCaptain(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}captain`, obj, {
       headers: this.httpOptions.headers,
@@ -804,7 +802,7 @@ export class DataService {
   }
 
   updateCaptain(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}captain/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -826,7 +824,7 @@ export class DataService {
   }
 
   addNewCrane(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}crane`, obj, {
       headers: this.httpOptions.headers,
@@ -847,7 +845,7 @@ export class DataService {
   }
 
   updateCrane2(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -856,7 +854,6 @@ export class DataService {
   }
 
   payCraneInvoice(id, list) {
-
     return this.http.post(`${environment.apiUrl}crane/invoice/${id}`, list, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -897,7 +894,7 @@ export class DataService {
   }
 
   addNewShipsDiscounts(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}discount/ship`, obj, {
       headers: this.httpOptions.headers,
@@ -912,7 +909,7 @@ export class DataService {
   }
 
   updateShipsDiscount(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}discount/ship/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -930,7 +927,7 @@ export class DataService {
   }
 
   addNewOvertimeDiscounts(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}discount/overtime`, obj, {
       headers: this.httpOptions.headers,
@@ -945,7 +942,7 @@ export class DataService {
   }
 
   updateOvertimeDiscount(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}discount/overtime/${obj.id}`,
@@ -972,7 +969,7 @@ export class DataService {
   }
 
   addOvertimeInquery(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}inquiry/overtime`, obj, {
       headers: this.httpOptions.headers,
@@ -981,7 +978,7 @@ export class DataService {
   }
 
   updateOvertimeInquery(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}inquiry/overtime/${obj.id}`,
@@ -1003,11 +1000,11 @@ export class DataService {
     });
   }
 
-  addBoatInquery({...obj}) {
-    if(!obj.charge){
+  addBoatInquery({ ...obj }) {
+    if (!obj.charge) {
       obj.charge = 0;
     }
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}inquiry/boat`, obj, {
       headers: this.httpOptions.headers,
@@ -1016,7 +1013,7 @@ export class DataService {
   }
 
   updateBoatInquery(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}inquiry/boat/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1038,7 +1035,7 @@ export class DataService {
   }
 
   addCraneInquery(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}inquiry/crane`, obj, {
       headers: this.httpOptions.headers,
@@ -1047,7 +1044,6 @@ export class DataService {
   }
 
   updateCraneInquery(obj) {
-
     return this.http.put(`${environment.apiUrl}inquiry/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1077,7 +1073,7 @@ export class DataService {
   }
 
   addNewInquiry(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}inquiry`, obj, {
       headers: this.httpOptions.headers,
@@ -1092,7 +1088,7 @@ export class DataService {
   }
 
   updateInquiry(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}inquiry/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1115,7 +1111,7 @@ export class DataService {
   }
 
   addNewInquiryCar(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}inquiry/car`, obj, {
       headers: this.httpOptions.headers,
@@ -1130,7 +1126,7 @@ export class DataService {
   }
 
   updateInquiryCar(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}inquiry/car/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1153,7 +1149,7 @@ export class DataService {
   }
 
   addNewInquiryCrane(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}inquiry/crane`, obj, {
       headers: this.httpOptions.headers,
@@ -1168,7 +1164,7 @@ export class DataService {
   }
 
   updateInquiryCrane(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}inquiry/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1188,14 +1184,13 @@ export class DataService {
   // inquiry overTime part
 
   getAllInquiryOverTimes() {
-
     return this.http.get<any>(`${environment.apiUrl}inquiry/overTime`, {
       headers: this.httpOptions.headers,
     });
   }
 
   addNewInquiryOverTime(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}inquiry/overTime`, obj, {
       headers: this.httpOptions.headers,
@@ -1210,7 +1205,7 @@ export class DataService {
   }
 
   updateInquiryOverTime(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}inquiry/overTime/${obj.id}`,
@@ -1241,7 +1236,7 @@ export class DataService {
   }
 
   addNewBrand(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}brand`, obj, {
       headers: this.httpOptions.headers,
@@ -1256,7 +1251,7 @@ export class DataService {
   }
 
   updateBrand(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}brand/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1273,7 +1268,7 @@ export class DataService {
   }
 
   addNewGroup(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}group`, obj, {
       headers: this.httpOptions.headers,
@@ -1288,7 +1283,7 @@ export class DataService {
   }
 
   updateGroup(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}group/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1308,7 +1303,7 @@ export class DataService {
   }
 
   addNewCategory(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}category`, obj, {
       headers: this.httpOptions.headers,
@@ -1323,7 +1318,7 @@ export class DataService {
   }
 
   updateCategory(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}category/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1343,7 +1338,7 @@ export class DataService {
   }
 
   addNewProduct(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}product`, obj, {
       headers: this.httpOptions.headers,
@@ -1358,7 +1353,7 @@ export class DataService {
   }
 
   updateProduct(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}product/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1367,7 +1362,7 @@ export class DataService {
   }
 
   addNewProducCategory(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}product/category`, obj, {
       headers: this.httpOptions.headers,
@@ -1376,7 +1371,6 @@ export class DataService {
   }
 
   updateProductCategory(categoryId) {
-
     return this.http.put(
       `${environment.apiUrl}product/category/${categoryId}`,
       {},
@@ -1397,7 +1391,7 @@ export class DataService {
   }
 
   addNewSign(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}sign`, obj, {
       headers: this.httpOptions.headers,
@@ -1412,7 +1406,7 @@ export class DataService {
   }
 
   updateSign(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}sign/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1435,7 +1429,6 @@ export class DataService {
   }
 
   updateCurrency(id, rate) {
-
     return this.http.put(`${environment.apiUrl}currency/${id}`, rate, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -1483,7 +1476,7 @@ export class DataService {
   }
 
   updateHoliday(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}holiday/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1492,7 +1485,7 @@ export class DataService {
   }
 
   addNewHoliday(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}holiday`, obj, {
       headers: this.httpOptions.headers,
@@ -1516,7 +1509,7 @@ export class DataService {
 
   // add new payment
   addNewPayment(payment) {
-    this.checkifObjectHasDateTime(payment)
+    this.checkifObjectHasDateTime(payment);
 
     return this.http.post<any>(`${environment.apiUrl}payment`, payment, {
       headers: this.httpOptions.headers,
@@ -1539,7 +1532,7 @@ export class DataService {
   }
 
   //get trip invoice by id
-    getTripInvoiceById(tripId) {
+  getTripInvoiceById(tripId) {
     return this.http.get<any>(`${environment.apiUrl}trip/${tripId}/invoice`, {
       headers: this.httpOptions.headers,
     });
@@ -1574,7 +1567,7 @@ export class DataService {
 
   // add new payment
   addNewManualPayment(payment) {
-    this.checkifObjectHasDateTime(payment)
+    this.checkifObjectHasDateTime(payment);
 
     return this.http.post<any>(`${environment.apiUrl}payment/manual`, payment, {
       headers: this.httpOptions.headers,
@@ -1593,7 +1586,7 @@ export class DataService {
   }
 
   updateManualPayment(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}payment/manual/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1613,7 +1606,7 @@ export class DataService {
   }
 
   addNewShipsService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post<any>(`${environment.apiUrl}service/ship`, obj, {
       headers: this.httpOptions.headers,
@@ -1628,7 +1621,7 @@ export class DataService {
   }
 
   updateShipsService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}service/ship/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1637,7 +1630,7 @@ export class DataService {
   }
 
   updateShipsServiceCharge(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}service/ship/charge/${obj.id}`,
@@ -1654,7 +1647,7 @@ export class DataService {
   }
 
   addNewOvertimeService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post<any>(`${environment.apiUrl}service/overtime`, obj, {
       headers: this.httpOptions.headers,
@@ -1669,7 +1662,7 @@ export class DataService {
   }
 
   updateOvertimeService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}service/overtime/${obj.id}`,
@@ -1679,7 +1672,7 @@ export class DataService {
   }
 
   updateOvertimeServiceCharge(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}service/overtime/charge/${obj.id}`,
@@ -1696,7 +1689,7 @@ export class DataService {
   }
 
   addNewBoatService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post<any>(`${environment.apiUrl}service/boat`, obj, {
       headers: this.httpOptions.headers,
@@ -1711,7 +1704,7 @@ export class DataService {
   }
 
   updateBoatService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}service/boat/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1720,7 +1713,7 @@ export class DataService {
   }
 
   updateBoatServiceCharge(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}service/boat/charge/${obj.id}`,
@@ -1737,7 +1730,7 @@ export class DataService {
   }
 
   addNewCraneService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post<any>(`${environment.apiUrl}service/crane`, obj, {
       headers: this.httpOptions.headers,
@@ -1752,7 +1745,7 @@ export class DataService {
   }
 
   updateCraneService(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}service/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1761,7 +1754,7 @@ export class DataService {
   }
 
   updateCraneServiceCharge(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}service/crane/charge/${obj.id}`,
@@ -1784,7 +1777,7 @@ export class DataService {
   }
 
   addNewPort(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post<any>(`${environment.apiUrl}port`, obj, {
       headers: this.httpOptions.headers,
@@ -1799,7 +1792,7 @@ export class DataService {
   }
 
   updatePort(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}port/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1812,7 +1805,6 @@ export class DataService {
   ///////////////////////
 
   getReportTemplate(reportType) {
-
     return this.http.post<any>(
       // `${environment.apiUrl}initviewer?reportType=${reportType}`,
       `http://193.140.43.22/initviewer?reportType=${reportType}`,
@@ -1891,6 +1883,12 @@ export class DataService {
     );
   }
 
+  getExpiredInsurances() {
+    return this.http.get<any>(`${environment.apiUrl}report/expired`, {
+      headers: this.httpOptions.headers,
+    });
+  }
+
   //////////////////////
   // ship controller  //
   //////////////////////
@@ -1903,20 +1901,17 @@ export class DataService {
     inPort = false
   ) {
     let params = {
-      isLocal:isLocal,
-      inPort:inPort,
-      PageNumber:PageNumber,
-      PageSize:PageSize,
-      SearchQuery:SearchQuery
-    }
+      isLocal: isLocal,
+      inPort: inPort,
+      PageNumber: PageNumber,
+      PageSize: PageSize,
+      SearchQuery: SearchQuery,
+    };
 
-    return this.http.get<any>(
-      `${environment.apiUrl}ship`,
-      {
-        params:params,
-        headers: this.httpOptions.headers,
-      }
-    );
+    return this.http.get<any>(`${environment.apiUrl}ship`, {
+      params: params,
+      headers: this.httpOptions.headers,
+    });
 
     return this.http.get<any>(
       `${environment.apiUrl}ship?isLocal=${isLocal}&inPort=${inPort}&SearchQuery=${SearchQuery}&PageSize=${PageSize}&PageNumber=${PageNumber}`,
@@ -1927,7 +1922,7 @@ export class DataService {
   }
 
   addNewShip(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship`, obj, {
       headers: this.httpOptions.headers,
@@ -1960,7 +1955,7 @@ export class DataService {
 
   //local
   addNewShipLocal(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/local`, obj, {
       headers: this.httpOptions.headers,
@@ -1977,7 +1972,7 @@ export class DataService {
   }
 
   updateShipDetail(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}ship/detail/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -1993,7 +1988,7 @@ export class DataService {
   }
 
   addNewShipExtra(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/extra`, obj, {
       headers: this.httpOptions.headers,
@@ -2002,7 +1997,7 @@ export class DataService {
   }
 
   updateShipExtra(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}ship/extra/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2022,7 +2017,7 @@ export class DataService {
   }
 
   addNewShipConstruction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/construction`, obj, {
       headers: this.httpOptions.headers,
@@ -2031,7 +2026,7 @@ export class DataService {
   }
 
   updateShipConstruction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}ship/construction/${obj.id}`,
@@ -2049,7 +2044,7 @@ export class DataService {
   }
 
   addNewShipSize(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/size`, obj, {
       headers: this.httpOptions.headers,
@@ -2058,7 +2053,7 @@ export class DataService {
   }
 
   updateShipSize(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}ship/size/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2084,7 +2079,7 @@ export class DataService {
   }
 
   addNewShipDocument(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/document`, obj, {
       headers: this.httpOptions.headers,
@@ -2093,7 +2088,7 @@ export class DataService {
   }
 
   updateDocument(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}ship/document/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2110,7 +2105,7 @@ export class DataService {
   }
 
   addNewShipEngine(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/engine`, obj, {
       headers: this.httpOptions.headers,
@@ -2119,7 +2114,7 @@ export class DataService {
   }
 
   updateShipEngine(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}ship/engine/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2145,7 +2140,7 @@ export class DataService {
   }
 
   addNewShipMortage(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/mortage`, obj, {
       headers: this.httpOptions.headers,
@@ -2154,7 +2149,7 @@ export class DataService {
   }
 
   updateMortage(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}ship/mortage/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2177,7 +2172,7 @@ export class DataService {
   }
 
   addNewShipOwner(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}ship/owner`, obj, {
       headers: this.httpOptions.headers,
@@ -2186,7 +2181,7 @@ export class DataService {
   }
 
   updateOwner(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}ship/owner/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2215,7 +2210,7 @@ export class DataService {
   }
 
   addNewShipTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}transaction`, obj, {
       headers: this.httpOptions.headers,
@@ -2230,7 +2225,7 @@ export class DataService {
   }
 
   updateShipTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}transaction/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2259,7 +2254,7 @@ export class DataService {
   }
 
   addNewCarTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}transaction/car`, obj, {
       headers: this.httpOptions.headers,
@@ -2268,7 +2263,7 @@ export class DataService {
   }
 
   updateCarTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}transaction/car/${obj.id}`,
@@ -2298,7 +2293,7 @@ export class DataService {
   }
 
   addNewPassengerTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}transaction/passenger`, obj, {
       headers: this.httpOptions.headers,
@@ -2307,7 +2302,7 @@ export class DataService {
   }
 
   updatePassengerTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}transaction/passenger/${obj.id}`,
@@ -2337,7 +2332,7 @@ export class DataService {
   }
 
   addNewProductTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}transaction/product`, obj, {
       headers: this.httpOptions.headers,
@@ -2346,7 +2341,7 @@ export class DataService {
   }
 
   updateProductTransaction(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}transaction/product/${obj.id}`,
@@ -2369,7 +2364,7 @@ export class DataService {
   }
 
   addNewStaff(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}staff`, obj, {
       headers: this.httpOptions.headers,
@@ -2384,7 +2379,7 @@ export class DataService {
   }
 
   updateStaff(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}staff/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2402,7 +2397,7 @@ export class DataService {
   }
 
   addNewContact(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}staff/contact`, obj, {
       headers: this.httpOptions.headers,
@@ -2411,7 +2406,7 @@ export class DataService {
   }
 
   updateContact(obj, contactId) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}staff/contact/${obj.id}?contactId=${contactId}`,
@@ -2497,9 +2492,9 @@ export class DataService {
   }
 
   addArrival(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
     return this.http.post(`${environment.apiUrl}trip/arrival`, obj, {
       headers: this.httpOptions.headers,
       observe: 'response',
@@ -2507,7 +2502,7 @@ export class DataService {
   }
 
   updateArrival(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(
       `${environment.apiUrl}trip/arrival/${obj.id}`,
@@ -2525,7 +2520,7 @@ export class DataService {
   }
 
   addDeparture(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}trip/departure`, obj, {
       headers: this.httpOptions.headers,
@@ -2534,7 +2529,7 @@ export class DataService {
   }
 
   updateDeparture(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}trip/departure/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2556,7 +2551,7 @@ export class DataService {
   }
 
   addLoad(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}load`, obj, {
       headers: this.httpOptions.headers,
@@ -2565,7 +2560,7 @@ export class DataService {
   }
 
   updateLoad(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}load/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2587,7 +2582,7 @@ export class DataService {
   }
 
   addMovement(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}trip/movement`, obj, {
       headers: this.httpOptions.headers,
@@ -2596,7 +2591,7 @@ export class DataService {
   }
 
   updateMovement(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}trip/movement/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2618,7 +2613,7 @@ export class DataService {
   }
 
   addOvertime(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}trip/overtime`, obj, {
       headers: this.httpOptions.headers,
@@ -2627,7 +2622,7 @@ export class DataService {
   }
 
   updateOvertime(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}trip/overtime/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2649,7 +2644,7 @@ export class DataService {
   }
 
   addBoat(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}trip/boat`, obj, {
       headers: this.httpOptions.headers,
@@ -2658,7 +2653,7 @@ export class DataService {
   }
 
   updateBoat(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}trip/boat/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2680,7 +2675,7 @@ export class DataService {
   }
 
   addCrane(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.post(`${environment.apiUrl}trip/crane`, obj, {
       headers: this.httpOptions.headers,
@@ -2689,7 +2684,7 @@ export class DataService {
   }
 
   updateCrane(obj) {
-    this.checkifObjectHasDateTime(obj)
+    this.checkifObjectHasDateTime(obj);
 
     return this.http.put(`${environment.apiUrl}trip/crane/${obj.id}`, obj, {
       headers: this.httpOptions.headers,
@@ -2697,16 +2692,18 @@ export class DataService {
     });
   }
 
-
-
   ////////////////////
 
   updateTripRate(obj) {
     this.checkifObjectHasDateTime(obj);
-    return this.http.put(`${environment.apiUrl}trip/departure/${obj.tripId}/rate`, +obj.rate, {
-      headers: this.httpOptions.headers,
-      observe: 'response',
-    });
+    return this.http.put(
+      `${environment.apiUrl}trip/departure/${obj.tripId}/rate`,
+      +obj.rate,
+      {
+        headers: this.httpOptions.headers,
+        observe: 'response',
+      }
+    );
   }
 
   // not API functions
@@ -2834,24 +2831,22 @@ export class DataService {
     return query;
   }
 
-  convertDateTimeToIso(dateTime){
-    const offset = new Date().getTimezoneOffset()/-60;
-    dateTime.setTime(dateTime.getTime() + (offset*60*60*1000))
+  convertDateTimeToIso(dateTime) {
+    const offset = new Date().getTimezoneOffset() / -60;
+    dateTime.setTime(dateTime.getTime() + offset * 60 * 60 * 1000);
     dateTime = dateTime.toISOString();
     return dateTime;
   }
 
-  checkifObjectHasDateTime(obj){
-    try{
+  checkifObjectHasDateTime(obj) {
+    try {
       for (let key in obj) {
-        if(Object.prototype.toString.call(obj[key]) === '[object Date]'){
+        if (Object.prototype.toString.call(obj[key]) === '[object Date]') {
           obj[key] = this.convertDateTimeToIso(obj[key]);
         }
       }
-    }
-    catch(ex){
-      return
+    } catch (ex) {
+      return;
     }
   }
-
 }

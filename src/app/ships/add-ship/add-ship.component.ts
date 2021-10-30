@@ -8,6 +8,8 @@ import {
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
+import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
+import { fadeInOut } from 'src/app/animations/animation';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
@@ -15,8 +17,11 @@ import { FormService } from 'src/app/services/form-service/form.service';
   selector: 'app-add-ship',
   templateUrl: './add-ship.component.html',
   styleUrls: ['./add-ship.component.scss'],
+  animations: [fadeInOut()]
 })
 export class AddShipComponent implements OnInit {
+  isLoading: boolean = false;
+
   activeTab: string = 'Ship Information';
   shipId: string;
   extraId: string;
@@ -60,6 +65,7 @@ export class AddShipComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.shipTypes = this.dataService.shipTypes;
     this.countries = this.dataService.countries;
     this.initializeShipInfoForm();
@@ -261,6 +267,7 @@ export class AddShipComponent implements OnInit {
   getAgencies() {
     this.dataService.getAllAgencies('', '', 1, 10000).subscribe((resp) => {
       this.agencies = resp.agencyList;
+      this.isLoading = false;
     },
     () => {
       this.messageService.add({

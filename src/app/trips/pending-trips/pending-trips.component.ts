@@ -9,13 +9,16 @@ import { Paginator } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { Menu } from 'primeng/menu';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-pending-trips',
   templateUrl: './pending-trips.component.html',
   styleUrls: ['./pending-trips.component.scss'],
+  animations: [fadeInOut()],
 })
 export class PendingTripsComponent implements OnInit {
+  isLoading: boolean = false;
   // Menu Variables
   @ViewChild('menu') menu: Menu;
   @ViewChild('menuInPort') menuInPort: Menu;
@@ -66,13 +69,11 @@ export class PendingTripsComponent implements OnInit {
     { value: 'isPaid', name: 'Is Paid' },
   ];
 
-  menuToShow : MenuItem[] | any = [
+  menuToShow: MenuItem[] | any = [
     {
-      items: [
-      ],
+      items: [],
     },
   ];
-
 
   optionsMenu: MenuItem[] | any = [
     {
@@ -104,7 +105,6 @@ export class PendingTripsComponent implements OnInit {
             );
           },
         },
-
       ],
     },
   ];
@@ -238,7 +238,6 @@ export class PendingTripsComponent implements OnInit {
     },
   ];
 
-
   reportOptionsMenuFull = [
     {
       label: this.translate.instant('Ship Form'),
@@ -308,6 +307,7 @@ export class PendingTripsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
@@ -316,13 +316,13 @@ export class PendingTripsComponent implements OnInit {
       this.authService.currentUser.role !== 'Collection' &&
       this.authService.currentUser.role !== 'Admin'
     ) {
-      this.optionsMenu[0].items.splice(0,1);
+      this.optionsMenu[0].items.splice(0, 1);
       this.optionsMenuInPort[0].items.splice(0, 1);
     }
 
-    if(this.authService.currentUser.role !== 'Admin'){
+    if (this.authService.currentUser.role !== 'Admin') {
       // this.optionsMenu[0].items.splice( this.optionsMenu[0].items.findIndex(x=>x.icon == 'pi pi-trash') ,1);
-      this.optionsMenu[0].items.splice( this.optionsMenu[0].items.length-1 ,1);
+      this.optionsMenu[0].items.splice(this.optionsMenu[0].items.length - 1, 1);
     }
   }
 
@@ -342,14 +342,17 @@ export class PendingTripsComponent implements OnInit {
   }
 
   getData() {
-
     this.dataService
       .getAllTrips(
         this.dateRanges[0]
-          ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[0])
+              .split('T')[0]
           : '',
         this.dateRanges[1]
-          ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[1])
+              .split('T')[0]
           : '',
         this.pageNumber,
         this.pageSize,
@@ -362,6 +365,7 @@ export class PendingTripsComponent implements OnInit {
           this.tableData = response.trips;
           // console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({
@@ -429,34 +433,32 @@ export class PendingTripsComponent implements OnInit {
     this.router.navigate(['ships/' + id]);
   }
 
-  getDepartureById(obj){
+  getDepartureById(obj) {
+    this.dataService.getDepartureByTipId(obj.id).subscribe(
+      (resp) => {
+        let modalObj = { ...resp };
+        // this.CurrentAddCaptain = this.getCaptainNameById(modalObj.pilotageId)
+        modalObj.time = modalObj.date.split('T')[1];
+        modalObj.time =
+          modalObj.time.split(':')[0] + ':' + modalObj.time.split(':')[1];
+        modalObj.date1 = modalObj.date.split('T')[0];
 
-    this.dataService.getDepartureByTipId(obj.id).subscribe( resp => {
+        this.objToSend.lastDeparture = {
+          ...modalObj,
+        };
 
-      let modalObj = {...resp};
-      // this.CurrentAddCaptain = this.getCaptainNameById(modalObj.pilotageId)
-      modalObj.time = modalObj.date.split('T')[1];
-      modalObj.time = modalObj.time.split(':')[0]+':'+modalObj.time.split(':')[1];
-      modalObj.date1 = modalObj.date.split('T')[0];
-
-      this.objToSend.lastDeparture = {
-        ...modalObj
-      }
-
-      this.initializeForm(
-        'departureFormUpdate',
-        this.translate.instant('Departure'),
-        true
-      );
-
-    }, error =>{
-    
-    })
+        this.initializeForm(
+          'departureFormUpdate',
+          this.translate.instant('Departure'),
+          true
+        );
+      },
+      (error) => {}
+    );
   }
 
   toggleMenu(item, event) {
     this.objToSend = item;
-
 
     // if (this.objToSend.inPort && !this.objToSend.isPaid) {
     //   this.menuInPort.toggle(event);
@@ -469,18 +471,26 @@ export class PendingTripsComponent implements OnInit {
     // }
 
     this.menuToShow[0].items = [];
-    
-    if (!this.objToSend.inPort && !this.objToSend.isPaid) { //menu  --> optionsMenu
-      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenu[0].items);
-    }
-    
-    if (this.objToSend.inPort && this.objToSend.isPaid) {  //menuInPortAndpaid  --> optionsMenuInPortAndPaid
-      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenuInPortAndPaid[0].items);
-    }
-    if (this.objToSend.inPort && !this.objToSend.isPaid) {  //menuInPort --> optionsMenuInPort
-      this.menuToShow[0].items = this.menuToShow[0].items.concat(this.optionsMenuInPort[0].items);
+
+    if (!this.objToSend.inPort && !this.objToSend.isPaid) {
+      //menu  --> optionsMenu
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(
+        this.optionsMenu[0].items
+      );
     }
 
+    if (this.objToSend.inPort && this.objToSend.isPaid) {
+      //menuInPortAndpaid  --> optionsMenuInPortAndPaid
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(
+        this.optionsMenuInPortAndPaid[0].items
+      );
+    }
+    if (this.objToSend.inPort && !this.objToSend.isPaid) {
+      //menuInPort --> optionsMenuInPort
+      this.menuToShow[0].items = this.menuToShow[0].items.concat(
+        this.optionsMenuInPort[0].items
+      );
+    }
 
     // if(this.objToSend.isRateUpdateAvailable){
     //   this.menuToShow[0].items.push({
@@ -492,15 +502,13 @@ export class PendingTripsComponent implements OnInit {
     //     },
     //   },);
     // }
-    
-    if(this.menuToShow[0].items.length > 0){
+
+    if (this.menuToShow[0].items.length > 0) {
       this.menu.toggle(event);
     }
-
   }
 
   toggleMenuReports(item, event) {
-
     this.objToSend = item;
 
     this.reportOptionsMenu[0].items = [];

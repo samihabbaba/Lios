@@ -33,17 +33,18 @@ export class AddCaptainComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('addCaptainForm')) {
         this.dropdownOptions = this.dataService.countries;
         this.initializeForm();
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('addCaptainForm')) {
         this.destroySubscription();
-        this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -55,14 +56,13 @@ export class AddCaptainComponent implements OnInit {
         console.log(value);
       });
 
-      if (this.formName === 'addCaptainForm') {
     this.submitSubscriber$ = this.formService
       .getSubmitSubject()
       .subscribe((value) => {
         if (value === 'submit') {
           this.submitForm();
         }
-      });}
+      });
 
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form

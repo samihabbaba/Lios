@@ -37,16 +37,16 @@ export class CraneServicesComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('craneServicesForm')) {
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('craneServicesForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -70,14 +70,14 @@ this.formName = null;
           });
         }
       });
-      if(this.formName === 'craneServicesForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit' && this.tabView === 'crane') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'craneServicesForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit' && this.tabView === 'crane') {
+            this.submitForm();
+          }
+        });
     }
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -107,21 +107,23 @@ this.formName = null;
       }
     }
     obj.id = this.objReceived.id;
-    this.dataService.updateCraneService(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Servis başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateCraneService(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Servis başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -163,20 +165,22 @@ this.formName = null;
   }
 
   onRowEditSave(item) {
-    this.dataService.updateCraneServiceCharge(item).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Değişiklikleriniz kaydedildi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateCraneServiceCharge(item).subscribe(
+      (resp) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Değişiklikleriniz kaydedildi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   onRowEditCancel(i) {

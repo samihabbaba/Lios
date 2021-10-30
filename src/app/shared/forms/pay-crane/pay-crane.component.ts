@@ -34,21 +34,20 @@ export class PayCraneComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-      this.dialogRef.onShow.subscribe(() => {
-        //  debugger
-        
-        this.paymentId = null
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('payCraneForm')) {
+        this.paymentId = null;
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('payCraneForm')) {
         this.destroySubscription();
-        this.formName = null;
-      });
-
+      }
+    });
   }
 
-  ngOnInit() {    
-  }
+  ngOnInit() {}
 
   loadSubscriptions() {
     this.objectSubscriber$ = this.formService
@@ -59,15 +58,15 @@ export class PayCraneComponent implements OnInit {
         this.invoices = [...this.crane.inquiry];
         this.selectedInvoices = [...this.invoices];
       });
-      if (this.formName === 'payCraneForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          console.log(this.formName)
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'payCraneForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            console.log(this.formName);
+            this.submitForm();
+          }
+        });
     }
     if (this.selectedInvoices.length < 1) {
       this.formService.setFormToInvalid();
@@ -106,7 +105,7 @@ export class PayCraneComponent implements OnInit {
     this.formService.setFormToInvalid();
   }
 
-  paymentId:any = null;
+  paymentId: any = null;
   submitForm() {
     let arr: any = [];
     this.selectedInvoices.forEach((x: any) => {
@@ -116,7 +115,7 @@ export class PayCraneComponent implements OnInit {
     if (this.crane) {
       this.dataService.payCraneInvoice(this.crane.id, arr).subscribe(
         (resp) => {
-          this.paymentId = resp.body
+          this.paymentId = resp.body;
           this.formService.triggerRefresh();
           this.messageService.add({
             severity: 'success',
@@ -135,14 +134,12 @@ export class PayCraneComponent implements OnInit {
     }
   }
 
-
-  reportVar1
-  reportVar2
-  reportIsAlternative
-  displayTelerikDialog
-  telerik
-  showTelerikReport(  var1 = '', var2 = '', isAlternative = false) {
-
+  reportVar1;
+  reportVar2;
+  reportIsAlternative;
+  displayTelerikDialog;
+  telerik;
+  showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 

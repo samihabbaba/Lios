@@ -34,17 +34,20 @@ export class CaptainDetailsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-    if(this.formName === 'captainDetailsForm') {
-
       this.dialogRef.onShow.subscribe(() => {
-        this.dropdownOptions = this.dataService.countries;
-        this.loadSubscriptions();
+        if(this.formService.checkForm('captainDetailsForm')) {
+
+          this.dropdownOptions = this.dataService.countries;
+          this.loadSubscriptions();
+        }
       });
       this.dialogRef.onHide.subscribe(() => {
-        this.destroySubscription();
-this.formName = null;
+        if(this.formService.checkForm('captainDetailsForm')) {
+
+          this.destroySubscription();
+        }
       });
-    }
+
   }
 
   ngOnInit() {}
@@ -57,28 +60,28 @@ this.formName = null;
       });
 
     this.initializeForm();
-    if (this.formName === 'addCaptainForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'captainDetailsForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
 
     this.dirtyFormSubscriber$ = this.formService
-    .getDirtyFormSubject()
-    .subscribe((value) => {
-      if (value) {
-        Object.keys(this.form.controls).forEach((x) => {
-          this.form.get(x)?.markAsTouched();
-        });
-      }
-    });
+      .getDirtyFormSubject()
+      .subscribe((value) => {
+        if (value) {
+          Object.keys(this.form.controls).forEach((x) => {
+            this.form.get(x)?.markAsTouched();
+          });
+        }
+      });
   }
 
   destroySubscription() {
@@ -92,21 +95,23 @@ this.formName = null;
   submitForm() {
     let obj = this.form.getRawValue();
     obj.id = this.objReceived.id;
-    this.dataService.updateCaptain(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Kaptan başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateCaptain(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Kaptan başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {

@@ -40,9 +40,8 @@ export class LocalDetailsComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('localDetailsForm')) {
         this.countryDropdown = this.dataService.countries;
         this.martialStatus = this.dataService.martialStatus;
         this.gender = this.dataService.gender;
@@ -51,13 +50,14 @@ export class LocalDetailsComponent implements OnInit {
         this.roles = this.dataService.roles;
 
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('localDetailsForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
-    }
+      }
+    });
+  }
 
   ngOnInit() {}
 
@@ -71,14 +71,14 @@ this.formName = null;
 
     this.initializeForm();
 
-    if(this.formName === 'localDetailsForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'localDetailsForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
@@ -108,31 +108,33 @@ this.formName = null;
     //   .staffUsernameAvailable(this.form.get('userName')?.value)
     //   .subscribe((response) => {
     //     if (response.body) {
-          let obj = this.form.getRawValue();
-          obj.id = this.objReceived.id;
-          this.dataService.updateStaff(obj).subscribe((response) => {
-            this.formService.triggerRefresh();
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'kullanıcı başarıyla güncellendi',
-            });
-          },
-          () => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Bir hata oluştu.',
-            });
-          });
-      //   } else {
-      //     this.messageService.add({
-      //       severity: 'error',
-      //       summary: 'Error',
-      //       detail: 'Kullanıcı adı başka bir kullanıcıya ait',
-      //     });
-      //   }
-      // });
+    let obj = this.form.getRawValue();
+    obj.id = this.objReceived.id;
+    this.dataService.updateStaff(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'kullanıcı başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
+    //   } else {
+    //     this.messageService.add({
+    //       severity: 'error',
+    //       summary: 'Error',
+    //       detail: 'Kullanıcı adı başka bir kullanıcıya ait',
+    //     });
+    //   }
+    // });
   }
 
   initializeForm() {
@@ -157,7 +159,10 @@ this.formName = null;
       staffType: new FormControl(this.objReceived.staffType, [
         Validators.required,
       ]),
-      transferTime: new FormControl(new Date(this.objReceived.transferTime), []),
+      transferTime: new FormControl(
+        new Date(this.objReceived.transferTime),
+        []
+      ),
       email: new FormControl(this.objReceived.email, []),
       role: new FormControl(this.objReceived.role, [Validators.required]),
       // password: new FormControl(this.objReceived.password, []),

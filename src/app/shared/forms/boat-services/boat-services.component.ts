@@ -15,10 +15,9 @@ import { FormService } from 'src/app/services/form-service/form.service';
 @Component({
   selector: 'app-boat-services',
   templateUrl: './boat-services.component.html',
-  styleUrls: ['./boat-services.component.scss']
+  styleUrls: ['./boat-services.component.scss'],
 })
 export class BoatServicesComponent implements OnInit {
-
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
@@ -38,16 +37,16 @@ export class BoatServicesComponent implements OnInit {
     private dialogRef: Dialog,
     public translate: TranslateService
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('boatServicesForm')) {
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('boatServicesForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -60,32 +59,33 @@ this.formName = null;
       .getFormObject()
       .subscribe((value) => {
         if (this.tabView === 'boat') {
+          this.dataService.getBoatServiceById(value.id).subscribe(
+            (resp) => {
+              this.objReceived = resp;
+              console.log(this.objReceived);
+              this.initializeForm();
 
-          this.dataService.getBoatServiceById(value.id).subscribe((resp) => {
-            this.objReceived = resp;
-            console.log(this.objReceived)
-            this.initializeForm();
-
-            this.formValidationSubscriber$ =
-            this.formService.listenToValueChanges(this.form);
-          },
-          () => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Bir hata oluştu.',
-            });
-          });
+              this.formValidationSubscriber$ =
+                this.formService.listenToValueChanges(this.form);
+            },
+            () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Bir hata oluştu.',
+              });
+            }
+          );
         }
       });
-      if(this.formName === 'boatServicesForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit' && this.tabView === 'boat') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'boatServicesForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit' && this.tabView === 'boat') {
+            this.submitForm();
+          }
+        });
     }
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -113,21 +113,23 @@ this.formName = null;
     obj.charges = this.objReceived.charges;
     obj.category = this.objReceived.category;
     obj.categoryId = this.objReceived.categoryId;
-    this.dataService.updateBoatService(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Servis başarıyla güncellendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateBoatService(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Servis başarıyla güncellendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -166,24 +168,25 @@ this.formName = null;
   }
 
   onRowEditSave(item) {
-    this.dataService.updateBoatServiceCharge(item).subscribe((resp) => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Değişiklikleriniz kaydedildi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.updateBoatServiceCharge(item).subscribe(
+      (resp) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Değişiklikleriniz kaydedildi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   onRowEditCancel(i) {
     this.objReceived.charges[i] = this.clonedData;
   }
-
 }

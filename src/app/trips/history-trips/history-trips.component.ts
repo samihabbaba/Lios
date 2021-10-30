@@ -9,13 +9,16 @@ import { Paginator } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { Menu } from 'primeng/menu';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-history-trips',
   templateUrl: './history-trips.component.html',
-  styleUrls: ['./history-trips.component.scss']
+  styleUrls: ['./history-trips.component.scss'],
+  animations: [fadeInOut()],
 })
 export class HistoryTripsComponent implements OnInit {
+  isLoading: boolean = false;
 
   // Menu Variables
   @ViewChild('menu') menu: Menu;
@@ -222,13 +225,9 @@ export class HistoryTripsComponent implements OnInit {
     },
   ];
 
-
-
   reportOptionsMenu: MenuItem[] = [
     {
-      items: [
-
-      ],
+      items: [],
     },
   ];
 
@@ -243,7 +242,7 @@ export class HistoryTripsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
+    this.isLoading = true;
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
@@ -264,10 +263,14 @@ export class HistoryTripsComponent implements OnInit {
     this.dataService
       .getAllTrips(
         this.dateRanges[0]
-          ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[0])
+              .split('T')[0]
           : '',
         this.dateRanges[1]
-          ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[1])
+              .split('T')[0]
           : '',
         this.pageNumber,
         this.pageSize,
@@ -278,8 +281,8 @@ export class HistoryTripsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.tableData = response.trips;
-          console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({
@@ -355,19 +358,16 @@ export class HistoryTripsComponent implements OnInit {
     this.objToSend = item;
 
     this.reportOptionsMenu[0].items = [];
-    if(item.shipInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0])
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1])
+    if (item.shipInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[0]);
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[1]);
     }
-    if(item.craneInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2])
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3])
+    if (item.craneInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[2]);
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[3]);
     }
-    if(item.boatInvoice)
-    {
-      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4])
+    if (item.boatInvoice) {
+      this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[4]);
     }
     if (item.overTimeReport) {
       this.reportOptionsMenu[0].items.push(this.reportOptionsMenuFull[5]);
@@ -379,16 +379,12 @@ export class HistoryTripsComponent implements OnInit {
     this.report_menu.toggle(event);
   }
 
-
-
-
-  reportVar1
-  reportVar2
-  reportIsAlternative
-  displayTelerikDialog
-  telerik
-  showTelerikReport( var2 = '', var1 = '', isAlternative = false) {
-
+  reportVar1;
+  reportVar2;
+  reportIsAlternative;
+  displayTelerikDialog;
+  telerik;
+  showTelerikReport(var2 = '', var1 = '', isAlternative = false) {
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 
@@ -401,6 +397,4 @@ export class HistoryTripsComponent implements OnInit {
     this.displayTelerikDialog = true;
     this.telerik = true;
   }
-
-
 }

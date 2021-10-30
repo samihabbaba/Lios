@@ -54,9 +54,7 @@ import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AddHolidayComponent } from './forms/add-holiday/add-holiday.component';
 import { HolidayDetailsComponent } from './forms/holiday-details/holiday-details.component';
-import { PayShipComponent } from './forms/pay-ship/pay-ship.component';
 import { DepartureComponent } from './forms/departure/departure.component';
-import { CheckoutTripComponent } from './forms/checkout-trip/checkout-trip.component';
 import { ArrivalComponent } from './forms/arrival/arrival.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { EditArrivalComponent } from './forms/edit-arrival/edit-arrival.component';
@@ -74,6 +72,8 @@ import { AddManualPaymentComponent } from './forms/add-manual-payment/add-manual
 import { ManualPaymentDetailsComponent } from './forms/manual-payment-details/manual-payment-details.component';
 import { PayTripFormComponent } from './forms/pay-trip-form/pay-trip-form.component';
 import { UpdateTripRateComponent } from './forms/update-trip-rate/update-trip-rate.component';
+import { LoadingComponent } from './loading/loading.component';
+
 
 @NgModule({
   declarations: [
@@ -108,9 +108,7 @@ import { UpdateTripRateComponent } from './forms/update-trip-rate/update-trip-ra
     CraneServicesComponent,
     AddHolidayComponent,
     HolidayDetailsComponent,
-    PayShipComponent,
     DepartureComponent,
-    CheckoutTripComponent,
     ArrivalComponent,
     EditArrivalComponent,
     DeleteArrivalComponent,
@@ -125,6 +123,7 @@ import { UpdateTripRateComponent } from './forms/update-trip-rate/update-trip-ra
     ManualPaymentDetailsComponent,
     PayTripFormComponent,
     UpdateTripRateComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -193,7 +192,8 @@ import { UpdateTripRateComponent } from './forms/update-trip-rate/update-trip-ra
     TelerikViewerComponent,
     ShipMovementsFormComponent,
     ListboxModule,
-    UpdateTripRateComponent
+    UpdateTripRateComponent,
+    LoadingComponent
   ],
 })
 export class SharedModule {}

@@ -14,10 +14,9 @@ import { FormService } from 'src/app/services/form-service/form.service';
 @Component({
   selector: 'app-add-group',
   templateUrl: './add-group.component.html',
-  styleUrls: ['./add-group.component.scss']
+  styleUrls: ['./add-group.component.scss'],
 })
 export class AddGroupComponent implements OnInit {
-
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
@@ -35,18 +34,18 @@ export class AddGroupComponent implements OnInit {
     private messageService: MessageService,
     private dialogRef: Dialog
   ) {
-
-
-      this.dialogRef.onShow.subscribe(() => {
+    this.dialogRef.onShow.subscribe(() => {
+      if (this.formService.checkForm('addGroupForm')) {
         this.dropdownOptions = this.dataService.countries;
         this.initializeForm();
         this.loadSubscriptions();
-      });
-      this.dialogRef.onHide.subscribe(() => {
+      }
+    });
+    this.dialogRef.onHide.subscribe(() => {
+      if (this.formService.checkForm('addGroupForm')) {
         this.destroySubscription();
-this.formName = null;
-      });
-
+      }
+    });
   }
 
   ngOnInit() {}
@@ -57,19 +56,18 @@ this.formName = null;
       .subscribe((value) => {
         console.log(value);
       });
-      if(this.formName === 'addGroupForm') {
-    this.submitSubscriber$ = this.formService
-      .getSubmitSubject()
-      .subscribe((value) => {
-        if (value === 'submit') {
-          this.submitForm();
-        }
-      });
+    if (this.formName === 'addGroupForm') {
+      this.submitSubscriber$ = this.formService
+        .getSubmitSubject()
+        .subscribe((value) => {
+          if (value === 'submit') {
+            this.submitForm();
+          }
+        });
     }
     this.formValidationSubscriber$ = this.formService.listenToValueChanges(
       this.form
     );
-
 
     this.dirtyFormSubscriber$ = this.formService
       .getDirtyFormSubject()
@@ -92,21 +90,23 @@ this.formName = null;
 
   submitForm() {
     let obj = this.form.getRawValue();
-    this.dataService.addNewGroup(obj).subscribe((response) => {
-      this.formService.triggerRefresh();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Grup başarıyla eklendi',
-      });
-    },
-    () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Bir hata oluştu.',
-      });
-    });
+    this.dataService.addNewGroup(obj).subscribe(
+      (response) => {
+        this.formService.triggerRefresh();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Grup başarıyla eklendi',
+        });
+      },
+      () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Bir hata oluştu.',
+        });
+      }
+    );
   }
 
   initializeForm() {
@@ -125,5 +125,4 @@ this.formName = null;
       this.form.get(formControl)?.touched && this.form.get(formControl)?.invalid
     );
   }
-
 }

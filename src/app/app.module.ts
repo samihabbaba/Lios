@@ -19,7 +19,11 @@ import { AuthGuard } from './guards/auth.guard';
     TranslateModule.forRoot(),
     ToastModule,
   ],
-  providers: [MessageService, ConfirmationService, AuthGuard],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    AuthGuard,
+  ],
   bootstrap: [AppComponent],
   exports: [TranslateModule],
 })

@@ -9,13 +9,16 @@ import { Paginator } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { Menu } from 'primeng/menu';
 import { AuthService } from '../services/auth/auth.service';
+import { fadeInOut } from '../animations/animation';
 
 @Component({
   selector: 'app-ship-registry',
   templateUrl: './ship-registry.component.html',
-  styleUrls: ['./ship-registry.component.scss']
+  styleUrls: ['./ship-registry.component.scss'],
+  animations: [fadeInOut()]
 })
 export class ShipRegistryComponent implements OnInit {
+  isLoading: boolean = false;
 
   // Menu Variables
   @ViewChild('menu') menu: Menu;
@@ -255,6 +258,7 @@ export class ShipRegistryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.authService.currentUser.role !== 'Admin') {
       this.optionsMenu[0].items?.pop();
     }
@@ -276,6 +280,7 @@ export class ShipRegistryComponent implements OnInit {
         (response) => {
           this.tableData = response.shipList;
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false
         },
         () => {
           this.messageService.add({

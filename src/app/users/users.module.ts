@@ -8,8 +8,14 @@ import { AgencyUsersComponent } from './agency-users/agency-users.component';
 import { CaptainUsersComponent } from './captain-users/captain-users.component';
 import { LocalUsersComponent } from './local-users/local-users.component';
 
+
 @NgModule({
-  declarations: [UsersComponent, AgencyUsersComponent, CaptainUsersComponent, LocalUsersComponent],
+  declarations: [
+    UsersComponent,
+    AgencyUsersComponent,
+    CaptainUsersComponent,
+    LocalUsersComponent,
+  ],
   imports: [CommonModule, UsersRoutingModule, SharedModule],
 })
 export class UsersModule {}

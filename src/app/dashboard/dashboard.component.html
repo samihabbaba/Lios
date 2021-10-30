@@ -1,4 +1,4 @@
-<div class="container flex-col">
+<div class="container flex-col" *ngIf="!isLoading" [@fadeInOut]>
   <div class="small-cards-container">
     <div class="small-card">
       <span class="card-title">{{ "Total Ships" | translate }}</span>
@@ -123,32 +123,61 @@
         </div>
       </div>
     </div>
+    <div style="display: flex; flex-direction: column">
+      <div class="payment-card">
+        <div class="header">
+          <p>{{ "Invoices" | translate }}</p>
+        </div>
+        <div style="padding: 16px">
+          <p-timeline [value]="invoices">
+            <ng-template pTemplate="marker" let-event>
+              <span
+                class="custom-marker p-shadow-2"
+                [style.backgroundColor]="event.color"
+              >
+                <i [ngClass]="event.icon"></i>
+              </span>
+            </ng-template>
 
-    <div class="payment-card">
-      <div class="header"><p>{{'Invoices' | translate}}</p></div>
-      <div style="padding: 16px">
-        <p-timeline [value]="invoices">
-          <ng-template pTemplate="marker" let-event>
-            <span
-              class="custom-marker p-shadow-2"
-              [style.backgroundColor]="event.color"
+            <ng-template pTemplate="content" let-event>
+              <div class="invoice-list">
+                <span>{{ event.status }}</span>
+                <p>${{ event.amount }}</p>
+              </div>
+            </ng-template>
+          </p-timeline>
+        </div>
+      </div>
+      <div class="acc-card" *ngIf="expiredInsurances">
+        <div class="title">{{ "Expired Insurances" | translate }}</div>
+        <div style="padding-top: 16px">
+          <p-accordion>
+            <p-accordionTab
+              *ngFor="let item of expiredInsurances"
+              [header]="item.agencyName"
             >
-              <i [ngClass]="event.icon"></i>
-            </span>
-          </ng-template>
-
-          <ng-template pTemplate="content" let-event>
-            <div class="invoice-list">
-              <span>{{ event.status }}</span>
-              <p>${{ event.amount }}</p>
-            </div>
-          </ng-template>
-        </p-timeline>
+              <div style="display: flex; flex-direction: column">
+                <li>
+                  <b>{{ "Status" | translate }}: </b>
+                  <span style="margin: 0; color: #db4627">{{
+                    item.status
+                  }}</span>
+                </li>
+                <li>
+                  <b>{{ "Expiry Date" | translate }}:</b> {{ item.expiryDate }}
+                  {{ item.expiryTime }}
+                </li>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
       </div>
     </div>
   </div>
+
 </div>
 
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>
 <app-update-currency
   [display]="displayCurrencyDialog"
   #currecyDialog
@@ -164,11 +193,11 @@
   [style]="{ width: 'auto', padding: '0px' }"
 >
   <div class="dev-title">
-    <img src="../../assets/cloudsoft-logo.png" height="40px" alt="" />
-    <span> Cloudsoft Front-End Developers </span>
+    <img src="../../assets/cloudsoft-logo.png" height="55px" alt="" />
   </div>
+  <span class="title-text"> Cloudsoft Front-End Developers </span>
 
-  <div style="margin-top: 8px">
+  <div style="margin-top: 22px">
     <div class="dev-item">Amro Mobayed</div>
     <div class="dev-item">Sami Habbaba</div>
   </div>
