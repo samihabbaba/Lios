@@ -1,4 +1,4 @@
-<div class="tab-wrapper">
+<div class="tab-wrapper"  *ngIf="!isLoading" [@fadeInOut]>
   <p-tabView
     styleClass="tabview-custom tabs-container"
     (onChange)="selectedTab(tab1._selected, tab2._selected)"
@@ -160,6 +160,8 @@
     </p-tabPanel>
   </p-tabView>
 </div>
+
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>
 
 <app-main-dialog
   (closeDialog)="displayDialog = false"

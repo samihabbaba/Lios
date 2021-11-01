@@ -1,79 +1,78 @@
-<div class="card-wrapper">
-    <div class="table-card">
-      <div class="card-header">
-        <!-- <span>Yearly win</span> -->
-  
-        <div class="search-container">
-          <input
-            type="text"
-            pInputText
-            [(ngModel)]="searchQuery2"
-            [placeholder]="translate.instant('Username')"
-            (keyup)="search($event)"
-          />
-          <button
-            type="button"
-            pButton
-            pRipple
-            icon="pi pi-search"
-            styleClass="p-button-warn"
-            (click)="this.paginator.changePageToFirst($event); getData()"
-          ></button>
-        </div>
-  
-        <div class="search-container">
-          <input
-            type="text"
-            pInputText
-            [(ngModel)]="searchQuery"
-            [placeholder]="translate.instant('IP Adress')"
-            (keyup)="search($event)"
-          />
-          <button
-            type="button"
-            pButton
-            pRipple
-            icon="pi pi-search"
-            styleClass="p-button-warn"
-            (click)="this.paginator.changePageToFirst($event); getData()"
-          ></button>
-        </div>
-  
+<div class="card-wrapper" *ngIf="!isLoading" [@fadeInOut]>
+  <div class="table-card">
+    <div class="card-header">
+      <!-- <span>Yearly win</span> -->
 
-        <div class="header-buttons-container">
-          <p-calendar
-            (onSelect)="dateSelection()"
-            [(ngModel)]="dateRanges"
-            selectionMode="range"
-            [readonlyInput]="true"
-            inputId="range"
-            class="table-button mr"
-            [placeholder]="translate.instant('DateRange')"
-            [showIcon]="true"
-            appendTo="body"
-          ></p-calendar>
-  
-          <p-dropdown
-            (onChange)="dropdownChange()"
-            class="table-button mr"
-            [options]="dropdownOptions"
-            [(ngModel)]="selectedDropdownOption"
-            [group]="true"
-            optionLabel="name"
-          >
-          </p-dropdown>
-          
-          <p-dropdown
-            (onChange)="dropdownChange()"
-            class="table-button mr"
-            [options]="dropdownOptions2"
-            [(ngModel)]="selectedDropdownOption2"
-            [group]="true"
-            optionLabel="name"
-          >
-          </p-dropdown>
-  
-          <!-- <p-button
+      <div class="search-container">
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="searchQuery2"
+          [placeholder]="translate.instant('Username')"
+          (keyup)="search($event)"
+        />
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-search"
+          styleClass="p-button-warn"
+          (click)="this.paginator.changePageToFirst($event); getData()"
+        ></button>
+      </div>
+
+      <div class="search-container">
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="searchQuery"
+          [placeholder]="translate.instant('IP Adress')"
+          (keyup)="search($event)"
+        />
+        <button
+          type="button"
+          pButton
+          pRipple
+          icon="pi pi-search"
+          styleClass="p-button-warn"
+          (click)="this.paginator.changePageToFirst($event); getData()"
+        ></button>
+      </div>
+
+      <div class="header-buttons-container">
+        <p-calendar
+          (onSelect)="dateSelection()"
+          [(ngModel)]="dateRanges"
+          selectionMode="range"
+          [readonlyInput]="true"
+          inputId="range"
+          class="table-button mr"
+          [placeholder]="translate.instant('DateRange')"
+          [showIcon]="true"
+          appendTo="body"
+        ></p-calendar>
+
+        <p-dropdown
+          (onChange)="dropdownChange()"
+          class="table-button mr"
+          [options]="dropdownOptions"
+          [(ngModel)]="selectedDropdownOption"
+          [group]="true"
+          optionLabel="name"
+        >
+        </p-dropdown>
+
+        <p-dropdown
+          (onChange)="dropdownChange()"
+          class="table-button mr"
+          [options]="dropdownOptions2"
+          [(ngModel)]="selectedDropdownOption2"
+          [group]="true"
+          optionLabel="name"
+        >
+        </p-dropdown>
+
+        <!-- <p-button
             [label]="translate.instant('Add Agency')"
             icon="pi pi-plus"
             class="table-button mr"
@@ -82,79 +81,79 @@
               initializeForm('addAgencyForm', translate.instant('Add Agency'))
             "
           ></p-button> -->
-  
-          <p-multiSelect
-            (onChange)="selection()"
-            [showHeader]="false"
-            [displaySelectedLabel]="false"
-            [options]="columns"
-            [(ngModel)]="selectedColumns"
-            optionLabel="name"
-          ></p-multiSelect>
-        </div>
+
+        <p-multiSelect
+          (onChange)="selection()"
+          [showHeader]="false"
+          [displaySelectedLabel]="false"
+          [options]="columns"
+          [(ngModel)]="selectedColumns"
+          optionLabel="name"
+        ></p-multiSelect>
       </div>
-  
-      <div class="datatable-container">
-        <div class="datatable-wrapper">
-          <table class="datatable">
-            <thead>
-              <tr>
-                <th
-                  *ngFor="let column of columns"
-                  [hidden]="!selectedColumns.includes(column)"
-                  class="{{column.value}}-head"
-                  >
-                  <div class="th-content">
-                    {{ column.name }}
-                    <i class="pi pi-sort-alt"></i>
-                  </div>
-                </th>
-  
-                <!-- <th>
+    </div>
+
+    <div class="datatable-container">
+      <div class="datatable-wrapper">
+        <table class="datatable">
+          <thead>
+            <tr>
+              <th
+                *ngFor="let column of columns"
+                [hidden]="!selectedColumns.includes(column)"
+                class="{{ column.value }}-head"
+              >
+                <div class="th-content">
+                  {{ column.name }}
+                  <i class="pi pi-sort-alt"></i>
+                </div>
+              </th>
+
+              <!-- <th>
                   <div class="align-center">Options</div>
                 </th> -->
-              </tr>
-            </thead>
-  
-            <tbody>
-              <tr *ngFor="let item of tableData">
-                <td
-                  *ngFor="let column of columns"
-                  [hidden]="!selectedColumns.includes(column)"
-                  class="{{column.value}}-cell"
-                >
-                  <span
-                    class="td-text"
-                    *ngIf="
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of tableData">
+              <td
+                *ngFor="let column of columns"
+                [hidden]="!selectedColumns.includes(column)"
+                class="{{ column.value }}-cell"
+              >
+                <span
+                  class="td-text"
+                  *ngIf="
                     item[column.value] !== true &&
                     item[column.value] !== false &&
                     column.value !== 'logged'
                   "
-                  >
-                    {{ item[column.value] }}
-                  </span>
+                >
+                  {{ item[column.value] }}
+                </span>
 
-                  <span class="td-text" *ngIf="column.value === 'logged'">
-                    {{ item[column.value] | date: "dd/MM/yyyy HH:mm:ss"  }}
-                  </span>
-  
-                  <span
-                    class="td-text"
-                    style="text-align: center"
-                    *ngIf="item[column.value] === true"
-                  >
-                    <i class="pi pi-check-circle true"></i>
-                  </span>
-  
-                  <span
-                    class="td-text"
-                    style="text-align: center"
-                    *ngIf="item[column.value] === false"
-                  >
-                    <i class="pi pi-times-circle false"></i>
-                  </span>
-                </td>
-                <!-- <td>
+                <span class="td-text" *ngIf="column.value === 'logged'">
+                  {{ item[column.value] | date: "dd/MM/yyyy HH:mm:ss" }}
+                </span>
+
+                <span
+                  class="td-text"
+                  style="text-align: center"
+                  *ngIf="item[column.value] === true"
+                >
+                  <i class="pi pi-check-circle true"></i>
+                </span>
+
+                <span
+                  class="td-text"
+                  style="text-align: center"
+                  *ngIf="item[column.value] === false"
+                >
+                  <i class="pi pi-times-circle false"></i>
+                </span>
+              </td>
+              <!-- <td>
                   <button
                     pButton
                     pRipple
@@ -164,38 +163,39 @@
                     (click)="menu.toggle($event); objToSend = item"
                   ></button>
                 </td> -->
-              </tr>
-            </tbody>
-          </table>
-        </div>
-  
-        <p-paginator
-          #paginator
-          [rows]="pageSize"
-          [totalRecords]="numberOfData"
-          (onPageChange)="pageChange($event)"
-        ></p-paginator>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+      <p-paginator
+        #paginator
+        [rows]="pageSize"
+        [totalRecords]="numberOfData"
+        (onPageChange)="pageChange($event)"
+      ></p-paginator>
     </div>
   </div>
-  
-  <!-- <p-menu
+</div>
+
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>
+
+<!-- <p-menu
     #menu
     styleClass="language-menu"
     [popup]="true"
     [model]="optionsMenu"
   ></p-menu> -->
-  
-  <app-main-dialog
-    (closeDialog)="displayDialog = false"
-    [formName]="formName"
-    [dialogHeader]="dialogHeader"
-    [displayDialog]="displayDialog"
-  ></app-main-dialog>
-  
-  <p-confirmDialog
-    [style]="{ width: '50vw' }"
-    [baseZIndex]="10000"
-    rejectButtonStyleClass="p-button-text"
-  ></p-confirmDialog>
-  
+
+<app-main-dialog
+  (closeDialog)="displayDialog = false"
+  [formName]="formName"
+  [dialogHeader]="dialogHeader"
+  [displayDialog]="displayDialog"
+></app-main-dialog>
+
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

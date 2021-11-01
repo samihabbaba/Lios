@@ -1,4 +1,4 @@
-<div class="card-wrapper">
+<div class="card-wrapper" *ngIf="!isLoading" [@fadeInOut]>
   <div class="table-card">
     <div class="card-header">
       <!-- <span>Yearly win</span> -->
@@ -22,16 +22,12 @@
       </div>
 
       <div class="header-buttons-container">
-
-
         <p-button
           [label]="translate.instant('Add Port')"
           icon="pi pi-plus"
           class="table-button mr"
           iconPos="right"
-          (click)="
-            initializeForm('addPortForm', translate.instant('Add Port'))
-          "
+          (click)="initializeForm('addPortForm', translate.instant('Add Port'))"
         ></p-button>
 
         <p-multiSelect
@@ -102,13 +98,13 @@
               </td>
               <td>
                 <button
-                pButton
-                pRipple
-                type="button"
-                icon="pi pi-ellipsis-h"
-                class="p-button-rounded p-button-text p-button-plain"
-                (click)="menu.toggle($event); objToSend = item"
-              ></button>
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-ellipsis-h"
+                  class="p-button-rounded p-button-text p-button-plain"
+                  (click)="menu.toggle($event); objToSend = item"
+                ></button>
               </td>
             </tr>
           </tbody>
@@ -116,7 +112,7 @@
       </div>
 
       <p-paginator
-      #paginator
+        #paginator
         [rows]="pageSize"
         [totalRecords]="numberOfData"
         (onPageChange)="pageChange($event)"
@@ -124,6 +120,8 @@
     </div>
   </div>
 </div>
+
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>
 
 <p-menu
   #menu

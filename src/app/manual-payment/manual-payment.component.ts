@@ -7,13 +7,17 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from '../services/auth/auth.service';
+import { fadeInOut } from '../animations/animation';
 
 @Component({
   selector: 'app-manual-payment',
   templateUrl: './manual-payment.component.html',
   styleUrls: ['./manual-payment.component.scss'],
+  animations: [fadeInOut()]
 })
 export class ManualPaymentComponent implements OnInit {
+  isLoading: boolean = false;
+
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -98,6 +102,7 @@ export class ManualPaymentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (this.authService.currentUser.role !== 'Admin') {
       this.optionsMenu[0].items?.splice(1, 1);
     }
@@ -146,8 +151,9 @@ export class ManualPaymentComponent implements OnInit {
       .subscribe(
         (response) => {
           this.tableData = response.manualPaymentList;
-          console.log(this.tableData);
+          // console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({

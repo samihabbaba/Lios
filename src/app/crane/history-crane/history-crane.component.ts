@@ -6,13 +6,17 @@ import { FormService } from 'src/app/services/form-service/form.service';
 import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-history-crane',
   templateUrl: './history-crane.component.html',
-  styleUrls: ['./history-crane.component.scss']
+  styleUrls: ['./history-crane.component.scss'],
+  animations: [fadeInOut()]
 })
 export class HistoryCraneComponent implements OnInit {
+  isLoading: boolean = false;
+
 
   // Form Variables
   formName: string = '';
@@ -89,6 +93,7 @@ export class HistoryCraneComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadSubscriptions();
     this.selectedColumns= [...this.columns];
     this.getData();
@@ -125,8 +130,9 @@ export class HistoryCraneComponent implements OnInit {
       .subscribe(
         (response) => {
           this.tableData = response.craneInvoiceList;
-          console.log(this.tableData);
+          // console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({

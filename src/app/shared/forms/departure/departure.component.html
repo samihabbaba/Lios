@@ -1,4 +1,4 @@
-<p-tabView styleClass="tabview-custom">
+<p-tabView styleClass="tabview-custom" *ngIf="!isLoading" [@fadeInOut]>
   <p-tabPanel>
     <ng-template pTemplate="header">
       <i class="pi pi-info-circle"></i>
@@ -177,7 +177,13 @@
       </ng-template>
       <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
         <tr>
-          <td>{{ product.categoryName? product.categoryName :product.categoryId.categoryName }}</td>
+          <td>
+            {{
+              product.categoryName
+                ? product.categoryName
+                : product.categoryId.categoryName
+            }}
+          </td>
           <td>{{ product.quantity }}</td>
           <td>
             <i
@@ -191,3 +197,5 @@
     </p-table>
   </p-tabPanel>
 </p-tabView>
+
+<app-loading *ngIf="isLoading" [@fadeInOut] [height]="true"></app-loading>

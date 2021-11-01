@@ -6,13 +6,16 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { MessageService } from 'primeng/api';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss'],
+  animations: [fadeInOut()]
 })
 export class ServicesComponent implements OnInit {
+  isLoading: boolean =false;
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -79,6 +82,7 @@ export class ServicesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading =true;
     this.loadSubscriptions();
     this.formService.tabPage.next(this.tabView);
     this.selectedColumns = [...this.columns];
@@ -99,6 +103,7 @@ export class ServicesComponent implements OnInit {
     this.dataService.getAllShipsServices().subscribe(
       (response) => {
         this.tableData = response;
+        this.isLoading = false;
       },
       () => {
         this.messageService.add({

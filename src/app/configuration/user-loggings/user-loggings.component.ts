@@ -6,13 +6,16 @@ import { FormService } from 'src/app/services/form-service/form.service';
 import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-user-loggings',
   templateUrl: './user-loggings.component.html',
-  styleUrls: ['./user-loggings.component.scss']
+  styleUrls: ['./user-loggings.component.scss'],
+  animations: [fadeInOut()],
 })
 export class UserLoggingsComponent implements OnInit {
+  isLoading: boolean = false;
 
   // Form Variables
   formName: string = '';
@@ -55,7 +58,6 @@ export class UserLoggingsComponent implements OnInit {
     name: this.translate.instant('All'),
     value: '',
   };
-
 
   dropdownOptions2 = [
     {
@@ -117,6 +119,7 @@ export class UserLoggingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
@@ -141,17 +144,21 @@ export class UserLoggingsComponent implements OnInit {
     this.dataService
       .getLogging(
         this.dateRanges[0]
-        ? this.dataService.convertDateTimeToIso(this.dateRanges[0]).split('T')[0]
-        : '',
-      this.dateRanges[1]
-        ? this.dataService.convertDateTimeToIso(this.dateRanges[1]).split('T')[0]
-        : '',
-          this.searchQuery,
-          this.selectedDropdownOption.value,
-          this.selectedDropdownOption2.value,
-          this.searchQuery2,
-          this.pageNumber,
-          this.pageSize
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[0])
+              .split('T')[0]
+          : '',
+        this.dateRanges[1]
+          ? this.dataService
+              .convertDateTimeToIso(this.dateRanges[1])
+              .split('T')[0]
+          : '',
+        this.searchQuery,
+        this.selectedDropdownOption.value,
+        this.selectedDropdownOption2.value,
+        this.searchQuery2,
+        this.pageNumber,
+        this.pageSize
 
         // this.searchQuery,
         // this.selectedDropdownOption.value,
@@ -162,6 +169,7 @@ export class UserLoggingsComponent implements OnInit {
         (response) => {
           this.tableData = response.logList;
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({
@@ -215,5 +223,4 @@ export class UserLoggingsComponent implements OnInit {
   destroySubscriptions() {
     this.refreshSubscriber$.unsubscribe();
   }
-
-  }
+}

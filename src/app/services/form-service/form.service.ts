@@ -10,7 +10,9 @@ export class FormService {
   private formValidationSubject = new BehaviorSubject<boolean>(false);
   private formObject = new BehaviorSubject<any>(null);
   private dirtyFormSubject = new BehaviorSubject<any>(false);
+  public loadingSubject = new BehaviorSubject<any>(false);
   public ngSwitchSubject = new BehaviorSubject<any>(null);
+
   tabPage = new BehaviorSubject<string>('');
   currentlyOpenForm: string;
 

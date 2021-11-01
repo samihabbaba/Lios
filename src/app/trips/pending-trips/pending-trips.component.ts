@@ -35,6 +35,7 @@ export class PendingTripsComponent implements OnInit {
   displayTripRateUpdateDialog: boolean = false;
   objToSend: any = null;
   refreshSubscriber$: Subscription;
+  laodingSubscriber$: Subscription;
 
   pageSize = 50;
   pageNumber = 1;
@@ -307,6 +308,12 @@ export class PendingTripsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.laodingSubscriber$ = this.formService.loadingSubject.subscribe(
+      (value) => {
+        if (value) this.isLoading = true;
+        if (!value) this.isLoading = false;
+      }
+    );
     this.isLoading = true;
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];

@@ -1,4 +1,4 @@
-<div class="card-wrapper">
+<div class="card-wrapper" *ngIf="!isLoading" [@fadeInOut]>
   <div class="table-card">
     <div class="card-header">
       <!-- <span>Yearly win</span> -->
@@ -21,23 +21,24 @@
         ></button>
       </div>
 
-      <p-button
-          [label]="translate.instant('Bank Report')"
-          icon="pi pi-file"
-          class="table-button mr"
-          iconPos="right"
-          (click)="showTelerikReport('bank')"
-        ></p-button>
 
-        <p-button
-          [label]="translate.instant('Collection Report')"
-          icon="pi pi-file-o"
-          class="table-button mr"
-          iconPos="right"
-          (click)="showTelerikReport('collect')"
-        ></p-button>
 
       <div class="header-buttons-container">
+        <p-button
+        [label]="translate.instant('Bank Report')"
+        icon="pi pi-file"
+        class="table-button mr"
+        iconPos="right"
+        (click)="showTelerikReport('bank')"
+      ></p-button>
+
+      <p-button
+        [label]="translate.instant('Collection Report')"
+        icon="pi pi-file-o"
+        class="table-button mr"
+        iconPos="right"
+        (click)="showTelerikReport('collect')"
+      ></p-button>
         <p-calendar
           (onSelect)="dateSelection()"
           [(ngModel)]="dateRanges"
@@ -180,6 +181,8 @@
     </div>
   </div>
 </div>
+
+<app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>
 
 <p-menu
   #menu

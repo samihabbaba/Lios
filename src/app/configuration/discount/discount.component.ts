@@ -6,13 +6,17 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { MessageService } from 'primeng/api';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-discount',
   templateUrl: './discount.component.html',
   styleUrls: ['./discount.component.scss'],
+  animations: [fadeInOut()]
 })
 export class DiscountComponent implements OnInit {
+  isLoading: boolean = false;
+
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -52,6 +56,7 @@ export class DiscountComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadSubscriptions();
     this.formService.tabPage.next(this.tabView);
     this.selectedColumns = [...this.columns];
@@ -69,6 +74,7 @@ export class DiscountComponent implements OnInit {
     this.dataService.getAllShipsDiscounts().subscribe(
       (response) => {
         this.tableData = response;
+        this.isLoading = false;
       },
       () => {
         this.messageService.add({

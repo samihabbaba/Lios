@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Dialog } from 'primeng/dialog';
 import { Subscription } from 'rxjs';
+import { fadeInOut } from 'src/app/animations/animation';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
@@ -17,8 +18,10 @@ import { FormService } from 'src/app/services/form-service/form.service';
   selector: 'app-departure',
   templateUrl: './departure.component.html',
   styleUrls: ['./departure.component.scss'],
+  animations: [fadeInOut()],
 })
 export class DepartureComponent implements OnInit {
+  isLoading: boolean = false;
   objectSubscriber$: Subscription;
   submitSubscriber$: Subscription;
   formValidationSubscriber$: Subscription;
@@ -60,6 +63,7 @@ export class DepartureComponent implements OnInit {
         this.formService.checkForm('departureForm') ||
         this.formService.checkForm('departureFormUpdate')
       ) {
+        this.isLoading = true;
         this.movementsTypeDropdown = this.dataService.movementType;
         this.purposesDropdown = this.dataService.Purposes;
         this.dataService.getAllPorts(1, 10000, '').subscribe(
@@ -177,6 +181,8 @@ export class DepartureComponent implements OnInit {
           });
         }
       }
+
+      this.isLoading = false;
     }),
       () => {
         this.messageService.add({
@@ -225,6 +231,7 @@ export class DepartureComponent implements OnInit {
   }
 
   submitForm() {
+    this.formService.loadingSubject.next(true);
     let obj = this.form.getRawValue();
     obj.tripId = this.tripId;
     if (obj.pilotageId?.id) obj.pilotageId = obj.pilotageId.id;
@@ -252,6 +259,9 @@ export class DepartureComponent implements OnInit {
             summary: 'Error',
             detail: 'Bir hata oluştu.',
           });
+        },
+        () => {
+          this.formService.loadingSubject.next(false);
         }
       );
     } else {
@@ -270,6 +280,9 @@ export class DepartureComponent implements OnInit {
             summary: 'Error',
             detail: 'Bir hata oluştu.',
           });
+        },
+        () => {
+          this.formService.loadingSubject.next(false);
         }
       );
     }

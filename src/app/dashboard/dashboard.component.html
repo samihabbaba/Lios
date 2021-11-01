@@ -94,36 +94,38 @@
         ></p-chart>
       </div>
     </div>
-
-    <div class="payment-card">
-      <div class="header">
-        <p>{{ "Details" | translate }}</p>
-      </div>
-      <div style="padding: 16px">
-        <div class="detail-item">
-          <h2>{{ "Dollar Rate" | translate }}</h2>
-          <p style="margin-left: auto">{{ dashboardData?.currencyRate }}</p>
-        </div>
-
-        <div class="detail-item">
-          <h2>{{ "Open Ship Invoices" | translate }}</h2>
-          <p style="margin-left: auto">{{ dashboardData?.openShipInvoices }}</p>
-        </div>
-
-        <div class="detail-item">
-          <h2>{{ "Open Crane Invoices" | translate }}</h2>
-          <p style="margin-left: auto">
-            {{ dashboardData?.openCraneInvoices }}
-          </p>
-        </div>
-
-        <div class="detail-item">
-          <h2>{{ "Local Ships" | translate }}</h2>
-          <p style="margin-left: auto">{{ dashboardData?.localShips }}</p>
-        </div>
-      </div>
-    </div>
     <div style="display: flex; flex-direction: column">
+      <div class="payment-card">
+        <div class="header">
+          <p>{{ "Details" | translate }}</p>
+        </div>
+        <div style="padding: 16px">
+          <div class="detail-item">
+            <h2>{{ "Dollar Rate" | translate }}</h2>
+            <p style="margin-left: auto">{{ dashboardData?.currencyRate }}</p>
+          </div>
+
+          <div class="detail-item">
+            <h2>{{ "Open Ship Invoices" | translate }}</h2>
+            <p style="margin-left: auto">
+              {{ dashboardData?.openShipInvoices }}
+            </p>
+          </div>
+
+          <div class="detail-item">
+            <h2>{{ "Open Crane Invoices" | translate }}</h2>
+            <p style="margin-left: auto">
+              {{ dashboardData?.openCraneInvoices }}
+            </p>
+          </div>
+
+          <div class="detail-item">
+            <h2>{{ "Local Ships" | translate }}</h2>
+            <p style="margin-left: auto">{{ dashboardData?.localShips }}</p>
+          </div>
+        </div>
+      </div>
+
       <div class="payment-card">
         <div class="header">
           <p>{{ "Invoices" | translate }}</p>
@@ -148,33 +150,31 @@
           </p-timeline>
         </div>
       </div>
-      <div class="acc-card" *ngIf="expiredInsurances">
-        <div class="title">{{ "Expired Insurances" | translate }}</div>
-        <div style="padding-top: 16px">
-          <p-accordion>
-            <p-accordionTab
-              *ngFor="let item of expiredInsurances"
-              [header]="item.agencyName"
-            >
-              <div style="display: flex; flex-direction: column">
-                <li>
-                  <b>{{ "Status" | translate }}: </b>
-                  <span style="margin: 0; color: #db4627">{{
-                    item.status
-                  }}</span>
-                </li>
-                <li>
-                  <b>{{ "Expiry Date" | translate }}:</b> {{ item.expiryDate }}
-                  {{ item.expiryTime }}
-                </li>
-              </div>
-            </p-accordionTab>
-          </p-accordion>
-        </div>
+    </div>
+
+    <div class="acc-card" *ngIf="expiredInsurances">
+      <div class="title">{{ "Expired Insurances" | translate }}</div>
+      <div style="padding-top: 16px">
+        <p-accordion>
+          <p-accordionTab
+            *ngFor="let item of expiredInsurances"
+            [header]="item.agencyName"
+          >
+            <div style="display: flex; flex-direction: column">
+              <li>
+                <b>{{ "Status" | translate }}: </b>
+                <span style="margin: 0; color: #db4627">{{ item.status }}</span>
+              </li>
+              <li>
+                <b>{{ "Expiry Date" | translate }}:</b> {{ item.expiryDate }}
+                {{ item.expiryTime }}
+              </li>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
       </div>
     </div>
   </div>
-
 </div>
 
 <app-loading *ngIf="isLoading" [@fadeInOut]></app-loading>

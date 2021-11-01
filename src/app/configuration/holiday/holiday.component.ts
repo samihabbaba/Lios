@@ -6,13 +6,16 @@ import { FormService } from 'src/app/services/form-service/form.service';
 import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-holiday',
   templateUrl: './holiday.component.html',
   styleUrls: ['./holiday.component.scss'],
+  animations: [fadeInOut()],
 })
 export class HolidayComponent implements OnInit {
+  isLoading: boolean = false;
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -75,6 +78,7 @@ export class HolidayComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
@@ -90,6 +94,7 @@ export class HolidayComponent implements OnInit {
     this.dataService.getAllHoliday().subscribe(
       (response) => {
         this.tableData = response;
+        this.isLoading = false;
       },
       () => {
         this.messageService.add({

@@ -6,13 +6,16 @@ import { FormService } from 'src/app/services/form-service/form.service';
 import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-port',
   templateUrl: './port.component.html',
   styleUrls: ['./port.component.scss'],
+  animations: [fadeInOut()],
 })
 export class PortComponent implements OnInit {
+  isLoading: boolean = false;
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -73,6 +76,7 @@ export class PortComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadSubscriptions();
     this.selectedColumns = [...this.columns];
     this.getData();
@@ -91,6 +95,7 @@ export class PortComponent implements OnInit {
         (response) => {
           this.tableData = response.portList;
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({

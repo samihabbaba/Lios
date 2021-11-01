@@ -7,13 +7,16 @@ import { DeleteService } from 'src/app/services/delete-service/delete.service';
 import { Subscription } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { fadeInOut } from 'src/app/animations/animation';
 
 @Component({
   selector: 'app-pending-crane',
   templateUrl: './pending-crane.component.html',
   styleUrls: ['./pending-crane.component.scss'],
+  animations: [fadeInOut()]
 })
 export class PendingCraneComponent implements OnInit {
+  isLoading: boolean = false;
   // Form Variables
   formName: string = '';
   dialogHeader: string = '';
@@ -114,6 +117,7 @@ export class PendingCraneComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     if (
       this.authService.currentUser.role !== 'Collection' &&
       this.authService.currentUser.role !== 'Admin'
@@ -140,7 +144,7 @@ export class PendingCraneComponent implements OnInit {
   }
 
   getData() {
-    
+
     this.dataService
       .getAllCranes(
         this.dateRanges[0]
@@ -157,8 +161,9 @@ export class PendingCraneComponent implements OnInit {
       .subscribe(
         (response) => {
           this.tableData = response.craneInvoiceList;
-          console.log(this.tableData);
+          // console.log(this.tableData);
           this.numberOfData = response.pagingInfo.totalCount;
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({
