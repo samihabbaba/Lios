@@ -1,4 +1,8 @@
-<p-tabView styleClass="tabview-custom">
+<p-tabView
+  styleClass="tabview-custom"
+  *ngIf="!isLoading"
+  [@fadeInOut]
+>
   <p-tabPanel>
     <ng-template pTemplate="header">
       <i class="pi pi-info-circle"></i>
@@ -182,7 +186,6 @@
           <p-inputSwitch formControlName="isDefective"></p-inputSwitch>
           <p class="m-0 ml-2">{{ "Defective" | translate }}</p>
         </div>
-        
       </div>
 
       <p-autoComplete
@@ -283,3 +286,5 @@
     </p-table>
   </p-tabPanel>
 </p-tabView>
+
+<app-loading *ngIf="isLoading" [@fadeInOut] [height]="true"></app-loading>

@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { Dialog } from 'primeng/dialog';
 import { Subscription } from 'rxjs';
+import { fadeInOut } from 'src/app/animations/animation';
 import { DataService } from 'src/app/services/data/data.service';
 import { FormService } from 'src/app/services/form-service/form.service';
 
@@ -17,8 +18,11 @@ import { FormService } from 'src/app/services/form-service/form.service';
   selector: 'app-edit-arrival',
   templateUrl: './edit-arrival.component.html',
   styleUrls: ['./edit-arrival.component.scss'],
+  animations: [fadeInOut()],
 })
 export class EditArrivalComponent implements OnInit {
+  isLoading: boolean = false;
+
   tripId: string;
   formObj: any;
 
@@ -59,6 +63,7 @@ export class EditArrivalComponent implements OnInit {
   ) {
     this.dialogRef.onShow.subscribe(() => {
       if (this.formService.checkForm('editArrivalForm')) {
+        this.isLoading = true;
         this.movementsTypeDropdown = this.dataService.movementType;
         this.purposesDropdown = this.dataService.Purposes;
         this.dataService.getAllPorts(1, 10000, '').subscribe(
@@ -167,6 +172,9 @@ export class EditArrivalComponent implements OnInit {
           summary: 'Error',
           detail: 'Bir hata oluştu.',
         });
+      },
+      () => {
+        this.isLoading = false;
       }
     );
   }
@@ -209,6 +217,7 @@ export class EditArrivalComponent implements OnInit {
   }
 
   submitForm() {
+    this.formService.loadingSubject.next(true);
     let obj = this.form.getRawValue();
     obj.shipId = this.shipId;
     obj.id = this.formObj.id;
@@ -237,6 +246,9 @@ export class EditArrivalComponent implements OnInit {
           summary: 'Error',
           detail: 'Bir hata oluştu.',
         });
+      },
+      () => {
+        this.formService.loadingSubject.next(false);
       }
     );
   }
