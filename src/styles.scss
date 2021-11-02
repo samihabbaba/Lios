@@ -1,4 +1,4 @@
-@import '~flag-icon-css/sass/flag-icon';
+@import "~flag-icon-css/sass/flag-icon";
 
 @font-face {
   font-family: "SegoeUI";
@@ -27,9 +27,6 @@
   font-weight: normal;
   src: url("./assets/fonts/Segoe\ UI\ Italic.ttf");
 }
-
-
-
 
 * {
   font-family: "SegoeUI";
@@ -111,7 +108,8 @@ body {
   }
 
   .p-button,
-  .p-dropdown, .p-autocomplete-input {
+  .p-dropdown,
+  .p-autocomplete-input {
     background: rgba(68, 72, 109, 0.07) !important;
     border: none !important;
     border-radius: 8px;
@@ -186,6 +184,20 @@ body {
   font-weight: 500;
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 1500px) {
+  .card-header.big {
+    flex-direction: column;
+    .search-container {
+      width: 100%;
+    }
+
+    .header-buttons-container {
+      margin-top: 6px;
+      width: 100%;
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {
