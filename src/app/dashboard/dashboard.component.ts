@@ -79,9 +79,6 @@ export class DashboardComponent implements OnInit {
   initializeDashbaord() {
     this.dataService.getExpiredInsurances().subscribe((resp) => {
       this.expiredInsurances = resp;
-      if (this.expiredInsurances && this.invoices[2].amount) {
-        this.isLoading = false;
-      }
     });
     this.dataService.getDashboard().subscribe(
       (data) => {
@@ -124,9 +121,6 @@ export class DashboardComponent implements OnInit {
         this.invoices[0].amount = this.dashboardData.invoicesAmount;
         this.invoices[1].amount = this.dashboardData.invoicesPaidAmount;
         this.invoices[2].amount = this.dashboardData.invoicesDueAmount;
-        if (this.expiredInsurances && this.invoices[2].amount) {
-          this.isLoading = false;
-        }
       },
       () => {
         this.messageService.add({
@@ -134,6 +128,9 @@ export class DashboardComponent implements OnInit {
           summary: 'Error',
           detail: 'Bir hata oluştu.',
         });
+      },
+      () => {
+        this.isLoading = false;
       }
     );
   }
