@@ -247,7 +247,7 @@ export class PendingTripsComponent implements OnInit {
                   summary: 'Success',
                   detail: 'Başarıyla güncellendi.',
                 });
-       
+                this.formService.triggerRefresh();
               },
               () => {
                 this.messageService.add({
@@ -271,7 +271,7 @@ export class PendingTripsComponent implements OnInit {
                   summary: 'Success',
                   detail: 'Başarıyla güncellendi.',
                 });
-
+                this.formService.triggerRefresh();
               },
               () => {
                 this.messageService.add({
@@ -515,15 +515,21 @@ export class PendingTripsComponent implements OnInit {
   toggleMenu(item, event) {
     this.objToSend = item;
 
-    // if (this.objToSend.inPort && !this.objToSend.isPaid) {
-    //   this.menuInPort.toggle(event);
-    // }
-    // if (this.objToSend.inPort && this.objToSend.isPaid) {
-    //   this.menuInPortAndpaid.toggle(event);
-    // }
-    // if (!this.objToSend.inPort && !this.objToSend.isPaid) {
-    //   this.menu.toggle(event);
-    // }
+    this.objToSend.isDockIdle
+      ? (this.optionsMenuInPort[0].items[
+          this.optionsMenuInPort[0].items.length - 2
+        ].label = this.translate.instant('Disable Dock Idle'))
+      : (this.optionsMenuInPort[0].items[
+          this.optionsMenuInPort[0].items.length - 2
+        ].label = this.translate.instant('Enable Dock Idle'));
+
+    this.objToSend.isAnchorIdle
+      ? (this.optionsMenuInPort[0].items[
+          this.optionsMenuInPort[0].items.length - 1
+        ].label = this.translate.instant('Disable Anchor Idle'))
+      : (this.optionsMenuInPort[0].items[
+          this.optionsMenuInPort[0].items.length - 1
+        ].label = this.translate.instant('Enable Anchor Idle'));
 
     this.menuToShow[0].items = [];
 
