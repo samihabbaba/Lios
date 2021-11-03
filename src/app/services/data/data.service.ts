@@ -2537,6 +2537,29 @@ export class DataService {
     });
   }
 
+  // Dock IDLE and Anchor IDLE
+  updateDockIdle(tripId: string) {
+    return this.http.put(
+      `${environment.apiUrl}trip/${tripId}/dockidle`,
+      {},
+      {
+        headers: this.httpOptions.headers,
+        observe: 'response',
+      }
+    );
+  }
+
+  updateAnchorIdle(tripId: string) {
+    return this.http.put(
+      `${environment.apiUrl}trip/${tripId}/anchoridle`,
+      {},
+      {
+        headers: this.httpOptions.headers,
+        observe: 'response',
+      }
+    );
+  }
+
   // load
   getAllLoadsForTrasaction(id) {
     return this.http.get<any>(`${environment.apiUrl}load/transaction/${id}`, {

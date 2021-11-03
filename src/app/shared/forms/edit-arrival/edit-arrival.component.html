@@ -1,7 +1,5 @@
 <p-tabView
   styleClass="tabview-custom"
-  *ngIf="!isLoading"
-  [@fadeInOut]
 >
   <p-tabPanel>
     <ng-template pTemplate="header">
@@ -286,5 +284,3 @@
     </p-table>
   </p-tabPanel>
 </p-tabView>
-
-<app-loading *ngIf="isLoading" [@fadeInOut] [height]="true"></app-loading>

@@ -235,6 +235,54 @@ export class PendingTripsComponent implements OnInit {
             this.displayMovementsDialog = true;
           },
         },
+
+        {
+          label: this.translate.instant('Dock Idle'),
+          icon: 'pi pi-sliders-v',
+          command: () => {
+            this.dataService.updateDockIdle(this.objToSend.id).subscribe(
+              (resp) => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                  detail: 'Başarıyla güncellendi.',
+                });
+       
+              },
+              () => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Error',
+                  detail: 'Bir hata oluştu.',
+                });
+              }
+            );
+          },
+        },
+
+        {
+          label: this.translate.instant('Anchor Idle'),
+          icon: 'pi pi-shield',
+          command: () => {
+            this.dataService.updateAnchorIdle(this.objToSend.id).subscribe(
+              (resp) => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                  detail: 'Başarıyla güncellendi.',
+                });
+
+              },
+              () => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Error',
+                  detail: 'Bir hata oluştu.',
+                });
+              }
+            );
+          },
+        },
       ],
     },
   ];
