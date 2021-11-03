@@ -126,6 +126,7 @@ export class ShipRegistryDetailsComponent implements OnInit {
     this.dataService.getShipDetail(this.shipId).subscribe(
       (resp) => {
         this.shipDetails = resp;
+        console.log(this.shipDetails)
         if (
           this.shipDetails.flag === 'KKTC' ||
           this.shipDetails.flag === 'Northern Cyprus' ||
@@ -337,6 +338,10 @@ export class ShipRegistryDetailsComponent implements OnInit {
       name: new FormControl(obj?.shipName, [Validators.required]),
       agencyId: new FormControl(
         this.agencies.find((x) => x.id === obj.agencyId),
+        [Validators.required]
+      ),
+      creationDate: new FormControl(
+        obj?.creationDate ? new Date(obj?.creationDate) : new Date(),
         [Validators.required]
       ),
       type: new FormControl(obj?.type, [Validators.required]),

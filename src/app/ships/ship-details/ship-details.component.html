@@ -204,6 +204,7 @@
               formControlName="creationDate"
               placeholder=""
               inputId="basic"
+              [showTime]="true"
             ></p-calendar>
             <label>{{ "Agency Creation Date" | translate }}</label>
           </span>
@@ -219,7 +220,7 @@
             <p-dropdown
               [options]="shipTypes"
               formControlName="type"
-              placeholder=""
+              placeholder=" "
             ></p-dropdown>
             <label>{{ "Ship Type" | translate }}</label>
           </span>

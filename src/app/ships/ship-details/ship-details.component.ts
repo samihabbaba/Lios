@@ -352,7 +352,7 @@ export class ShipDetailsComponent implements OnInit {
         [Validators.required]
       ),
       creationDate: new FormControl(
-        obj?.creationDate ? new Date(obj.creationDate) : new Date(),
+        obj?.creationDate ? new Date(obj?.creationDate) : new Date(),
         [Validators.required]
       ),
       type: new FormControl(obj?.type, [Validators.required]),

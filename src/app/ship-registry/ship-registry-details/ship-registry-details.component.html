@@ -204,12 +204,31 @@
           </ng-template>
         </p-autoComplete>
 
+
+        <div class="input-container">
+          <span class="p-float-label">
+            <p-calendar
+              appendTo="body"
+              formControlName="creationDate"
+              placeholder=""
+              inputId="basic"
+              [showTime]="true"
+            ></p-calendar>
+            <label>{{ "Agency Creation Date" | translate }}</label>
+          </span>
+          <small
+            *ngIf="checkValidity('creationDate', shipInformation)"
+            class="p-error"
+            >{{ "Invalid input." | translate }}</small
+          >
+        </div>
+
         <div class="input-container">
           <span class="p-float-label">
             <p-dropdown
               [options]="shipTypes"
               formControlName="type"
-              placeholder=""
+              placeholder=" "
             ></p-dropdown>
             <label>{{ "Ship Type" | translate }}</label>
           </span>
@@ -241,7 +260,7 @@
             <p-dropdown
               [options]="countries"
               formControlName="flag"
-              placeholder=""
+              placeholder=" "
             ></p-dropdown>
             <label>{{ "Flag" | translate }}</label>
           </span>
