@@ -28,7 +28,7 @@ export class TelerikViewerComponent implements OnInit {
   token;
   reportForm = '';
   fullUrl = '';
-  baseUrl = 'https://api.lios3.limanlar.gov.ct.tr/api/v1/report/';
+  baseUrl = 'http://api.lios3.limanlar.gov.ct.tr/api/v1/report/';
   ngOnInit(): void {
 
     if(this.var1.includes('---')){
@@ -84,7 +84,7 @@ export class TelerikViewerComponent implements OnInit {
     } else if (this.var1 === 'payment/manual') {
       this.reportForm = 'Lios/PaymentPre';
       this.fullUrl =
-        'https://api.lios3.limanlar.gov.ct.tr/api/v1/' + this.var1 + '/' + this.var2;
+        'http://api.lios3.limanlar.gov.ct.tr/api/v1/' + this.var1 + '/' + this.var2;
       this.param.Url = this.fullUrl;
     } else if (this.var1 === 'collect') {
       this.reportForm = 'Lios/CollectReport';
