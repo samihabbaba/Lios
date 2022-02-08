@@ -76,7 +76,7 @@ export const locale = {
     'Local Type':'Yerel Türü',
     'Date Of Birth':'Doğum Tarihi',
     'Place Of Birth':'Doğum Yeri',
-    'Transfer Time':'Transfer zamanı', 
+    'Transfer Time':'Transfer zamanı',
     'Create National Crew':'Yeni Çalışan Oluştur',
     'Create New Staff':'Yeni Personel Oluştur',
     'Single':'Bekar',
@@ -88,11 +88,12 @@ export const locale = {
     'Transfer':'Aktarma',
     'Male':'Erkek',
     'Female':'Kadın',
-    'Wroker':'İşçi',  
-    'Temporary employee':'Geçici Çalışan', 
-    'Employee':'Çalışan', 
-    'Contract employee':'Sözleşmeli Çalışan', 
-    
+    'Wroker':'İşçi',
+    'Temporary employee':'Geçici Çalışan',
+    'Employee':'Çalışan',
+    'Contract employee':'Sözleşmeli Çalışan',
+    'Passanger' : 'Yolcu',
+
 
     'Add Cargo':'Yük ekle',
     'Create New Cargo Type':'Yeni Yük Tipi Oluştur',
@@ -140,12 +141,12 @@ export const locale = {
     'Groups':'Gruplar',
     'Edit Product':'Ürünü düzenle',
     'Are you sure you want to delete product':'Ürünü silmek istediğinize emin misiniz',
-    
+
     'Add Ship':'Gemi Ekle',
     'Vessel Type':'Gemi Tipi',
     'Captain Name':'Kaptan Adı',
     'Agency Name':'Acente Adı',
-    
+
     'Status':'Durumu',
     'Departure':'Ayrıl',
     'Transaction':'İşlem',
@@ -158,16 +159,16 @@ export const locale = {
     'Information':'Bilgi',
     'Position':'Konaklama',
 
-    
+
     'Inner Anchorage Area':'Liman İçi Demir',
     'Enter Anchorage':'Liman Dışı Demir',
     'Berth':'Rıhtım',
     'Berth repair':'Rıhtımda Tamir',
     'Shipyard':'Tershane',
-    
+
     'Quarantine':'Pratika',
-    
- 
+
+
 
     'Select Agency':'Acente Seç',
     'Select Captain':'Kaptan Seç',
@@ -181,7 +182,7 @@ export const locale = {
     'Transit Vehicle':'Transit Araç Sayısı',
     // 'Cargo Name':'Yük Adı',
     'Normal #':'Normal #',
-    'Transit #':'Transit #', 
+    'Transit #':'Transit #',
     'Passengers':'Yolcular',
     'Person Count':'Kişi Sayısı',
     'Soldier Count':'Asker Sayısı',
@@ -197,7 +198,7 @@ export const locale = {
     'Container #':'Konteyner #',
     'Weight':'Ağırlık',
 
-    
+
     'no open invoice was found':'Bu gemi için açık fatura bulunamadı',
     'No open invoice was found for the selected ship, open new invoice ?':'Bu gemi için açık fatura bulunamadı, yeni fatura aç?',
     'Confirm':'Onayla',
@@ -206,7 +207,7 @@ export const locale = {
     'Are you sure you want to delete ship : ':'Gemiyi silmek istediğinize emin misiniz : ', // ship name
 
 
-    
+
 
     'Ships':'Gemiler',
     'Enter the requiered information':'Gerekli bilgileri giriniz',
@@ -221,7 +222,7 @@ export const locale = {
     'select Currency':'Döviz Kuru Seç',
     'Sign':'Çağrı İşaret',
     'select Sign':'Çağrı İşaret Seç',
-    
+
     'select country':'Ülke Seç',
     'Port Home':'Kayıt Limanı',
     'select a type':'Türünü Seç',
@@ -258,7 +259,7 @@ export const locale = {
     'Brake Horse Power':'Beygir Gücü',
     'Is Deletion':'Terkin?',
 
-    
+
     'Construction':'Yapım Ayrıntıları',
     'New Construction has been Added.':'Yeni Yapı Eklendi.',
     'Wrong input ! Make sure you entered the correct information and try submitting again.':'Hatalı Giriş ! Lütfen bilgileri girip tekrar deneyiniz.',
@@ -271,7 +272,7 @@ export const locale = {
     'Section Of Ship':'Gemi Bölümü',
     'Frame Format':'Çerçeve Biçim Tanımı',
 
-    
+
     'Size':'Boyut',
     'New Size has been Added.':'Yeni Boyut Eklendi.',
     'Front Length':'Geminin ön taraftaki boş bodoslamasından arka taraftaki kıç postaya kadar dümen rodosunun ön kısmına kadar olan uzunluğu',
@@ -282,14 +283,14 @@ export const locale = {
     'Depth 3':'Geminin üst güvertesinin, üst kısmı ile yan orta kısmından omurgasının dibine kadar olan derinlik',
     'Depth 4':'Üst güvertedeki kemerlerin derinliği',
 
-    
+
     'Document':'Belgeler',
     'New Document has been Added.':'Yeni Belge eklendi.',
     'Url':'Url',
     'Extension':'Uzantı',
     'Remove':'Kaldır',
 
-    
+
     'Engine':'Makine',
     'New Engine has been Added.':'Yeni Makine Eklendi.',
     'Machine Count':'Makinelerin Sayısı',
@@ -302,7 +303,7 @@ export const locale = {
     'Motor Detail':'Motor Bilgileri',
     'Machine Arms Count':'Makine Kollarının Sayısı',
 
-    
+
     'Mortage':'İpotek',
     'New Mortage has been Added.':'Yeni İpotek Eklendi.',
     'Record Order Number':'Kayıt Sıra No',
@@ -313,7 +314,7 @@ export const locale = {
     'Order No.':'Sıra No.',
     'Date':'Tarih',
 
-    
+
     'Owner':'Gemi Sahipleri',
     'New Owner has been Added.':'Yeni Sahip Eklendi.',
     'Value':'Değeri',
@@ -332,17 +333,17 @@ export const locale = {
     'Mortage has been updatede.':'İpotek başarıyla güncellendi.',
     'Owner has been updated.':'Sahip başarıyla güncellendi.',
 
-    
+
 
    'Users':'Kullanıcılar',
    'Agency Users':'Acente Kullanıcıları',
    'Captain Users':'Kaptan Kullanıcıları',
    'Local Users':'Yerel Kullanıcılar',
    'Add Agency':'Acente ekle',
-   
+
    'Delete Cargo':'Yükü Sil',
    'Number':'Numara',
-   
+
    'Add new document':'Yeni Belge Ekle',
    'Add new mortage':'Yeni İpotek Ekle',
    'Add new owner':'Yeni Sahip Ekle',
@@ -354,10 +355,10 @@ export const locale = {
    'Update mortage':'İpoteği Güncelle',
    'Update owner':'Sahibi Güncelle',
    'Clear selection':'Seçimi Temizle',
-   
-   
 
-   
+
+
+
    'Ship':'Gemi',
    'OverTime':'Ek Mesai',
    'Vehicle':'Araç',
@@ -378,36 +379,36 @@ export const locale = {
     'Closed':'Kapat',
     'Service':'Hizmet',
 
-    
-    'PORT, HEALTH AND LIGHT FEE':'LİMAN, SAĞLIK VE FENER ÜCRETLERİ', 
-    'OTHER FEES':'DİĞER LİMAN ÜCRETLERİ',  
+
+    'PORT, HEALTH AND LIGHT FEE':'LİMAN, SAĞLIK VE FENER ÜCRETLERİ',
+    'OTHER FEES':'DİĞER LİMAN ÜCRETLERİ',
     'PALAMAR ENGINE':'PALAMAR MOTORU',
-    'PILOTAGE PREMIUM':'KILAVUZLUK PRİMİ', 
+    'PILOTAGE PREMIUM':'KILAVUZLUK PRİMİ',
     'SHIFTING FEES':'SHIFTING ÜCRETLERİ',
-    'PILOTAGE FEES':'KILAVUZLUK ÜCRETLERİ', 
-    'ANCHORAGE FEE':'DEMİRLEME ÜCRETİ', 
-    'BERTAGE FEE':'RIHTIM ÜCRETLERİ', 
+    'PILOTAGE FEES':'KILAVUZLUK ÜCRETLERİ',
+    'ANCHORAGE FEE':'DEMİRLEME ÜCRETİ',
+    'BERTAGE FEE':'RIHTIM ÜCRETLERİ',
 
-    
-    'OTHER SERVICES':'DİĞER HİZMETLER', 
-    'WITHOUT PILOT SHIP':'KILAVUZSUZ GEMİLER',  
-    'WITH PILOT SHIFT':'KILAVUZLU SHIFT', 
-    'WITH PILOT SHIPS':'KILAVUZLU GEMİLER',   
-    'WITHOUT PILOT SHIFT':'KILAVUZSUZ SHIFT', 
-    
-    
-    'SHIP RESCUE':'GEMİ KURTARMA', 
-    'SÖNDÜREN 10':'SÖNDÜREN 10',  
+
+    'OTHER SERVICES':'DİĞER HİZMETLER',
+    'WITHOUT PILOT SHIP':'KILAVUZSUZ GEMİLER',
+    'WITH PILOT SHIFT':'KILAVUZLU SHIFT',
+    'WITH PILOT SHIPS':'KILAVUZLU GEMİLER',
+    'WITHOUT PILOT SHIFT':'KILAVUZSUZ SHIFT',
+
+
+    'SHIP RESCUE':'GEMİ KURTARMA',
+    'SÖNDÜREN 10':'SÖNDÜREN 10',
     'VATAN':'VATAN',
-    'BAYRAK':'BAYRAK', 
-    'ÖZGÜR':'ÖZGÜR', 
-    
-    'ADDITIONAL TUG':'EK ROMORKÖR',  
-    'PİYALE PASA':'PİYALE PAŞA', 
-    'MEHMETCİK-3':'MEHMETCİK-3',  
-    'MEHMETCİK-2 AND MÜCAHİT-2':'MEHMETCİK-2 VE MÜCAHİT-2', 
+    'BAYRAK':'BAYRAK',
+    'ÖZGÜR':'ÖZGÜR',
 
-    
+    'ADDITIONAL TUG':'EK ROMORKÖR',
+    'PİYALE PASA':'PİYALE PAŞA',
+    'MEHMETCİK-3':'MEHMETCİK-3',
+    'MEHMETCİK-2 AND MÜCAHİT-2':'MEHMETCİK-2 VE MÜCAHİT-2',
+
+
 
     'Start Date':'Başlangıç Tarihi',
     'End Date':'Bitiş Tarihi',
@@ -439,15 +440,15 @@ export const locale = {
 
 
     'RO/RO':'RO/RO(Roll ON Roll OFF)',
-    'Duck':'Dökme', 
+    'Duck':'Dökme',
     'Port':'Liman',
-    'Passenger':'Yolcu', 
+    'Passenger':'Yolcu',
     'Tour':'Tur',
-    
+
     'Ship Registry':'Gemi Sicili',
 
-    
-    
+
+
     'RESEARCH':'ARAŞTIRMA',
     'SOLDIER':'ASKER',
     'FISHING BOAT': 'BALIKÇI TEKNESİ',
@@ -460,7 +461,7 @@ export const locale = {
     'CONTAINER SHIP':'KONTEYNER GEMİSİ',
     'DRY CARGO':'KURU YÜK',
     'SMALL BOATS':'KÜÇÜK TEKNELER',
-    
+
     'TUG':'ROMÖRKÖR',
     'RO/RO MOTOR':'RO/RO MOTORLU YÜK',
     'SERVICE ENGINE':'SERVİS MOTORU',
@@ -474,9 +475,9 @@ export const locale = {
     'SCHOOL SHIP':'OKUL GEMİSİ',
     'DREGGER SHIP':'TARAK GEMİSİ',
     '':'TARAK DUBASI',
-	
-	
-	
+
+
+
     'M/Y YACHT':'M/Y YAT',
     'CONTAINER':'KONTEYNER',
     'M/F PASSENGER SHIP': 'M/F YOLCU GEMİSİ',
@@ -485,11 +486,11 @@ export const locale = {
     'Submarine-Test':'Deniz Altı-Test',
     'YUSUF SHIP':'YUSUF GEMİ',
     'RO/RO PASSENGER':'RO/RO YOLCU GEMİSİ',
-    
 
 
 
-    
+
+
     'Defective Official Release':'Arızalı Resmi Çıkış',
     'Defective Official Entry':'Arızalı Resmi Girişi',
     'Shift to Idle':'Atıl Vaziyete Shift',
@@ -497,15 +498,15 @@ export const locale = {
     'Picture Introduction':'Resmı Giriş',
     'Shifting':'Shifting',
 
-    
+
 
     'General':'Genel',
     'Supply':'İkmal',
     'Asylum':'Sığınma',
     'Commercial':'Ticari',
-    
 
-    
+
+
     'Password':'Şifre',
     'Length':'Uzunluk',
     'Leangth':'Uzunluk',
@@ -526,13 +527,13 @@ export const locale = {
     'GazıMagusa Port Ships':'Gazimağusa Liman Gemileri',
     'Girne Port Ships':'Girne Liman Gemileri',
     'Creation Date':'Oluşturulma tarihi',
-    
+
     'Last Entry Date':'Son Giriş Tarihi',
     'Last Position':'Son Konum',
     'Departure Date':'Ayrılış tarihi',
     'Last Departure Date':'Son Ayrılma Tarihi',
     'Extra Information':'Ekstra Bilgi',
-    
+
     'Inquiry':'Talepname',
     'New Arrival':'Yeni gelen',
     'Destination Port':'Hedef Bağlantı Noktası',
@@ -540,12 +541,12 @@ export const locale = {
     'Surce Port':'Geldiği Liman',
     'Source Port':'Geldiği Liman',
 
-    
-    'In-port Iron':'Liman İçi Demirleme',   
+
+    'In-port Iron':'Liman İçi Demirleme',
     'Out of Port Iron':'Liman Dışı Demirleme',
     'Dock':'Rıhtım',
     'Repair at the Dock':'Rıhtımda Tamir',
-    
+
 
     'Free':'Serbest Liman',
     'Conventional':'Konvansiyonel',
@@ -607,7 +608,7 @@ export const locale = {
 
 
 
-    
+
 
 
 
@@ -624,10 +625,10 @@ export const locale = {
     'Paid Date': 'Ödeme Tarihi',
     'Country Code': 'Ülke Kodu',
     'Overtime': 'Ek Mesai',
-  
 
 
-    
+
+
     'Reports':'Raporlar',
     'Ship Form':'Gemi Faturası',
     'Ship Invoice':'Gemi Makbuzu',
