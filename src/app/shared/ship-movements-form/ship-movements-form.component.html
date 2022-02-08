@@ -97,6 +97,7 @@
         <th>Pilotage</th>
         <th>Type</th>
         <th>Date</th>
+        <th>Defective</th>
         <th>Free</th>
         <th>Options</th>
       </tr>
@@ -109,6 +110,14 @@
         </td>
         <td>{{ product.type }}</td>
         <td>{{ product.date | date: "short" }}</td>
+
+        <td *ngIf="product.defectiveEngine">
+          <i class="pi pi-check-circle true"></i>
+        </td>
+        <td *ngIf="!product.defectiveEngine">
+          <i class="pi pi-times-circle false"></i>
+        </td>
+
         <td *ngIf="product.isFree"><i class="pi pi-check-circle true"></i></td>
         <td *ngIf="!product.isFree">
           <i class="pi pi-times-circle false"></i>

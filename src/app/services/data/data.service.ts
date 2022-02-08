@@ -52,6 +52,7 @@ export class DataService {
     'DRAWER',
     'REED BARGE',
     'Practice',
+    'Passanger'
   ];
 
   movementType = [
