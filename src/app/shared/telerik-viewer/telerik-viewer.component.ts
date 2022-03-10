@@ -28,15 +28,15 @@ export class TelerikViewerComponent implements OnInit {
   token;
   reportForm = '';
   fullUrl = '';
-  baseUrl = 'https://api.lios3.limanlar.gov.ct.tr/api/v1/report/';
+  baseUrl = 'https://report.cloudpg.xyz/api/v1/report/';
   ngOnInit(): void {
-
-    if(this.var1.includes('---')){
-      this.input = this.var1.split('---')[1]
-      this.var1 = this.var1.split('---')[0]
+    if (typeof this.var1 === 'string') {
+      if (this.var1?.includes('---')) {
+        this.input = this.var1?.split('---')[1];
+        this.var1 = this.var1?.split('---')[0];
+      }
     }
 
-    
     this.fullUrl = this.baseUrl + this.var1 + '/' + this.var2;
 
     console.log(this.fullUrl);
@@ -84,7 +84,10 @@ export class TelerikViewerComponent implements OnInit {
     } else if (this.var1 === 'payment/manual') {
       this.reportForm = 'Lios/PaymentPre';
       this.fullUrl =
-        'https://api.lios3.limanlar.gov.ct.tr/api/v1/' + this.var1 + '/' + this.var2;
+        'https://api.lios3.limanlar.gov.ct.tr/api/v1/' +
+        this.var1 +
+        '/' +
+        this.var2;
       this.param.Url = this.fullUrl;
     } else if (this.var1 === 'collect') {
       this.reportForm = 'Lios/CollectReport';

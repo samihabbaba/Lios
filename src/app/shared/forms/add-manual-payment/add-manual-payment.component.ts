@@ -92,6 +92,25 @@ export class AddManualPaymentComponent implements OnInit {
 
   submitForm() {
     let obj = this.form.getRawValue();
+    console.log(obj);
+    const totalCodes: number =
+      obj.code9049 +
+      obj.code9050 +
+      obj.code9051 +
+      obj.code9072 +
+      obj.code9083 +
+      obj.code9084 +
+      obj.code9138 +
+      obj.code9148 +
+      obj.code9195;
+    if (obj.amount !== totalCodes) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: '9049 ve sonrası toplam miktara eşit olmalıdır.',
+      });
+      return;
+    }
     if (obj.agency?.name) obj.agency = obj.agency.name;
 
     this.dataService.addNewManualPayment(obj).subscribe(

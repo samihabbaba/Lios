@@ -15,7 +15,7 @@ import { fadeInOut } from '../animations/animation';
   selector: 'app-ship-registry',
   templateUrl: './ship-registry.component.html',
   styleUrls: ['./ship-registry.component.scss'],
-  animations: [fadeInOut()]
+  animations: [fadeInOut()],
 })
 export class ShipRegistryComponent implements OnInit {
   isLoading: boolean = false;
@@ -88,7 +88,6 @@ export class ShipRegistryComponent implements OnInit {
       ],
     },
   ];
-
 
   reportOptionsMenu: MenuItem[] = [
     {
@@ -166,7 +165,6 @@ export class ShipRegistryComponent implements OnInit {
       ],
     },
   ];
-
 
   // optionsMenuInPort: MenuItem[] = [
   //   {
@@ -280,7 +278,7 @@ export class ShipRegistryComponent implements OnInit {
         (response) => {
           this.tableData = response.shipList;
           this.numberOfData = response.pagingInfo.totalCount;
-          this.isLoading = false
+          this.isLoading = false;
         },
         () => {
           this.messageService.add({
@@ -358,14 +356,12 @@ export class ShipRegistryComponent implements OnInit {
     this.report_menu.toggle(event);
   }
 
-
-  reportVar1
-  reportVar2
-  reportIsAlternative
-  displayTelerikDialog
-  telerik
+  reportVar1;
+  reportVar2;
+  reportIsAlternative;
+  displayTelerikDialog;
+  telerik;
   showTelerikReport(var1 = '', var2 = '', isAlternative = false) {
-
     this.reportVar1 = var1;
     this.reportVar2 = var2;
 
@@ -378,6 +374,4 @@ export class ShipRegistryComponent implements OnInit {
     this.displayTelerikDialog = true;
     this.telerik = true;
   }
-
-
 }

@@ -93,24 +93,13 @@
 
   <div class="input-container">
     <span class="p-float-label">
-      <input formControlName="code9072" type="number" pInputText />
-      <label>{{ "Other Revenues (9072)" | translate }}</label>
+      <input formControlName="code9148" type="number" pInputText />
+      <label>{{ "Coastal Safety Directorate (9148)" | translate }}</label>
     </span>
-    <small *ngIf="checkValidity('code9072')" class="p-error">{{
+    <small *ngIf="checkValidity('code9148')" class="p-error">{{
       "Invalid input." | translate
     }}</small>
   </div>
-
-  <div class="input-container">
-    <span class="p-float-label">
-      <input formControlName="code9049" type="number" pInputText />
-      <label>{{ "Port and Ship (9049)" | translate }}</label>
-    </span>
-    <small *ngIf="checkValidity('code9049')" class="p-error">{{
-      "Invalid input." | translate
-    }}</small>
-  </div>
-
   <div class="input-container">
     <span class="p-float-label">
       <input formControlName="code9050" type="number" pInputText />
@@ -123,20 +112,10 @@
 
   <div class="input-container">
     <span class="p-float-label">
-      <input formControlName="code9051" type="number" pInputText />
-      <label>{{ "Other Fees (9051)" | translate }}</label>
+      <input formControlName="code9072" type="number" pInputText />
+      <label>{{ "Other Revenues (9072)" | translate }}</label>
     </span>
-    <small *ngIf="checkValidity('code9051')" class="p-error">{{
-      "Invalid input." | translate
-    }}</small>
-  </div>
-
-  <div class="input-container">
-    <span class="p-float-label">
-      <input formControlName="code9083" type="number" pInputText />
-      <label>{{ "Delay Raise (9083)" | translate }}</label>
-    </span>
-    <small *ngIf="checkValidity('code9083')" class="p-error">{{
+    <small *ngIf="checkValidity('code9072')" class="p-error">{{
       "Invalid input." | translate
     }}</small>
   </div>
@@ -163,6 +142,16 @@
 
   <div class="input-container">
     <span class="p-float-label">
+      <input formControlName="code9051" type="number" pInputText />
+      <label>{{ "Other Fees (9051)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9051')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+
+  <div class="input-container">
+    <span class="p-float-label">
       <input formControlName="code9138" type="number" pInputText />
       <label>{{ "VAT (9138)" | translate }}</label>
     </span>
@@ -173,10 +162,19 @@
 
   <div class="input-container">
     <span class="p-float-label">
-      <input formControlName="code9148" type="number" pInputText />
-      <label>{{ "Coastal Safety Directorate (9148)" | translate }}</label>
+      <input formControlName="code9083" type="number" pInputText />
+      <label>{{ "Delay Raise (9083)" | translate }}</label>
     </span>
-    <small *ngIf="checkValidity('code9148')" class="p-error">{{
+    <small *ngIf="checkValidity('code9083')" class="p-error">{{
+      "Invalid input." | translate
+    }}</small>
+  </div>
+  <div class="input-container">
+    <span class="p-float-label">
+      <input formControlName="code9049" type="number" pInputText />
+      <label>{{ "Port and Ship (9049)" | translate }}</label>
+    </span>
+    <small *ngIf="checkValidity('code9049')" class="p-error">{{
       "Invalid input." | translate
     }}</small>
   </div>
